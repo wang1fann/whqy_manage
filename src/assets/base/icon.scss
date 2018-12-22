@@ -1,0 +1,35 @@
+@import '@/assets/base/mixins.scss';
+@import '@/assets/base/variables.scss';
+/* 图标 */
+.icon {
+  display: inline-block;
+  @include px2rem(width, 26);
+  @include px2rem(height, 26);
+  @include px2rem(line-height, 26);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  &-user {
+    background-image: url("./assets/img/user.png");
+    @include margin(0, 10, 0, 30)
+  }
+  &-product {
+    background-image: url("./assets/img/product.png");
+    @include margin(0, 10, 0, 30)
+  }
+  &-mes {
+    background-image: url("./assets/img/mes.png");
+    @include margin(0, 10, 0, 30)
+  }
+  &-dot {
+    &:after {
+      content: "•";
+      display: block;
+      height: 100%;
+      @include px2rem(font-size, 18);
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+}

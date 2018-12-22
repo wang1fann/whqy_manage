@@ -1,0 +1,155 @@
+{
+    "user": {
+      "item": [
+        {
+          "type": "text",
+          "name": "username",
+          "value": "",
+          "placeholder": "请输入用户名",
+          "width": "100%",
+          "show": true
+        }
+      ],
+      "data": {
+        "username": ""
+      }
+    },
+    "role": {
+      "item": [
+        {
+          "type": "text",
+          "name": "name",
+          "value": "",
+          "placeholder": "请输入角色名称",
+          "width": "100%",
+          "show": true
+        }
+      ],
+      "data": {
+        "name": ""
+      }
+    },
+    "rights": {
+      "item": [
+        {
+          "type": "text",
+          "name": "name",
+          "value": "",
+          "placeholder": "请输入权限名称",
+          "width": "100%",
+          "show": true
+        }
+      ],
+      "data": {
+        "name": ""
+      }
+    },
+    "link": {
+      "item": [
+        {
+          "type": "text",
+          "name": "linkName",
+          "value": "",
+          "placeholder": "请输入链接名称",
+          "label":"链接名称",
+          "width": "100%",
+          "show": true
+        },
+        {
+          "type": "text",
+          "name": "linkAddress",
+          "value": "",
+          "placeholder": "请输入链接地址",
+          "width": "100%",
+          "label": "链接地址:",
+          "show": true
+        },
+        {
+          "type": "date",
+          "name": "uploadTime",
+          "placeholder": "请选择上传日期",
+          "value": "",
+          "width": "100%",
+          "label": "上传日期:",
+          "show": true,
+          "format": "yyyy-MM-dd",
+          "rules": [{
+            "required": true,
+            "message": "请选择上传日期",
+            "trigger": "blur"
+          }]
+        }
+      ],
+      "data": {
+        "linkName": "",
+        "linkAddress":"",
+        "uploadTime":""
+      }
+    },
+    "file": {
+      "item": [
+        {
+          "type": "text",
+          "name": "fname",
+          "value": "",
+          "placeholder": "请输入文件名称",
+          "width": "100%",
+          "show": true
+        }
+      ],
+      "data": {
+        "fname": ""
+      }
+    },
+    "log":{
+      "item": [
+        {
+          "type": "text",
+          "name": "account",
+          "value": "",
+          "placeholder": "请输入登录账号",
+          "label":"登录账号",
+          "width": "100%",
+          "show": true
+        },
+        {
+          "type": "text",
+          "name": "roleGrade",
+          "value": "",
+          "placeholder": "请选择权限等级",
+          "width": "100%",
+          "label": "链接地址:",
+          "show": true
+        },
+        {
+          "type": "text",
+          "name": "operator",
+          "value": "",
+          "placeholder": "请输入操作人",
+          "label":"操作人",
+          "width": "100%",
+          "show": true
+        },
+        {
+          "type": "date",
+          "name": "uploadTime",
+          "placeholder": "请选择上传日期",
+          "value": "",
+          "width": "100%",
+          "label": "上传日期:",
+          "show": true,
+          "format": "yyyy-MM-dd",
+          "rules": [{
+            "required": true,
+            "message": "请选择上传日期",
+            "trigger": "blur"
+          }]
+        }
+      ],
+      "data": {
+        "linkName": "",
+        "linkAddress":"",
+        "uploadTime":""
+      }
+    }
+  }
