@@ -15,7 +15,6 @@
         </span>
       </div>
     </div>
-
     <!--中间-->
     <el-col :span="24" class="main">
       <!--左侧导航-->
@@ -35,13 +34,10 @@
           light
           router
         >
-          <template v-for="(item,index) in $router.options.routes[1].children" v-if="!item.hidden">
+          <template v-for="(item,index) in $router.options.routes[1].children" v-if="item.show!==false">
             <el-menu-item :index="item.path" :key="index">
-              <!-- <i class="fa" :class="item.class"></i> -->
               <i class="menu-i">
-                <!-- <div class="menu-span"> -->
                 <img :src="item.img" alt>
-                <!-- </div> -->
               </i>
               {{item.name}}
             </el-menu-item>
@@ -52,7 +48,7 @@
       <section class="content-container">
         <div class="grid-content bg-purple-light">
           <el-col :span="24" class="content-wrapper">
-            <el-bread></el-bread>
+            <el-bread v-if="$route.path!=='/contentManage'"></el-bread>
             <transition name="fade" mode="out-in">
               <keep-alive>
                 <router-view></router-view>
@@ -66,7 +62,7 @@
 </template>
 <script>
 import { bus } from "../bus.js";
-import API from "../api/api_user";
+import API from "../api/api_rights";
 import ElBread from "../components/ElBread"; //面包屑
 export default {
   name: "home",
@@ -74,7 +70,7 @@ export default {
     "el-bread": ElBread
   },
   created() {
-    // console.log(this.$router.options.routes);
+    console.log(this.$route.path);
     this.menuRouter = _.filter(this.$router.options.routes, function(o) {
       return !!o.menuShow;
     });
@@ -179,7 +175,6 @@ export default {
     background-size: 100% 100%;
     padding: 0px;
     height: 80px;
-
     .topbar-btn {
       color: #fff;
     }

@@ -2,6 +2,7 @@ body {
   font-size: 14px;
   width: 100%;
 }
+$width80:80%;
 
 $fontwidth16: 16px;
 $fontwidth20: 20px;
@@ -165,7 +166,13 @@ button.el-button.button-operator {
 .el-form--inline .el-form-item__content {
   width: 120px;
 }
-
+.main-conent-input200 .el-form--inline .el-form-item__content {
+  min-width: 200px;
+      width: 100%;
+}
+.main-conent-input200 .el-form-item{
+  margin-top:20px;
+}
 .el-form-item.el-form-item-search .el-form-item__content {
   width: 80px !important;
 }
@@ -209,4 +216,9 @@ span.el-dialog__title{
 }
 .el-dialog__headerbtn{
     top:15px;
+}
+
+.el-input--prefix .el-input__inner{
+  height: 28px;
+  line-height: 28px;
 }

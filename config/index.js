@@ -13,11 +13,11 @@ module.exports = {
         proxyTable: {
             '/blstation-web': {
                 changeOrigin: true,
-                // target: 'http://192.168.0.160:8880',
-                target: 'http://47.98.182.165',
+                target: 'http://192.168.0.107:9014',
+                // target: 'http://47.98.182.165',
                 pathRewrite: {
-                    '^/blstation-web': '/blstation-web'
-                        // '^/carcloud': '/carcloud'
+                    // '^/blstation-web': '/blstation-web'
+                        '^/syx': '/syx'
                 }
             }
         },

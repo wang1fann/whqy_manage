@@ -14,7 +14,9 @@ axios.defaults.withCredentials = false;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'; //配置请求头application/x-www-form-urlencoded;
 
 axios.defaults.timeout = 100000; //设置请求过期时间
-axios.defaults.baseURL = 'http://47.98.182.165';
+// axios.defaults.baseURL = 'http://47.98.182.165';
+axios.defaults.baseURL = 'http://192.168.0.107:9014';
+
 // http request 拦截器，通过这个，我们就可以把Cookie传到后台
 // 请求拦截器
 axios.interceptors.request.use(

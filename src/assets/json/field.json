@@ -97,33 +97,41 @@
       "show": true
     }
   ],
-  "rights": [{
+  "rights": [
+    {
+      "prop": "role",
+      "label": "角色",
+      "width": "auto",
+      "fixed": false,
+      "sortable": false,
+      "show": true
+    },{
       "prop": "name",
-      "label": "权限名称",
+      "label": "用户名",
       "width": "auto",
       "fixed": false,
       "sortable": false,
       "show": true
     },
     {
-      "prop": "keyword",
-      "label": "关键字",
+      "prop": "password",
+      "label": "密码",
       "width": "auto",
       "fixed": false,
       "sortable": false,
       "show": true
     },
     {
-      "prop": "remark",
-      "label": "备注",
+      "prop": "section",
+      "label": "科室",
       "width": "auto",
       "fixed": false,
       "sortable": false,
       "show": true
     },
-    {
-      "prop": "operateTime",
-      "label": "更新时间",
+     {
+      "prop": "task",
+      "label": "任务",
       "width": "auto",
       "fixed": false,
       "sortable": false,

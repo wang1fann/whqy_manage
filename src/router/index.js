@@ -17,12 +17,43 @@ let router = new Router({
       path: '/',
       component: Menu,
       children: [{
-          path: '/rightsManage',
+          path: '/rights',
           name: '权限管理',
+          class: 'fa-line-chart',
+          img: require('@/assets/img/access/rights.png'),
           component: resolve => {
             require(['view/rightsManage/rightsList'], resolve)
           },
+          children: [ 
+        //     {
+        //   path: 'addRights',
+        //   name: '添加权限',
+        //   component: resolve => {
+        //     require(['view/rightsManage/addRights'], resolve)
+        //   },
+        //   class: 'fa-line-chart',
+        //   show: false,
+        //   img: require('@/assets/img/access/rights.png')
+        // }, {
+        //   path: 'rightsList',
+        //   name: '权限列表',
+        //   component: resolve => {
+        //     require(['view/rightsManage/rightsList'], resolve)
+        //   },
+        //   class: 'fa-line-chart',
+        //   show: false,
+        //   img: require('@/assets/img/access/rights.png')
+        // }
+        ]
+        },
+        {
+          path: '/addRights',
+          name: '添加权限',
+          component: resolve => {
+            require(['view/rightsManage/addRights'], resolve)
+          },
           class: 'fa-line-chart',
+          show: false,
           img: require('@/assets/img/access/rights.png')
         },
         {
@@ -33,7 +64,6 @@ let router = new Router({
           },
           class: 'fa-line-chart',
           img: require('@/assets/img/access/user.png')
-
         },
         {
           path: '/contentManage',

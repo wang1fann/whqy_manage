@@ -47,8 +47,8 @@ exports.cssLoaders = function(options) {
         if (options.extract) {
             return ExtractTextPlugin.extract({
                 use: loaders,
-                //如果打包后出现图片路径错误，加上下句配置，如果正确就不用加了。
-                // publicPath:'../../',
+                //如果打包后背景图片出现图片路径错误，加上下句配置，如果正确就不用加了。
+                publicPath:'../../',
                 fallback: 'vue-style-loader'
             })
         } else {
