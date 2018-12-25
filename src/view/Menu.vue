@@ -25,15 +25,7 @@
           <i class="fa fa-bars" v-show="collapsed"></i>
         </div>
         <!--导航菜单-->
-        <el-menu
-          :default-active="$route.path"
-          class="mar-l el-menu-vertical-demo el-col el-col-3"
-          background-color="#fff"
-          text-color="#000"
-          active-text-color="#ffd04b"
-          light
-          router
-        >
+        <el-menu :default-active="$route.path" class="mar-l el-menu-vertical-demo el-col el-col-3" background-color="#fff" text-color="#000" active-text-color="#ffd04b" light router>
           <template v-for="(item,index) in $router.options.routes[1].children" v-if="item.show!==false">
             <el-menu-item :index="item.path" :key="index">
               <i class="menu-i">
@@ -44,11 +36,12 @@
           </template>
         </el-menu>
       </aside>
+
       <!--右侧内容区-->
       <section class="content-container">
         <div class="grid-content bg-purple-light">
           <el-col :span="24" class="content-wrapper">
-            <el-bread v-if="$route.path!=='/contentManage'"></el-bread>
+            <el-bread v-if="$route.path.search('/contentManage') === -1"></el-bread>
             <transition name="fade" mode="out-in">
               <keep-alive>
                 <router-view></router-view>
@@ -69,8 +62,9 @@ export default {
   components: {
     "el-bread": ElBread
   },
+  watch: {
+  },
   created() {
-    console.log(this.$route.path);
     this.menuRouter = _.filter(this.$router.options.routes, function(o) {
       return !!o.menuShow;
     });
@@ -93,7 +87,8 @@ export default {
       },
       menuRouter: "",
       breads: "",
-      collapsed: false
+      collapsed: false,
+      currentRouterIsContent: false
     };
   },
   methods: {
@@ -126,19 +121,19 @@ export default {
           that.loading = true;
           API.logout()
             .then(
-              function(result) {
-                that.loading = false;
-                localStorage.removeItem("access-user");
-                that.$router.go("/login"); //用go刷新
-              },
-              function(err) {
-                that.loading = false;
-                that.$message.error({
-                  showClose: true,
-                  message: err.toString(),
-                  duration: 2000
-                });
-              }
+            function(result) {
+              that.loading = false;
+              localStorage.removeItem("access-user");
+              that.$router.go("/login"); //用go刷新
+            },
+            function(err) {
+              that.loading = false;
+              that.$message.error({
+                showClose: true,
+                message: err.toString(),
+                duration: 2000
+              });
+            }
             )
             .catch(function(error) {
               that.loading = false;
@@ -149,7 +144,7 @@ export default {
               });
             });
         })
-        .catch(() => {});
+        .catch(() => { });
     }
   },
   mounted() {
@@ -161,7 +156,6 @@ export default {
   }
 };
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .container {
   position: absolute;
@@ -250,7 +244,8 @@ export default {
       cursor: pointer;
     }
     .el-menu {
-      height: 100%; /*写给不支持calc()的浏览器*/
+      height: 100%;
+      /*写给不支持calc()的浏览器*/
       height: -moz-calc(100% - 80px);
       height: -webkit-calc(100% - 80px);
       height: calc(100% - 80px);
@@ -313,10 +308,17 @@ export default {
   .content-container {
     background: #fff;
     flex: 1;
+      padding: 10px;
+            margin: 10px;
     overflow-y: auto;
-    padding: 10px;
-    padding-bottom: 1px;
-    margin: 10px;
+    .content-menu{
+      margin-bottom: 20px;
+    }
+    .grid-content {
+      // padding: 10px;
+      padding-bottom: 1px;
+      margin: 10px;
+    }
     .content-wrapper {
       background-color: #fff;
       box-sizing: border-box;

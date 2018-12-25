@@ -3,25 +3,46 @@
   <div class="me">
     <div class="tabs">
       <ul>
-        <!--<router-link :to="{name: 'Default'}" tag="li" exact>默认内容</router-link>-->
-        <router-link :to="{name: '权限列表'}" tag="li" >内容列表</router-link>
-        <router-link :to="{name: '添加权限'}" tag="li">添加权限</router-link>
+        <router-link v-for="(item,index) in $router.options.routes[1].children[3].children" :key="index" :to="{name: item.name}" tag="li" >{{item.name}}</router-link>
       </ul>
     </div>
-    <div class="content">
+    <div class="content-manage">
+<el-bread></el-bread> 
       <router-view></router-view>
     </div>
   </div>
 </template>
-<script type="text/ecmascript-6">
+<script>
+import ElBread from "@/components/ElBread"; //面包屑
+export default {
+  name:"contentManage",
+ components: {
+    "el-bread": ElBread,
+  },
+  data() {
+    return {
+      
+    }
+  },
+  created() {
+    console.log(this.$router.options.routes[1].children[3].children);
+  },
+  methods: {
+    
+  },
+}
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss" scoped>
   .me{
     .tabs{
+      margin: -21px;
+      margin-bottom: 10px;
+      border-bottom: 10px solid #dee5e6;
       & > ul, & > ul > li {
         margin: 0;
         padding: 0;
         list-style: none;
+        cursor: pointer;
       }
       & > ul{
         display: flex;
@@ -32,6 +53,7 @@
           padding: 10px;
           &.router-link-active {
             color: #D0021B;
+            border-bottom: 2px solid #D0021B;
           }
         }
       }

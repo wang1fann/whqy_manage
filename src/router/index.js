@@ -24,27 +24,27 @@ let router = new Router({
           component: resolve => {
             require(['view/rightsManage/rightsList'], resolve)
           },
-          children: [ 
-        //     {
-        //   path: 'addRights',
-        //   name: '添加权限',
-        //   component: resolve => {
-        //     require(['view/rightsManage/addRights'], resolve)
-        //   },
-        //   class: 'fa-line-chart',
-        //   show: false,
-        //   img: require('@/assets/img/access/rights.png')
-        // }, {
-        //   path: 'rightsList',
-        //   name: '权限列表',
-        //   component: resolve => {
-        //     require(['view/rightsManage/rightsList'], resolve)
-        //   },
-        //   class: 'fa-line-chart',
-        //   show: false,
-        //   img: require('@/assets/img/access/rights.png')
-        // }
-        ]
+          children: [
+            //     {
+            //   path: 'addRights',
+            //   name: '添加权限',
+            //   component: resolve => {
+            //     require(['view/rightsManage/addRights'], resolve)
+            //   },
+            //   class: 'fa-line-chart',
+            //   show: false,
+            //   img: require('@/assets/img/access/rights.png')
+            // }, {
+            //   path: 'rightsList',
+            //   name: '权限列表',
+            //   component: resolve => {
+            //     require(['view/rightsManage/rightsList'], resolve)
+            //   },
+            //   class: 'fa-line-chart',
+            //   show: false,
+            //   img: require('@/assets/img/access/rights.png')
+            // }
+          ]
         },
         {
           path: '/addRights',
@@ -69,10 +69,36 @@ let router = new Router({
           path: '/contentManage',
           name: '内容管理',
           component: resolve => {
-            require(['view/contentManage/ContentList'], resolve)
+            require(['view/contentManage/content'], resolve)
           },
           class: 'fa-line-chart',
-          img: require('@/assets/img/access/content.png')
+          img: require('@/assets/img/access/content.png'),
+          children: [{
+            path: 'senceSituation',
+            name: '景区概况',
+            component: resolve => {
+              require(['view/contentManage/senceSituation'], resolve)
+            },
+            class: 'fa-line-chart',
+            img: require('@/assets/img/access/user.png')
+          },{
+            path: 'senceNews',
+            name: '景区新闻',
+            component: resolve => {
+              require(['view/contentManage/senceNews'], resolve)
+            },
+            class: 'fa-line-chart',
+            img: require('@/assets/img/access/user.png')
+          },
+          {
+            path: 'xiSpirit',
+            name: '习老精神',
+            component: resolve => {
+              require(['view/contentManage/xiSpirit'], resolve)
+            },
+            class: 'fa-line-chart',
+            img: require('@/assets/img/access/user.png')
+          }]
 
         },
         {
