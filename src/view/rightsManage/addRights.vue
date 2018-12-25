@@ -7,7 +7,9 @@
             <el-row class="border-all-grey">
                 <template v-if=" !!item.radio && item.radio.length > 0">
                     <el-row class="rights-radio-bg">
-                        <el-radio-group :model="radioitem.name">
+                        <!--<el-radio-group :model="item.name">-->
+                        <el-radio-group>
+                            
                             <el-radio v-for="(radioitem,index) in item.radio" style="margin:0px 10px;" :key="index" :label="radioitem.label" :disabled="radioitem.disabled">{{radioitem.label}}</el-radio>
                         </el-radio-group>
                     </el-row>
