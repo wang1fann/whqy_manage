@@ -24,27 +24,7 @@ let router = new Router({
           component: resolve => {
             require(['view/rightsManage/rightsList'], resolve)
           },
-          children: [
-            //     {
-            //   path: 'addRights',
-            //   name: '添加权限',
-            //   component: resolve => {
-            //     require(['view/rightsManage/addRights'], resolve)
-            //   },
-            //   class: 'fa-line-chart',
-            //   show: false,
-            //   img: require('@/assets/img/access/rights.png')
-            // }, {
-            //   path: 'rightsList',
-            //   name: '权限列表',
-            //   component: resolve => {
-            //     require(['view/rightsManage/rightsList'], resolve)
-            //   },
-            //   class: 'fa-line-chart',
-            //   show: false,
-            //   img: require('@/assets/img/access/rights.png')
-            // }
-          ]
+          children: []
         },
         {
           path: '/addRights',
@@ -74,32 +54,32 @@ let router = new Router({
           class: 'fa-line-chart',
           img: require('@/assets/img/access/content.png'),
           children: [{
-            path: 'senceSituation',
-            name: '景区概况',
-            component: resolve => {
-              require(['view/contentManage/senceSituation'], resolve)
+              path: 'senceSituation',
+              name: '景区概况',
+              component: resolve => {
+                require(['view/contentManage/senceSituation'], resolve)
+              },
+              class: 'fa-line-chart',
+              img: require('@/assets/img/access/user.png')
+            }, {
+              path: 'senceNews',
+              name: '景区新闻',
+              component: resolve => {
+                require(['view/contentManage/senceNews'], resolve)
+              },
+              class: 'fa-line-chart',
+              img: require('@/assets/img/access/user.png')
             },
-            class: 'fa-line-chart',
-            img: require('@/assets/img/access/user.png')
-          },{
-            path: 'senceNews',
-            name: '景区新闻',
-            component: resolve => {
-              require(['view/contentManage/senceNews'], resolve)
-            },
-            class: 'fa-line-chart',
-            img: require('@/assets/img/access/user.png')
-          },
-          {
-            path: 'xiSpirit',
-            name: '习老精神',
-            component: resolve => {
-              require(['view/contentManage/xiSpirit'], resolve)
-            },
-            class: 'fa-line-chart',
-            img: require('@/assets/img/access/user.png')
-          }]
-
+            {
+              path: 'xiSpirit',
+              name: '习老精神',
+              component: resolve => {
+                require(['view/contentManage/xiSpirit'], resolve)
+              },
+              class: 'fa-line-chart',
+              img: require('@/assets/img/access/user.png')
+            }
+          ]
         },
         {
           path: '/siteManage',
@@ -132,7 +112,8 @@ let router = new Router({
           path: '/visitCount',
           name: '访问统计',
           component: resolve => {
-            require(['view/visitCount/visitCountList'], resolve)
+            require(['view/visitCount/echarts'], resolve)
+            // require(['view/visitCount/visitCountList'], resolve)
           },
           class: 'fa-line-chart',
           img: require('@/assets/img/access/access.png')
@@ -159,19 +140,52 @@ let router = new Router({
           path: '/systemMaintain',
           name: '系统维护',
           component: resolve => {
-            require(['view/systemMaintain/systemMaintainList'], resolve)
+            require(['view/systemMaintain/system'], resolve)
           },
           class: 'fa-line-chart',
-          img: require('@/assets/img/access/maintain.png')
+          img: require('@/assets/img/access/maintain.png'),
+          children: []
         },
         {
-          path: '/interfaceManage',
+          path: '/system/interfaceManage',
           name: '接口管理',
           component: resolve => {
             require(['view/interfaceManage/interfaceManageList'], resolve)
           },
           class: 'fa-line-chart',
           img: require('@/assets/img/access/interface.png')
+        },
+        {
+          path: '/system/cacheClear',
+          name: '缓存清理',
+          component: resolve => {
+            require(['view/systemMaintain/cacheClear'], resolve)
+          },
+          class: 'sys',
+          show: false,
+          bg: require('@/assets/img/system/green.png'),
+          img: require('@/assets/img/system/clear.png')
+        }, {
+          path: '/system/problemDiagnose',
+          name: '问题诊断',
+          component: resolve => {
+            require(['view/systemMaintain/problemDiagnose'], resolve)
+          },
+          class: 'sys',
+          show: false,
+          bg: require('@/assets/img/system/orange.png'),
+          img: require('@/assets/img/system/problem.png')
+        },
+        {
+          path: 'performanceOptimize',
+          name: '性能优化',
+          show: false,
+          component: resolve => {
+            require(['view/systemMaintain/performanceOptimize'], resolve)
+          },
+          class: 'sys',
+          bg: require('@/assets/img/system/blue.png'),
+          img: require('@/assets/img/system/info.png')
         }
       ]
     },

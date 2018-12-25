@@ -14,7 +14,7 @@
         </el-input>
       </el-form-item>
       <!-- 复选框 -->
-      <el-form-item v-else-if="item.type=='checkbox'" :key="index">
+      <el-form-item v-else-if="item.type ==='checkbox'" :key="index">
         <el-checkbox-group v-model="formData[item.name]" :style="'width: ' + (item.width ? item.width : '100%')">
           <el-checkbox v-for="(option, idx) in item.options" :key="idx" :label="option.id">{{option.name}}</el-checkbox>
         </el-checkbox-group>
