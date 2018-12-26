@@ -2,7 +2,7 @@
   <div class="content">
     <div class="up">
       <div class="l">
-        <label class="l">新闻标题</label>
+        <label class="l">文物标题</label>
         <div class="l">
           <el-input v-model="input"  placeholder="请输入内容"></el-input>
         </div>
@@ -30,9 +30,10 @@
             <input  type="checkbox">
             <label>全选</label>
           </th>
-          <th class="biao">新闻标题</th>
-          <th class="gaidate">修改日期</th>
-          <th class="last1">操作</th>
+          <th class="wen">文物标题</th>
+          <th class="wenImg">文物图片</th>
+          <th class="strshi">上传时间</th>
+          <th class="last2">操作</th>
         </tr>
         </thead>
         <tbody>
@@ -40,9 +41,10 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="words"><a href="#">渭华起义纪念馆深入贯彻学习习近平总书记在全国宣传思想工作</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
+          <td class="strtitle"><a href="#">孙中山粉彩开光山水人物图</a></td>
+          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -52,9 +54,10 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="words"><a href="#">白水发现700余斤北宋时期古钱币</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
+          <td class="strtitle"><a href="#">粉彩双骑纹九子碟</a></td>
+          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -64,9 +67,10 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="words"><a href="#">白水发现700余斤北宋时期古钱币</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
+          <td class="strtitle"><a href="#">孙中山粉彩开光山水人物图</a></td>
+          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -76,9 +80,10 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="words"><a href="#">渭华起义纪念馆深入贯彻学习习近平总书记在全国宣传思想工作</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
+          <td class="strtitle"><a href="#">粉彩双骑纹九子碟</a></td>
+          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -88,9 +93,10 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="words"><a href="#">白水发现700余斤北宋时期古钱币</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
+          <td class="strtitle"><a href="#">孙中山粉彩开光山水人物图</a></td>
+          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -100,9 +106,10 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="words"><a href="#">渭华起义纪念馆深入贯彻学习习近平总书记在全国宣传思想工作</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
+          <td class="strtitle"><a href="#">粉彩双骑纹九子碟</a></td>
+          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -112,9 +119,10 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="words"><a href="#">渭华起义纪念馆深入贯彻学习习近平总书记在全国宣传思想工作</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
+          <td class="strtitle"><a href="#">孙中山粉彩开光山水人物图</a></td>
+          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -124,9 +132,10 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="words"><a href="#">白水发现700余斤北宋时期古钱币</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
+          <td class="strtitle"><a href="#">粉彩双骑纹九子碟</a></td>
+          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -136,9 +145,10 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="words"><a href="#">渭华起义纪念馆深入贯彻学习习近平总书记在全国宣传思想工作</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
+          <td class="strtitle"><a href="#">孙中山粉彩开光山水人物图</a></td>
+          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -148,9 +158,10 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="words"><a href="#">白水发现700余斤北宋时期古钱币</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
+          <td class="strtitle"><a href="#">粉彩双骑纹九子碟</a></td>
+          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -160,9 +171,10 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="words"><a href="#">渭华起义纪念馆深入贯彻学习习近平总书记在全国宣传思想工作</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
+          <td class="strtitle"><a href="#">孙中山粉彩开光山水人物图</a></td>
+          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -172,15 +184,15 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="words"><a href="#">白水发现700余斤北宋时期古钱币</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
+          <td class="strtitle"><a href="#">粉彩双骑纹九子碟</a></td>
+          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
           </td>
         </tr>
-
 
         </tbody>
       </table>
@@ -197,41 +209,41 @@
 </template>
 
 <script>
-  export default {
-    name: "senceNews",
-    data() {
-      return {
-        pickerOptions1: {
-          disabledDate(time) {
-            return time.getTime() > Date.now();
+    export default {
+        name: "appreciationStrory",
+      data() {
+        return {
+          pickerOptions1: {
+            disabledDate(time) {
+              return time.getTime() > Date.now();
+            },
+            shortcuts: [{
+              text: '今天',
+              onClick(picker) {
+                picker.$emit('pick', new Date());
+              }
+            }, {
+              text: '昨天',
+              onClick(picker) {
+                const date = new Date();
+                date.setTime(date.getTime() - 3600 * 1000 * 24);
+                picker.$emit('pick', date);
+              }
+            }, {
+              text: '一周前',
+              onClick(picker) {
+                const date = new Date();
+                date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+                picker.$emit('pick', date);
+              }
+            }]
           },
-          shortcuts: [{
-            text: '今天',
-            onClick(picker) {
-              picker.$emit('pick', new Date());
-            }
-          }, {
-            text: '昨天',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit('pick', date);
-            }
-          }, {
-            text: '一周前',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', date);
-            }
-          }]
-        },
-        value1: '',
-        input: '',
-        input2: ''
-      };
+          value1: '',
+          input: '',
+          input2: ''
+        };
+      }
     }
-  }
 </script>
 
 <style  lang="scss">
@@ -272,16 +284,16 @@
     height: 32px;
     line-height: 32px;
   }
-   .xia{
-      width: 96%;
-     overflow: hidden;
-     margin: 0 auto;
-     margin-left: 48px;
-     margin-top: 20px;
+  .xia{
+    width: 96%;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-left: 48px;
+    margin-top: 20px;
 
   }
 
-   table{
+  table{
     width: 94%;
     margin-bottom:20px;
     border-spacing: 0;
@@ -289,9 +301,9 @@
     empty-cells: show;
     border-collapse: separate;
   }
-    table{border-collapse:collapse;}
+  table{border-collapse:collapse;}
   table tr{display: block; }
-    tbody tr{border:1px solid #ddd; display: block; margin-bottom: 6px}
+  tbody tr{border:1px solid #ddd; display: block; margin-bottom: 6px}
   table thead tr{ margin-bottom: 8px}
   table thead tr th{
     vertical-align: bottom;
@@ -303,14 +315,18 @@
     padding-left: 8px;
   }
 
-   table tbody tr td{
+  table tbody tr td{
     padding: 6px;
     font-size: 15px;
     padding-left: 14px;
-     color: #868e96;
+    color: #868e96;
   }
-  table thead tr th.biao{
-    width: 525px;
+  table thead tr th.wen{
+    width: 400px;
+    text-align: center;
+  }
+  table thead tr th.strshi{
+    width: 205px;
     text-align: center;
   }
   table thead tr th:nth-child(1){
@@ -325,29 +341,33 @@
     width: 15px;
     height: 15px;
   }
-  table thead tr th.last1{
-    width: 262px;
+  table thead tr th.last2{
+    width: 260px;
     text-align: center;
   }
-  table thead tr th.gaidate{
+  table thead tr th.wenImg{
     width: 100px;
     text-align: center;
   }
-  table tbody tr td.words{
-    width: 600px;
+  table tbody tr td.strtitle{
+    width: 400px;
   }
-  table tbody tr td.newlast{
-    padding-left: 84px;
-  }
-  table tbody tr td.datenews{
+  table tbody tr td.strImg{
     width: 90px;
   }
+  table tbody tr td:nth-child(4){
+    width: 184px;
+  }
+  table tbody tr td.btnlast{
+    padding-left: 56px;
+  }
+
   table tbody tr td a{
     color: #868e96;
     font-size: 15px;
     text-decoration: none;
   }
-    table tbody tr td button{
+  table tbody tr td button{
     padding:0px 10px;
     padding-right: 9px;
     display: inline-block;
@@ -359,15 +379,15 @@
     white-space: nowrap;
     border: 1px solid transparent;
     cursor: pointer;
-      border-right: 1px solid #ccc;
+    border-right: 1px solid #ccc;
     background: #fff;
-      color: #eb5e5f;
+    color: #eb5e5f;
 
   }
   table tbody tr td button:last-child{
     border-right: 0;
   }
-    table tbody tr td button span{
+  table tbody tr td button span{
     display: inline-block;
     width:15px;
     height:17px;
