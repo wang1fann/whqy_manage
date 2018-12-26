@@ -13,12 +13,14 @@ import ElSearchTablePagination from 'el-search-table-pagination'; //基于elemen
 import Egrid from 'egrid'
 
 import 'jquery'
-import './assets/css/common.scss'
+import '@/assets/css/common.scss'
 
 import _ from 'lodash'
 import '@/components/_global.js'
 
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+
+require("babel-polyfill");
 require('swiper/dist/css/swiper.css')
 Vue.use(VueAwesomeSwiper)
 

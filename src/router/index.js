@@ -7,7 +7,6 @@ const Login = resolve => require(['view/usersManage/Login'], resolve)
 Vue.use(Router)
 
 let router = new Router({
-  mode: 'history', //去掉了地址栏的/#，使得看起来美观
   routes: [{
       path: '/login',
       name: 'Login',

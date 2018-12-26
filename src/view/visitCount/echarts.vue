@@ -1,12 +1,24 @@
 <template>
     <section class="chart-container" style="position:relative;">
         <el-row>
-            <el-col :span="12">
-                <div id="chartColumn" style="width:100%; height:400px;"></div>
-                 <div id="chartPie" style="width:100%; height:400px;"></div>
+            <el-col :span="13">
+                <div class="rel">
+                    <div id="chartColumn" style="width:100%; height:400px;">
+                    </div>
+                    <div class="left-line"></div>
+                </div>
+                <div class="rel">
+                    <div id="chartPie" style="width:100%; height:400px;margin-top:15px;">
+                    </div>
+                    <div class="left-line"></div>
+                </div>
             </el-col>
-            <el-col :span="12">
-                <div id="chartBar" style="width:100%; height:700px;"></div>
+            <el-col :span="11">
+                <div class="rel">
+                    <div id="chartBar" style="width:100%; height:700px;">
+                    </div>
+                    <div class="left-line"></div>
+                </div>
             </el-col>
         </el-row>
     </section>
@@ -26,25 +38,52 @@ export default {
         drawColumnChart() {
             this.chartColumn = echarts.init(document.getElementById('chartColumn'));
             this.chartColumn.setOption({
-                title: { text: '访问量统计' },
+                backgroundColor: '#F8F9FA',
+                title: {
+                    text: '访问量统计',
+                    subtext: '总计 ' + 33,
+                    x: '8%',
+                    textAlign: 'center'
+                },
                 tooltip: {},
                 xAxis: {
-                    data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+                    data: ["1", "2", "3", "4", "5", "6", 7, 8, 9, 10, 11, 12]
                 },
                 yAxis: {},
                 series: [{
                     name: '销量',
+                    barGap: "7",
                     type: 'bar',
-                    data: [5, 20, 36, 10, 10, 20]
+                    itemStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(
+                                0, 0, 0, 1,
+                                [
+                                    { offset: 0, color: '#EF8F64' },
+                                    { offset: 1, color: '#F46F70' }
+                                ]
+                            )
+                        },
+                        emphasis: {
+                            color: new echarts.graphic.LinearGradient(
+                                0, 0, 0, 1,
+                                [
+                                    { offset: 0, color: '#EF8F64' },
+                                    { offset: 1, color: '#F46F70' }
+                                ]
+                            )
+                        }
+                    },
+                    data: [5, 20, 36, 10, 10, 20, 100, 239, 393, 299, 99, 3332]
                 }]
             });
         },
         drawBarChart() {
             this.chartBar = echarts.init(document.getElementById('chartBar'));
             this.chartBar.setOption({
+                backgroundColor: '#F8F9FA',
                 title: {
-                    text: '访问资源排名统计',
-                    subtext: '数据来自网络'
+                    text: '访问资源排名统计'
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -53,7 +92,7 @@ export default {
                     }
                 },
                 legend: {
-                    data: ['2011年', '2012年']
+                    data: ['访问次数']
                 },
                 grid: {
                     left: '3%',
@@ -67,18 +106,33 @@ export default {
                 },
                 yAxis: {
                     type: 'category',
-                    data: ['巴西', '印尼', '美国', '印度', '中国', '世界人口(万)']
+                    data: ['景区概况', '景区新闻', '藏品欣赏', '习老精神', '先烈事迹', '红色中国', '数字展览馆', '历史文化教育', '红色旅游']
                 },
                 series: [
                     {
-                        name: '2011年',
+                        name: '访问次数',
                         type: 'bar',
-                        data: [18203, 23489, 29034, 104970, 131744, 630230]
-                    },
-                    {
-                        name: '2012年',
-                        type: 'bar',
-                        data: [19325, 23438, 31000, 121594, 134141, 681807]
+                        itemStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(
+                                    1, 0, 0, 0,
+                                    [
+                                        { offset: 0, color: '#EF8F64' },
+                                        { offset: 1, color: '#F46F70' }
+                                    ]
+                                )
+                            },
+                            emphasis: {
+                                color: new echarts.graphic.LinearGradient(
+                                    0, 0, 0, 1,
+                                    [
+                                        { offset: 0, color: '#EF8F64' },
+                                        { offset: 1, color: '#F46F70' }
+                                    ]
+                                )
+                            }
+                        },
+                        data: [1820, 2489, 2934, 14970, 1344, 6302, 8833, 999, 445]
                     }
                 ]
             });
@@ -86,10 +140,10 @@ export default {
         drawPieChart() {
             this.chartPie = echarts.init(document.getElementById('chartPie'));
             this.chartPie.setOption({
+                backgroundColor: '#F8F9FA',
                 title: {
                     text: '访问路径统计',
-                    subtext: '纯属虚构',
-                    x: 'center'
+                    x: 'left',
                 },
                 tooltip: {
                     trigger: 'item',
@@ -97,20 +151,19 @@ export default {
                 },
                 legend: {
                     orient: 'vertical',
-                    left: 'left',
-                    data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+                    left: 'right',
+                    data: ['PC门户网站', 'App端', '搜索引擎']
                 },
+                color: ['#00AEE3', '#FFB728', '#F9717B', 'pink'],
                 series: [
                     {
+                        radius: ['20%', '70%'],
                         name: '访问来源',
                         type: 'pie',
-                        radius: '55%',
                         center: ['50%', '60%'],
                         data: [
-                            { value: 335, name: '直接访问' },
-                            { value: 310, name: '邮件营销' },
-                            { value: 234, name: '联盟广告' },
-                            { value: 135, name: '视频广告' },
+                            { value: 335, name: 'PC门户网站' },
+                            { value: 310, name: 'App端' },
                             { value: 1548, name: '搜索引擎' }
                         ],
                         itemStyle: {
@@ -145,13 +198,21 @@ export default {
     float: left;
 }
 
-
-/*.chart div {
-        height: 400px;
-        float: left;
-    }*/
-
 .el-col {
     padding: 30px 20px;
+}
+
+.rel {
+    position: relative;
+}
+
+.left-line {
+    position: absolute;
+    top: 5px;
+    left: 1px;
+    width: 1px;
+    height: 18px;
+    border-left: 2px solid #E24142;
+    z-index: 100;
 }
 </style>

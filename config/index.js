@@ -11,7 +11,7 @@ module.exports = {
         assetsPublicPath: '/',
         // assetsPublicPath: './',
         proxyTable: {
-            '/blstation-web': {
+            '/syx': {
                 changeOrigin: true,
                 target: 'http://192.168.0.107:9014',
                 // target: 'http://47.98.182.165',
@@ -49,13 +49,11 @@ module.exports = {
     build: {
         // Template for index.html
         index: path.resolve(__dirname, '../dist/index.html'),
-
         // Paths
         assetsRoot: path.resolve(__dirname, '../dist'),
         assetsSubDirectory: 'static',
-        assetsPublicPath: '/',
-        // assetsPublicPath: './',
-
+        // assetsPublicPath: '/',
+        assetsPublicPath: './',
         /**
          * Source Maps
          */

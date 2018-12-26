@@ -1,5 +1,5 @@
 <template>
-    <div class="content-top-line">
+    <div class="content-top-line" v-loading = "fullscreenLoading">
         <div class="grid-content bg-purple" v-for="(item,index) in pageItem" :key="index">
             <el-row class="alignleft">
                 <img style="vertical-align:middle;" :src="item.imgIcon" alt="图片加载失败"> {{item.title}}
@@ -31,6 +31,7 @@ export default {
     name: "addRights",
     data() {
         return {
+            fullscreenLoading:false,
             submitData: {},
             pageItem: [
                 {
@@ -116,23 +117,33 @@ export default {
     mounted() {
     },
     methods: {
+        gotoUrl(path, query) {
+            this.$router.push({
+                path: !!path ? path : '',
+                query: !!query ? query : ''
+            })
+        },
         dataHandle() {
             this.submitData = this.pageItem[0].formData;
             this._.assignIn(this.submitData, this.pageItem[1].formData)
             console.log(this.submitData);
         },
         addRightsSubmit() {
+            var that = this;
+            that.fullscreenLoading=true;
+            console.log(this.fullscreenLoading);
             this.dataHandle();
-            // setTimeout(() => {
-            //     API[this.type](this.formData).then(res => {
-            //         this.dialogVisible = false;
-            //         this.$message({
-            //             message: res.msg,
-            //             type: "success"
-            //         });
-            //         this.getData();
-            //     });
-            // }, 50);
+            setTimeout(() => {
+                API[this.type](this.formData).then(res => {
+                    this.dialogVisible = false;
+                    this.$message({
+                        message: res.msg,
+                        type: "success"
+                    });
+                    that.gotoUrl('/rightsManage');
+                });
+            }, 50);
+            that.fullscreenLoading=false;
         },
         resetAddRights() {
             this._.forEach(this.pageItem[0].formData, function(value, key,item) {

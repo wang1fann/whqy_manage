@@ -9,6 +9,7 @@
       <el-button size="mini" icon="el-icon-minus">删除</el-button>
     </el-row>
     <!-- 表 -->
+      <!--:height="height?height:500"-->
     <el-table
       ref="multipleTable"
       :size="size"
@@ -16,7 +17,7 @@
       :data="data"
       :stripe="stripe"
       :border="border"
-      :height="height"
+      min-height="300"
       :max-height="maxHeight"
       :style="styles"
       :tooltip-effect="'dark'"
@@ -231,8 +232,8 @@ export default {
       }
     },
     handle(str, row) {
-      this.rowClick(row)
-      this.$emit(str, row)
+      this.rowClick(row);
+      this.$emit(str, row);//将事件名字和参数值传递出去，
     },
     handleSelectionChange(val) {
       this.$emit('select', val)
@@ -299,7 +300,6 @@ export default {
           break;
         case 'projectDetail':
           break;
-      
         default:
           break;
       }
@@ -316,14 +316,13 @@ export default {
   @include padding(10, 10, 20, 10);
   border-bottom: 2px dashed rgba(229,229,229,1);
   h5 {
-    // border-left: 5px solid $tc;
     @include px2rem(font-size, 29);
     color: $tc;
     &:before {
       content: "";
       display: inline-block;
       vertical-align: middle;
-      @include px2rem(height, 27);
+      @include px2rem(height, 770);
       @include px2rem(width, 5);
       @include px2rem(margin-right, 9);
       background-color: $tc;

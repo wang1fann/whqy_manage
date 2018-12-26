@@ -5,10 +5,10 @@ import * as API from './'
 export default {
     // 登录
     login: params => {
-        return API.POST('/blstation-web/user/login', params)
+        return API.POST('/syx/user/login', params)
     },
-    getUser: params => {
-        return API.GET('/blstation-web/user/1', params)
+    getUserById: params => {
+        return API.GET('/syx/user/1', params)
     },
     // 退出
     logout: params => {
@@ -18,20 +18,27 @@ export default {
     changeProfile: params => {
         return API.PATCH('/api/v1/users/profile', params)
     },
+    //  修改密码
+    changePass: params => {
+        // password原密码，phone手机号，repassword新密码
+        return API.POST('syx/user/repassword', params)
+    },
     // 查询获取user列表（通过page进行分页）
     findUserList: params => {
-        return API.GET('/blstation-web/user/findAll', params)
-    },
-    // 查询获取CAR列表（通过page进行分页）
-    findCarList: params => {
-        return API.GET('/blstation-web/', params)
+        console.log(params);
+        // user/search/1/5
+        return API.POST('/syx/user/search/' + params.page + '/' + params.size, params)
     },
     // 添加用户
     addUser: params => {
-        return API.POST('/blstation-web/user/add', params)
+        return API.POST('/syx/user/add', params)
+    },
+    // 修改用户信息
+    updateUserById: params => {
+        return API.POST('/syx/user/update', params)
     },
     // 删除用户
     delUser: params => {
-        return API.POST('/blstation-web/user/delete/' + params.get('id'), '')
+        return API.POST('/syx/user/delete', params)
     },
 }

@@ -15,8 +15,8 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 
 axios.defaults.timeout = 100000; //设置请求过期时间
 // axios.defaults.baseURL = 'http://47.98.182.165';
-axios.defaults.baseURL = 'http://192.168.0.107:9014';
-
+axios.defaults.baseURL = 'http://192.168.0.110:9014';
+// axios.defaults.baseURL = 'http://192.168.0.107:9014';
 // http request 拦截器，通过这个，我们就可以把Cookie传到后台
 // 请求拦截器
 axios.interceptors.request.use(
@@ -36,9 +36,7 @@ axios.interceptors.request.use(
             config.headers = {
                 'Content-Type': 'application/json' //设置跨域头部
             };
-            // axios.defaults.headers.post['Content-Type'] = 'application/json'; //配置请求头
         }
-        // console.log(config);
         return config;
     },
     err => {

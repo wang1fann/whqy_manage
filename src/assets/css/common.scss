@@ -1,9 +1,9 @@
 body {
-  font-size: 14px;
-  width: 100%;
+    font-size: 14px;
+    width: 100%;
 }
-$width80:80%;
 
+$width80:80%;
 $fontwidth16: 16px;
 $fontwidth20: 20px;
 $fontsize30: 30px;
@@ -15,210 +15,215 @@ $fontwidth18: 18px;
 $width70:70%;
 $width75:75%;
 $width80:80%;
-
 .fontsize12 {
-  font-size: 12px;
+    font-size: 12px;
 }
 
 .fontsize11 {
-  font-size: 11px;
+    font-size: 11px;
 }
 
 .fontsize13 {
-  font-size: 13px;
+    font-size: 13px;
 }
 
 .fontsize16 {
-  font-size: 16px;
+    font-size: 16px;
 }
 
 .fontsize18 {
-  font-size: 18px;
+    font-size: 18px;
 }
 
 .fontsize20 {
-  font-size: 20px;
+    font-size: 20px;
 }
 
 @function calculateRem($size) {
-  $remSize: $size / 16px;
-  @return $remSize * 1rem;
+    $remSize: $size / 16px;
+    @return $remSize * 1rem;
 }
 
 @mixin font-size($size) {
-  font-size: $size;
-  font-size: calculateRem($size);
+    font-size: $size;
+    font-size: calculateRem($size);
 }
 
 p {
-  @include font-size(14px);
+    @include font-size(14px);
 }
 
 // 省略号
 @mixin AddDot() {
-  display: block; // white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    display: block; // white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 // 居中
 @mixin positionAb($x, $y) {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: $x;
-  height: $y;
-  margin-left: -$x/2;
-  margin-top: -$y/2;
-  z-index: 99;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: $x;
+    height: $y;
+    margin-left: -$x/2;
+    margin-top: -$y/2;
+    z-index: 99;
 }
 
 .pull-left {
-  float: left;
+    float: left;
 }
 
 .pull-right {
-  float: right;
+    float: right;
 }
 
 .inputwidth200 {
-  width: 200px;
+    width: 200px;
 }
 
 // 清浮动
 .clearfix {
-  *zoom: 1;
-
-  &:before,
-  &:after {
-    content: " ";
-    display: table;
-  }
-
-  &:after {
-    clear: both;
-  }
+    *zoom: 1;
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
 }
 
 // 跨浏览器透明度设置
 @mixin opacity($opacity) {
-  opacity: $opacity;
-  $opacity-ie: $opacity * 100;
-  filter: alpha(opacity=$opacity-ie); //IE8
+    opacity: $opacity;
+    $opacity-ie: $opacity * 100;
+    filter: alpha(opacity=$opacity-ie); //IE8
 }
 
 .alignleft {
-  text-align: left;
+    text-align: left;
 }
 
 .aligncenter {
-  text-align: center;
+    text-align: center;
 }
 
 .alignright {
-  text-align: right;
+    text-align: right;
 }
 
 .el-input__inner {
-  height: 32px;
-  line-height: 32px;
+    height: 32px;
+    line-height: 32px;
 }
 
 .el-button {
-  padding: 7px 10px;
-  font-size: 13px;
-  background: #eb5e5f;
-  border-color: #eb5e5f;
+    padding: 7px 10px;
+    font-size: 13px;
+    background: #eb5e5f;
+    border-color: #eb5e5f;
 }
 
 // select选框内部胡竖划线
 input.el-input__inner {
-  border-right: 1px solid #ccc;
+    border-right: 1px solid #ccc;
 }
 
 .el-button--primary.is-disabled {
-  background: #eb5e5f;
-  border-color: #eb5e5f;
-  color: #fff;
+    background: #eb5e5f;
+    border-color: #eb5e5f;
+    color: #fff;
 }
 
 .el-button--primary.is-disabled:active,
 .el-button--primary.is-disabled:focus,
 .el-button--primary.is-disabled:hover {
-  color: #fff;
-  background-color: #D43537;
-  border-color: #D43537;
+    color: #fff;
+    background-color: #D43537;
+    border-color: #D43537;
 }
 
 .el-button--primary:focus,
 .el-button--primary:hover {
-  background: #D43537;
-  border-color: #D43537;
-  color: #fff;
+    background: #D43537;
+    border-color: #D43537;
+    color: #fff;
 }
 
 button.el-button.button-operator {
-  background: none !important;
-  border: none !important;
-  color: #d43537;
+    background: none !important;
+    border: none !important;
+    color: #d43537;
 }
 
 .el-form--inline .el-form-item__content {
-  width: 120px;
+    width: 120px;
 }
+
 .main-conent-input200 .el-form--inline .el-form-item__content {
-  min-width: 200px;
-      width: 100%;
+    min-width: 200px;
+    width: 100%;
 }
-.main-conent-input200 .el-form-item{
-  margin-top:20px;
+
+.main-conent-input200 .el-form-item {
+    margin-top: 20px;
 }
+
 .el-form-item.el-form-item-search .el-form-item__content {
-  width: 80px !important;
+    width: 80px !important;
 }
 
 .el-table td,
 .el-table th {
-  padding: 4px 0px;
+    padding: 4px 0px;
 }
 
 .el-table th {
-  background-color: #e5e8ef;
-  color: #57606f;
+    background-color: #e5e8ef;
+    color: #57606f;
 }
 
 .el-pagination {
-  padding-top: 30px;
-  text-align: center;
+    padding-top: 30px;
+    text-align: center;
 }
 
 .el-table tbody {
-  font-size: $fontsize13;
+    font-size: $fontsize13;
 }
 
 .content-top-line {
-  border-top: 0.5px solid #ebeef5;
-  padding-top: 20px;
+    border-top: 0.5px solid #ebeef5;
+    padding-top: 20px;
 }
-.el-table::before{
-    height:0px;
+
+.el-table::before {
+    height: 0px;
 }
+
 .el-dialog__header {
     background: #E24142;
     padding: 10px 10px 10px;
     /* color: #fff; */
 }
-span.el-dialog__title{
-    color:#fff;
-}
-.el-dialog__headerbtn .el-dialog__close{
-    color:#fff;
-}
-.el-dialog__headerbtn{
-    top:15px;
+
+span.el-dialog__title {
+    color: #fff;
 }
 
-.el-input--prefix .el-input__inner{
-  height: 28px;
-  line-height: 28px;
+.el-dialog__headerbtn .el-dialog__close {
+    color: #fff;
+}
+
+.el-dialog__headerbtn {
+    top: 15px;
+}
+
+.el-input--prefix .el-input__inner {
+    height: 28px;
+    line-height: 28px;
 }

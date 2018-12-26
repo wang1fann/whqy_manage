@@ -105,9 +105,6 @@ export default {
   },
   methods: {
     gotoUrl(path, query) {
-      console.log(path);
-      console.log(query);
-      // query为object类型。eg：{id:id}
       this.$router.push({
         path: !!path ? path : '',
         query: !!query ? query : ''
@@ -195,6 +192,7 @@ export default {
             name: "yifanwang",
             password: 5556788992,
             section: "科目一",
+            id:99,
             task: "任务"
           }
         ];
@@ -216,10 +214,10 @@ export default {
     deleteBatch() {
       var id = [];
       this.multipleSelection.forEach(item => {
-        id.push(item.taskId);
+        id.push(item.id);
       });
       if (id.length > 0) {
-        this.deleteConfirm({ taskId: id });
+        this.deleteConfirm({ id: id });
       } else {
         this.$message({
           message: "请至少选择一个选项",
@@ -231,10 +229,10 @@ export default {
     deleteConfirm(row) {
       var _this = this;
       var ids = [];
-      if (typeof row.taskId === "number") {
-        ids.push(row.taskId);
+      if (typeof row.id === "number") {
+        ids.push(row.id);
       } else {
-        ids = row.taskId;
+        ids = row.id;
       }
       this.ids = ids.join();
       this.confirmContent = "此操作将永久删除该文件, 是否继续?";
@@ -245,21 +243,6 @@ export default {
     // 取消删除
     cancle() {
       this.ids = null;
-    },
-    // 挂起控制
-    hangUpConfirm(row) {
-      var _this = this;
-      var ids = [];
-      if (typeof row.taskId === "number") {
-        ids.push(row.taskId);
-      } else {
-        ids = row.taskId;
-      }
-      this.ids = ids.join();
-      this.confirmContent = "是否执行挂起操作, 是否继续?";
-      setTimeout(() => {
-        this.$refs.myconfirm.confirm(_this.hangUp, _this.cancle);
-      }, 100);
     },
     // 表单重置
     resetForm() {

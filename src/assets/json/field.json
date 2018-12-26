@@ -1,276 +1,275 @@
 {
-  "user": [{
-      "prop": "username",
-      "label": "用户名",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "nickname",
-      "label": "姓名",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "telephone",
-      "label": "电话",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "mail",
-      "label": "邮箱",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "roles",
-      "label": "角色",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": false
-    },
-    {
-      "prop": "rights",
-      "label": "所属权限",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": false
-    },
-    {
-      "prop": "operateTime",
-      "label": "更新时间",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    }
-  ],
-  "roles": [{
-      "prop": "name",
-      "label": "角色名",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "keyword",
-      "label": "关键字",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "remark",
-      "label": "备注",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "belonged",
-      "label": "所属权限",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": false
-    },
-    {
-      "prop": "operateTime",
-      "label": "更新时间",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    }
-  ],
-  "rights": [
-    {
-      "prop": "role",
-      "label": "角色",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },{
-      "prop": "name",
-      "label": "用户名",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "password",
-      "label": "密码",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "section",
-      "label": "科室",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-     {
-      "prop": "task",
-      "label": "任务",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    }
-  ],
-  "link": [{
-      "prop": "linkName",
-      "label": "链接名称",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "linkAddress",
-      "label": "链接地址",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "uploadTime",
-      "label": "上传时间",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    }
-  ],
-
-  "file": [{
-      "prop": "name",
-      "label": "文件名称",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "type": "needChange",
-      "change": [{},
-        {
-          "name": "TCU标定文件",
-          "color": ""
+    "user": [{
+            "prop": "userName",
+            "label": "用户名",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
         },
         {
-          "name": "盛瑞脚本文件",
-          "color": ""
+            "prop": "sex",
+            "label": "性别",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
         },
         {
-          "name": "客户脚本文件",
-          "color": ""
+            "prop": "phone",
+            "label": "电话",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
         },
         {
-          "name": "TCU配置文件",
-          "color": ""
+            "prop": "email",
+            "label": "邮箱",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "roles",
+            "label": "角色",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": false
+        },
+        {
+            "prop": "rights",
+            "label": "所属权限",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": false
+        },
+        {
+            "prop": "updateTime",
+            "label": "更新时间",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
         }
-      ],
-      "prop": "type",
-      "label": "文件类型",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "uploadtime",
-      "label": "上传时间",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "operator",
-      "label": "操作人",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "remark",
-      "label": "文件说明",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "type": "link",
-      "prop": "url",
-      "label": "下载",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    }
-  ],
-  "log": [{
-      "prop": "account",
-      "label": "登录账号",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    }, {
-      "prop": "operator",
-      "label": "操作人",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "roleGrade",
-      "label": "权限等级",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "operateTime",
-      "label": "操作时间",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    },
-    {
-      "prop": "action",
-      "label": "操作内容",
-      "width": "auto",
-      "fixed": false,
-      "sortable": false,
-      "show": true
-    }
-  ]
+    ],
+    "roles": [{
+            "prop": "name",
+            "label": "角色名",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "keyword",
+            "label": "关键字",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "remark",
+            "label": "备注",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "belonged",
+            "label": "所属权限",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": false
+        },
+        {
+            "prop": "operateTime",
+            "label": "更新时间",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }
+    ],
+    "rights": [{
+            "prop": "role",
+            "label": "角色",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }, {
+            "prop": "name",
+            "label": "用户名",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "password",
+            "label": "密码",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "section",
+            "label": "科室",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "task",
+            "label": "任务",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }
+    ],
+    "link": [{
+            "prop": "linkName",
+            "label": "链接名称",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "linkAddress",
+            "label": "链接地址",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "uploadTime",
+            "label": "上传时间",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }
+    ],
+
+    "file": [{
+            "prop": "name",
+            "label": "文件名称",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "type": "needChange",
+            "change": [{},
+                {
+                    "name": "TCU标定文件",
+                    "color": ""
+                },
+                {
+                    "name": "盛瑞脚本文件",
+                    "color": ""
+                },
+                {
+                    "name": "客户脚本文件",
+                    "color": ""
+                },
+                {
+                    "name": "TCU配置文件",
+                    "color": ""
+                }
+            ],
+            "prop": "type",
+            "label": "文件类型",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "uploadtime",
+            "label": "上传时间",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "operator",
+            "label": "操作人",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "remark",
+            "label": "文件说明",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "type": "link",
+            "prop": "url",
+            "label": "下载",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }
+    ],
+    "log": [{
+            "prop": "account",
+            "label": "登录账号",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }, {
+            "prop": "operator",
+            "label": "操作人",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "roleGrade",
+            "label": "权限等级",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "operateTime",
+            "label": "操作时间",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "action",
+            "label": "操作内容",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }
+    ]
 }
