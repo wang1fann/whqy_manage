@@ -1,23 +1,23 @@
 <template>
   <div class="content-manage">
     <div class="l left">
-      <img src="../../assets/img/content/photou.png"/>
+      <img src="@/assets/img/content/photou.png"/>
       <p>点上传击图片</p>
     </div>
     <div class="l tuImg">
-      <img  src="../../assets/img/content/Thepicturea.png"/>
+      <img  src="@/assets/img/content/Thepicturea.png"/>
       <span></span>
     </div>
     <div class="l tuImg">
-      <img  src="../../assets/img/content/Thepictureq.png"/>
+      <img  src="@/assets/img/content/Thepictureq.png"/>
       <span></span>
     </div>
     <div class="l tuImg">
-      <img  src="../../assets/img/content/Thepicturee.png"/>
+      <img  src="@/assets/img/content/Thepicturee.png"/>
       <span></span>
     </div>
     <div class="l tuImg">
-      <img  src="../../assets/img/content/Thepicturew.png"/>
+      <img  src="@/assets/img/content/Thepicturew.png"/>
       <span></span>
     </div>
 

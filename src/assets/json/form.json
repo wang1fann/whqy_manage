@@ -56,7 +56,7 @@
                 }]
             }, {
                 "type": "text",
-                "name": "mail",
+                "name": "email",
                 "value": "",
                 "placeholder": "请输入邮箱",
                 "width": "100%",
@@ -80,22 +80,6 @@
                     "message": "请输入备注",
                     "trigger": "blur"
                 }]
-            },
-            {
-                "type": "checkbox",
-                "name": "roles",
-                "label": "角色:",
-                "show": false,
-                "value": [],
-                "options": []
-            },
-            {
-                "type": "checkbox",
-                "name": "rights",
-                "label": "权限:",
-                "show": false,
-                "value": [],
-                "options": []
             }
         ],
         "data": {

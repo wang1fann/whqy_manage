@@ -22,7 +22,7 @@
 </template>
 <script>
 import ElBread from "@/components/ElBread";//面包屑
-import RightTab from "../../components/rightTab";
+import RightTab from "@/components/rightTab";
 export default {
   name:"contentManage",
  components: {

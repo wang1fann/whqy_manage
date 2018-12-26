@@ -193,6 +193,7 @@
         :total="1000">
       </el-pagination>
     </div>
+    </div>
 </template>
 
 <script>
@@ -232,7 +233,6 @@
     }
   }
 </script>
-
 <style  lang="scss">
   .gai{
     padding-top: 0;
