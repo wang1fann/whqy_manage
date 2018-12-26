@@ -180,8 +180,6 @@
             <button type="button" class="l">删除</button>
           </td>
         </tr>
-
-
         </tbody>
       </table>
     </div>
@@ -278,9 +276,7 @@
      margin-left: 48px;
      margin-top: 20px;
 
-  }
-
-   table{
+      table{
     width: 94%;
     margin-bottom:20px;
     border-spacing: 0;
@@ -361,7 +357,6 @@
       border-right: 1px solid #ccc;
     background: #fff;
       color: #eb5e5f;
-
   }
   table tbody tr td button:last-child{
     border-right: 0;
@@ -373,6 +368,10 @@
     margin-right: 4px;
   }
 
+
+  }
+
+  
 
 
 </style>
