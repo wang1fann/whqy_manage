@@ -2,7 +2,7 @@ import * as API from '.'
 
 export default {
     findlinkList: params => {
-        return API.GET('/api/v1/findlinkList', params)
+        return API.POST('/syx/link/search/' + params.page + '/' + params.size, params)
     },
 
     //查询获取一条book信息
@@ -10,10 +10,10 @@ export default {
         return API.GET(`/api/v1/books/${id}`)
     },
 
-    add: params => {
-        return API.POST(`/api/v1/books`, params)
+    addLink: params => {
+        return API.POST(`/syx//link/`, params)
     },
-    update: (id, params) => {
+    updateLink: (id, params) => {
         return API.PUT(`/api/v1/books/${id}`, params)
     },
 

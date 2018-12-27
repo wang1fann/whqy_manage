@@ -242,15 +242,10 @@
     margin-top: 20px;
     margin-left:100px;
     overflow: hidden;
-  }
-  .up label{
+    label{
     margin-right: 16px;
     color: #999;
-  }
-  .up>div{
-    margin-left: 34px;
-  }
-  .el-button{
+     .el-button{
     padding: 7px 20px;
     background: #e24142;
     height: 30px;
@@ -269,6 +264,13 @@
     height: 32px;
     line-height: 32px;
   }
+  }
+  }
+ 
+  .up>div{
+    margin-left: 34px;
+  }
+ 
    .xia{
       width: 96%;
      overflow: hidden;

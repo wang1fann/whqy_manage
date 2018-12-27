@@ -14,6 +14,11 @@ export default {
     logout: params => {
         return API.GET('/carcloud/logout', params)
     },
+    // 上传用户头像
+    // 192.168.0.110:9104/syx/file/multipleUpload
+    uploadUserImg: params => {
+        return API.POST('/syx/file/multipleUpload', params)
+    },
     // 修改个人信息
     changeProfile: params => {
         return API.PATCH('/api/v1/users/profile', params)
@@ -39,6 +44,8 @@ export default {
     },
     // 删除用户
     delUser: params => {
-        return API.POST('/syx/user/delete', params)
+        if (!!params.ids) {
+            return API.POST('/syx/user/delete/' + params.ids, params)
+        }
     },
 }

@@ -14,10 +14,8 @@ module.exports = {
             '/syx': {
                 changeOrigin: true,
                 target: 'http://192.168.0.107:9014',
-                // target: 'http://47.98.182.165',
                 pathRewrite: {
-                    // '^/blstation-web': '/blstation-web'
-                        '^/syx': '/syx'
+                    '^/syx': '/syx'
                 }
             }
         },

@@ -1,12 +1,31 @@
 <template>
   <div class="list content-top-line">
     <!-- 按钮操作 -->
-    <el-row class="btn-group" :gutter="24">
-      <el-col :span="8" class="pull-left alignleft">
-        <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加链接</el-button>
-        <el-button type="primary" size="mini" icon="el-icon-delete" @click="deleteBatch">删除链接</el-button>
+    <el-row
+      class="btn-group"
+      :gutter="24"
+    >
+      <el-col
+        :span="8"
+        class="pull-left alignleft"
+      >
+        <el-button
+          type="primary"
+          size="mini"
+          icon="el-icon-circle-plus"
+          @click="showDialog"
+        >添加链接</el-button>
+        <el-button
+          type="primary"
+          size="mini"
+          icon="el-icon-delete"
+          @click="deleteBatch"
+        >删除链接</el-button>
       </el-col>
-      <el-col :span="16" class="pull-right alignright">
+      <el-col
+        :span="16"
+        class="pull-right alignright"
+      >
         <MySearch
           class="search"
           :formData="searchFormData"
@@ -40,10 +59,21 @@
       width="35%"
       :before-close="handleClose"
     >
-      <MyForm :form="form" ref="myform" :formData="formData" :formItem="formItem" @submit="submit"></MyForm>
+      <MyForm
+        :form="form"
+        ref="myform"
+        :formData="formData"
+        :formItem="formItem"
+        @submit="submit"
+      ></MyForm>
     </el-dialog>
     <!-- myconfirm -->
-    <MyConfirm ref="myconfirm" :type="confirmType" :title="confirmTitle" :content="confirmContent"></MyConfirm>
+    <MyConfirm
+      ref="myconfirm"
+      :type="confirmType"
+      :title="confirmTitle"
+      :content="confirmContent"
+    ></MyConfirm>
   </div>
 </template>
 
@@ -64,6 +94,7 @@ export default {
       labelPositon: "right",
       width: "80%",
       column: 1,
+
       hasSubmit: true,
       submitText: "提交",
       cancleText: "取消"
@@ -113,7 +144,7 @@ export default {
       pageSize: getPageSize(),
       currentPage: 1,
       total: 0,
-      type: "saveTask",
+      type: "addLink",
       searchFormData: {},
       searchFormItem: []
     };
@@ -156,21 +187,22 @@ export default {
     showDialog() {
       this.formInit();
       this.dialogTitle = "添加链接";
-      this.type = "saveLink";
+      this.type = "addLink";
       this.dialogVisible = true;
     },
     // 更新数据
     update(row) {
       this.formInit(row);
       this.dialogTitle = "编辑链接";
-      this.type = "updateLinkById";
+      this.type = "updateLink";
       this.dialogVisible = true;
     },
     // 提交数据
     submit() {
       console.log(this.formData);
       setTimeout(() => {
-        API[this.type](this.formData).then(res => {
+        // var id = this.type == "addLink" ? formData.id : "";
+        API[this.type](id, this.formData).then(res => {
           this.dialogVisible = false;
           this.$message({
             message: res.msg,
@@ -194,7 +226,7 @@ export default {
     getData() {
       var _this = this;
       var config = {
-        pageNo: _this.currentPage,
+        page: _this.currentPage,
         size: _this.pageSize
       };
       // 添加查询字段
