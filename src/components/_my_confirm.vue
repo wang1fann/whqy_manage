@@ -28,7 +28,7 @@ export default {
     },
     infoMsg: {
       type: String,
-      default: '已取消操作ss'
+      default: '已取消操作'
     }
   },
   data () {
@@ -37,8 +37,6 @@ export default {
   methods: {
     // 确认
     confirm (ok, cancle) {
-      console.log(ok);
-      console.log(cancle);
       var _this = this
       this.$confirm('<p>' + _this.content + '</p><span>' + _this.tip + '</span>', _this.title, {
         confirmButtonText: '确定',
@@ -48,7 +46,6 @@ export default {
       }).then(() => {
         !!ok?ok() :'';
       }).catch((err) => {
-        console.log(err);
         this.$message({
           type: 'info',
           message: _this.infoMsg

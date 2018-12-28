@@ -37,13 +37,13 @@
           <!-- <span>{{formData}}</span> -->
           <img
             class="avatar"
-            v-if="formData.imageUrl!==''"
-            :src="formData.imageUrl"
+            v-if="formData.imgPath!==''"
+            :src="formData.imgPath"
             alt=""
           >
           <img
-            v-if="imageUrl"
-            :src="imageUrl"
+            v-if="imgPath"
+            :src="imgPath"
             class="avatar"
           >
           <i
@@ -260,6 +260,7 @@
 <script>
 /* eslint-disable */
 import API from "@/api/api_user.js";
+import $qs from "qs";
 export default {
   name: "MyForm",
 
@@ -326,26 +327,29 @@ export default {
         };
       }
     },
-
     formItem: {
       type: Array,
-
       default: () => [Object]
     },
-
     formData: {
       type: Object,
-
       default: () => {
         return {};
       }
     }
   },
-
   data() {
     return {
-      imageUrl: "",
-      imgData: { file: "", menu: "" },
+      imgPath: "",
+      imgData: {
+        file: {
+          type: File,
+          default: () => {
+            return new FormData();
+          }
+        },
+        menu: "用户头像"
+      },
       pickerOptions: {
         disabledDate(time) {
           return time.getTime() < Date.now();
@@ -357,7 +361,6 @@ export default {
   created() {
     console.log(this.formItem);
   },
-
   methods: {
     getSubmitData(clear) {
       for (let i = 0; i < this.forms.length; i++) {
@@ -399,14 +402,13 @@ export default {
     },
     // 上传头像
     handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
+      this.imgPath = URL.createObjectURL(file.raw);
       console.log(this.formData);
-      this.formData.imageUrl = this.imageUrl;
+      this.formData.imgPath = this.imgPath;
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";
       const isLt2M = file.size / 1024 / 1024 < 2;
-
       if (!isJPG) {
         this.$message.error("上传头像图片只能是 JPG 格式!");
       }
@@ -417,16 +419,27 @@ export default {
         return isJPG && isLt2M;
       }
       this.imgData.file = file;
-      console.log(file);
+      console.log(this.imgData);
     },
     uploadUserImg() {
       console.log(this.imgData);
-      window.sessionStorage.setItem("responseType", "json");
-      API.uploadUserImg(this.imgData).then(res => {
-        this.$message({
-          message: res.msg,
-          type: "success"
-        });
+      var form = new FormData();
+      form.append("menu", this.imgData.menu);
+      form.append("file", this.imgData.file);
+      window.sessionStorage.setItem("responseType", "form");
+      API.uploadUserImg(form).then(res => {
+        if (!!res && res.code === 20000) {
+          this.formData.imgPath = !!res.data ? res.data[0] : "";
+          this.$message({
+            message: res.message,
+            type: "success"
+          });
+        } else {
+          this.$message({
+            message: res.message,
+            type: "error"
+          });
+        }
       });
     }
   }

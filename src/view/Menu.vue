@@ -44,7 +44,7 @@
             <el-bread v-if="$route.path.search('/contentManage') === -1"></el-bread>
             <transition name="fade" mode="out-in">
               <keep-alive>
-                <router-view></router-view>
+                <router-view style="min-width:1380px;"></router-view>
               </keep-alive>
             </transition>
           </el-col>

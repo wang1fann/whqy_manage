@@ -69,7 +69,7 @@
                 "label": "邮箱:",
                 "show": true,
                 "rules": [{
-                    "required": true,
+                    "required": false,
                     "message": "请输入邮箱",
                     "trigger": "blur"
                 }]
@@ -79,9 +79,10 @@
             "id": "",
             "userName": "",
             "sex": "",
+            "passwd": "",
             "phone": "",
             "email": "",
-            "imageUrl": ""
+            "imgPath": ""
         }
     },
     "userAndRoles": {
@@ -229,7 +230,7 @@
             },
             {
                 "type": "text",
-                "name": "linkAddress",
+                "name": "linkUrl",
                 "value": "",
                 "placeholder": "请输入链接地址",
                 "width": "100%",
@@ -245,7 +246,8 @@
         "data": {
             "id": "",
             "linkName": "",
-            "linkAddress": ""
+            "linkUrl": "",
+            "updateTime": ""
         }
     },
     "file": {

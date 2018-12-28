@@ -109,7 +109,7 @@ export default {
       style: "prepend",
       column: 1,
       hasSubmit: true,
-      imageUrl: "",
+      imgPath: "",
       submitText: "提交",
       cancleText: "取消"
     };
@@ -142,7 +142,7 @@ export default {
       ]
     };
     return {
-      imageUrl: "",
+      imgPath: "",
       // 加载loading初始化
       fullscreenLoading: false,
       confirmType: "warning",
@@ -190,7 +190,7 @@ export default {
     formInit(row) {
       this.formItem = getFormField("user", "item");
       console.log(row);
-       this.formData = !!row ? row : getFormField("user", "data");
+      this.formData = !!row ? row : getFormField("user", "data");
     },
     searchFormInit() {
       this.searchFormItem = getSearchField("user", "item");
@@ -207,20 +207,33 @@ export default {
     update(row) {
       this.formInit(row);
       this.dialogTitle = "编辑用户";
-      this.type = "updateUserById";
+      this.type = "updateUserInfo";
       this.dialogVisible = true;
     },
     // 提交数据
     submit() {
-      console.log(this.formData);
+      window.sessionStorage.setItem("responseType", "json");
+      var a = this.formData.imgPath;
+      this.formData.imgPath = a.replace(/\\/g, "/");
       setTimeout(() => {
         API[this.type](this.formData).then(res => {
           this.dialogVisible = false;
-          this.$message({
-            message: res.msg,
-            type: "success"
-          });
-          this.getData();
+          if (res.code === 20000) {
+            this.$message({
+              message: res.message,
+              type: "success"
+            });
+            this.getData();
+            this.formData = this._.forEach(this.formData, function(value, key) {
+              value = "";
+            });
+            console.log(this.formData);
+          } else {
+            this.$message({
+              message: res.message,
+              type: "error"
+            });
+          }
         });
       }, 50);
     },
@@ -261,18 +274,18 @@ export default {
               phone: 5556788992,
               email: "7777@qq.com",
               id: 22,
-              sex:"男",
+              sex: "男",
               uploadTime: "2018-10-11",
-              imageUrl:require("@/assets/img/user.jpg")
+              imgPath: require("@/assets/img/user.jpg")
             },
             {
               userName: "wifan3",
               phone: 55567000992,
               email: "77@qq.com",
               id: 223,
-              sex:"女",
+              sex: "女",
               uploadTime: "2018-10-11",
-              imageUrl:""
+              imgPath: ""
             }
           ];
           this.fullscreenLoading = false;
@@ -281,22 +294,21 @@ export default {
     // 删除
     delete() {
       var _this = this;
-      console.log(_this);
-      API.delUser({ ids: _this.ids })
+      console.log(_this.ids);
+      API.delUser({ "id": _this.ids })
         .then(res => {
           this.ids = null;
           this.$message({
-            message: "删除成功",
-            type: "success"
+            message: res.message,
+            type: res.code === 20000 ? "success" : "error"
           });
           this.getData();
         })
         .catch(err => {
           this.$message({
-            message: "删除失败",
+            message: err,
             type: "error"
           });
-          this.getData();
         });
     },
     // 批量.删除
@@ -305,8 +317,10 @@ export default {
       this.multipleSelection.forEach(item => {
         id.push(item.id);
       });
+      // this.ids ="["+ id.join()+"]";
+      this.ids = id.join();
       if (id.length > 0) {
-        this.deleteConfirm({ id: id });
+        this.deleteConfirm({ id: this.ids });
       } else {
         this.$message({
           message: "请至少选择一个选项",
@@ -316,14 +330,13 @@ export default {
     },
     // 删除确认
     deleteConfirm(row) {
-      console.log(row);
       var _this = this;
-      var ids = [];
-      ids.push(row.id);
-      this.ids = ids.join();
-      console.log(this.ids);
+      _this.ids=row.id;
       setTimeout(() => {
-        this.$refs.myconfirm.confirm(_this.delete, _this.cancle);
+        this.$refs.myconfirm.confirm(
+          _this.delete,
+          _this.cancle
+        );
       }, 100);
     },
     // 取消删除

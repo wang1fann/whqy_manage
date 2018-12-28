@@ -22,10 +22,12 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
     "lodash": "^4.17.11",
+    "qs": "^6.6.0",
     "vue": "^2.5.2",
+    "vue-axios": "^2.1.4",
+    "vue-echarts": "^2.4.0",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "vue-echarts": "^2.4.0",
     "xlsx": "^0.13.3"
   },
   "devDependencies": {

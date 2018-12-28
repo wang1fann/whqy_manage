@@ -111,8 +111,7 @@ let router = new Router({
                     path: '/visitCount',
                     name: '访问统计',
                     component: resolve => {
-                        require(['view/visitCount/echarts'], resolve)
-                            // require(['view/visitCount/visitCountList'], resolve)
+                        require(['view/visitCount/visitCountList'], resolve)
                     },
                     class: 'fa-line-chart',
                     img: require('@/assets/img/access/access.png')

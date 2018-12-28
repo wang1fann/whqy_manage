@@ -15,13 +15,15 @@ export default {
         return API.GET('/carcloud/logout', params)
     },
     // 上传用户头像
-    // 192.168.0.110:9104/syx/file/multipleUpload
     uploadUserImg: params => {
+        // 192.168.0.110:9014/syx/file/multipleUpload
+        console.log(params);
         return API.POST('/syx/file/multipleUpload', params)
     },
     // 修改个人信息
-    changeProfile: params => {
-        return API.PATCH('/api/v1/users/profile', params)
+    updateUserInfo: params => {
+        // syx/user/id
+        return API.PUT('/syx/user/' + params.id, params)
     },
     //  修改密码
     changePass: params => {
@@ -30,13 +32,11 @@ export default {
     },
     // 查询获取user列表（通过page进行分页）
     findUserList: params => {
-        console.log(params);
-        // user/search/1/5
         return API.POST('/syx/user/search/' + params.page + '/' + params.size, params)
     },
     // 添加用户
     addUser: params => {
-        return API.POST('/syx/user/add', params)
+        return API.POST('/syx/user', params)
     },
     // 修改用户信息
     updateUserById: params => {
@@ -44,8 +44,10 @@ export default {
     },
     // 删除用户
     delUser: params => {
-        if (!!params.ids) {
-            return API.POST('/syx/user/delete/' + params.ids, params)
-        }
+        // if (!!params.id && params.id.indexOf(',') === -1) {
+        //     return API.DELETE('/syx/user/' + params.id, params)
+        // } else {
+        // }
+        return API.DELETE('/syx/user/deleteUser', params)
     },
 }

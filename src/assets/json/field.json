@@ -146,7 +146,7 @@
             "show": true
         },
         {
-            "prop": "linkAddress",
+            "prop": "linkUrl",
             "label": "链接地址",
             "width": "auto",
             "fixed": false,
@@ -154,7 +154,7 @@
             "show": true
         },
         {
-            "prop": "uploadTime",
+            "prop": "updateTime",
             "label": "上传时间",
             "width": "auto",
             "fixed": false,
