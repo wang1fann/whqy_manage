@@ -1,5 +1,5 @@
 <template>
-  <div class="content-manage">
+  <div class="content-manageImg">
     <div class="l left">
       <img src="@/assets/img/content/photou.png"/>
       <p>点上传击图片</p>
@@ -32,40 +32,40 @@
 </script>
 
 <style scoped>
-  .l{float: left}
-  .content-manage{
+  .content-manageImg .l{float: left}
+  .content-manageImg{
     margin: 0 auto;
     margin-top: 30px;
     width: 96%;
 
 
   }
-  .content-manage .left{
+  .content-manageImg .left{
     width: 200px;
     height:140px;
     background: #f0f4f7;
   }
-  .content-manage .left img{
+  .content-manageImg .left img{
     margin: 0 auto;
     width:40px;
     height: 30px;
     margin-top: 50px;
   }
   *{margin: 0 ;padding: 0}
-  .content-manage .left p{
+  .content-manageImg .left p{
     font-size: 12px;
     margin-top: 4px;
     color:#d8dde1 ;
   }
-  .content-manage img{
+  .content-manageImg img{
     width: 200px;
     height:140px;
     margin-left: 22px;
   }
-  .content-manage .tuImg{
+  .content-manageImg .tuImg{
     position: relative;
   }
-  .content-manage .tuImg span{
+  .content-manageImg .tuImg span{
     display: block;
     width: 24px;
     height:24px ;

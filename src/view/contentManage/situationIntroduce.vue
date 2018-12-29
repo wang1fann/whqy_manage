@@ -1,5 +1,5 @@
 <template>
-  <div class="content-manage">
+  <div class="content-manageIntrod">
     <div class="sitUp">
       <div class="l left">
         <img src="../../assets/img/content/photou.png"/>
@@ -24,69 +24,110 @@
 </template>
 
 <script>
+  import API from "@/api/api_contmessage";
   export default {
-    name: "situationIntroduce"
+    name: "situationIntroduce",
+    data(){
+      return{
+        datas:{}
+      }
+    },
+    methods:{
+      getData() {
+        var _this = this;
+        var config = {
+          pageNo: _this.currentPage,
+          size: _this.pageSize
+        };
+        // 添加查询字段
+        config = $.extend(config, this.searchFormData);
+        // 接口调用
+        API.Casejin()
+          .then(res => {
+            console.log(1);
+            console.log(res);
+            this.datas = res.data;
+            console.log(this.datas);
+          })
+          .catch(err => {
+            console.log(2);
+            this.total = 100;
+            this.data = [
+              {
+                account:"82983982",
+                operator: "saiyunxi",
+                roleGrade:"一级管理员",
+                action: "18828839.kkkkkkksaiyunxi.com",
+                operateTime: "2018-10-11"
+              }
+            ];
+          });
+      },
+    },
+    created(){
+      this.getData();
+    }
   }
 </script>
 
 <style scoped>
-  .l{
+ .content-manageIntrod .l{
     float: left;
   }
-  .r{float: right}
-  .content-manage{
+ .content-manageIntrod .r{float: right}
+  .content-manageIntrod{
     margin: 0 auto;
     margin-top: 20px;
     width: 80%;
     overflow: hidden;
   }
-  .sitUp{
+ .content-manageIntrod .sitUp{
     overflow: hidden;
     margin-left: 86px;
   }
-  .sitUp .left{
+ .content-manageIntrod .sitUp .left{
     width: 170px;
     height: 210px;
     background: #f0f4f7;
   }
-  .sitUp .left img{
+ .content-manageIntrod .sitUp .left img{
     margin: 0 auto;
     margin-top: 80px;
   }
   *{margin: 0 ;padding: 0}
-  .sitUp .left p{
+ .content-manageIntrod .sitUp .left p{
     font-size: 13px;
     margin-top: 4px;
     color:#d8dde1 ;
   }
-  .sitUp .right {
+ .content-manageIntrod .sitUp .right {
     text-align: left;
     margin-left: 30px;
     margin-top: 50px;
     font-size: 12px;
   }
-  .sitUp .right  span{
+ .content-manageIntrod .sitUp .right  span{
     display: block;
     line-height: .5;
     color: #65707b;
   }
-  .sitUp .right  span.spec{
+ .content-manageIntrod .sitUp .right  span.spec{
     font-weight: bold;
   }
-  .sitDown{
+ .content-manageIntrod .sitDown{
     overflow: hidden;
     margin-top: 35px;
   }
-  .sitDown label{
+ .content-manageIntrod .sitDown label{
     margin-right: 24px;
     color: #7f8891;
   }
-  .sitDown textarea{
+ .content-manageIntrod  .sitDown textarea{
     color: #ccc;
     padding-left: 10px;
     padding-top: 10px;
   }
-  .sitDown button{
+ .content-manageIntrod .sitDown button{
     padding: 12px 40px;
     background: #e24142;
     text-align: center;

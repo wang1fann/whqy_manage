@@ -1,6 +1,6 @@
 <template>
-  <!--<router-view></router-view>-->
-  <situation-introduce></situation-introduce>
+  <router-view></router-view>
+  <!--<situation-introduce></situation-introduce>-->
   <!--<situation-img></situation-img>-->
   <!--<situation-depart></situation-depart>-->
 
@@ -12,7 +12,10 @@
   import SituationDepart from "./situationDepart";
   export default {
     name: "senceSituation",
-    components: {SituationDepart, SituationImg, SituationIntroduce}
+    components: {SituationDepart, SituationImg, SituationIntroduce},
+    mounted(){
+       console.log( this.$route.meta)
+    }
   }
 </script>
 

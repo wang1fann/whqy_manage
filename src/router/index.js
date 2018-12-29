@@ -59,7 +59,41 @@ let router = new Router({
                 require(['view/contentManage/senceSituation'], resolve)
               },
               class: 'fa-line-chart',
-              img: require('@/assets/img/access/user.png')
+              img: require('@/assets/img/access/user.png'),
+
+              children:[
+                {
+                  path: '',
+                  name: '景区简介',
+                  component: resolve => {
+                    require(['view/contentManage/situationIntroduce'], resolve)
+                  },
+                  class: 'fa-line-chart',
+                  img: require('@/assets/img/access/user.png'),
+                  meta: {
+                    "si":{url:"situationIntroduce",title:"xxx1"},
+                    "simg":{url:"simg",title:"xxx2"}
+                  }
+                },
+                {
+                  path: 'situationImg',
+                  name: '景区掠影',
+                  component: resolve => {
+                    require(['view/contentManage/situationImg'], resolve)
+                  },
+                  class: 'fa-line-chart',
+                  img: require('@/assets/img/access/user.png')
+                },
+                {
+                  path: 'situationDepart',
+                  name: '组织机构',
+                  component: resolve => {
+                    require(['view/contentManage/situationDepart'], resolve)
+                  },
+                  class: 'fa-line-chart',
+                  img: require('@/assets/img/access/user.png')
+                }
+              ]
             }, {
               path: 'senceNews',
               name: '景区新闻',
@@ -70,10 +104,118 @@ let router = new Router({
               img: require('@/assets/img/access/user.png')
             },
             {
+              path: 'collectionAppreciation',
+              name: '藏品欣赏',
+              component: resolve => {
+                require(['view/contentManage/collectionAppreciation'], resolve)
+              },
+              class: 'fa-line-chart',
+              img: require('@/assets/img/access/user.png')
+            },
+            {
+              path: 'huaIntroduction',
+              name: '渭华起义',
+              component: resolve => {
+                require(['view/contentManage/huaIntroduction'], resolve)
+              },
+              class: 'fa-line-chart',
+              img: require('@/assets/img/access/user.png')
+            },
+            {
+              path: 'xianThings',
+              name: '先烈事迹',
+              component: resolve => {
+                require(['view/contentManage/xianThings'], resolve)
+              },
+              class: 'fa-line-chart',
+              img: require('@/assets/img/access/user.png')
+            },
+            {
               path: 'xiSpirit',
               name: '习老精神',
               component: resolve => {
                 require(['view/contentManage/xiSpirit'], resolve)
+              },
+              class: 'fa-line-chart',
+              img: require('@/assets/img/access/user.png')
+            },
+            {
+              path: 'redEducation',
+              name: '红色教育',
+              component: resolve => {
+                require(['view/contentManage/redEducation'], resolve)
+              },
+              class: 'fa-line-chart',
+              img: require('@/assets/img/access/user.png')
+            },
+            {
+              path: 'partyEducation',
+              name: '党性教育',
+              component: resolve => {
+                require(['view/contentManage/partyEducation'], resolve)
+              },
+              class: 'fa-line-chart',
+              img: require('@/assets/img/access/user.png')
+            },
+            {
+              path: 'culturalEducation',
+              name: '文化教育',
+              component: resolve => {
+                require(['view/contentManage/culturalEducation'], resolve)
+              },
+              class: 'fa-line-chart',
+              img: require('@/assets/img/access/user.png')
+            },
+            {
+              path: 'themeEducation',
+              name: '主题教育',
+              component: resolve => {
+                require(['view/contentManage/themeEducation'], resolve)
+              },
+              class: 'fa-line-chart',
+              img: require('@/assets/img/access/user.png')
+            },
+            {
+              path: 'huaHall',
+              name: '渭华讲堂',
+              component: resolve => {
+                require(['view/contentManage/huaHall'], resolve)
+              },
+              class: 'fa-line-chart',
+              img: require('@/assets/img/access/user.png')
+            },
+            {
+              path: 'knowledgeAnswer',
+              name: '知识问答',
+              component: resolve => {
+                require(['view/contentManage/knowledgeAnswer'], resolve)
+              },
+              class: 'fa-line-chart',
+              img: require('@/assets/img/access/user.png')
+            },
+            {
+              path: 'redTourism',
+              name: '红色旅游',
+              component: resolve => {
+                require(['view/contentManage/redTourism'], resolve)
+              },
+              class: 'fa-line-chart',
+              img: require('@/assets/img/access/user.png')
+            },
+            {
+              path: 'serviceGuide',
+              name: '服务指南',
+              component: resolve => {
+                require(['view/contentManage/serviceGuide'], resolve)
+              },
+              class: 'fa-line-chart',
+              img: require('@/assets/img/access/user.png')
+            },
+            {
+              path: 'visitMessage',
+              name: '参观留言',
+              component: resolve => {
+                require(['view/contentManage/visitMessage'], resolve)
               },
               class: 'fa-line-chart',
               img: require('@/assets/img/access/user.png')

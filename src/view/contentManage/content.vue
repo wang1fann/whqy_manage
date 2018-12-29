@@ -1,4 +1,3 @@
-
 <template>
   <div class="me">
     <div class="tabs">
@@ -12,7 +11,10 @@
           <el-bread></el-bread>
         </el-col>
         <el-col :span="10">
-          <right-tab v-if="$route.path.search('/senceNews') === -1 && $route.path.search('/redEducation') === -1"></right-tab>
+          <div v-if="$route.path.search('/senceNews') === -1 && $route.path.search('/redEducation') === -1 && $route.path.search('/knowledgeAnswer') === -1">
+             <right-tab :subs="subMenus"></right-tab>
+          </div>
+
         </el-col>
       </el-row>
 
@@ -31,14 +33,18 @@ export default {
   },
   data() {
     return {
-      
+      subMenus:[]
     }
   },
   created() {
     console.log(this.$router.options.routes[1].children[3].children);
   },
+  mounted(){
+    this.subMenus =this.$route.meta
+    console.log( this.subMenus)
+  },
   methods: {
-    
+
   },
 }
 </script>

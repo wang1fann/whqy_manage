@@ -1,14 +1,25 @@
 <template>
   <ul>
-    <li class="l dian">景区简介</li>
-    <li class="l">景区掠影</li>
-    <li class="l">组织机构</li>
+    <!--<li class="l dian">景区简介</li>-->
+    <!--<li class="l">-->
+       <router-link :to="a.url" v-for=" a in subs">{{a.title}}</router-link>
+    <!--</li>-->
+    <!--<li class="l">组织机构</li>-->
   </ul>
 </template>
 
 <script>
     export default {
-        name: "rightTab"
+        name: "rightTab",
+        props:[
+           "subs"
+        ],
+        data(){
+            return {
+
+            }
+        }
+
     }
 </script>
 

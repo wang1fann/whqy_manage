@@ -1,5 +1,5 @@
 <template>
-  <div class="content-manageappend">
+  <div class="content-manageDetai">
     <div class="sitUp">
       <div class="l left">
         <img src="@/assets/img/content/photou.png"/>
@@ -8,22 +8,20 @@
       <div class="l right">
         <span>点击左图上传图片*</span><br/>
         <span class="spec">要求：</span><br/>
-        <span>1.图片比例3:1</span><br/>
+        <span>1.图片比例4:5</span><br/>
         <span>2.图片大小 1MB以下</span><br/>
         <span>3.图片格式 .jpg、.png、.gif等 </span><br/>
       </div>
     </div>
-    <div class="sitDown">
-      <label class="l">上传作品:</label>
-      <div class="l">
-        <textarea cols="112" rows="2">请输入简介内容...</textarea>
-      </div>
+    <div class="decenter">
+      <label class="l">宣传标题:</label>
+      <div class="l"></div>
     </div>
-      <div class="sitDowns">
-        <label class="l">作品名称:</label>
-        <div class="l">
-          <textarea cols="112" rows="2">请输入简介内容...</textarea>
-        </div>
+    <div class="sitDown">
+      <label class="l">宣传内容:</label>
+      <div class="l">
+        <textarea cols="112" rows="22">请输入简介内容...</textarea>
+      </div>
       <button>提交</button>
     </div>
   </div>
@@ -31,69 +29,68 @@
 
 <script>
     export default {
-        name: "huaVideoAppend"
+        name: "redEducationDetail"
     }
 </script>
 
 <style scoped>
-  .l{
+  .content-manageDetai .l{
     float: left;
   }
-  .r{float: right}
-  .content-manageappend{
+  .content-manageDetai .r{float: right}
+  .content-manageDetai{
     margin: 0 auto;
     margin-top: 20px;
     width: 80%;
     overflow: hidden;
   }
-  .content-manageappend  .sitUp{
+  .content-manageDetai .sitUp{
     overflow: hidden;
     margin-left: 86px;
   }
-  .content-manageappend .sitUp .left{
-    width: 240px;
-    height: 140px;
+  .content-manageDetai .sitUp .left{
+    width: 170px;
+    height: 210px;
     background: #f0f4f7;
   }
-  .content-manageappend .sitUp .left img{
+  .content-manageDetai .sitUp .left img{
     margin: 0 auto;
-    margin-top: 45px;
+    margin-top: 80px;
   }
   *{margin: 0 ;padding: 0}
-  .content-manageappend .sitUp .left p{
+  .content-manageDetai .sitUp .left p{
     font-size: 13px;
     margin-top: 4px;
     color:#d8dde1 ;
   }
-  .content-manageappend .sitUp .right {
+  .content-manageDetai .sitUp .right {
     text-align: left;
     margin-left: 30px;
-    margin-top: 28px;
+    margin-top: 50px;
     font-size: 12px;
   }
-  .content-manageappend .sitUp .right  span{
+  .content-manageDetai .sitUp .right  span{
     display: block;
     line-height: .5;
     color: #65707b;
   }
-  .content-manageappend .sitUp .right  span.spec{
+  .content-manageDetai .sitUp .right  span.spec{
     font-weight: bold;
   }
-  .content-manageappend .sitDown{
+  .content-manageDetai .sitDown{
     overflow: hidden;
     margin-top: 35px;
   }
-  .content-manageappend .sitDown label{
+  .content-manageDetai .sitDown label{
     margin-right: 24px;
-    margin-top: 10px;
     color: #7f8891;
   }
-  .content-manageappend .sitDown textarea{
+  .content-manageDetai  .sitDown textarea{
     color: #ccc;
     padding-left: 10px;
     padding-top: 10px;
   }
-  .content-manageappend .sitDown button{
+  .content-manageDetai .sitDown button{
     padding: 12px 40px;
     background: #e24142;
     text-align: center;
@@ -103,30 +100,20 @@
     outline: 0;
     border: 0;
   }
-  .content-manageappend .sitDowns{
+  .content-manageDetai .decenter{
     overflow: hidden;
-    margin-top: 20px;
-
+    margin-top:20px;
   }
-  .content-manageappend .sitDowns label{
+  .content-manageDetai .decenter label{
     margin-right: 24px;
-    margin-top: 10px;
     color: #7f8891;
+    margin-top: 12px;
   }
-  .content-manageappend .sitDowns textarea{
+  .content-manageDetai .decenter div.l{
     color: #ccc;
-    padding-left: 10px;
-    padding-top: 10px;
-    margin-bottom: 160px;
+    width: 89%;
+    height: 40px;
+    border: 1px solid #ccc;
   }
-  .content-manageappend .sitDowns button{
-    padding: 12px 40px;
-    background: #e24142;
-    text-align: center;
-    color: #fff;
-    margin-top: 40px;
-    border-radius: 4px;
-    outline: 0;
-    border: 0;
-  }
+
 </style>

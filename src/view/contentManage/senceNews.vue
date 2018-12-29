@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="contentNews">
     <div class="up">
       <div class="l">
         <label class="l">新闻标题</label>
@@ -231,26 +231,27 @@
     }
   }
 </script>
-<style  lang="scss">
-  .gai{
+
+<style  scoped>
+ .contentNews .gai{
     padding-top: 0;
   }
-  .l{float: left}
-  .r{float: right}
-  .up{
+ .contentNews .l{float: left}
+  .contentNews .r{float: right}
+ .contentNews .up{
     line-height: 34px;
     margin-top: 20px;
     margin-left:100px;
     overflow: hidden;
   }
-  .up label{
+ .contentNews  .up label{
     margin-right: 16px;
     color: #999;
   }
-  .up>div{
+ .contentNews .up>div{
     margin-left: 34px;
   }
-  .el-button{
+ .contentNews .el-button{
     padding: 7px 20px;
     background: #e24142;
     height: 30px;
@@ -269,14 +270,15 @@
     height: 32px;
     line-height: 32px;
   }
-   .xia{
+ .contentNews  .xia{
       width: 96%;
      overflow: hidden;
      margin: 0 auto;
      margin-left: 48px;
      margin-top: 20px;
+ }
 
-      table{
+   .contentNews table{
     width: 94%;
     margin-bottom:20px;
     border-spacing: 0;
@@ -284,11 +286,11 @@
     empty-cells: show;
     border-collapse: separate;
   }
-    table{border-collapse:collapse;}
-  table tr{display: block; }
-    tbody tr{border:1px solid #ddd; display: block; margin-bottom: 6px}
-  table thead tr{ margin-bottom: 8px}
-  table thead tr th{
+   .contentNews table{border-collapse:collapse;}
+   .contentNews table tr{display: block; }
+   .contentNews  tbody tr{border:1px solid #ddd; display: block; margin-bottom: 6px}
+   .contentNews table thead tr{ margin-bottom: 8px}
+   .contentNews  table thead tr th{
     vertical-align: bottom;
     font-size: 15px;
     background: #e5e8ef;
@@ -298,51 +300,51 @@
     padding-left: 8px;
   }
 
-   table tbody tr td{
+   .contentNews table tbody tr td{
     padding: 6px;
     font-size: 15px;
     padding-left: 14px;
      color: #868e96;
   }
-  table thead tr th.biao{
-    width: 525px;
+   .contentNews table thead tr th.biao{
+    width: 600px;
     text-align: center;
   }
-  table thead tr th:nth-child(1){
+   .contentNews table thead tr th:nth-child(1){
     width: 80px;
     padding-left: 15px;
   }
-  table thead tr th:nth-child(1) input{
+   .contentNews table thead tr th:nth-child(1) input{
     width: 15px;
     height: 15px;
   }
-  table tbody tr td:nth-child(1) input{
+   .contentNews table tbody tr td:nth-child(1) input{
     width: 15px;
     height: 15px;
   }
-  table thead tr th.last1{
+   .contentNews table thead tr th.last1{
     width: 262px;
     text-align: center;
   }
-  table thead tr th.gaidate{
+   .contentNews table thead tr th.gaidate{
     width: 100px;
     text-align: center;
   }
-  table tbody tr td.words{
+   .contentNews  table tbody tr td.words{
     width: 600px;
   }
-  table tbody tr td.newlast{
+   .contentNews  table tbody tr td.newlast{
     padding-left: 84px;
   }
-  table tbody tr td.datenews{
+   .contentNews table tbody tr td.datenews{
     width: 90px;
   }
-  table tbody tr td a{
+   .contentNews  table tbody tr td a{
     color: #868e96;
     font-size: 15px;
     text-decoration: none;
   }
-    table tbody tr td button{
+   .contentNews  table tbody tr td button{
     padding:0px 10px;
     padding-right: 9px;
     display: inline-block;
@@ -358,17 +360,14 @@
     background: #fff;
       color: #eb5e5f;
   }
-  table tbody tr td button:last-child{
+   .contentNews table tbody tr td button:last-child{
     border-right: 0;
   }
-    table tbody tr td button span{
+   .contentNews table tbody tr td button span{
     display: inline-block;
     width:15px;
     height:17px;
     margin-right: 4px;
-  }
-
-
   }
 
   
