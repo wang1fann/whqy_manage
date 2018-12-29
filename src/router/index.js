@@ -15,6 +15,7 @@ let router = new Router({
         {
             path: '/',
             component: Menu,
+            redirect: "/rights",
             children: [{
                     path: '/rights',
                     name: '权限管理',
