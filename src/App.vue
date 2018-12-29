@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <router-view/>
-    <loading v-if='loading'/> 
   </div>
 </template>
 
@@ -9,9 +8,7 @@
  import {mapState} from 'vuex'
 export default {
   computed: {
-    ...mapState([
-      'loading'
-    ])
+  
   },
   name: 'App'
 }
