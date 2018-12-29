@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="contentVideo">
     <div class="up">
       <div class="l">
         <label class="l">文物标题</label>
@@ -117,44 +117,44 @@
 </script>
 
 <style  lang="scss">
-  .gai{
+  .contentVideo .gai{
     padding-top: 0;
   }
   .l{float: left}
   .r{float: right}
-  .up{
+  .contentVideo  .up{
     line-height: 34px;
     margin-top: 20px;
     margin-left:100px;
     overflow: hidden;
   }
-  .up label{
+  .contentVideo .up label{
     margin-right: 16px;
     color: #999;
   }
-  .up>div{
+  .contentVideo .up>div{
     margin-left: 34px;
   }
-  .el-button{
+  .contentVideo .el-button{
     padding: 7px 20px;
     background: #e24142;
     height: 30px;
     margin-left: 20px;
   }
-  .el-date-editor.el-input{
+  .contentVideo .el-date-editor.el-input{
     width: 148px;
   }
-  input.el-input__inner{
+  .contentVideo  input.el-input__inner{
     width: 380px;
   }
-  .el-input--prefix .el-input__inner{
+  .contentVideo .el-input--prefix .el-input__inner{
     width: 148px;
   }
-  .el-input--prefix .el-input__inner {
+  .contentVideo .el-input--prefix .el-input__inner {
     height: 32px;
     line-height: 32px;
   }
-  .xia{
+  .contentVideo .xia{
     width: 96%;
     overflow: hidden;
     padding-bottom: 300px;
@@ -164,7 +164,7 @@
 
   }
 
-  table{
+  .contentVideo table{
     width: 94%;
     margin-bottom:20px;
     border-spacing: 0;
@@ -172,11 +172,11 @@
     empty-cells: show;
     border-collapse: separate;
   }
-  table{border-collapse:collapse;}
-  table tr{display: block; }
-  tbody tr{border:1px solid #ddd; display: block; margin-bottom: 6px}
-  table thead tr{ margin-bottom: 8px}
-  table thead tr th{
+  .contentVideo table{border-collapse:collapse;}
+  .contentVideo table tr{display: block; }
+  .contentVideo tbody tr{border:1px solid #ddd; display: block; margin-bottom: 6px}
+  .contentVideo table thead tr{ margin-bottom: 8px}
+  .contentVideo table thead tr th{
     vertical-align: bottom;
     font-size: 15px;
     background: #e5e8ef;
@@ -186,61 +186,61 @@
     padding-left: 8px;
   }
 
-  table tbody tr td{
+  .contentVideo table tbody tr td{
     padding: 6px;
     font-size: 15px;
     padding-left: 14px;
     color: #868e96;
   }
-  table thead tr th.huawen{
+  .contentVideo table thead tr th.huawen{
     width: 236px;
     padding-left: 20px;
     text-align: center;
   }
-  table thead tr th:nth-child(4){
+  .contentVideo table thead tr th:nth-child(4){
     width: 205px;
     text-align: center;
   }
-  table thead tr th:nth-child(1){
+  .contentVideo table thead tr th:nth-child(1){
     width: 80px;
     padding-left: 15px;
   }
-  table thead tr th:nth-child(1) input{
+  .contentVideo table thead tr th:nth-child(1) input{
     width: 15px;
     height: 15px;
   }
-  table tbody tr td:nth-child(1) input{
+  .contentVideo table tbody tr td:nth-child(1) input{
     width: 15px;
     height: 15px;
   }
-  table thead tr th.last2{
+  .contentVideo table thead tr th.last2{
     width: 260px;
     text-align: center;
   }
-  table thead tr th.wenAges{
+  .contentVideo table thead tr th.wenAges{
     width: 160px;
     padding-left: 84px;
     text-align: center;
   }
-  table tbody tr td.huatitle{
+  .contentVideo table tbody tr td.huatitle{
     width: 340px;
   }
-  table tbody tr td.ageduan{
+  .contentVideo table tbody tr td.ageduan{
     width: 154px;
   }
-  table tbody tr td:nth-child(4){
+  .contentVideo table tbody tr td:nth-child(4){
     width: 184px;
   }
-  table tbody tr td.btnlast{
+  .contentVideo table tbody tr td.btnlast{
     padding-left: 56px;
   }
 
-  table tbody tr td a{
+  .contentVideo table tbody tr td a{
     color: #868e96;
     font-size: 15px;
     text-decoration: none;
   }
-  table tbody tr td button{
+  .contentVideo table tbody tr td button{
     padding:0px 10px;
     padding-right: 9px;
     display: inline-block;
@@ -257,10 +257,10 @@
     color: #eb5e5f;
 
   }
-  table tbody tr td button:last-child{
+  .contentVideo table tbody tr td button:last-child{
     border-right: 0;
   }
-  table tbody tr td button span{
+  .contentVideo table tbody tr td button span{
     display: inline-block;
     width:15px;
     height:17px;

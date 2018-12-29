@@ -1,5 +1,5 @@
 <template>
-  <div class="content-manage">
+  <div class="content-manageBig">
     <div class="xian">
       <span></span>
       <label>事纪添加</label>
@@ -30,17 +30,17 @@
 </script>
 
 <style scoped>
-  .l{
+  .content-manageBig .l{
     float: left;
   }
-  .r{float: right}
-  .content-manage{
+  .content-manageBig .r{float: right}
+  .content-manageBig{
     margin: 0 auto;
     margin-top: 20px;
     width: 84%;
     overflow: hidden;
   }
-  .xian{
+  .content-manageBig .xian{
     width: 99.6%;
     height: 46px;
     line-height: 46px;
@@ -49,7 +49,7 @@
     border-radius: 2px;
     position: relative;
   }
-  .xian span{
+  .content-manageBig .xian span{
     display: inline-block;
     position: absolute;
     top:12px;
@@ -58,28 +58,28 @@
     background: url("../../assets/img/content/addf.png") no-repeat;
     background-size: 20px auto;
   }
-  .xian label{
+  .content-manageBig .xian label{
     margin-left: 30px;
     font-size: 13px;
   }
-  .bigdown{
+  .content-manageBig .bigdown{
     overflow: hidden;
     background: #f7f9fa;
     margin-top: 30px;
     padding-bottom: 20px;
   }
 
-  .sitDown{
+  .content-manageBig .sitDown{
     overflow: hidden;
     margin-top: 35px;
     margin-left: 40px;
   }
-  .sitDown label{
+  .content-manageBig .sitDown label{
     margin-right: 16px;
     margin-top: 10px;
     color: #7f8891;
   }
-  .sitDown div.l div{
+  .content-manageBig .sitDown div.l div{
     width: 780px;
     padding-left: 14px;
     border-radius:3px;
@@ -89,7 +89,7 @@
     line-height: 40px;
     background: #fff;
   }
-  .sitDown button{
+  .content-manageBig .sitDown button{
     padding: 12px 40px;
     background: #e24142;
     text-align: center;
@@ -99,18 +99,18 @@
     outline: 0;
     border: 0;
   }
-  .sitDowns{
+  .content-manageBig .sitDowns{
     overflow: hidden;
     margin-top: 20px;
     margin-left: 40px;
 
   }
-  .sitDowns label{
+  .content-manageBig .sitDowns label{
     margin-right: 16px;
     margin-top: 10px;
     color: #7f8891;
   }
-  .sitDowns div.l div{
+  .content-manageBig .sitDowns div.l div{
     width: 780px;
     padding-left: 14px;
     border-radius:3px;
@@ -121,7 +121,7 @@
     background: #fff;
   }
 
-  .sitDowns button{
+  .content-manageBig .sitDowns button{
     padding: 12px 40px;
     background: #e24142;
     text-align: center;

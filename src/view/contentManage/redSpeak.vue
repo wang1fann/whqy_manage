@@ -1,8 +1,8 @@
 <template>
-  <div class="contentstr">
+  <div class="contentSpeak">
     <div class="up">
       <div class="l">
-        <label class="l">文物标题</label>
+        <label class="l">标题</label>
         <div class="l">
           <el-input v-model="input"  placeholder="请输入内容"></el-input>
         </div>
@@ -30,10 +30,9 @@
             <input  type="checkbox">
             <label>全选</label>
           </th>
-          <th class="wen">文物标题</th>
-          <th class="wenImg">文物图片</th>
-          <th class="strshi">上传时间</th>
-          <th class="last2">操作</th>
+          <th class="biao">标题</th>
+          <th class="gaidate">上传时间</th>
+          <th class="last1">操作</th>
         </tr>
         </thead>
         <tbody>
@@ -41,10 +40,9 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="strtitle"><a href="#">孙中山粉彩开光山水人物图</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
-          <td>2018-06-03</td>
-          <td class="btnlast">
+          <td class="words"><a href="#">"我心中的渭华" 系列比赛活动</a></td>
+          <td class="datenews">2018-06-03</td>
+          <td class="newlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -54,10 +52,9 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="strtitle"><a href="#">粉彩双骑纹九子碟</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
-          <td>2018-06-03</td>
-          <td class="btnlast">
+          <td class="words"><a href="#">"我心中的渭华" 系列比赛活动</a></td>
+          <td class="datenews">2018-06-03</td>
+          <td class="newlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -67,10 +64,9 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="strtitle"><a href="#">孙中山粉彩开光山水人物图</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
-          <td>2018-06-03</td>
-          <td class="btnlast">
+          <td class="words"><a href="#">"我心中的渭华" 系列比赛活动</a></td>
+          <td class="datenews">2018-06-03</td>
+          <td class="newlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -80,10 +76,9 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="strtitle"><a href="#">粉彩双骑纹九子碟</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
-          <td>2018-06-03</td>
-          <td class="btnlast">
+          <td class="words"><a href="#">"我心中的渭华" 系列比赛活动</a></td>
+          <td class="datenews">2018-06-03</td>
+          <td class="newlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -93,10 +88,9 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="strtitle"><a href="#">孙中山粉彩开光山水人物图</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
-          <td>2018-06-03</td>
-          <td class="btnlast">
+          <td class="words"><a href="#">"我心中的渭华" 系列比赛活动</a></td>
+          <td class="datenews">2018-06-03</td>
+          <td class="newlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -106,10 +100,9 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="strtitle"><a href="#">粉彩双骑纹九子碟</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
-          <td>2018-06-03</td>
-          <td class="btnlast">
+          <td class="words"><a href="#">"我心中的渭华" 系列比赛活动</a></td>
+          <td class="datenews">2018-06-03</td>
+          <td class="newlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -119,10 +112,9 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="strtitle"><a href="#">孙中山粉彩开光山水人物图</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
-          <td>2018-06-03</td>
-          <td class="btnlast">
+          <td class="words"><a href="#">"我心中的渭华" 系列比赛活动</a></td>
+          <td class="datenews">2018-06-03</td>
+          <td class="newlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -132,10 +124,9 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="strtitle"><a href="#">粉彩双骑纹九子碟</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
-          <td>2018-06-03</td>
-          <td class="btnlast">
+          <td class="words"><a href="#">"我心中的渭华" 系列比赛活动</a></td>
+          <td class="datenews">2018-06-03</td>
+          <td class="newlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -145,10 +136,9 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="strtitle"><a href="#">孙中山粉彩开光山水人物图</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
-          <td>2018-06-03</td>
-          <td class="btnlast">
+          <td class="words"><a href="#">"我心中的渭华" 系列比赛活动</a></td>
+          <td class="datenews">2018-06-03</td>
+          <td class="newlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -158,10 +148,9 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="strtitle"><a href="#">粉彩双骑纹九子碟</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
-          <td>2018-06-03</td>
-          <td class="btnlast">
+          <td class="words"><a href="#">"我心中的渭华" 系列比赛活动</a></td>
+          <td class="datenews">2018-06-03</td>
+          <td class="newlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -171,10 +160,9 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="strtitle"><a href="#">孙中山粉彩开光山水人物图</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
-          <td>2018-06-03</td>
-          <td class="btnlast">
+          <td class="words"><a href="#">"我心中的渭华" 系列比赛活动</a></td>
+          <td class="datenews">2018-06-03</td>
+          <td class="newlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
@@ -184,16 +172,14 @@
           <td>
             <input type="checkbox">
           </td>
-          <td class="strtitle"><a href="#">粉彩双骑纹九子碟</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
-          <td>2018-06-03</td>
-          <td class="btnlast">
+          <td class="words"><a href="#">"我心中的渭华" 系列比赛活动</a></td>
+          <td class="datenews">2018-06-03</td>
+          <td class="newlast">
             <button type="button" class="l">查看</button>
             <button type="button" class="l">编辑</button>
             <button type="button" class="l">删除</button>
           </td>
         </tr>
-
         </tbody>
       </table>
     </div>
@@ -210,7 +196,7 @@
 
 <script>
     export default {
-        name: "appreciationStrory",
+        name: "redSpeak",
       data() {
         return {
           pickerOptions1: {
@@ -246,54 +232,53 @@
     }
 </script>
 
-<style  lang="scss">
-  .contentstr .gai{
+<style scoped>
+  .contentSpeak .gai{
     padding-top: 0;
   }
-  .l{float: left}
-  .r{float: right}
-  .contentstr .up{
+  .contentSpeak .l{float: left}
+  .contentSpeak .r{float: right}
+  .contentSpeak .up{
     line-height: 34px;
     margin-top: 20px;
     margin-left:100px;
     overflow: hidden;
   }
-  .contentstr .up label{
+  .contentSpeak  .up label{
     margin-right: 16px;
     color: #999;
   }
-  .contentstr .up>div{
+  .contentSpeak .up>div{
     margin-left: 34px;
   }
-  .contentstr .el-button{
+  .contentSpeak .el-button{
     padding: 7px 20px;
     background: #e24142;
     height: 30px;
     margin-left: 20px;
   }
-  .contentstr .el-date-editor.el-input{
+  .el-date-editor.el-input{
     width: 148px;
   }
-  .contentstr  input.el-input__inner{
+  input.el-input__inner{
     width: 380px;
   }
-  .contentstr .el-input--prefix .el-input__inner{
+  .el-input--prefix .el-input__inner{
     width: 148px;
   }
-  .contentstr .el-input--prefix .el-input__inner {
+  .el-input--prefix .el-input__inner {
     height: 32px;
     line-height: 32px;
   }
-  .contentstr .xia{
+  .contentSpeak  .xia{
     width: 96%;
     overflow: hidden;
     margin: 0 auto;
     margin-left: 48px;
     margin-top: 20px;
-
   }
 
-  .contentstr table{
+  .contentSpeak table{
     width: 94%;
     margin-bottom:20px;
     border-spacing: 0;
@@ -301,11 +286,11 @@
     empty-cells: show;
     border-collapse: separate;
   }
-  .contentstr table{border-collapse:collapse;}
-  .contentstr table tr{display: block; }
-  .contentstr tbody tr{border:1px solid #ddd; display: block; margin-bottom: 6px}
-  .contentstr table thead tr{ margin-bottom: 8px}
-  .contentstr table thead tr th{
+  .contentSpeak table{border-collapse:collapse;}
+  .contentSpeak table tr{display: block; }
+  .contentSpeak  tbody tr{border:1px solid #ddd; display: block; margin-bottom: 6px}
+  .contentSpeak table thead tr{ margin-bottom: 8px}
+  .contentSpeak  table thead tr th{
     vertical-align: bottom;
     font-size: 15px;
     background: #e5e8ef;
@@ -315,59 +300,51 @@
     padding-left: 8px;
   }
 
-  .contentstr table tbody tr td{
+  .contentSpeak table tbody tr td{
     padding: 6px;
     font-size: 15px;
     padding-left: 14px;
     color: #868e96;
   }
-  .contentstr table thead tr th.wen{
-    width: 400px;
+  .contentSpeak table thead tr th.biao{
+    width: 600px;
     text-align: center;
   }
-  .contentstr table thead tr th.strshi{
-    width: 205px;
-    text-align: center;
-  }
-  .contentstr table thead tr th:nth-child(1){
+  .contentSpeak table thead tr th:nth-child(1){
     width: 80px;
     padding-left: 15px;
   }
-  .contentstr table thead tr th:nth-child(1) input{
+  .contentSpeak table thead tr th:nth-child(1) input{
     width: 15px;
     height: 15px;
   }
-  .contentstr table tbody tr td:nth-child(1) input{
+  .contentSpeak table tbody tr td:nth-child(1) input{
     width: 15px;
     height: 15px;
   }
-  .contentstr table thead tr th.last2{
-    width: 260px;
+  .contentSpeak table thead tr th.last1{
+    width: 262px;
     text-align: center;
   }
-  .contentstr table thead tr th.wenImg{
+  .contentSpeak table thead tr th.gaidate{
     width: 100px;
     text-align: center;
   }
-  .contentstr table tbody tr td.strtitle{
-    width: 400px;
+  .contentSpeak  table tbody tr td.words{
+    width: 600px;
   }
-  .contentstr table tbody tr td.strImg{
+  .contentSpeak  table tbody tr td.newlast{
+    padding-left: 84px;
+  }
+  .contentSpeak table tbody tr td.datenews{
     width: 90px;
   }
-  .contentstr table tbody tr td:nth-child(4){
-    width: 184px;
-  }
-  .contentstr table tbody tr td.btnlast{
-    padding-left: 56px;
-  }
-
-  .contentstr table tbody tr td a{
+  .contentSpeak  table tbody tr td a{
     color: #868e96;
     font-size: 15px;
     text-decoration: none;
   }
-  .contentstr table tbody tr td button{
+  .contentSpeak  table tbody tr td button{
     padding:0px 10px;
     padding-right: 9px;
     display: inline-block;
@@ -382,12 +359,11 @@
     border-right: 1px solid #ccc;
     background: #fff;
     color: #eb5e5f;
-
   }
-  .contentstr table tbody tr td button:last-child{
+  .contentSpeak table tbody tr td button:last-child{
     border-right: 0;
   }
-  .contentstr table tbody tr td button span{
+  .contentSpeak table tbody tr td button span{
     display: inline-block;
     width:15px;
     height:17px;

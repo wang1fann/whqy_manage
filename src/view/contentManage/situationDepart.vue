@@ -1,5 +1,5 @@
 <template>
-  <div class="content-manage">
+  <div class="content-manageDepart">
     <div class="sitDown">
       <label class="l">机构内容:</label>
       <div class="l">
@@ -17,11 +17,11 @@
 </script>
 
 <style scoped>
-  .l{
+  .content-manageDepart .l{
     float: left;
   }
-  .r{float: right}
-  .content-manage{
+  .content-manageDepart .r{float: right}
+  .content-manageDepart{
     margin: 0 auto;
     margin-top: 20px;
     width: 80%;
@@ -30,20 +30,20 @@
 
   *{margin: 0 ;padding: 0}
 
-  .sitDown{
+  .content-manageDepart .sitDown{
     overflow: hidden;
     margin-top: 35px;
   }
-  .sitDown label{
+  .content-manageDepart .sitDown label{
     margin-right: 24px;
     color: #7f8891;
   }
-  .sitDown textarea{
+  .content-manageDepart .sitDown textarea{
     color: #ccc;
     padding-left: 10px;
     padding-top: 10px;
   }
-  .sitDown button{
+  .content-manageDepart  .sitDown button{
     padding: 12px 40px;
     background: #e24142;
     text-align: center;
