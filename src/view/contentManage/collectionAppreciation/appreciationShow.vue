@@ -1,26 +1,26 @@
 <template>
   <div class="content-manageappre">
     <div class="l left">
-      <img src="../../assets/img/content/photou.png"/>
+      <img src="@/assets/img/content/photou.png"/>
       <p>点上传击图片</p>
     </div>
     <div class="l tuImg">
-      <img  src="../../assets/img/content/photoe.png"/>
+      <img  src="@/assets/img/content/photoe.png"/>
       <span></span>
       <p>渭华起义工农红军使用过的土铁枪</p>
     </div>
     <div class="l tuImg">
-      <img  src="../../assets/img/content/photoq.png"/>
+      <img  src="@/assets/img/content/photoq.png"/>
       <span></span>
       <p>《清国革命动乱大地图》</p>
     </div>
     <div class="l tuImg">
-      <img  src="../../assets/img/content/photor.png"/>
+      <img  src="@/assets/img/content/photor.png"/>
       <span></span>
       <p>熊秉坤姓名印</p>
     </div>
     <div class="l tuImg">
-      <img  src="../../assets/img/content/photow.png"/>
+      <img  src="@/assets/img/content/photow.png"/>
       <span></span>
       <p>中立布告照照片</p>
     </div>
@@ -75,7 +75,7 @@
     display: block;
     width: 24px;
     height:24px ;
-    background: url("../../assets/img/content/cha.png") no-repeat;
+    background: url("../../../assets/img/content/cha.png") no-repeat;
     background-size: 24px auto;
     position: absolute;
     right: -11px;

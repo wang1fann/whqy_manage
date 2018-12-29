@@ -1,7 +1,8 @@
 <template>
+  <router-view></router-view>
     <!--<hua-word></hua-word>-->
   <!--<hua-video></hua-video>-->
-  <hua-video-append></hua-video-append>
+  <!--<hua-video-append></hua-video-append>-->
 </template>
 
 <script>

@@ -20,6 +20,7 @@
           <el-button type="danger" class="btn">查询</el-button>
         </el-row>
       </div>
+
     </div>
     <div class="xia">
       <table class="biao4">
@@ -296,7 +297,7 @@
     color: #666;
     padding: 8px;
     text-align: left;
-    padding-left: 8px;
+    /*padding-left: 8px;*/
   }
 
    .contentNews table tbody tr td{
@@ -306,11 +307,11 @@
      color: #868e96;
   }
    .contentNews table thead tr th.biao{
-    width: 600px;
+    width:32%;
     text-align: center;
   }
    .contentNews table thead tr th:nth-child(1){
-    width: 80px;
+    width: 10%;
     padding-left: 15px;
   }
    .contentNews table thead tr th:nth-child(1) input{
@@ -322,15 +323,17 @@
     height: 15px;
   }
    .contentNews table thead tr th.last1{
-    width: 262px;
-    text-align: center;
+      width: 3%;
+      text-align: left;
+      padding-right:112px;
   }
    .contentNews table thead tr th.gaidate{
-    width: 100px;
-    text-align: center;
+    width: 18%;
+    text-align: left;
+     padding-left: 108px;
   }
    .contentNews  table tbody tr td.words{
-    width: 600px;
+    width: 68%;
   }
    .contentNews  table tbody tr td.newlast{
     padding-left: 84px;

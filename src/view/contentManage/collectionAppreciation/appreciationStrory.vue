@@ -42,7 +42,7 @@
             <input type="checkbox">
           </td>
           <td class="strtitle"><a href="#">孙中山粉彩开光山水人物图</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td class="strImg"><img src="@/assets/img/content/photoy.png"></td>
           <td>2018-06-03</td>
           <td class="btnlast">
             <button type="button" class="l">查看</button>
@@ -55,7 +55,7 @@
             <input type="checkbox">
           </td>
           <td class="strtitle"><a href="#">粉彩双骑纹九子碟</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td class="strImg"><img src="@/assets/img/content/photoy.png"></td>
           <td>2018-06-03</td>
           <td class="btnlast">
             <button type="button" class="l">查看</button>
@@ -68,7 +68,7 @@
             <input type="checkbox">
           </td>
           <td class="strtitle"><a href="#">孙中山粉彩开光山水人物图</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td class="strImg"><img src="@/assets/img/content/photoy.png"></td>
           <td>2018-06-03</td>
           <td class="btnlast">
             <button type="button" class="l">查看</button>
@@ -81,7 +81,7 @@
             <input type="checkbox">
           </td>
           <td class="strtitle"><a href="#">粉彩双骑纹九子碟</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td class="strImg"><img src="@/assets/img/content/photoy.png"></td>
           <td>2018-06-03</td>
           <td class="btnlast">
             <button type="button" class="l">查看</button>
@@ -94,7 +94,7 @@
             <input type="checkbox">
           </td>
           <td class="strtitle"><a href="#">孙中山粉彩开光山水人物图</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td class="strImg"><img src="@/assets/img/content/photoy.png"></td>
           <td>2018-06-03</td>
           <td class="btnlast">
             <button type="button" class="l">查看</button>
@@ -107,7 +107,7 @@
             <input type="checkbox">
           </td>
           <td class="strtitle"><a href="#">粉彩双骑纹九子碟</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td class="strImg"><img src="@/assets/img/content/photoy.png"></td>
           <td>2018-06-03</td>
           <td class="btnlast">
             <button type="button" class="l">查看</button>
@@ -120,7 +120,7 @@
             <input type="checkbox">
           </td>
           <td class="strtitle"><a href="#">孙中山粉彩开光山水人物图</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td class="strImg"><img src="@/assets/img/content/photoy.png"></td>
           <td>2018-06-03</td>
           <td class="btnlast">
             <button type="button" class="l">查看</button>
@@ -133,7 +133,7 @@
             <input type="checkbox">
           </td>
           <td class="strtitle"><a href="#">粉彩双骑纹九子碟</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td class="strImg"><img src="@/assets/img/content/photoy.png"></td>
           <td>2018-06-03</td>
           <td class="btnlast">
             <button type="button" class="l">查看</button>
@@ -146,7 +146,7 @@
             <input type="checkbox">
           </td>
           <td class="strtitle"><a href="#">孙中山粉彩开光山水人物图</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td class="strImg"><img src="@/assets/img/content/photoy.png"></td>
           <td>2018-06-03</td>
           <td class="btnlast">
             <button type="button" class="l">查看</button>
@@ -159,7 +159,7 @@
             <input type="checkbox">
           </td>
           <td class="strtitle"><a href="#">粉彩双骑纹九子碟</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td class="strImg"><img src="@/assets/img/content/photoy.png"></td>
           <td>2018-06-03</td>
           <td class="btnlast">
             <button type="button" class="l">查看</button>
@@ -172,7 +172,7 @@
             <input type="checkbox">
           </td>
           <td class="strtitle"><a href="#">孙中山粉彩开光山水人物图</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td class="strImg"><img src="@/assets/img/content/photoy.png"></td>
           <td>2018-06-03</td>
           <td class="btnlast">
             <button type="button" class="l">查看</button>
@@ -185,7 +185,7 @@
             <input type="checkbox">
           </td>
           <td class="strtitle"><a href="#">粉彩双骑纹九子碟</a></td>
-          <td class="strImg"><img src="../../assets/img/content/photoy.png"></td>
+          <td class="strImg"><img src="@/assets/img/content/photoy.png"></td>
           <td>2018-06-03</td>
           <td class="btnlast">
             <button type="button" class="l">查看</button>

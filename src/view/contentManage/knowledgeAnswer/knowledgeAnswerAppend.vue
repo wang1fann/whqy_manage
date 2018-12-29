@@ -218,7 +218,7 @@
     margin-left: 6px;
     width: 15px;
     height: 15px;
-    background: url("../../assets/img/content/addf.png") no-repeat;
+    background: url("../../../assets/img/content/addf.png") no-repeat;
     background-size: 15px auto;
   }
   .answerAppend div.right .down .repeats div.r .bottoms{

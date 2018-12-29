@@ -2,7 +2,7 @@
   <div class="content-manageIntrod">
     <div class="sitUp">
       <div class="l left">
-        <img src="../../assets/img/content/photou.png"/>
+        <img src="@/assets/img/content/photou.png"/>
         <p>暂无图片</p>
       </div>
       <div class="l right">
@@ -16,10 +16,10 @@
     <div class="sitDown">
       <label class="l">简介内容:</label>
       <div class="l">
-        <textarea cols="112" rows="22">请输入简介内容...</textarea>
+        <textarea cols="120" rows="22">请输入简介内容...</textarea>
       </div>
-      <button>提交</button>
     </div>
+    <button>提交</button>
   </div>
 </template>
 
@@ -83,6 +83,7 @@
   }
  .content-manageIntrod .sitUp{
     overflow: hidden;
+    margin:0 auto;
     margin-left: 86px;
   }
  .content-manageIntrod .sitUp .left{
@@ -116,7 +117,9 @@
   }
  .content-manageIntrod .sitDown{
     overflow: hidden;
+    margin: 0 auto;
     margin-top: 35px;
+
   }
  .content-manageIntrod .sitDown label{
     margin-right: 24px;
@@ -127,7 +130,7 @@
     padding-left: 10px;
     padding-top: 10px;
   }
- .content-manageIntrod .sitDown button{
+ .content-manageIntrod  button{
     padding: 12px 40px;
     background: #e24142;
     text-align: center;

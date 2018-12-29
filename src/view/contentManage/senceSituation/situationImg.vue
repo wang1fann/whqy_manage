@@ -41,8 +41,8 @@
 
   }
   .content-manageImg .left{
-    width: 200px;
-    height:140px;
+    width: 20%;
+    height:160px;
     background: #f0f4f7;
   }
   .content-manageImg .left img{
@@ -58,18 +58,22 @@
     color:#d8dde1 ;
   }
   .content-manageImg img{
-    width: 200px;
-    height:140px;
+    width: 93%;
+    height:160px;
     margin-left: 22px;
   }
   .content-manageImg .tuImg{
     position: relative;
+    box-sizing: border-box;
+    width: 20%;
   }
   .content-manageImg .tuImg span{
     display: block;
     width: 24px;
     height:24px ;
-    background: url("../../assets/img/content/cha.png") no-repeat;
+    /* background: url("../../../") no-repeat; */
+    
+    background: url("../../../assets/img/content/cha.png") no-repeat;
     background-size: 24px auto;
     position: absolute;
     right: -11px;

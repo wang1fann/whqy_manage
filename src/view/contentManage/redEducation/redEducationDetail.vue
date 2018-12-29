@@ -22,8 +22,9 @@
       <div class="l">
         <textarea cols="112" rows="22">请输入简介内容...</textarea>
       </div>
-      <button>提交</button>
+
     </div>
+    <button>提交</button>
   </div>
 </template>
 
@@ -90,7 +91,7 @@
     padding-left: 10px;
     padding-top: 10px;
   }
-  .content-manageDetai .sitDown button{
+  .content-manageDetai  button{
     padding: 12px 40px;
     background: #e24142;
     text-align: center;
