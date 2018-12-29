@@ -134,7 +134,26 @@ let router = new Router({
                                 require(['view/contentManage/xianThings'], resolve)
                             },
                             class: 'fa-line-chart',
-                            img: require('@/assets/img/access/user.png')
+                            img: require('@/assets/img/access/user.png'),
+                            children: [{
+                                path: 'heros',
+                                name: '渭华英雄',
+                                component: resolve => {
+                                    require(['view/contentManage/xianThings/heros'], resolve)
+                                },
+                                class: 'fa-line-chart',
+                                img: require('@/assets/img/access/user.png'),
+                                children: []
+                            }, {
+                                path: 'GreatDeeds',
+                                name: '重大事迹',
+                                component: resolve => {
+                                    require(['view/contentManage/xianThings/GreatDeeds'], resolve)
+                                },
+                                class: 'fa-line-chart',
+                                img: require('@/assets/img/access/user.png'),
+                                children: []
+                            }]
                         },
                         {
                             path: 'xiSpirit',
@@ -143,7 +162,37 @@ let router = new Router({
                                 require(['view/contentManage/xiSpirit'], resolve)
                             },
                             class: 'fa-line-chart',
-                            img: require('@/assets/img/access/user.png')
+                            img: require('@/assets/img/access/user.png'),
+                            children: [{
+                                    path: 'biography',
+                                    name: '生平简介',
+                                    component: resolve => {
+                                        require(['view/contentManage/xiSpirit/biography'], resolve)
+                                    },
+                                    class: 'fa-line-chart',
+                                    img: require('@/assets/img/access/user.png'),
+                                    children: []
+                                },
+                                {
+                                    path: 'TheFeats',
+                                    name: '丰功伟绩',
+                                    component: resolve => {
+                                        require(['view/contentManage/xiSpirit/TheFeats'], resolve)
+                                    },
+                                    class: 'fa-line-chart',
+                                    img: require('@/assets/img/access/user.png'),
+                                    children: []
+                                }, {
+                                    path: 'HistoricalMoments',
+                                    name: '历史瞬间',
+                                    component: resolve => {
+                                        require(['view/contentManage/xiSpirit/HistoricalMoments'], resolve)
+                                    },
+                                    class: 'fa-line-chart',
+                                    img: require('@/assets/img/access/user.png'),
+                                    children: []
+                                }
+                            ]
                         },
                         {
                             path: 'redEducation',
