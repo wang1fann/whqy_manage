@@ -2,7 +2,12 @@
   <div class="me">
     <div class="tabs">
       <ul>
-        <router-link v-for="(item,index) in $router.options.routes[1].children[3].children" :key="index" :to="{name: item.name}" tag="li" >{{item.name}}</router-link>
+        <router-link
+          v-for="(item,index) in $router.options.routes[1].children[3].children"
+          :key="index"
+          :to="{name: item.name}"
+          tag="li"
+        >{{item.name}}</router-link>
       </ul>
     </div>
     <div class="content-manage">
@@ -12,7 +17,7 @@
         </el-col>
         <el-col :span="10">
           <div v-if="$route.path.search('/senceNews') === -1 && $route.path.search('/redEducation') === -1 && $route.path.search('/knowledgeAnswer') === -1">
-             <right-tab :subs="subMenus"></right-tab>
+            <right-tab :subs="subMenus"></right-tab>
           </div>
 
         </el-col>
@@ -23,56 +28,55 @@
   </div>
 </template>
 <script>
-import ElBread from "@/components/ElBread";//面包屑
+import ElBread from "@/components/ElBread"; //面包屑
 import RightTab from "@/components/rightTab";
 export default {
-  name:"contentManage",
- components: {
-   RightTab,
-    "el-bread": ElBread,
+  name: "contentManage",
+  components: {
+    RightTab,
+    "el-bread": ElBread
   },
   data() {
     return {
-      subMenus:[]
-    }
+      subMenus: []
+    };
   },
   created() {
     console.log(this.$router.options.routes[1].children[3].children);
   },
-  mounted(){
-    this.subMenus =this.$route.meta
-    console.log( this.subMenus)
+  mounted() {
+    this.subMenus = this.$route.meta;
+    console.log(this.subMenus);
   },
-  methods: {
-
-  },
-}
+  methods: {}
+};
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss" scoped>
-  .me{
-    .tabs{
-      margin: -21px;
-      margin-bottom: 10px;
-      border-bottom: 10px solid #dee5e6;
-      & > ul, & > ul > li {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        cursor: pointer;
-      }
-      & > ul{
-        display: flex;
-        border-bottom: #cccccc solid 1px;
-        & > li{
-          flex: 1;
-          text-align: center;
-          padding: 10px;
-          &.router-link-active {
-            color: #D0021B;
-            border-bottom: 2px solid #D0021B;
-          }
+.me {
+  .tabs {
+    margin: -21px;
+    margin-bottom: 10px;
+    border-bottom: 10px solid #dee5e6;
+    & > ul,
+    & > ul > li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      cursor: pointer;
+    }
+    & > ul {
+      display: flex;
+      border-bottom: #cccccc solid 1px;
+      & > li {
+        flex: 1;
+        text-align: center;
+        padding: 10px;
+        &.router-link-active {
+          color: #d0021b;
+          border-bottom: 2px solid #d0021b;
         }
       }
     }
   }
+}
 </style>
