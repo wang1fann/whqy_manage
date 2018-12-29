@@ -1,7 +1,7 @@
 // /case/pageQuery
 // 产品相关api
 
-import * as API from './'
+import * as API from '.'
 
 export default {
     // 案例相关接口

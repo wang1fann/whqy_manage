@@ -1,6 +1,25 @@
 {
     "user": {
         "item": [{
+                "type": "radioGroup",
+                "name": "sex",
+                "placeholder": "性别",
+                "width": "100",
+                "label": "性别:",
+                "show": true,
+                "value": [],
+                "options": [{
+                    "id": "",
+                    "value": "男",
+                    "label": "男",
+                    "name": "man"
+                }, {
+                    "id": "",
+                    "value": "女",
+                    "label": "女",
+                    "name": "women"
+                }]
+            }, {
                 "type": "text",
                 "name": "userName",
                 "value": "",
@@ -15,13 +34,27 @@
                 }]
             },
             {
+                "type": "password",
+                "name": "passwd",
+                "value": "",
+                "placeholder": "请输入密码",
+                "width": "100%",
+                "label": "密码:",
+                "show": true,
+                "rules": [{
+                    "required": true,
+                    "message": "请输入密码",
+                    "trigger": "blur"
+                }]
+            },
+            {
                 "type": "text",
                 "name": "phone",
                 "value": "",
                 "placeholder": "请输入电话",
                 "width": "100%",
                 "label": "电话:",
-                "show": false,
+                "show": true,
                 "rules": [{
                     "required": true,
                     "message": "请输入电话",
@@ -34,67 +67,28 @@
                 "placeholder": "请输email地址",
                 "width": "100%",
                 "label": "邮箱:",
-                "show": false,
-                "rules": [{
-                    "required": true,
-                    "message": "请输入邮箱",
-                    "trigger": "blur"
-                }]
-            },
-            {
-                "type": "text",
-                "name": "nickname",
-                "value": "",
-                "placeholder": "请输入姓名",
-                "width": "100%",
-                "label": "姓名:",
-                "show": true,
-                "rules": [{
-                    "required": true,
-                    "message": "请输入姓名",
-                    "trigger": "blur"
-                }]
-            }, {
-                "type": "text",
-                "name": "email",
-                "value": "",
-                "placeholder": "请输入邮箱",
-                "width": "100%",
-                "label": "邮箱:",
-                "show": false,
-                "rules": [{
-                    "required": true,
-                    "message": "请输入邮箱",
-                    "trigger": "blur"
-                }]
-            }, {
-                "type": "text",
-                "name": "remark",
-                "value": "",
-                "placeholder": "请输入备注",
-                "width": "100%",
-                "label": "备注:",
                 "show": true,
                 "rules": [{
                     "required": false,
-                    "message": "请输入备注",
+                    "message": "请输入邮箱",
                     "trigger": "blur"
                 }]
             }
         ],
         "data": {
             "id": "",
-            "username": "",
-            "telephone": "",
-            "remark": "",
-            "roles": [],
-            "rights": []
+            "userName": "",
+            "sex": "",
+            "passwd": "",
+            "phone": "",
+            "email": "",
+            "imgPath": ""
         }
     },
     "userAndRoles": {
         "item": [{
                 "type": "text",
-                "name": "username",
+                "name": "userName",
                 "value": "",
                 "width": "80",
                 "disabled": true,
@@ -111,7 +105,7 @@
             }
         ],
         "data": {
-            "username": "",
+            "userName": "",
             "userId": "",
             "roleIds": []
         }
@@ -158,14 +152,6 @@
                     "message": "请输入备注",
                     "trigger": "blur"
                 }]
-            },
-            {
-                "type": "checkbox",
-                "name": "rights",
-                "label": "权限:",
-                "show": false,
-                "value": [],
-                "options": []
             }
         ],
         "data": {
@@ -244,7 +230,7 @@
             },
             {
                 "type": "text",
-                "name": "linkAddress",
+                "name": "linkUrl",
                 "value": "",
                 "placeholder": "请输入链接地址",
                 "width": "100%",
@@ -260,7 +246,8 @@
         "data": {
             "id": "",
             "linkName": "",
-            "linkAddress": ""
+            "linkUrl": "",
+            "updateTime": ""
         }
     },
     "file": {

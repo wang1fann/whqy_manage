@@ -1,12 +1,31 @@
 <template>
   <div class="list content-top-line">
     <!-- 按钮操作 -->
-    <el-row class="btn-group" :gutter="24">
-      <el-col :span="8" class="pull-left alignleft">
-        <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加链接</el-button>
-        <el-button type="primary" size="mini" icon="el-icon-delete" @click="deleteBatch">删除链接</el-button>
+    <el-row
+      class="btn-group"
+      :gutter="24"
+    >
+      <el-col
+        :span="8"
+        class="pull-left alignleft"
+      >
+        <el-button
+          type="primary"
+          size="mini"
+          icon="el-icon-circle-plus"
+          @click="showDialog"
+        >添加链接</el-button>
+        <el-button
+          type="primary"
+          size="mini"
+          icon="el-icon-delete"
+          @click="deleteBatch"
+        >删除链接</el-button>
       </el-col>
-      <el-col :span="16" class="pull-right alignright">
+      <el-col
+        :span="16"
+        class="pull-right alignright"
+      >
         <MySearch
           class="search"
           :formData="searchFormData"
@@ -40,10 +59,21 @@
       width="35%"
       :before-close="handleClose"
     >
-      <MyForm :form="form" ref="myform" :formData="formData" :formItem="formItem" @submit="submit"></MyForm>
+      <MyForm
+        :form="form"
+        ref="myform"
+        :formData="formData"
+        :formItem="formItem"
+        @submit="submit"
+      ></MyForm>
     </el-dialog>
     <!-- myconfirm -->
-    <MyConfirm ref="myconfirm" :type="confirmType" :title="confirmTitle" :content="confirmContent"></MyConfirm>
+    <MyConfirm
+      ref="myconfirm"
+      :type="confirmType"
+      :title="confirmTitle"
+      :content="confirmContent"
+    ></MyConfirm>
   </div>
 </template>
 
@@ -64,6 +94,7 @@ export default {
       labelPositon: "right",
       width: "80%",
       column: 1,
+
       hasSubmit: true,
       submitText: "提交",
       cancleText: "取消"
@@ -75,7 +106,7 @@ export default {
       fixed: false,
       size: "mini",
       width: 80 + rem2px(px2rem(160)),
-      minWidth: 100,
+      minWidth: 130,
       label: "操作",
       btns: [
         {
@@ -113,7 +144,7 @@ export default {
       pageSize: getPageSize(),
       currentPage: 1,
       total: 0,
-      type: "saveTask",
+      type: "addLink",
       searchFormData: {},
       searchFormItem: []
     };
@@ -156,14 +187,14 @@ export default {
     showDialog() {
       this.formInit();
       this.dialogTitle = "添加链接";
-      this.type = "saveLink";
+      this.type = "addLink";
       this.dialogVisible = true;
     },
     // 更新数据
     update(row) {
       this.formInit(row);
       this.dialogTitle = "编辑链接";
-      this.type = "updateLinkById";
+      this.type = "addLink";
       this.dialogVisible = true;
     },
     // 提交数据
@@ -173,7 +204,7 @@ export default {
         API[this.type](this.formData).then(res => {
           this.dialogVisible = false;
           this.$message({
-            message: res.msg,
+            message: res.message,
             type: "success"
           });
           this.getData();
@@ -194,7 +225,7 @@ export default {
     getData() {
       var _this = this;
       var config = {
-        pageNo: _this.currentPage,
+        page: _this.currentPage,
         size: _this.pageSize
       };
       // 添加查询字段
@@ -203,41 +234,79 @@ export default {
       API.findlinkList(config)
         .then(res => {
           console.log(res);
-          this.data = res.data.list;
+          this.data = res.data.rows;
           this.total = res.data.total;
         })
         .catch(err => {
-          console.log(2);
-          this.total = 100;
-          this.data = [
-            {
-              linkName: "saiyunxi",
-              linkAddress: "18828839.saiyunxi.com",
-              uploadTime: "2018-10-11"
-            }
-          ];
+          this.$message({
+            message: "数据加载失败",
+            type: "error"
+          });
         });
     },
     // 删除
+    // delete() {
+    //   var _this = this;
+    //   API.removeBatch({ id: _this.ids }).then(res => {
+    //     if (res.code === 20000) {
+    //       this.ids = null;
+    //       this.$message({
+    //         message: res.message,
+    //         type: "success"
+    //       });
+    //       this.getData();
+    //     } else {
+    //       this.$message({
+    //         message: res.message,
+    //         type: "error"
+    //       });
+    //     }
+    //   });
+    // },
     delete() {
       var _this = this;
-      API.deleteTaskById({ ids: _this.ids }).then(res => {
-        this.ids = null;
-        this.$message({
-          message: "删除成功",
-          type: "success"
+      console.log(_this.ids);
+      API.delLink({ id: _this.ids })
+        .then(res => {
+          this.ids = null;
+          this.$message({
+            message: res.message,
+            type: res.code === 20000 ? "success" : "error"
+          });
+          this.getData();
+        })
+        .catch(err => {
+          this.$message({
+            message: err,
+            type: "error"
+          });
         });
-        this.getData();
-      });
     },
     // 批量删除
+    // deleteBatch() {
+    //   var id = [];
+    //   this.multipleSelection.forEach(item => {
+    //     this.ids = item.id;
+    //     id.push(item.id);
+    //     this.delete();
+    //   });
+    //   if (id.length <= 0) {
+    //     this.$message({
+    //       message: "请至少选择一个选项",
+    //       type: "warning"
+    //     });
+    //   }
+    // },
+    // 批量.删除
     deleteBatch() {
       var id = [];
       this.multipleSelection.forEach(item => {
-        id.push(item.taskId);
+        id.push(item.id);
       });
+      // this.ids = "[" + id.join() + "]";
+      this.ids =  id.join() ;
       if (id.length > 0) {
-        this.deleteConfirm({ taskId: id });
+        this.deleteConfirm({ id: this.ids });
       } else {
         this.$message({
           message: "请至少选择一个选项",
@@ -248,18 +317,27 @@ export default {
     // 删除确认
     deleteConfirm(row) {
       var _this = this;
-      var ids = [];
-      if (typeof row.taskId === "number") {
-        ids.push(row.taskId);
-      } else {
-        ids = row.taskId;
-      }
-      this.ids = ids.join();
-      this.confirmContent = "此操作将永久删除该文件, 是否继续?";
+      _this.ids = row.id;
       setTimeout(() => {
         this.$refs.myconfirm.confirm(_this.delete, _this.cancle);
       }, 100);
     },
+    // deleteConfirm(row) {
+    //   var _this = this;
+    //   var ids = [];
+    //   if (typeof row.id === "number") {
+    //     ids.push(row.id);
+    //     this.ids = ids.join();
+    //   } else {
+    //     ids = row.id;
+    //     this.ids = ids;
+    //   }
+    //   console.log(ids);
+    //   this.confirmContent = "此操作将永久删除该文件, 是否继续?";
+    //   setTimeout(() => {
+    //     this.$refs.myconfirm.confirm(_this.delete, _this.cancle);
+    //   }, 100);
+    // },
     // 取消删除
     cancle() {
       this.ids = null;

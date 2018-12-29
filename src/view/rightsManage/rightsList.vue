@@ -1,23 +1,79 @@
 <template>
   <div class="list content-top-line">
     <!-- 按钮操作 -->
-    <el-row class="btn-group" :gutter="24">
-      <el-col :span="8" class="pull-left alignleft">
-        <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="gotoUrl('/addRights')">添加权限</el-button>
-        <el-button type="primary" size="mini" icon="el-icon-delete" @click="deleteBatch">删除权限</el-button>
+    <el-row
+      class="btn-group"
+      :gutter="24"
+    >
+      <el-col
+        :span="8"
+        class="pull-left alignleft"
+      >
+        <el-button
+          type="primary"
+          size="mini"
+          icon="el-icon-circle-plus"
+          @click="gotoUrl('/addRights')"
+        >添加权限</el-button>
+        <el-button
+          type="primary"
+          size="mini"
+          icon="el-icon-delete"
+          @click="deleteBatch"
+        >删除权限</el-button>
       </el-col>
-      <el-col :span="16" class="pull-right alignright">
-        <MySearch class="search" :formData="searchFormData" :formItem="searchFormItem" @submit="searchSubmit"></MySearch>
+      <el-col
+        :span="16"
+        class="pull-right alignright"
+      >
+        <MySearch
+          class="search"
+          :formData="searchFormData"
+          :formItem="searchFormItem"
+          @submit="searchSubmit"
+        ></MySearch>
       </el-col>
     </el-row>
     <!-- 表格数据 -->
-    <MyTable size="mini" :stripe="false" :border="false" :multiple="true" :operation="operation" :column="column" :data="data" :currentPage="currentPage" :pageSize="pageSize" :total="total" @handleCurrentChange="handleCurrentChange" @delete="deleteConfirm" @update="update" @select="handleSelectionChange"></MyTable>
+    <MyTable
+      size="mini"
+      :stripe="false"
+      :border="false"
+      :multiple="true"
+      :operation="operation"
+      :column="column"
+      :data="data"
+      :currentPage="currentPage"
+      :pageSize="pageSize"
+      :total="total"
+      @handleCurrentChange="handleCurrentChange"
+      @delete="deleteConfirm"
+      @update="update"
+      @select="handleSelectionChange"
+    ></MyTable>
     <!-- 表单提交 -->
-    <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" top="10vh" width="50%" :before-close="handleClose">
-      <MyForm :form="form" ref="myform" :formData="formData" :formItem="formItem" @submit="submit"></MyForm>
+    <el-dialog
+      :title="dialogTitle"
+      :visible.sync="dialogVisible"
+      top="10vh"
+      width="50%"
+      :before-close="handleClose"
+    >
+      <MyForm
+        :form="form"
+        ref="myform"
+        :formData="formData"
+        :formItem="formItem"
+        @submit="submit"
+      ></MyForm>
     </el-dialog>
     <!-- myconfirm -->
-    <MyConfirm ref="myconfirm" :type="confirmType" :title="confirmTitle" :content="confirmContent"></MyConfirm>
+    <MyConfirm
+      ref="myconfirm"
+      :type="confirmType"
+      :title="confirmTitle"
+      :content="confirmContent"
+    ></MyConfirm>
   </div>
 </template>
 
@@ -89,7 +145,7 @@ export default {
       total: 0,
       type: "saveTask",
       searchFormData: {},
-      searchFormItem: [],
+      searchFormItem: []
     };
   },
   created() {
@@ -106,9 +162,9 @@ export default {
   methods: {
     gotoUrl(path, query) {
       this.$router.push({
-        path: !!path ? path : '',
-        query: !!query ? query : ''
-      })
+        path: !!path ? path : "",
+        query: !!query ? query : ""
+      });
     },
     // table字段初始化
     fieldInit() {
@@ -179,24 +235,26 @@ export default {
       // 添加查询字段
       config = $.extend(config, this.searchFormData);
       // 接口调用
-      API.findRightsList(config).then(res => {
-        console.log(res);
-        this.data = res.data.list;
-        this.total = res.data.total;
-      }).catch(err => {
-        console.log(err);
-        this.total = 10;
-        this.data = [
-          {
-            role: "wangyifan",
-            name: "yifanwang",
-            password: 5556788992,
-            section: "科目一",
-            id:99,
-            task: "任务"
-          }
-        ];
-      });
+      API.findRightsList(config)
+        .then(res => {
+          console.log(res);
+          this.data = res.data.list;
+          this.total = res.data.total;
+        })
+        .catch(err => {
+          console.log(err);
+          this.total = 10;
+          this.data = [
+            {
+              role: "wangyifan",
+              name: "yifanwang",
+              password: 5556788992,
+              section: "科目一",
+              id: 99,
+              task: "任务"
+            }
+          ];
+        });
     },
     // 删除
     delete() {

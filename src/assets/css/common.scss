@@ -227,3 +227,38 @@ span.el-dialog__title {
     height: 28px;
     line-height: 28px;
 }
+
+.el-radio-button__orig-radio:checked+span {
+    background-color: #e24142 !important;
+    border-color: #e24142 !important;
+    -webkit-box-shadow: -1px 0 0 0 #e24142 !important;
+    box-shadow: -1px 0 0 0 #e24142 !important;
+    border-radius: 5px !important;
+}
+
+.el-radio-button__inner:hover {
+    color: #e24142;
+}
+
+.el-radio-button.el-radio-button--small.is-active {
+    background-color: #e24142 !important;
+    border-color: #e24142;
+    -webkit-box-shadow: -1px 0 0 0 #e24142;
+    box-shadow: -1px 0 0 0 #e24142;
+}
+
+.el-range__icon {
+    margin-top: -9px !important;
+    vertical-align: middle;
+}
+
+.my-startcopy-box {
+    .el-input {
+        .el-input-group__append {
+            border: 1px solid #eb5e5f;
+            background-color: #eb5e5f !important;
+            color: #fff !important;
+            cursor: pointer;
+        }
+    }
+}

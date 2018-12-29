@@ -1,12 +1,25 @@
 <template>
   <div class="list content-top-line">
     <!-- 按钮操作 -->
-    <el-row class="btn-group" :gutter="24">
-      <el-col :span="8" class="pull-left alignleft">
-        <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="showDialog">添加日志</el-button>
-        <el-button type="primary" size="mini" icon="el-icon-delete" @click="deleteBatch">删除日志</el-button>
+    <el-row
+      class="btn-group"
+      :gutter="24"
+    >
+      <el-col
+        :span="8"
+        class="pull-left alignleft"
+      >
+        <el-button
+          type="primary"
+          size="mini"
+          icon="el-icon-delete"
+          @click="deleteBatch"
+        >删除日志</el-button>
       </el-col>
-      <el-col :span="16" class="pull-right alignright">
+      <el-col
+        :span="16"
+        class="pull-right alignright"
+      >
         <MySearch
           class="search"
           :formData="searchFormData"
@@ -29,21 +42,14 @@
       :total="total"
       @handleCurrentChange="handleCurrentChange"
       @delete="deleteConfirm"
-      @update="update"
       @select="handleSelectionChange"
     ></MyTable>
-    <!-- 表单提交 -->
-    <el-dialog
-      :title="dialogTitle"
-      :visible.sync="dialogVisible"
-      top="30vh"
-      width="35%"
-      :before-close="handleClose"
-    >
-      <MyForm :form="form" ref="myform" :formData="formData" :formItem="formItem" @submit="submit"></MyForm>
-    </el-dialog>
-    <!-- myconfirm -->
-    <MyConfirm ref="myconfirm" :type="confirmType" :title="confirmTitle" :content="confirmContent"></MyConfirm>
+    <MyConfirm
+      ref="myconfirm"
+      :type="confirmType"
+      :title="confirmTitle"
+      :content="confirmContent"
+    ></MyConfirm>
   </div>
 </template>
 
@@ -78,14 +84,6 @@ export default {
       minWidth: 100,
       label: "操作",
       btns: [
-        {
-          type: "text",
-          size: "mini",
-          content: "编辑",
-          icon: "el-icon-edit-outline",
-          handle: "update",
-          class: "button-operator"
-        },
         {
           type: "text",
           size: "mini",
@@ -142,30 +140,17 @@ export default {
       this.column = column;
     },
     // 表单数据初始化
-    formInit(row) {
-      // 获取form字段
-      this.formItem = getFormField("log", "item");
-      this.formData = !!row ? row : getFormField("log", "data");
-    },
+    // formInit(row) {
+    //   // 获取form字段
+    //   this.formItem = getFormField("log", "item");
+    //   this.formData = !!row ? row : getFormField("log", "data");
+    // },
     searchFormInit() {
       this.searchFormItem = getSearchField("log", "item");
       console.log(this.searchFormItem);
       this.searchFormData = getSearchField("log", "data");
     },
-    // 添加数据
-    showDialog() {
-      this.formInit();
-      this.dialogTitle = "添加日志";
-      this.type = "savelog";
-      this.dialogVisible = true;
-    },
-    // 更新数据
-    update(row) {
-      this.formInit(row);
-      this.dialogTitle = "编辑日志";
-      this.type = "updatelogById";
-      this.dialogVisible = true;
-    },
+ 
     // 提交数据
     submit() {
       console.log(this.formData);
@@ -211,9 +196,9 @@ export default {
           this.total = 100;
           this.data = [
             {
-              account:"82983982",
+              account: "82983982",
               operator: "saiyunxi",
-              roleGrade:"一级管理员",
+              roleGrade: "一级管理员",
               action: "18828839.kkkkkkksaiyunxi.com",
               operateTime: "2018-10-11"
             }

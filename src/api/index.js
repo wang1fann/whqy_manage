@@ -2,8 +2,12 @@
  * Created by jerry on 2017/6/9.
  */
 import axios from 'axios'
-import { bus } from '../bus.js'
-import { getCookie } from './util' //引用刚才我们创建的util.js文件，并使用getCookie方法
+import {
+    bus
+} from '../bus.js'
+import {
+    getCookie
+} from './util' //引用刚才我们创建的util.js文件，并使用getCookie方法
 
 
 axios.defaults.withCredentials = false;
@@ -13,7 +17,7 @@ axios.defaults.withCredentials = false;
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'; //配置请求头
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'; //配置请求头application/x-www-form-urlencoded;
 
-axios.defaults.timeout = 100000; //设置请求过期时间
+axios.defaults.timeout = 3000; //设置请求过期时间
 // axios.defaults.baseURL = 'http://47.98.182.165';
 axios.defaults.baseURL = 'http://192.168.0.110:9014';
 // axios.defaults.baseURL = 'http://192.168.0.107:9014';
@@ -27,7 +31,6 @@ axios.interceptors.request.use(
             config.headers = {
                 'Content-Type': 'application/x-www-form-urlencoded' //设置跨域头部
             };
-            // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'; //配置请求头application/x-www-form-urlencoded;
         } else if (responseType == 'file') {
             config.headers = {
                 'Content-Type': 'multipart/form-data' //设置跨域头部
@@ -93,7 +96,9 @@ export const POST = (url, params) => {
 }
 
 export const GET = (url, params) => {
-    return axios.get(`${base}${url}`, { params: params }).then(res => res.data)
+    return axios.get(`${base}${url}`, {
+        params: params
+    }).then(res => res.data)
 }
 
 export const PUT = (url, params) => {
@@ -101,7 +106,9 @@ export const PUT = (url, params) => {
 }
 
 export const DELETE = (url, params) => {
-    return axios.delete(`${base}${url}`, { params: params }).then(res => res.data)
+    return axios.delete(`${base}${url}`, {
+        params: params
+    }).then(res => res.data)
 }
 
 export const PATCH = (url, params) => {

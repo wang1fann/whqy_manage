@@ -243,6 +243,7 @@
     margin-top: 20px;
     margin-left:100px;
     overflow: hidden;
+<<<<<<< HEAD
   }
  .contentNews  .up label{
     margin-right: 16px;
@@ -252,6 +253,12 @@
     margin-left: 34px;
   }
  .contentNews .el-button{
+=======
+    label{
+    margin-right: 16px;
+    color: #999;
+     .el-button{
+>>>>>>> 5dfdd16586fe02753dad5948bd7a3c8472abe62b
     padding: 7px 20px;
     background: #e24142;
     height: 30px;
@@ -270,7 +277,18 @@
     height: 32px;
     line-height: 32px;
   }
+<<<<<<< HEAD
  .contentNews  .xia{
+=======
+  }
+  }
+ 
+  .up>div{
+    margin-left: 34px;
+  }
+ 
+   .xia{
+>>>>>>> 5dfdd16586fe02753dad5948bd7a3c8472abe62b
       width: 96%;
      overflow: hidden;
      margin: 0 auto;
