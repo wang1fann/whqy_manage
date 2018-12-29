@@ -36,8 +36,10 @@
                 <el-button
                   type="warning"
                   plain
-                  @click="searchVisitData()"
+                  @click="searchVisitData"
+
                 >查询</el-button>
+                  <!-- @click="searchVisitData()" -->
               </span>
             </div>
           </div>
@@ -406,47 +408,6 @@ export default {
   height: 110px;
   z-index: 110;
 
-  .rate-select {
-    .el-radio-button__orig-radio:checked + span {
-      background-color: #e24142 !important;
-      border-color: #e24142 !important;
-      -webkit-box-shadow: -1px 0 0 0 #e24142 !important;
-      box-shadow: -1px 0 0 0 #e24142 !important;
-      border-radius: 5px !important;
-    }
-    .el-date-editor {
-      width: 228px;
-      top: 44%;
-      position: absolute;
-      margin: 0 auto;
-      left: 32%;
-      .el-range__icon {
-        margin-top: -9px !important;
-      }
-      span {
-        border: 1px solid green !important;
-      }
-      .el-range-separator {
-        border: 1px solid green;
-        line-height: 22px !important;
-      }
-      span.el-radio-button__inner {
-        background: #e24142;
-        color: #fff;
-      }
-      input {
-        background: #e24142;
-        color: #fff;
-      }
-    }
-    button {
-      left: 65%;
-      top: 44.5%;
-      position: absolute;
-      background: #e24142;
-      color: #fff;
-    }
-  }
 
   .el-radio-group {
     float: right;

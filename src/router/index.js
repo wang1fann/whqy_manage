@@ -63,23 +63,14 @@ let router = new Router({
                             class: 'fa-line-chart',
                             img: require('@/assets/img/access/user.png'),
                             children: [{
-                                    path: '',
+                                    path: 'situationIntroduce',
                                     name: '景区简介',
                                     component: resolve => {
                                         require(['view/contentManage/situationIntroduce'], resolve)
                                     },
                                     class: 'fa-line-chart',
                                     img: require('@/assets/img/access/user.png'),
-                                    meta: {
-                                        "si": {
-                                            url: "situationIntroduce",
-                                            title: "xxx1"
-                                        },
-                                        "simg": {
-                                            url: "simg",
-                                            title: "xxx2"
-                                        }
-                                    }
+                                    children: []
                                 },
                                 {
                                     path: 'situationImg',
@@ -88,7 +79,8 @@ let router = new Router({
                                         require(['view/contentManage/situationImg'], resolve)
                                     },
                                     class: 'fa-line-chart',
-                                    img: require('@/assets/img/access/user.png')
+                                    img: require('@/assets/img/access/user.png'),
+                                    children: []
                                 },
                                 {
                                     path: 'situationDepart',
@@ -97,7 +89,8 @@ let router = new Router({
                                         require(['view/contentManage/situationDepart'], resolve)
                                     },
                                     class: 'fa-line-chart',
-                                    img: require('@/assets/img/access/user.png')
+                                    img: require('@/assets/img/access/user.png'),
+                                    children: []
                                 }
                             ]
                         }, {

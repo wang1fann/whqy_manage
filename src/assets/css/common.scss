@@ -262,3 +262,56 @@ span.el-dialog__title {
         }
     }
 }
+
+.data-box .el-radio-button__inner {
+    border-radius: 5px;
+}
+
+.rate-select {
+    .el-radio-button__orig-radio:checked+span {
+        background-color: #e24142 !important;
+        border-color: #e24142 !important;
+        -webkit-box-shadow: -1px 0 0 0 #e24142 !important;
+        box-shadow: -1px 0 0 0 #e24142 !important;
+        border-radius: 5px !important;
+    }
+    .el-date-editor {
+        width: 228px;
+        top: 44%;
+        position: absolute;
+        margin: 0 auto;
+        left: 32%;
+        .el-range__icon {
+            margin-top: -9px !important;
+        }
+        .el-range-separator {
+            line-height: 22px !important;
+        }
+        span.el-radio-button__inner {
+            background: #e24142;
+            color: #fff;
+        }
+    }
+    button {
+        left: 65%;
+        top: 44.5%;
+        position: absolute;
+        background: #e24142;
+        color: #fff;
+    }
+}
+
+.child-menu-box .el-button {
+    background: #ccc;
+    color: #000;
+    border-radius: 35px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    padding: 7px 10px;
+}
+
+.child-menu-box .router-link-active {
+    background: #eb5e5f;
+    color: #fff;
+    border: 1px solid #eb5e5f;
+}

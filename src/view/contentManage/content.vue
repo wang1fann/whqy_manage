@@ -13,42 +13,45 @@
     <div class="content-manage">
       <el-row :gutter="20">
         <el-col :span="10">
-          <el-bread></el-bread>
+          <el-bread @currentContentRouter="MenuArr"></el-bread>
         </el-col>
         <el-col :span="10">
-          <div v-if="$route.path.search('/senceNews') === -1 && $route.path.search('/redEducation') === -1 && $route.path.search('/knowledgeAnswer') === -1">
-            <right-tab :subs="subMenus"></right-tab>
+          <div class="child-menu-box" v-if="!!childMenuArr && !!childMenuArr.children && childMenuArr.children.length>0">
+            <router-link
+              v-for="(item,index) in childMenuArr.children"
+              :key="index"
+              :to="{name: item.name}"
+              tag="el-button"
+            >{{item.name}}</router-link>
           </div>
-
         </el-col>
       </el-row>
-
       <router-view></router-view>
     </div>
   </div>
 </template>
 <script>
 import ElBread from "@/components/ElBread"; //面包屑
-import RightTab from "@/components/rightTab";
 export default {
   name: "contentManage",
   components: {
-    RightTab,
     "el-bread": ElBread
   },
   data() {
     return {
-      subMenus: []
+      subMenus: [],
+      childMenuArr: { children: [] }
     };
   },
-  created() {
-    console.log(this.$router.options.routes[1].children[3].children);
+  created() {},
+  mounted() {},
+  methods: {
+    MenuArr(val) {
+      console.log(val);
+      this.childMenuArr = !!val && val !== undefined ? val : "";
+    }
   },
-  mounted() {
-    this.subMenus = this.$route.meta;
-    console.log(this.subMenus);
-  },
-  methods: {}
+  watch: {}
 };
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss" scoped>
