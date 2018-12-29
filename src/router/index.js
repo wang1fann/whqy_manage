@@ -51,7 +51,7 @@ let router = new Router({
                     component: resolve => {
                         require(['view/contentManage/content'], resolve)
                     },
-                    redirect: "/senceSituation",
+                    redirect: "/contentManage/senceSituation",
                     class: 'fa-line-chart',
                     img: require('@/assets/img/access/content.png'),
                     children: [{
