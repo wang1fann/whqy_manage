@@ -20,8 +20,6 @@
       <img  src="@/assets/img/content/Thepicturew.png"/>
       <span></span>
     </div>
-
-
   </div>
 </template>
 
@@ -71,8 +69,6 @@
     display: block;
     width: 24px;
     height:24px ;
-    /* background: url("../../../") no-repeat; */
-    
     background: url("../../../assets/img/content/cha.png") no-repeat;
     background-size: 24px auto;
     position: absolute;

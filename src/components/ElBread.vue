@@ -13,7 +13,7 @@
       >
         <span>首页</span>
       </i>
-      {{item.meta.title||item.name}}
+      {{item.meta.title||item.name||''}}
     </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
@@ -36,9 +36,8 @@ export default {
     getBreadcrumb() {
       this.breadlist = this.$route.matched;
       this.contentRouter = this.$router.options.routes[1].children[3].children;
-      this.currentRouteName = this.$route.matched[2].name;
-      // console.log(this.$route);
-      // console.log(this.currentRouteName);
+      console.log(this.$route);
+      this.currentRouteName = !!this.$route.matched[2]?this.$route.matched[2].name:'';
       this.currentContentRouter = this.getRounterIndex();
       this.$emit("currentContentRouter", this.currentContentRouter);
     },

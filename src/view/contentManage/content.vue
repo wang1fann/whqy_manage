@@ -7,20 +7,25 @@
           :key="index"
           :to="{name: item.name}"
           tag="li"
+          v-show="!item.show&&item.show!==false"
         >{{item.name}}</router-link>
       </ul>
     </div>
     <div class="content-manage">
       <el-row :gutter="20">
-        <el-col :span="10">
+        <el-col :span="8">
           <el-bread @currentContentRouter="MenuArr"></el-bread>
         </el-col>
-        <el-col :span="10">
-          <div class="child-menu-box" v-if="!!childMenuArr && !!childMenuArr.children && childMenuArr.children.length>0">
+        <el-col :span="12">
+          <div
+            class="child-menu-box"
+            v-if="!!childMenuArr && !!childMenuArr.children && childMenuArr.children.length>0  "
+          >
             <router-link
               v-for="(item,index) in childMenuArr.children"
               :key="index"
               :to="{name: item.name}"
+              v-show="!item.show&&item.show!==false"
               tag="el-button"
             >{{item.name}}</router-link>
           </div>
@@ -73,7 +78,7 @@ export default {
       & > li {
         flex: 1;
         text-align: center;
-        padding: 10px;
+        padding: 10px 0px;
         &.router-link-active {
           color: #d0021b;
           border-bottom: 2px solid #d0021b;

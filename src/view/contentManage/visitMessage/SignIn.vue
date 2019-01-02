@@ -4,7 +4,7 @@
 
 <script>
     export default {
-        name: "serviceGuide"
+        name: "SignIn"
     }
 </script>
 

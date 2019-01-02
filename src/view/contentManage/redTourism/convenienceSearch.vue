@@ -4,7 +4,7 @@
 
 <script>
     export default {
-        name: "visitMessage"
+        name: "convenienceSearch"
     }
 </script>
 
