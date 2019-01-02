@@ -162,7 +162,23 @@
             "show": true
         }
     ],
-
+    "data": [{
+            "prop": "filePath",
+            "label": "文件路径",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "restoreTime",
+            "label": "备份时间",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }
+    ],
     "file": [{
             "prop": "name",
             "label": "文件名称",
@@ -233,14 +249,14 @@
         }
     ],
     "log": [{
-            "prop": "account",
+            "prop": "acount",
             "label": "登录账号",
             "width": "auto",
             "fixed": false,
             "sortable": false,
             "show": true
         }, {
-            "prop": "operator",
+            "prop": "userName",
             "label": "操作人",
             "width": "auto",
             "fixed": false,
@@ -248,7 +264,7 @@
             "show": true
         },
         {
-            "prop": "roleGrade",
+            "prop": "rightLevel",
             "label": "权限等级",
             "width": "auto",
             "fixed": false,
@@ -264,7 +280,7 @@
             "show": true
         },
         {
-            "prop": "action",
+            "prop": "operateContent",
             "label": "操作内容",
             "width": "auto",
             "fixed": false,

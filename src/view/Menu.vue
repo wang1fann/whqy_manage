@@ -2,34 +2,77 @@
   <div class="container">
     <!--头部-->
     <div class="topbar-wrap">
-      <div class="topbar-logos" v-show="!collapsed"></div>
+      <div
+        class="topbar-logos"
+        v-show="!collapsed"
+      ></div>
       <div class="topbar-account">
         <span class="user-info">
-          <i style="font-size:30px;vertical-align:middle;" class="fa fa-user-circle-o"></i>
+          <i
+            style="font-size:30px;vertical-align:middle;"
+            class="fa fa-user-circle-o"
+          ></i>
           <span v-show="user.sex==='man'">您好！ {{user.name}}先生</span>
           <span v-show="user.sex!=='man'">您好！ {{user.name}}女士</span>
         </span>
         <span class="user-set-up">
-          <i style="font-size:15px;vertical-align:middle;" class="fa fa-refresh"></i>
-          <i style="font-size:15px;vertical-align:middle;" class="fa fa-power-off"></i>
+          <i
+            style="font-size:15px;vertical-align:middle;"
+            class="fa fa-refresh"
+          ></i>
+          <i
+            style="font-size:15px;vertical-align:middle;"
+            @click="gotoUrl('/login')"
+            class="fa fa-power-off"
+          ></i>
         </span>
       </div>
     </div>
     <!--中间-->
-    <el-col :span="24" class="main">
+    <el-col
+      :span="24"
+      class="main"
+    >
       <!--左侧导航-->
       <aside :class="{showSidebar:!collapsed}">
         <!--展开折叠开关-->
-        <div class="menu-toggle" @click.prevent="collapse">
-          <i class="fa fa-bars" aria-hidden="true" v-show="!collapsed"></i>
-          <i class="fa fa-bars" v-show="collapsed"></i>
+        <div
+          class="menu-toggle"
+          @click.prevent="collapse"
+        >
+          <i
+            class="fa fa-bars"
+            aria-hidden="true"
+            v-show="!collapsed"
+          ></i>
+          <i
+            class="fa fa-bars"
+            v-show="collapsed"
+          ></i>
         </div>
         <!--导航菜单-->
-        <el-menu :default-active="$route.path" class="mar-l el-menu-vertical-demo el-col el-col-3" background-color="#fff" text-color="#000" active-text-color="#ffd04b" light router>
-          <template v-for="(item,index) in $router.options.routes[1].children" v-if="item.show!==false">
-            <el-menu-item :index="item.path" :key="index">
+        <el-menu
+          :default-active="$route.path"
+          class="mar-l el-menu-vertical-demo el-col el-col-3"
+          background-color="#fff"
+          text-color="#000"
+          active-text-color="#ffd04b"
+          light
+          router
+        >
+          <template
+            v-for="(item,index) in $router.options.routes[1].children"
+            v-if="item.show!==false"
+          >
+            <el-menu-item
+              :index="item.path"
+              :key="index"
+            >
               <i class="menu-i">
-                <img :src="item.img" alt>
+                <img
+                  :src="item.img"
+                  alt
+                >
               </i>
               {{item.name}}
             </el-menu-item>
@@ -40,9 +83,15 @@
       <!--右侧内容区-->
       <section class="content-container">
         <div class="grid-content bg-purple-light">
-          <el-col :span="24" class="content-wrapper">
+          <el-col
+            :span="24"
+            class="content-wrapper"
+          >
             <el-bread v-if="$route.path.search('/contentManage') === -1"></el-bread>
-            <transition name="fade" mode="out-in">
+            <transition
+              name="fade"
+              mode="out-in"
+            >
               <keep-alive>
                 <router-view style="min-width:1380px;"></router-view>
               </keep-alive>
@@ -62,8 +111,7 @@ export default {
   components: {
     "el-bread": ElBread
   },
-  watch: {
-  },
+  watch: {},
   created() {
     this.menuRouter = _.filter(this.$router.options.routes, function(o) {
       return !!o.menuShow;
@@ -92,6 +140,13 @@ export default {
     };
   },
   methods: {
+    gotoUrl(path, query) {
+      this.$router.push({
+        path: !!path ? path : "",
+        query: !!query ? query : ""
+      });
+      window.sessionStorage.clear();
+    },
     handleSelect(index, indexPath) {
       this.defaultActiveIndex = index;
       this.breads = indexPath;
@@ -121,19 +176,19 @@ export default {
           that.loading = true;
           API.logout()
             .then(
-            function(result) {
-              that.loading = false;
-              localStorage.removeItem("access-user");
-              that.$router.go("/login"); //用go刷新
-            },
-            function(err) {
-              that.loading = false;
-              that.$message.error({
-                showClose: true,
-                message: err.toString(),
-                duration: 2000
-              });
-            }
+              function(result) {
+                that.loading = false;
+                localStorage.removeItem("access-user");
+                that.$router.go("/login"); //用go刷新
+              },
+              function(err) {
+                that.loading = false;
+                that.$message.error({
+                  showClose: true,
+                  message: err.toString(),
+                  duration: 2000
+                });
+              }
             )
             .catch(function(error) {
               that.loading = false;
@@ -144,7 +199,7 @@ export default {
               });
             });
         })
-        .catch(() => { });
+        .catch(() => {});
     }
   },
   mounted() {
@@ -308,10 +363,10 @@ export default {
   .content-container {
     background: #fff;
     flex: 1;
-      padding: 10px;
-            margin: 10px;
+    padding: 10px;
+    margin: 10px;
     overflow-y: auto;
-    .content-menu{
+    .content-menu {
       margin-bottom: 20px;
     }
     .grid-content {

@@ -1,7 +1,15 @@
 <template>
   <div class="login">
-    <img class="login_bg" src="@/assets/img/login/login_bg.png" alt>
-    <img class="login_font" src="@/assets/img/login/login_font.png" alt>
+    <img
+      class="login_bg"
+      src="@/assets/img/login/login_bg.png"
+      alt
+    >
+    <img
+      class="login_font"
+      src="@/assets/img/login/login_font.png"
+      alt
+    >
     <el-form
       ref="AccountFrom"
       :model="account"
@@ -12,17 +20,46 @@
       class="demo-ruleForm login-container"
     >
       <h3 class="title">登录</h3>
-      <el-form-item prop="userName" label="" label-width="0">
-        <el-input type="text" v-model="account.userName" auto-complete="off" placeholder="手机">
-             <template slot="prepend"><img src="@/assets/img/login/account.png" alt=""></template>
+      <el-form-item
+        prop="userName"
+        label=""
+        label-width="0"
+      >
+        <el-input
+          type="text"
+          v-model="account.userName"
+          auto-complete="off"
+          placeholder="手机"
+        >
+          <template slot="prepend"><img
+              src="@/assets/img/login/account.png"
+              alt=""
+            ></template>
         </el-input>
       </el-form-item>
-      <el-form-item prop="passWord" label="" label-width="0">
-        <el-input type="password" v-model="account.passWord" auto-complete="off" placeholder="密码">
-             <template slot="prepend"><img src="@/assets/img/login/password_icon.png" alt=""></template>
+      <el-form-item
+        prop="passWord"
+        label=""
+        label-width="0"
+      >
+        <el-input
+          type="password"
+          v-model="account.passWord"
+          auto-complete="off"
+          placeholder="密码"
+        >
+          <template slot="prepend"><img
+              src="@/assets/img/login/password_icon.png"
+              alt=""
+            ></template>
         </el-input>
       </el-form-item>
-      <el-form-item prop="vrifyCode" label="" label-width="0" id="captcha_item">
+      <el-form-item
+        prop="vrifyCode"
+        label=""
+        label-width="0"
+        id="captcha_item"
+      >
         <el-input
           type="text"
           id="captcha_input"
@@ -31,11 +68,17 @@
           placeholder="验证码"
           @keyup.enter.native="handleLogin"
         ></el-input>
-        <img id="captcha_img" :src="captcha" @click="editCaptcha" alt="图片加载失败">
-      </el-form-item>
-      <el-form-item style="width:100%;" label-width="0">
         <el-button
-        class="login_btn"
+          class="captcha-button"
+          @click="editCaptcha"
+        >{{captcha}}</el-button>
+      </el-form-item>
+      <el-form-item
+        style="width:100%;"
+        label-width="0"
+      >
+        <el-button
+          class="login_btn"
           type="primary"
           style="width:100%;"
           @click.native.prevent="handleLogin"
@@ -46,7 +89,7 @@
   </div>
 </template>
 <script>
-import API from "@/api/api_user";
+import API from "@/api/api_user.js";
 
 import { getCookie, setCookie } from "@/api/util"; //引用刚才我们创建的util.js文件，并使用getCookie方法
 
@@ -60,11 +103,11 @@ export default {
         passWord: "admin",
         vrifyCode: ""
       },
-      //   captcha:'/blstation-web/user/defaultKaptcha',
-      captcha: "http://47.98.182.165/blstation-web/user/defaultKaptcha",
-      //   captcha:'/carcloud/captcha.jpg',
+      captcha: "",
       rules: {
-        userName: [{ required: true, message: "请输入账号", trigger: "blur" }],
+        userName: [
+          { required: true, message: "请输入手机号", trigger: "blur" }
+        ],
         passWord: [{ required: true, message: "请输入密码", trigger: "blur" }],
         vrifyCode: [
           { required: true, message: "请输入验证码", trigger: "blur" }
@@ -72,12 +115,19 @@ export default {
       }
     };
   },
-  created() {},
+  created() {
+    this.editCaptcha();
+  },
   methods: {
     editCaptcha() {
-      this.captcha =
-        "http://47.98.182.165/blstation-web/user/defaultKaptcha?r=" +
-        Math.random();
+      API.getRandomCode()
+        .then(res => {
+          console.log(res);
+          this.captcha = !!res ? res : "加载失败";
+        })
+        .catch(res => {
+          console.log(res);
+        });
     },
     handleLogin() {
       window.sessionStorage.responseType = "json";
@@ -135,10 +185,11 @@ export default {
 <style>
 body {
   background: #fff;
-} 
-.el-input-group__append, .el-input-group__prepend{
-      background-color: #fff;
-  }
+}
+.el-input-group__append,
+.el-input-group__prepend {
+  background-color: #fff;
+}
 </style>
 <style lang="scss" scoped>
 .login {
@@ -164,7 +215,13 @@ body {
     width: 55%;
     float: left;
   }
-
+  .captcha-button {
+    background: #f7f8ee;
+    border: 1px solid #f7f8ee;
+    color: #e8343a;
+    font-size: 21px;
+    padding: 7px 20px;
+  }
   #captcha_img {
     width: 35%;
     height: 39px;
@@ -177,36 +234,33 @@ body {
     margin-left: -13px;
   }
   .login-container {
-  position: absolute;
-  top: 20%;
-  left: 0px;
-  right: 0px;
-  z-index: 2;
-  margin: auto;
-  vertical-align: middle;
-  text-align: center;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  background-clip: padding-box;
-  margin: 10px auto;
-  width: 25%;
-  padding: 35px 35px 15px 35px;
-  background: #fff;
-  border: 1px solid #eaeaea;
-  box-shadow: 0 0 25px #fafdfd;
-  .title {
-    margin: 0px auto 40px auto;
+    position: absolute;
+    top: 20%;
+    left: 0px;
+    right: 0px;
+    z-index: 2;
+    margin: auto;
+    vertical-align: middle;
     text-align: center;
-    color: #505458;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    background-clip: padding-box;
+    margin: 10px auto;
+    width: 25%;
+    padding: 35px 35px 15px 35px;
+    background: #fff;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 0 25px #fafdfd;
+    .title {
+      margin: 0px auto 40px auto;
+      text-align: center;
+      color: #505458;
+    }
+    .login_btn {
+      background: #e8343a;
+      border: none;
+    }
   }
-  .login_btn{
-      background: #E8343A;
-      border:none;
-  }
- 
 }
-
-}
-
 </style>

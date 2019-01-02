@@ -12,7 +12,8 @@ module.exports = {
         proxyTable: {
             '/syx': {
                 changeOrigin: true,
-                target: 'http://192.168.0.110:9014',
+                // target: 'http://192.168.0.110:9014',
+                targrt: 'http://192.168.0.108:9014',
                 pathRewrite: {
                     '^/syx': '/syx'
                 }

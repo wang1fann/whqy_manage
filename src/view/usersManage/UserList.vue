@@ -94,6 +94,8 @@ import API from "@/api/api_user.js";
 import { getField, getFormField, getSearchField } from "@/assets/json/index.js";
 import { getPageSize, px2rem, rem2px } from "@/plugins/util.js";
 import { setTimeout } from "timers";
+
+
 export default {
   name: "userList",
   data() {
@@ -295,7 +297,7 @@ export default {
     delete() {
       var _this = this;
       console.log(_this.ids);
-      API.delUser({ "id": _this.ids })
+      API.delUser({ id: _this.ids })
         .then(res => {
           this.ids = null;
           this.$message({
@@ -331,12 +333,9 @@ export default {
     // 删除确认
     deleteConfirm(row) {
       var _this = this;
-      _this.ids=row.id;
+      _this.ids = row.id;
       setTimeout(() => {
-        this.$refs.myconfirm.confirm(
-          _this.delete,
-          _this.cancle
-        );
+        this.$refs.myconfirm.confirm(_this.delete, _this.cancle);
       }, 100);
     },
     // 取消删除
@@ -363,7 +362,7 @@ export default {
       this.getData();
     },
     exportUserList() {
-      console.log("导出用户列表");
+      window.open("http://192.168.0.106:9014/syx/user/downloadexcel");
     }
   }
 };

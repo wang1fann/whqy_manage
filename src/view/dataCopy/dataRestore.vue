@@ -2,37 +2,14 @@
   <div class="list content-top-line">
     <!-- 按钮操作 -->
     <el-row
-      class="btn-group"
+      class="btn-group alignleft"
       :gutter="24"
+      style="margin:6px 0px 6px 13px"
     >
-      <el-col
-        :span="8"
-        class="pull-left alignleft"
-      >
-        <el-button
-          type="primary"
-          size="mini"
-          icon="el-icon-circle-plus"
-          @click="showDialog"
-        >添加链接</el-button>
-        <el-button
-          type="primary"
-          size="mini"
-          icon="el-icon-delete"
-          @click="deleteBatch"
-        >删除链接</el-button>
-      </el-col>
-      <el-col
-        :span="16"
-        class="pull-right alignright"
-      >
-        <MySearch
-          class="search"
-          :formData="searchFormData"
-          :formItem="searchFormItem"
-          @submit="searchSubmit"
-        ></MySearch>
-      </el-col>
+      <el-radio
+        v-model="radio"
+        label="从服务器还原"
+      >从服务器还原</el-radio>
     </el-row>
     <!-- 表格数据 -->
     <MyTable
@@ -48,42 +25,58 @@
       :total="total"
       @handleCurrentChange="handleCurrentChange"
       @delete="deleteConfirm"
-      @update="update"
+      @update="''"
       @select="handleSelectionChange"
     ></MyTable>
-    <!-- 表单提交 -->
-    <el-dialog
-      :title="dialogTitle"
-      :visible.sync="dialogVisible"
-      top="30vh"
-      width="35%"
-      :before-close="handleClose"
-    >
-      <MyForm
-        :form="form"
-        ref="myform"
-        :formData="formData"
-        :formItem="formItem"
-        @submit="submit"
-      ></MyForm>
-    </el-dialog>
-    <!-- myconfirm -->
     <MyConfirm
       ref="myconfirm"
       :type="confirmType"
       :title="confirmTitle"
       :content="confirmContent"
     ></MyConfirm>
+    <div
+      class="radio-box alignleft"
+      style="margin:26px 0px 6px 13px"
+    >
+      <el-radio
+        v-model="radio"
+        label="从本地还原"
+      >从本地还原</el-radio>
+    </div>
+    <el-row
+      class="my-startcopy-box"
+      :gutter="20"
+    >
+      <el-col :span="3">选择本地文件路径：</el-col>
+      <el-col :span="17">
+        <el-input
+          placeholder="请输入文件路径"
+          v-model="localFilePath"
+          clearable
+        >
+          <template
+            slot="append"
+            style="background:red;"
+          >选择</template>
+        </el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-button
+        type="danger"
+        style="margin:20px 0px;"
+      >开始还原</el-button>
+    </el-row>
   </div>
 </template>
 
 <script>
-import API from "@/api/api_link.js";
+import API from "@/api/api_data.js";
 import { getField, getFormField, getSearchField } from "@/assets/json/index.js";
 import { getPageSize, px2rem, rem2px } from "@/plugins/util.js";
 import { setTimeout } from "timers";
 export default {
-  name: "linkList",
+  name: "dataList",
   data() {
     // 表单配置
     var form = {
@@ -94,14 +87,13 @@ export default {
       labelPositon: "right",
       width: "80%",
       column: 1,
-
       hasSubmit: true,
       submitText: "提交",
       cancleText: "取消"
     };
     // 表格操作配置
     var operation = {
-      nowPage: "linkList",
+      nowPage: "dataList",
       show: true,
       fixed: false,
       size: "mini",
@@ -112,27 +104,19 @@ export default {
         {
           type: "text",
           size: "mini",
-          content: "编辑",
-          icon: "el-icon-edit-outline",
-          handle: "update",
-          class: "button-operator"
-        },
-        {
-          type: "text",
-          size: "mini",
-          content: "删除",
-          icon: "el-icon-delete",
-          handle: "delete",
+          content: "下载",
+          icon: "el-icon-download",
+          handle: "downloadData",
           class: "button-operator"
         }
       ]
     };
     return {
+      localFilePath: "",
+      radio: "",
       confirmType: "warning",
       confirmTitle: "提示信息",
-      confirmContent: "此操作将永久删除该文件, 是否继续?",
-      dialogTitle: "添加链接",
-      dialogVisible: false,
+      confirmContent: "此操作将永久删除该数据, 是否继续?",
       multipleSelection: [],
       ids: null,
       form: form,
@@ -144,15 +128,11 @@ export default {
       pageSize: getPageSize(),
       currentPage: 1,
       total: 0,
-      type: "addLink",
-      searchFormData: {},
-      searchFormItem: []
+      type: "adddata"
     };
   },
   created() {
     this.fieldInit();
-    this.formInit();
-    this.searchFormInit();
   },
   mounted() {
     this.resetForm();
@@ -164,62 +144,13 @@ export default {
     // table字段初始化
     fieldInit() {
       // 获取字段
-      var column = getField("link");
+      var column = getField("data");
       column.forEach(item => {
         if (!!item.width && item.width != "auto") {
           item.width = rem2px(px2rem(item.width));
         }
       });
       this.column = column;
-    },
-    // 表单数据初始化
-    formInit(row) {
-      // 获取form字段
-      this.formItem = getFormField("link", "item");
-      this.formData = !!row ? row : getFormField("link", "data");
-    },
-    searchFormInit() {
-      this.searchFormItem = getSearchField("link", "item");
-      console.log(this.searchFormItem);
-      this.searchFormData = getSearchField("link", "data");
-    },
-    // 添加数据
-    showDialog() {
-      this.formInit();
-      this.dialogTitle = "添加链接";
-      this.type = "addLink";
-      this.dialogVisible = true;
-    },
-    // 更新数据
-    update(row) {
-      this.formInit(row);
-      this.dialogTitle = "编辑链接";
-      this.type = "addLink";
-      this.dialogVisible = true;
-    },
-    // 提交数据
-    submit() {
-      console.log(this.formData);
-      setTimeout(() => {
-        API[this.type](this.formData).then(res => {
-          this.dialogVisible = false;
-          this.$message({
-            message: res.message,
-            type: "success"
-          });
-          this.getData();
-        });
-      }, 50);
-    },
-    // 弹框关闭时的回调函数
-    handleClose(done) {
-      for (const key in this.formData) {
-        if (this.formData.hasOwnProperty(key)) {
-          this.formData[key] = "";
-        }
-      }
-      this.resetForm();
-      done();
     },
     // 获取数据
     getData() {
@@ -231,7 +162,7 @@ export default {
       // 添加查询字段
       config = $.extend(config, this.searchFormData);
       // 接口调用
-      API.findlinkList(config)
+      API.findDataRestoreList(config)
         .then(res => {
           console.log(res);
           this.data = res.data.rows;
@@ -242,13 +173,24 @@ export default {
             message: "数据加载失败",
             type: "error"
           });
+          this.total = 10;
+          this.data = [
+            {
+              filePath: "wangyifan",
+              restoreTime: "2018-10-11"
+            },
+            {
+              filePath: "E:/后台ui",
+              restoreTime: "2010-10-11"
+            }
+          ];
         });
     },
     // 删除
     delete() {
       var _this = this;
       console.log(_this.ids);
-      API.delLink({ id: _this.ids })
+      API.deldata({ id: _this.ids })
         .then(res => {
           this.ids = null;
           this.$message({
@@ -270,7 +212,7 @@ export default {
       this.multipleSelection.forEach(item => {
         id.push(item.id);
       });
-      this.ids =  id.join() ;
+      this.ids = id.join();
       if (id.length > 0) {
         this.deleteConfirm({ id: this.ids });
       } else {
@@ -305,10 +247,6 @@ export default {
     // 分页切换
     handleCurrentChange(index) {
       this.currentPage = index;
-      this.getData();
-    },
-    // 搜索
-    searchSubmit() {
       this.getData();
     }
   }

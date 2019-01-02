@@ -16,8 +16,6 @@ export default {
     },
     // 上传用户头像
     uploadUserImg: params => {
-        // 192.168.0.110:9014/syx/file/multipleUpload
-        console.log(params);
         return API.POST('/syx/file/multipleUpload', params)
     },
     // 修改个人信息
@@ -38,6 +36,10 @@ export default {
     addUser: params => {
         return API.POST('/syx/user', params)
     },
+    // 导出用户/syx/user/downloadexcel
+    exportUser: params => {
+        return API.POST('/syx/user/downloadexcel', params)
+    },
     // 修改用户信息
     updateUserById: params => {
         return API.POST('/syx/user/update', params)
@@ -50,4 +52,8 @@ export default {
         // }
         return API.DELETE('/syx/user/deleteUser', params)
     },
+    // 生成随机吗
+    getRandomCode: params => {
+        return API.POST('/syx/user/randomCode', params)
+    }
 }

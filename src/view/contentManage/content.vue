@@ -52,7 +52,7 @@ export default {
   mounted() {},
   methods: {
     MenuArr(val) {
-      console.log(val);
+      // console.log(val);
       this.childMenuArr = !!val && val !== undefined ? val : "";
     }
   },

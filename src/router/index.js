@@ -697,6 +697,16 @@ let router = new Router({
                     img: require('@/assets/img/access/data.png')
                 },
                 {
+                    path: '/dataRestore',
+                    name: '数据还原',
+                    component: resolve => {
+                        require(['view/dataCopy/dataRestore'], resolve)
+                    },
+                    class: 'fa-line-chart',
+                    img: require('@/assets/img/access/data.png'),
+                    show: false
+                },
+                {
                     path: '/visitCount',
                     name: '访问统计',
                     component: resolve => {

@@ -140,11 +140,11 @@ export default {
       this.column = column;
     },
     // 表单数据初始化
-    // formInit(row) {
-    //   // 获取form字段
-    //   this.formItem = getFormField("log", "item");
-    //   this.formData = !!row ? row : getFormField("log", "data");
-    // },
+    formInit(row) {
+      // 获取form字段
+      this.formItem = getFormField("log", "item");
+      this.formData = !!row ? row : getFormField("log", "data");
+    },
     searchFormInit() {
       this.searchFormItem = getSearchField("log", "item");
       console.log(this.searchFormItem);
@@ -179,7 +179,7 @@ export default {
     getData() {
       var _this = this;
       var config = {
-        pageNo: _this.currentPage,
+        page: _this.currentPage,
         size: _this.pageSize
       };
       // 添加查询字段
@@ -188,7 +188,7 @@ export default {
       API.findlogList(config)
         .then(res => {
           console.log(res);
-          this.data = res.data.list;
+          this.data = res.data.rows;
           this.total = res.data.total;
         })
         .catch(err => {
