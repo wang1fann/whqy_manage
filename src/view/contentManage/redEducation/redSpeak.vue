@@ -41,11 +41,11 @@
             <input type="checkbox">
           </td>
           <td class="words"><a href="#">"我心中的渭华" 系列比赛活动</a></td>
-          <td class="datenews">2018-06-03</td>
+          <td class="datenews">{{new Date(value1).getFullYear() + '-' +(new Date(value1).getMonth() + 1) + '-' + new Date(value1).getDate()}}</td>
           <td class="newlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
+            <button type="button" class="l" @click="reads">查看</button>
+            <button type="button" class="l" @click="writes">编辑</button>
+            <button type="button" class="l" @click="delMessages" >删除</button>
           </td>
         </tr>
         <tr>
@@ -224,10 +224,59 @@
               }
             }]
           },
-          value1: '',
+          value1: '2018-06-03',
           input: '',
           input2: ''
         };
+      },
+      methods:{
+        delMessages() {
+          this.$confirm('此操作将永久删除此条标题活动是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除'
+            });
+          });
+        },
+        // clear(index) {
+        //   this.checkboxData.splice(index, 1);
+        // },
+        writes() {
+          this.$prompt('宣传标题', '编辑', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消'
+          }).then(({ value }) => {
+            this.$message({
+              type: 'success',
+              message: '文物标题是: ' + value
+            });
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '取消输入'
+            });
+          });
+        },
+        reads() {
+          this.$alert('"我心中的渭华" 系列比赛活动', '宣传标题', {
+            confirmButtonText: '确定',
+            callback: action => {
+              this.$message({
+                type: 'info',
+                message: `action: ${ action }`
+              });
+            }
+          });
+        },
       }
     }
 </script>
@@ -307,7 +356,7 @@
     color: #868e96;
   }
   .contentSpeak table thead tr th.biao{
-    width: 600px;
+    width: 480px;
     text-align: center;
   }
   .contentSpeak table thead tr th:nth-child(1){
@@ -327,17 +376,17 @@
     text-align: center;
   }
   .contentSpeak table thead tr th.gaidate{
-    width: 100px;
+    width: 350px;
     text-align: center;
   }
   .contentSpeak  table tbody tr td.words{
     width: 600px;
   }
   .contentSpeak  table tbody tr td.newlast{
-    padding-left: 84px;
+    padding-left: 144px;
   }
   .contentSpeak table tbody tr td.datenews{
-    width: 90px;
+    width: 210px;
   }
   .contentSpeak  table tbody tr td a{
     color: #868e96;

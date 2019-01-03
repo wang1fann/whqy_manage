@@ -43,11 +43,11 @@
           </td>
           <td class="huatitle"><a href="#">刘子丹</a></td>
           <td class="ageduan">（1903-1936）</td>
-          <td >2018-06-03</td>
+          <td >{{new Date(value1).getFullYear() + '-' +(new Date(value1).getMonth() + 1) + '-' + new Date(value1).getDate()}}</td>
           <td class="btnlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
+            <button type="button" class="l" @click="reads">查看</button>
+            <button type="button" class="l" @click="writes">编辑</button>
+            <button type="button" class="l" @click="delMessages" >删除</button>
           </td>
         </tr>
         <tr>
@@ -238,10 +238,59 @@
               }
             }]
           },
-          value1: '',
+          value1: '2018-6-3',
           input: '',
           input2: ''
         };
+      },
+      methods:{
+        delMessages() {
+          this.$confirm('此操作将永久删除此条回忆纪念是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除'
+            });
+          });
+        },
+        // clear(index) {
+        //   this.checkboxData.splice(index, 1);
+        // },
+        writes() {
+          this.$prompt('姓名', '编辑', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消'
+          }).then(({ value }) => {
+            this.$message({
+              type: 'success',
+              message: '文物标题是: ' + value
+            });
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '取消输入'
+            });
+          });
+        },
+        reads() {
+          this.$alert('刘子丹', '回忆纪念', {
+            confirmButtonText: '确定',
+            callback: action => {
+              this.$message({
+                type: 'info',
+                message: `action: ${ action }`
+              });
+            }
+          });
+        },
       }
     }
 </script>
@@ -322,7 +371,7 @@
     color: #868e96;
   }
   .contentword table thead tr th.huawen{
-    width: 236px;
+    width: 310px;
     padding-left: 20px;
     text-align: center;
   }
@@ -343,25 +392,24 @@
     height: 15px;
   }
   .contentword  table thead tr th.last2{
-    width: 260px;
+    width: 280px;
     text-align: center;
   }
   .contentword table thead tr th.wenAges{
-    width: 160px;
-    padding-left: 84px;
+    width: 272px;
     text-align: center;
   }
   .contentword table tbody tr td.huatitle{
-    width: 340px;
+    width: 440px;
   }
   .contentword table tbody tr td.ageduan{
     width: 154px;
   }
   .contentword table tbody tr td:nth-child(4){
-    width: 184px;
+    width: 290px;
   }
   .contentword table tbody tr td.btnlast{
-    padding-left: 56px;
+    padding-left: 48px;
   }
 
   .contentword table tbody tr td a{

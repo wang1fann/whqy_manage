@@ -1,217 +1,216 @@
 <template>
-  <knowledge-answer-append></knowledge-answer-append>
-  <!--<div class="contentAnswer">-->
-    <!--<div class="up">-->
-      <!--<div class="l">-->
-        <!--<label class="l">标题</label>-->
-        <!--<div class="l">-->
-          <!--<el-input v-model="input"  placeholder=""></el-input>-->
-        <!--</div>-->
-      <!--</div>-->
-      <!--<div class="l">-->
-        <!--<label class="l">所属试题库</label>-->
-        <!--<div class="l">-->
-          <!--<el-input v-model="input"  placeholder="一"></el-input>-->
-        <!--</div>-->
-      <!--</div>-->
-      <!--<div class="l">-->
-        <!--<label class="l">上传时间</label>-->
-        <!--<div class="l block">-->
-          <!--<el-date-picker-->
-            <!--v-model="value1"-->
-            <!--placeholder="2018-06-13"-->
-            <!--suffix-icon="el-icon-date">-->
-          <!--</el-date-picker>-->
-        <!--</div>-->
-        <!--<el-row class="l">-->
-          <!--<el-button type="danger" class="btn">查询</el-button>-->
-        <!--</el-row>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="xia">-->
-      <!--<table class="biao4">-->
-        <!--<thead>-->
-        <!--<tr >-->
-          <!--<th>-->
-            <!--<input  type="checkbox">-->
-            <!--<label>全选</label>-->
-          <!--</th>-->
-          <!--<th class="huawen">标题</th>-->
-          <!--<th class="wenAges">所属试题库</th>-->
-          <!--<th>上传时间</th>-->
-          <!--<th class="last2">操作</th>-->
-        <!--</tr>-->
-        <!--</thead>-->
-        <!--<tbody>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>-->
-          <!--<td class="ageduan">一</td>-->
-          <!--<td >2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>-->
-          <!--<td class="ageduan">二</td>-->
-          <!--<td>2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>-->
-          <!--<td class="ageduan">三</td>-->
-          <!--<td>2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>-->
-          <!--<td class="ageduan">三</td>-->
-          <!--<td>2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>-->
-          <!--<td class="ageduan">三</td>-->
-          <!--<td>2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>-->
-          <!--<td class="ageduan">三</td>-->
-          <!--<td>2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>-->
-          <!--<td class="ageduan">三</td>-->
-          <!--<td>2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>-->
-          <!--<td class="ageduan">三</td>-->
-          <!--<td>2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>-->
-          <!--<td class="ageduan">三</td>-->
-          <!--<td>2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>-->
-          <!--<td class="ageduan">三</td>-->
-          <!--<td>2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>-->
-          <!--<td class="ageduan">三</td>-->
-          <!--<td>2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>-->
-          <!--<td class="ageduan">三</td>-->
-          <!--<td>2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
+  <div class="contentAnswer">
+    <div class="up">
+      <div class="l">
+        <label class="l">标题</label>
+        <div class="l">
+          <el-input v-model="input"  placeholder=""></el-input>
+        </div>
+      </div>
+      <div class="l">
+        <label class="l">所属试题库</label>
+        <div class="l">
+          <el-input v-model="input"  placeholder="一"></el-input>
+        </div>
+      </div>
+      <div class="l">
+        <label class="l">上传时间</label>
+        <div class="l block">
+          <el-date-picker
+            v-model="value1"
+            placeholder="2018-06-13"
+            suffix-icon="el-icon-date">
+          </el-date-picker>
+        </div>
+        <el-row class="l">
+          <el-button type="danger" class="btn">查询</el-button>
+        </el-row>
+      </div>
+    </div>
+    <div class="xia">
+      <table class="biao4">
+        <thead>
+        <tr >
+          <th>
+            <input  type="checkbox">
+            <label>全选</label>
+          </th>
+          <th class="huawen">标题</th>
+          <th class="wenAges">所属试题库</th>
+          <th>上传时间</th>
+          <th class="last2">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <input type="checkbox">
+          </td>
+          <td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>
+          <td class="ageduan">一</td>
+          <td >2018-06-03</td>
+          <td class="btnlast">
+            <button type="button" class="l">查看</button>
+            <button type="button" class="l">编辑</button>
+            <button type="button" class="l">删除</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox">
+          </td>
+          <td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>
+          <td class="ageduan">二</td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
+            <button type="button" class="l">查看</button>
+            <button type="button" class="l">编辑</button>
+            <button type="button" class="l">删除</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox">
+          </td>
+          <td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>
+          <td class="ageduan">三</td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
+            <button type="button" class="l">查看</button>
+            <button type="button" class="l">编辑</button>
+            <button type="button" class="l">删除</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox">
+          </td>
+          <td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>
+          <td class="ageduan">三</td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
+            <button type="button" class="l">查看</button>
+            <button type="button" class="l">编辑</button>
+            <button type="button" class="l">删除</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox">
+          </td>
+          <td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>
+          <td class="ageduan">三</td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
+            <button type="button" class="l">查看</button>
+            <button type="button" class="l">编辑</button>
+            <button type="button" class="l">删除</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox">
+          </td>
+          <td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>
+          <td class="ageduan">三</td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
+            <button type="button" class="l">查看</button>
+            <button type="button" class="l">编辑</button>
+            <button type="button" class="l">删除</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox">
+          </td>
+          <td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>
+          <td class="ageduan">三</td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
+            <button type="button" class="l">查看</button>
+            <button type="button" class="l">编辑</button>
+            <button type="button" class="l">删除</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox">
+          </td>
+          <td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>
+          <td class="ageduan">三</td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
+            <button type="button" class="l">查看</button>
+            <button type="button" class="l">编辑</button>
+            <button type="button" class="l">删除</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox">
+          </td>
+          <td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>
+          <td class="ageduan">三</td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
+            <button type="button" class="l">查看</button>
+            <button type="button" class="l">编辑</button>
+            <button type="button" class="l">删除</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox">
+          </td>
+          <td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>
+          <td class="ageduan">三</td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
+            <button type="button" class="l">查看</button>
+            <button type="button" class="l">编辑</button>
+            <button type="button" class="l">删除</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox">
+          </td>
+          <td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>
+          <td class="ageduan">三</td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
+            <button type="button" class="l">查看</button>
+            <button type="button" class="l">编辑</button>
+            <button type="button" class="l">删除</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox">
+          </td>
+          <td class="huatitle"><a href="#">渭华起义有什么历史意义，下列描述正确的是？</a></td>
+          <td class="ageduan">三</td>
+          <td>2018-06-03</td>
+          <td class="btnlast">
+            <button type="button" class="l">查看</button>
+            <button type="button" class="l">编辑</button>
+            <button type="button" class="l">删除</button>
+          </td>
+        </tr>
 
-        <!--</tbody>-->
-      <!--</table>-->
-    <!--</div>-->
-    <!--<div class="down">-->
-      <!--<el-pagination-->
-        <!--background-->
-        <!--class="gai"-->
-        <!--layout="prev, pager, next"-->
-        <!--:total="1000">-->
-      <!--</el-pagination>-->
-    <!--</div>-->
-  <!--</div>-->
+        </tbody>
+      </table>
+    </div>
+    <div class="down">
+      <el-pagination
+        background
+        class="gai"
+        layout="prev, pager, next"
+        :total="1000">
+      </el-pagination>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -355,18 +354,18 @@
     text-align: center;
   }
   .contentAnswer table thead tr th.wenAges{
-    width: 160px;
+    width: 216px;
     padding-left: 70px;
     text-align: center;
   }
   .contentAnswer table tbody tr td.huatitle{
-    width: 400px;
+    width: 468px;
   }
   .contentAnswer table tbody tr td.ageduan{
-    width: 100px;
+    width: 156px;
   }
   .contentAnswer table tbody tr td:nth-child(4){
-    width: 210px;
+    width: 280px;
   }
   .contentAnswer table tbody tr td.btnlast{
     padding-left: 32px;

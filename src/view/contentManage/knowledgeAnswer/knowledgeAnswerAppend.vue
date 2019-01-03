@@ -44,6 +44,42 @@
             </div>
           </div>
         </div>
+        <div class="repeats1">
+          <div class="l"><el-checkbox label=""></el-checkbox></div>
+          <div class="r">
+            <div class="timu">
+              <label class="l">题目: 渭华起义的历史意义，下列表述正确的是？</label>
+            </div>
+          </div>
+        </div>
+        <div class="repeats2">
+          <div class="l"><el-checkbox label=""></el-checkbox></div>
+          <div class="r">
+            <div class="timu">
+              <label class="l">题目: 渭华起义的历史意义，下列表述正确的是？</label><br>
+              <p>A 渭华起义是大革命失败后中共陕西省中共陕西省委领导的，以军事力量与农民运动相结合。</p>
+              <p>B 渭华起义是大革命失败后中共陕西省中共陕西省委领导的，以军事力量与农民运动相结合。</p>
+              <p>C 渭华起义是大革命失败后中共陕西省中共陕西省委领导的，以军事力量与农民运动相结合。</p>
+              <p>D 渭华起义是大革命失败后中共陕西省中共陕西省委领导的，以军事力量与农民运动相结合。</p>
+            </div>
+          </div>
+        </div>
+        <div class="repeats1">
+          <div class="l"><el-checkbox label=""></el-checkbox></div>
+          <div class="r">
+            <div class="timu">
+              <label class="l">题目: 渭华起义的历史意义，下列表述正确的是？</label>
+            </div>
+          </div>
+        </div>
+        <div class="repeats1">
+          <div class="l"><el-checkbox label=""></el-checkbox></div>
+          <div class="r">
+            <div class="timu">
+              <label class="l">题目: 渭华起义的历史意义，下列表述正确的是？</label>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>
@@ -158,9 +194,10 @@
   }
   .answerAppend div.right .down .repeats{
     overflow: hidden;
+    margin-bottom: 18px;
   }
   .answerAppend div.right .down .repeats div.r{
-    width: 88%;
+    width: 90%;
     margin-right:46px;
     background: #f8fbfb;
     padding: 20px 30px;
@@ -172,7 +209,7 @@
     margin-bottom: 20px;
   }
   .answerAppend div.right .down .repeats div.r .timu label {
-    color: #bbc2c4;
+    color: #999;
     font-size: 15px;
     margin-right: 10px;
     margin-top: 10px;
@@ -189,13 +226,13 @@
     margin-left: 40px;
   }
   .answerAppend div.right .down .repeats div.r .timus label {
-    color: #bbc2c4;
+    color: #999;
     font-size: 15px;
     margin-top: 10px;
     margin-right: 10px;
   }
   .answerAppend div.right .down .repeats div.r .timus input{
-    width: 85%;
+    width: 86%;
     height: 34px;
     border: 0;
     border: 1px solid #ddd;
@@ -233,5 +270,92 @@
     padding: 9px 32px;
     border-radius: 3px;
     margin-right: 30px;
+  }
+
+
+  .answerAppend div.right .down .repeats1{
+    overflow: hidden;
+    margin-bottom: 18px;
+  }
+  .answerAppend div.right .down .repeats1 div.r{
+    width: 91%;
+    margin-right:46px;
+    background: #f8fbfb;
+    padding-left: 20px;
+    padding-right: 0;
+  }
+  .answerAppend div.right .down .repeats1 div.r .timu{
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .answerAppend div.right .down .repeats1 div.r .timu label {
+    color: #999;
+    font-size: 15px;
+    margin-right: 10px;
+    margin-top: 10px;
+  }
+  .answerAppend div.right .down .repeats1 div.r .timu input{
+    width: 88%;
+    height: 34px;
+    border: 0;
+    border: 1px solid #ddd;
+  }
+  .answerAppend div.right .down .repeats1 div.r .timus{
+    overflow: hidden;
+    margin-bottom: 20px;
+    margin-left: 40px;
+  }
+  .answerAppend div.right .down .repeats1 div.r .timus label {
+    color: #999;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+
+  .answerAppend div.right .down .repeats2{
+    overflow: hidden;
+    margin-bottom: 18px;
+  }
+  .answerAppend div.right .down .repeats2 div.r{
+    width: 91%;
+    margin-right:46px;
+    background: #f8fbfb;
+    padding: 20px;
+    padding-right: 0;
+  }
+  .answerAppend div.right .down .repeats2 div.r .timu{
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .answerAppend div.right .down .repeats2 div.r .timu label {
+    color: #999;
+    display: block;
+    font-size: 15px;
+    margin-right: 10px;
+    margin-left: 20px;
+  }
+  .answerAppend div.right .down .repeats2 div.r .timu p {
+    color: #999;
+    margin-top: 20px;
+    font-size: 15px;
+    text-align: left;
+    margin-left: 50px;
+  }
+  .answerAppend div.right .down .repeats1 div.r .timu input{
+    width: 88%;
+    height: 34px;
+    border: 0;
+    border: 1px solid #ddd;
+  }
+  .answerAppend div.right .down .repeats2 div.r .timus{
+    overflow: hidden;
+    margin-bottom: 20px;
+    margin-left: 40px;
+  }
+  .answerAppend div.right .down .repeats2 div.r .timus label {
+    color: #999;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-right: 10px;
   }
 </style>

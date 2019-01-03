@@ -53,6 +53,7 @@ const contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
+        redirect: '/contentManage/senceNews/senceNews',
         children: [{
                 // 新闻中心
                 path: 'senceNews',
@@ -69,7 +70,7 @@ const contentRouter = [{
                 path: 'inform',
                 name: '通知公告',
                 component: resolve => {
-                    require(['view/contentManage/senceNews/inform'], resolve)
+                    require(['view/contentManage/senceNews/senceNews'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -85,6 +86,7 @@ const contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
+        redirect: '/contentManage/collectionAppreciation/appreciationShow',
         children: [{
                 path: 'appreciationShow',
                 name: '精品展示',
@@ -496,7 +498,7 @@ const contentRouter = [{
         path: 'knowledgeAnswer',
         name: '知识问答',
         component: resolve => {
-            require(['view/contentManage/knowledgeAnswer/knowledgeAnswer'], resolve)
+            require(['view/contentManage/knowledgeAnswer/knowledgeAnswerAppend'], resolve)
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),

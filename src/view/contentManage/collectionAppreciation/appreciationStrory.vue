@@ -43,11 +43,11 @@
           </td>
           <td class="strtitle"><a href="#">孙中山粉彩开光山水人物图</a></td>
           <td class="strImg"><img src="@/assets/img/content/photoy.png"></td>
-          <td>2018-06-03</td>
+          <td>{{new Date(value1).getFullYear() + '-' +(new Date(value1).getMonth() + 1) + '-' + new Date(value1).getDate()}}</td>
           <td class="btnlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
+            <button type="button" class="l" @click="reads">查看</button>
+            <button type="button" class="l" @click="writes">编辑</button>
+            <button type="button" class="l" @click="delMessages" >删除</button>
           </td>
         </tr>
         <tr>
@@ -238,10 +238,59 @@
               }
             }]
           },
-          value1: '',
+          value1: '2018-6-3',
           input: '',
           input2: ''
-        };
+        }
+      },
+      methods:{
+        delMessages() {
+          this.$confirm('此操作将永久删除此条文物故事是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除'
+            });
+          });
+        },
+        // clear(index) {
+        //   this.checkboxData.splice(index, 1);
+        // },
+        writes() {
+          this.$prompt('请输入文物标题', '编辑', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消'
+          }).then(({ value }) => {
+            this.$message({
+              type: 'success',
+              message: '文物标题是: ' + value
+            });
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '取消输入'
+            });
+          });
+        },
+        reads() {
+          this.$alert('孙中山粉彩开光山水人物图', '文物标题', {
+            confirmButtonText: '确定',
+            callback: action => {
+              this.$message({
+                type: 'info',
+                message: `action: ${ action }`
+              });
+            }
+          });
+        },
       }
     }
 </script>
@@ -326,7 +375,7 @@
     text-align: center;
   }
   .contentstr table thead tr th.strshi{
-    width: 205px;
+    width: 250px;
     text-align: center;
   }
   .contentstr table thead tr th:nth-child(1){
@@ -346,20 +395,20 @@
     text-align: center;
   }
   .contentstr table thead tr th.wenImg{
-    width: 100px;
+    width: 234px;
     text-align: center;
   }
   .contentstr table tbody tr td.strtitle{
     width: 400px;
   }
   .contentstr table tbody tr td.strImg{
-    width: 90px;
+    width: 274px;
   }
   .contentstr table tbody tr td:nth-child(4){
     width: 184px;
   }
   .contentstr table tbody tr td.btnlast{
-    padding-left: 56px;
+    padding-left: 84px;
   }
 
   .contentstr table tbody tr td a{

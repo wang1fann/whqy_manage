@@ -1,31 +1,56 @@
 <template>
   <div class="content-manageImg">
     <div class="l left">
-      <img src="@/assets/img/content/photou.png"/>
-      <p>点上传击图片</p>
+      <!--<img src="@/assets/img/content/photou.png"/>-->
+      <!--<p>点上传击图片</p>-->
+      <el-upload
+        action="https://jsonplaceholder.typicode.com/posts/"
+        list-type="picture-card"
+        :on-preview="handlePictureCardPreview"
+        :on-remove="handleRemove">
+        <i class="el-icon-plus"></i>
+      </el-upload>
     </div>
     <div class="l tuImg">
-      <img  src="@/assets/img/content/Thepicturea.png"/>
-      <span></span>
+      <!--<img  src="@/assets/img/content/Thepicturea.png"/>-->
+      <!--<span></span>-->
+      <el-dialog :visible.sync="dialogVisible">
+        <img width="100%" :src="dialogImageUrl" alt="">
+      </el-dialog>
     </div>
-    <div class="l tuImg">
-      <img  src="@/assets/img/content/Thepictureq.png"/>
-      <span></span>
-    </div>
-    <div class="l tuImg">
-      <img  src="@/assets/img/content/Thepicturee.png"/>
-      <span></span>
-    </div>
-    <div class="l tuImg">
-      <img  src="@/assets/img/content/Thepicturew.png"/>
-      <span></span>
-    </div>
+    <!--<div class="l tuImg">-->
+      <!--<img  src="@/assets/img/content/Thepictureq.png"/>-->
+      <!--<span></span>-->
+    <!--</div>-->
+    <!--<div class="l tuImg">-->
+      <!--<img  src="@/assets/img/content/Thepicturee.png"/>-->
+      <!--<span></span>-->
+    <!--</div>-->
+    <!--<div class="l tuImg">-->
+      <!--<img  src="@/assets/img/content/Thepicturew.png"/>-->
+      <!--<span></span>-->
+    <!--</div>-->
   </div>
 </template>
 
 <script>
     export default {
-        name: "situationImg"
+        name: "situationImg",
+      data() {
+        return {
+          dialogImageUrl: '',
+          dialogVisible: false
+        };
+      },
+      methods: {
+        handleRemove(file, fileList) {
+          console.log(file, fileList);
+        },
+        handlePictureCardPreview(file) {
+          this.dialogImageUrl = file.url;
+          this.dialogVisible = true;
+        }
+      }
     }
 </script>
 
@@ -47,7 +72,7 @@
     margin: 0 auto;
     width:40px;
     height: 30px;
-    margin-top: 50px;
+    margin-top: 10px;
   }
   *{margin: 0 ;padding: 0}
   .content-manageImg .left p{

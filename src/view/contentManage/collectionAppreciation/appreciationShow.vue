@@ -43,8 +43,8 @@
     width: 96%;
   }
   .content-manageappre .left{
-    width: 200px;
-    height:310px;
+    width: 18%;
+    height:330px;
     background: #f0f4f7;
   }
   .content-manageappre .left img{
@@ -60,16 +60,17 @@
     color:#d8dde1 ;
   }
   .content-manageappre img{
-    width: 200px;
-    height:250px;
+    width: 100%;
+    height:270px;
 
   }
   .content-manageappre .tuImg{
     position: relative;
-    height: 310px;
-    width: 200px;
+    height: 330px;
+    width: 18%;
+    box-sizing: border-box;
     background: #f5fafc;
-    margin-left: 22px;
+    margin-left: 28px;
   }
   .content-manageappre .tuImg span{
     display: block;
@@ -83,7 +84,7 @@
     z-index: 20;
   }
   .content-manageappre .tuImg p{
-    font-size: 12px;
+    font-size: 13px;
     text-align: center;
     margin-top: 20px;
     color: #58626f;

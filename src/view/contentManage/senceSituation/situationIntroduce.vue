@@ -29,43 +29,43 @@
     name: "situationIntroduce",
     data(){
       return{
-        datas:{}
+        // datas:{}
       }
     },
     methods:{
-      getData() {
-        var _this = this;
-        var config = {
-          pageNo: _this.currentPage,
-          size: _this.pageSize
-        };
-        // 添加查询字段
-        config = $.extend(config, this.searchFormData);
-        // 接口调用
-        API.Casejin()
-          .then(res => {
-            console.log(1);
-            console.log(res);
-            this.datas = res.data;
-            console.log(this.datas);
-          })
-          .catch(err => {
-            console.log(2);
-            this.total = 100;
-            this.data = [
-              {
-                account:"82983982",
-                operator: "saiyunxi",
-                roleGrade:"一级管理员",
-                action: "18828839.kkkkkkksaiyunxi.com",
-                operateTime: "2018-10-11"
-              }
-            ];
-          });
-      },
+      // getData() {
+      //   var _this = this;
+      //   var config = {
+      //     pageNo: _this.currentPage,
+      //     size: _this.pageSize
+      //   };
+      //   // 添加查询字段
+      //   config = $.extend(config, this.searchFormData);
+      //   // 接口调用
+      //   API.Casejin()
+      //     .then(res => {
+      //       console.log(1);
+      //       console.log(res);
+      //       this.datas = res.data;
+      //       console.log(this.datas);
+      //     })
+      //     .catch(err => {
+      //       console.log(2);
+      //       this.total = 100;
+      //       this.data = [
+      //         {
+      //           account:"82983982",
+      //           operator: "saiyunxi",
+      //           roleGrade:"一级管理员",
+      //           action: "18828839.kkkkkkksaiyunxi.com",
+      //           operateTime: "2018-10-11"
+      //         }
+      //       ];
+      //     });
+      // },
     },
     created(){
-      this.getData();
+      // this.getData();
     }
   }
 </script>

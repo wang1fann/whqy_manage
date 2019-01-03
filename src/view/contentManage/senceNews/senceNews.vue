@@ -4,7 +4,7 @@
       <div class="l">
         <label class="l">新闻标题</label>
         <div class="l">
-          <el-input v-model="input"  placeholder="请输入内容"></el-input>
+          <el-input v-model="input"  ref="searchval" placeholder="请输入内容"></el-input>
         </div>
       </div>
       <div class="l">
@@ -17,7 +17,7 @@
           </el-date-picker>
         </div>
         <el-row class="l">
-          <el-button type="danger" class="btn">查询</el-button>
+          <el-button type="danger" class="btn"  @click="search">查询</el-button>
         </el-row>
       </div>
 
@@ -27,30 +27,30 @@
         <thead>
         <tr >
           <th>
-            <input  type="checkbox">
+            <input  type="checkbox" v-model="checked" @click='checkedAll' >
             <label>全选</label>
           </th>
           <th class="biao">新闻标题</th>
-          <th class="gaidate">修改日期</th>
+          <th class="gaidate">上传日期</th>
           <th class="last1">操作</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr v-for='(item,index) in items' :key="item.id" >
           <td>
-            <input type="checkbox">
+            <input type="checkbox"  v-model='checkboxList' :value="item.id">
           </td>
-          <td class="words"><a href="#">渭华起义纪念馆深入贯彻学习习近平总书记在全国宣传思想工作</a></td>
-          <td class="datenews">2018-06-03</td>
+          <td class="words"><a href="#">{{item.title}}</a></td>
+          <td class="datenews"  >{{new Date(value1).getFullYear() + '-' +(new Date(value1).getMonth() + 1) + '-' + new Date(value1).getDate()}}</td>
           <td class="newlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
+            <button type="button" class="l" @click="reads">查看</button>
+            <button type="button" class="l" @click="writes">编辑</button>
+            <button type="button" class="l" @click="delMessages" >删除</button>
           </td>
         </tr>
         <tr>
           <td>
-            <input type="checkbox">
+            <input type="checkbox" v-model="checked">
           </td>
           <td class="words"><a href="#">白水发现700余斤北宋时期古钱币</a></td>
           <td class="datenews">2018-06-03</td>
@@ -62,7 +62,7 @@
         </tr>
         <tr>
           <td>
-            <input type="checkbox">
+            <input type="checkbox" v-model="checked">
           </td>
           <td class="words"><a href="#">白水发现700余斤北宋时期古钱币</a></td>
           <td class="datenews">2018-06-03</td>
@@ -72,114 +72,7 @@
             <button type="button" class="l">删除</button>
           </td>
         </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="words"><a href="#">渭华起义纪念馆深入贯彻学习习近平总书记在全国宣传思想工作</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="words"><a href="#">白水发现700余斤北宋时期古钱币</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="words"><a href="#">渭华起义纪念馆深入贯彻学习习近平总书记在全国宣传思想工作</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="words"><a href="#">渭华起义纪念馆深入贯彻学习习近平总书记在全国宣传思想工作</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="words"><a href="#">白水发现700余斤北宋时期古钱币</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="words"><a href="#">渭华起义纪念馆深入贯彻学习习近平总书记在全国宣传思想工作</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="words"><a href="#">白水发现700余斤北宋时期古钱币</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="words"><a href="#">渭华起义纪念馆深入贯彻学习习近平总书记在全国宣传思想工作</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="words"><a href="#">白水发现700余斤北宋时期古钱币</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
+
         </tbody>
       </table>
     </div>
@@ -195,10 +88,18 @@
 </template>
 
 <script>
+
   export default {
     name: "senceNews",
     data() {
       return {
+        items:[
+          {
+            title:'',//标题
+            id:'',
+            createTime:'',//时间
+          }
+        ],
         pickerOptions1: {
           disabledDate(time) {
             return time.getTime() > Date.now();
@@ -224,15 +125,127 @@
             }
           }]
         },
-        value1: '',
+        value1: '2018-6-3',
         input: '',
-        input2: ''
-      };
-    }
+        input2: '',
+        checkboxList:[],
+        checked: false
+      }
+    },
+
+    methods:{
+      checkedAll: function() {
+        if (this.checked) {//实现反选
+          this.checkboxList = [];
+        } else { //实现全选
+          this.checkboxList = [];
+          this.items.forEach( (item) => {
+            this.checkboxList.push(item.id);
+          });
+        }
+      },
+      delMessages() {
+        this.$confirm('此操作将永久删除此条新闻, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+      },
+      // clear(index) {
+      //   this.checkboxData.splice(index, 1);
+      // },
+      writes() {
+        this.$prompt('请输入新闻标题', '编辑', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消'
+        }).then(({ value }) => {
+          this.$message({
+            type: 'success',
+            message: '新闻标题是: ' + value
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消输入'
+          });
+        });
+      },
+      reads() {
+        this.$alert('渭华起义纪念馆深入贯彻学习习总书记在全国宣传思想工作', '新闻标题', {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.$message({
+              type: 'info',
+              message: `action: ${ action }`
+            });
+          }
+        });
+      },
+      search () {
+        let searchText = this.$refs.searchval.value
+        if (searchText =='') {
+          return
+        } else {
+          this.closeState = true
+          this.searchState.showsug = true
+          this.searchState.searchtext = this.$refs.searchval.value
+          this.$emit('searchstate', this.searchState)
+        }
+        axios.get('http://localhost:3000/search/suggest?keywords=' + searchText, {}, {headers:{'Content-Type':'application/x-www-form-urlencoded'}})
+          .then((res) => {
+            if (res.data.code == 200) {
+              this.$emit('search', res.data.result.allMatch)
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      },
+      //内容接口
+      getprev(){
+        var _this = this;
+        this.$axios({
+          method:'post',
+          url:'/jingquxinwen/search',
+          data:{
+            "menuId":"51412",
+            "status":1
+          },
+        }).then( (res) =>{
+          console.log(res.data.code)
+          if(res){
+            if(res.data.code === 20000){
+              //成功请求
+              console.log(res.data.message);
+              console.log(res.data.data);
+              _this.items = res.data.data;
+              _this.title = res.data.data[0].title; //标题
+              _this.createTime = res.data.data[0].createTime; //时间
+            } else {
+              //请求失败
+              console.log(res.data.message);
+            }
+          }
+        })
+      },
+    },
+    mounted(){
+      this.getprev()
+   }
   }
 </script>
 
-<style  scoped>
+<style  lang="scss">
  .contentNews .gai{
     padding-top: 0;
   }
@@ -333,13 +346,13 @@
      padding-left: 108px;
   }
    .contentNews  table tbody tr td.words{
-    width: 68%;
+    width: 66%;
   }
    .contentNews  table tbody tr td.newlast{
     padding-left: 84px;
   }
    .contentNews table tbody tr td.datenews{
-    width: 90px;
+    width: 114px;
   }
    .contentNews  table tbody tr td a{
     color: #868e96;
