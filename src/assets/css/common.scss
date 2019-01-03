@@ -252,15 +252,22 @@ span.el-dialog__title {
     vertical-align: middle;
 }
 
-.my-startcopy-box {
-    .el-input {
-        .el-input-group__append {
-            border: 1px solid #eb5e5f;
-            background-color: #eb5e5f !important;
-            color: #fff !important;
-            cursor: pointer;
+.my-redbutton {
+    .el-button {
+        border: 1px solid #eb5e5f;
+        background-color: #eb5e5f !important;
+        color: #fff !important;
+        padding: 12px 22px;
+        cursor: pointer;
+        span {
+            color: #fff;
         }
     }
+}
+
+.el-button:focus,
+.el-button:hover {
+    color: #fff;
 }
 
 .data-box .el-radio-button__inner {

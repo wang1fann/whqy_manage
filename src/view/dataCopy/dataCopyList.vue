@@ -8,17 +8,20 @@
           style="margin:0px 50px;padding: 5px 25px;border-radius:30px;"
         > <img
             class="my-button-img"
-            src="../../assets/img/data/The snapshot duty.png"
+            src="@/assets/img/data/The snapshot duty.png"
             alt=""
           > <span class="my-button-span">数据备份</span></el-button>
         <button
           class="restore-button"
           @click="gotoUrl('/dataRestore')"
-        ><img
+          @mouseover="pic = pic2"
+          @mouseout="pic = pic1"
+        >
+          <img
             class="my-button-img"
-            src="../../assets/img/data/The backup1.png"
-            alt=""
-          > <span class="my-button-span">数据还原</span></button>
+            :src="pic"
+          />
+          <span class="my-button-span">数据还原</span></button>
       </div>
       <el-row>
         <el-radio-group v-model="dataCopyType">
@@ -29,55 +32,31 @@
       <el-row>
         <img
           style="width: 400px;margin: 20px auto; height: auto;"
-          src="../../assets/img/data/illustrations.png"
+          src="@/assets/img/data/illustrations.png"
           alt=""
         >
       </el-row>
       <el-row
-        class="my-startcopy-box"
-        :gutter="20"
-      >
-        <el-col :span="3">数据备份到：</el-col>
-        <el-col :span="17">
-          <el-input
-            placeholder="请输入文件路径内容"
-            v-model="filePath"
-            clearable
-          >
-            <template
-              slot="append"
-              style="background:red;"
-            >开始备份</template>
-          </el-input>
-        </el-col>
-      </el-row>
-      <el-row
         style="margin-top:20px;"
         :gutter="20"
+        class="my-redbutton"
       >
-        <el-col :span="3">&nbsp;</el-col>
-        <el-col :span="17" style="padding-right:0px;padding-left:0px;">
-          <el-progress
-            :percentage="percentageInfo.percentage"
-            :status="percentageInfo.status"
-          ></el-progress>
-        </el-col>
+        <el-button @click="submitcopyData()">开始备份</el-button>
       </el-row>
     </div>
   </div>
 </template>
 
 <script>
+import API from "@/api/api_data.js";
 export default {
   data() {
     return {
+      pic: require("@/assets/img/data/The backup1.png"),
+      pic1: require("@/assets/img/data/The backup1.png"),
+      pic2: require("@/assets/img/data/restore.png"),
       id: "",
-      filePath: "",
-      dataCopyType: "手动备份",
-      percentageInfo: {
-        percentage: 50,
-        status: "exception"
-      }
+      dataCopyType: "手动备份"
     };
   },
   created: function() {},
@@ -89,18 +68,15 @@ export default {
         query: !!query ? query : ""
       });
     },
-    preview(event) {
-      let files = document.getElementById(this.id).files[0];
-      this.imgDataUrl = this.getObjectURL(files);
-      this.$emit("sendImgUrl", this.imgDataUrl, this.id);
-    },
-    download(text, name, type) {
-      var a = document.getElementById("a");
-      var file = new Blob([text], { type: type });
-      a.href = URL.createObjectURL(file);
-      a.download = name;
-      a.dispatchEvent(
-        new MouseEvent("click", { bubbles: false, cancelable: true })
+    submitcopyData() {
+      API.restore({ "type": this.dataCopyType === "手动备份" ? 1 : "2" }).then(
+        res => {
+          //dbbackup,type:1手动，2自动
+          this.$message({
+            message: res.message,
+            type: res.code === 20000 ? "success" : "error"
+          });
+        }
       );
     }
   }
@@ -125,7 +101,6 @@ export default {
 .data-list {
   width: 75%;
   margin: 0 auto;
-  //   border: 1px solid red;
   .data-type-button {
     margin: 50px auto;
     .my-button-img {

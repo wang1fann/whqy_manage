@@ -40,6 +40,7 @@
       :currentPage="currentPage"
       :pageSize="pageSize"
       :total="total"
+      @handleSizeChange="handleSizeChange"
       @handleCurrentChange="handleCurrentChange"
       @delete="deleteConfirm"
       @select="handleSelectionChange"
@@ -118,7 +119,6 @@ export default {
   },
   created() {
     this.fieldInit();
-    this.formInit();
     this.searchFormInit();
   },
   mounted() {
@@ -130,7 +130,6 @@ export default {
   methods: {
     // table字段初始化
     fieldInit() {
-      // 获取字段
       var column = getField("log");
       column.forEach(item => {
         if (!!item.width && item.width != "auto") {
@@ -139,27 +138,19 @@ export default {
       });
       this.column = column;
     },
-    // 表单数据初始化
-    formInit(row) {
-      // 获取form字段
-      this.formItem = getFormField("log", "item");
-      this.formData = !!row ? row : getFormField("log", "data");
-    },
     searchFormInit() {
       this.searchFormItem = getSearchField("log", "item");
       console.log(this.searchFormItem);
       this.searchFormData = getSearchField("log", "data");
     },
- 
     // 提交数据
     submit() {
-      console.log(this.formData);
       setTimeout(() => {
         API[this.type](this.formData).then(res => {
           this.dialogVisible = false;
           this.$message({
-            message: res.msg,
-            type: "success"
+            message: res.message,
+            type: res.code === 20000 ? "success" : "warning"
           });
           this.getData();
         });
@@ -187,44 +178,51 @@ export default {
       // 接口调用
       API.findlogList(config)
         .then(res => {
-          console.log(res);
-          this.data = res.data.rows;
-          this.total = res.data.total;
+          if (!!res && res.code === 20000) {
+            this.data = res.data.rows;
+            this.total = res.data.total;
+          }
+          this.$message({
+            message: res.message,
+            type: res.code === 20000 ? "success" : "error"
+          });
         })
         .catch(err => {
-          console.log(2);
-          this.total = 100;
-          this.data = [
-            {
-              account: "82983982",
-              operator: "saiyunxi",
-              roleGrade: "一级管理员",
-              action: "18828839.kkkkkkksaiyunxi.com",
-              operateTime: "2018-10-11"
-            }
-          ];
+          this.$message({
+            message: err,
+            type: "error"
+          });
         });
     },
     // 删除
     delete() {
       var _this = this;
-      API.deleteTaskById({ ids: _this.ids }).then(res => {
-        this.ids = null;
-        this.$message({
-          message: "删除成功",
-          type: "success"
+      console.log(_this.ids);
+      API.delLog({ id: _this.ids })
+        .then(res => {
+          this.ids = null;
+          this.$message({
+            message: res.message,
+            type: res.code === 20000 ? "success" : "error"
+          });
+          this.getData();
+        })
+        .catch(err => {
+          this.$message({
+            message: err,
+            type: "error"
+          });
         });
-        this.getData();
-      });
     },
-    // 批量删除
+    // 批量.删除
     deleteBatch() {
       var id = [];
       this.multipleSelection.forEach(item => {
-        id.push(item.taskId);
+        id.push(item.id);
       });
+      this.ids = id.join();
       if (id.length > 0) {
-        this.deleteConfirm({ taskId: id });
+        this.deleteConfirm({ id: this.ids });
       } else {
         this.$message({
           message: "请至少选择一个选项",
@@ -235,14 +233,7 @@ export default {
     // 删除确认
     deleteConfirm(row) {
       var _this = this;
-      var ids = [];
-      if (typeof row.taskId === "number") {
-        ids.push(row.taskId);
-      } else {
-        ids = row.taskId;
-      }
-      this.ids = ids.join();
-      this.confirmContent = "此操作将永久删除该文件, 是否继续?";
+      _this.ids = row.id;
       setTimeout(() => {
         this.$refs.myconfirm.confirm(_this.delete, _this.cancle);
       }, 100);
@@ -264,6 +255,11 @@ export default {
     // 分页切换
     handleCurrentChange(index) {
       this.currentPage = index;
+      this.getData();
+    },
+     //每页显示条数切换
+    handleSizeChange(val) {
+      this.pageSize = val;
       this.getData();
     },
     // 搜索

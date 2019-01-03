@@ -4,22 +4,21 @@
 import * as API from '.'
 
 export default {
-    // 案例相关接口
-    addCase: params => { //添加产品
-        if (params.get('id') != "" && params.get('id') != undefined) {
-            return API.POST('/blstation-web/case/update', params); //产品更新
-        } else {
-            return API.POST('/blstation-web/case/add', params); //产品添加
-        }
+    getDeviceBzt: params => {
+        return API.POST('/syx/other/deviceBzt', params); //访问路径饼状图
     },
-    CaseListPageQuery: params => {
-        return API.POST('/blstation-web/case/pageQuery', params); //获取产品列表
+    getDeviceZzt: params => {
+        return API.POST('/syx/other/deviceZzt', params); //访问量柱状图
     },
-    CaseDel: params => {
-        return API.POST('/blstation-web/case/delete', params); //产品列表删除
+    getModuleZzt: params => {
+        return API.POST('/syx/other/moduleZzt', params); //模块柱状图
     },
-    // /case/findOne
-    findOneDetail: params => {
-        return API.POST('/blstation-web/case/findOne', params); //产品列表删除
+    // /syx/other/todayVisit
+    getTodayVisit: params => {
+        return API.GET('/syx/other/todayVisit', params); //今日访客总数
+    },
+    // /syx/other/allVisit
+    getAllVisit: params => {
+        return API.GET('/syx/other/allVisit', params); //获取访客总数
     }
 }

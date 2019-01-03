@@ -1,5 +1,5 @@
 /**
- * Created by jerry on 2017/6/9.
+ * Created 2018.12.11
  */
 import axios from 'axios'
 import {
@@ -7,7 +7,7 @@ import {
 } from '../bus.js'
 import {
     getCookie
-} from './util' //引用刚才我们创建的util.js文件，并使用getCookie方法
+} from '@/plugins/util' //引用刚才我们创建的util.js文件，并使用getCookie方法
 
 
 axios.defaults.withCredentials = false;
@@ -20,9 +20,9 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 axios.defaults.timeout = 3000; //设置请求过期时间
 // axios.defaults.baseURL = 'http://47.98.182.165';
 // axios.defaults.baseURL = 'http://192.168.0.110:9014';
-// axios.defaults.baseURL = 'http://192.168.0.106:9014';
-axios.defaults.baseURL = 'http://192.168.0.108:9014';
-
+// axios.defaults.baseURL = 'http://192.168.0.106:9014';//lili
+axios.defaults.baseURL = 'http://192.168.0.108:9014'; //zhenyang
+// axios.defaults.baseURL = 'http://192.168.0.119:9014'; //lihao 
 // http request 拦截器，通过这个，我们就可以把Cookie传到后台
 // 请求拦截器
 axios.interceptors.request.use(

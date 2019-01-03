@@ -163,7 +163,6 @@ export default {
   methods: {
     // table字段初始化
     fieldInit() {
-      // 获取字段
       var column = getField("link");
       column.forEach(item => {
         if (!!item.width && item.width != "auto") {
@@ -172,9 +171,7 @@ export default {
       });
       this.column = column;
     },
-    // 表单数据初始化
     formInit(row) {
-      // 获取form字段
       this.formItem = getFormField("link", "item");
       this.formData = !!row ? row : getFormField("link", "data");
     },
@@ -183,7 +180,6 @@ export default {
       console.log(this.searchFormItem);
       this.searchFormData = getSearchField("link", "data");
     },
-    // 添加数据
     showDialog() {
       this.formInit();
       this.dialogTitle = "添加链接";
@@ -233,9 +229,15 @@ export default {
       // 接口调用
       API.findlinkList(config)
         .then(res => {
-          console.log(res);
-          this.data = res.data.rows;
-          this.total = res.data.total;
+          // console.log(res);
+          if (!!res && res.code === 20000) {
+            this.data = res.data.rows;
+            this.total = res.data.total;
+          }
+          this.$message({
+            message: res.message,
+            type: res.code === 20000 ? "success" : "error"
+          });
         })
         .catch(err => {
           this.$message({
@@ -270,7 +272,7 @@ export default {
       this.multipleSelection.forEach(item => {
         id.push(item.id);
       });
-      this.ids =  id.join() ;
+      this.ids = id.join();
       if (id.length > 0) {
         this.deleteConfirm({ id: this.ids });
       } else {

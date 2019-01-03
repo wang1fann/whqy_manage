@@ -1,15 +1,24 @@
 <template>
   <div class="blct-table">
     <!-- 标题 -->
-    <el-row class="title" v-if="titleShow">
+    <el-row
+      class="title"
+      v-if="titleShow"
+    >
       <h5>{{title}}</h5>
     </el-row>
     <!-- 增删改查操作 -->
-    <el-row class="btn-group" v-if="btnGroupShow">
-      <el-button size="mini" icon="el-icon-minus">删除</el-button>
+    <el-row
+      class="btn-group"
+      v-if="btnGroupShow"
+    >
+      <el-button
+        size="mini"
+        icon="el-icon-minus"
+      >删除</el-button>
     </el-row>
     <!-- 表 -->
-      <!--:height="height?height:500"-->
+    <!--:height="height?height:500"-->
     <el-table
       ref="multipleTable"
       :size="size"
@@ -23,7 +32,9 @@
       :tooltip-effect="'dark'"
       :row-class-name="tableRowClassName"
       @row-click="rowClick"
-      @selection-change="handleSelectionChange">
+      @selection-change="handleSelectionChange"
+    >
+      <!-- :currentRow="currentRow" -->
       <!-- 复选框 -->
       <el-table-column
         type="selection"
@@ -31,8 +42,23 @@
         :width="width"
         :align="'center'"
         :fixed="false"
-        :selectable='checkboxInit'>
+        :selectable='checkboxInit'
+      >
       </el-table-column>
+      <!-- 单选框 -->
+      <!-- <el-table-column
+        label="选择"
+        width="50"
+        align="center"
+      >
+        <template scope="scope">
+          <el-radio
+            class="radio"
+            v-model="radio"
+            :label="scope.$index"
+          >&nbsp;</el-radio>
+        </template>
+      </el-table-column> -->
       <!-- 序号 -->
       <el-table-column
         v-if="hasIndex"
@@ -42,32 +68,53 @@
         label="序号"
         sortable="true"
         width="50"
-        :index="indexMethod">
+        :index="indexMethod"
+      >
       </el-table-column>
       <!-- 选项内容 -->
       <template v-for="(item, idx) in column">
-        <el-table-column v-if="item.show" :key="idx"
+        <el-table-column
+          v-if="item.show"
+          :key="idx"
           :align="'center'"
           :fixed="item.fixed"
           :sortable="item.sortable"
           :prop="item.prop"
           :label="item.label"
           :show-overflow-tooltip="true"
-          :width="item.width">
+          :width="item.width"
+        >
           <template slot-scope="scope">
             <!-- 下拉列表显示 -->
             <!-- 超出点点显示 -->
-            <el-tooltip v-if="item.type == 'tooltip'" :content="scope.row[item.prop]" placement="top">
+            <el-tooltip
+              v-if="item.type == 'tooltip'"
+              :content="scope.row[item.prop]"
+              placement="top"
+            >
               <p> {{ scope.row[item.prop] }}</p>
             </el-tooltip>
             <!-- 超出点点显示模式二 -->
-            <el-popover v-else-if="item.type == 'popover'" trigger="hover" placement="top">
+            <el-popover
+              v-else-if="item.type == 'popover'"
+              trigger="hover"
+              placement="top"
+            >
               <ul>
-                <li v-for="(citem, cidx) in scope.row[item.fprop]" :key="cidx">
-                  <span v-for="(ccitem, ccidx) in citem" :key="ccidx">{{ccitem}}/</span>
+                <li
+                  v-for="(citem, cidx) in scope.row[item.fprop]"
+                  :key="cidx"
+                >
+                  <span
+                    v-for="(ccitem, ccidx) in citem"
+                    :key="ccidx"
+                  >{{ccitem}}/</span>
                 </li>
               </ul>
-              <div slot="reference" class="name-wrapper">
+              <div
+                slot="reference"
+                class="name-wrapper"
+              >
                 <p size="medium">
                   <span>{{scope.row[item.fprop][0][item.prop]}}</span>
                 </p>
@@ -76,19 +123,29 @@
             <!-- 数据是Object -->
             <span v-else-if="item.type == 'Object'">{{ scope.row[item.fprop][item.prop] ? scope.row[item.fprop][item.prop] : '-' }}</span>
             <!-- 链接 -->
-            <a v-else-if="item.type == 'link'" :href="scope.row[item.prop]"  :download="scope.row.name"> <i class="el-icon-download"></i> 下载</a>
+            <a
+              v-else-if="item.type == 'link'"
+              :href="scope.row[item.prop]"
+              :download="scope.row.name"
+            > <i class="el-icon-download"></i> 下载</a>
             <!-- 内容需要转换 -->
-            <span v-else-if="item.type == 'needChange'"  :style="'color:'+ item.change[scope.row[item.prop]].name">{{ item.change[scope.row[item.prop]].name }}</span>
+            <span
+              v-else-if="item.type == 'needChange'"
+              :style="'color:'+ item.change[scope.row[item.prop]].name"
+            >{{ item.change[scope.row[item.prop]].name }}</span>
             <!-- 正常显示 -->
             <span v-else>{{ (scope.row[item.prop] != null && (scope.row[item.prop] + '')) ? scope.row[item.prop] : '-' }}</span>
           </template>
           <template v-if="item.column">
-            <el-table-column v-for="(item, idx) in item.column" :key="idx"
+            <el-table-column
+              v-for="(item, idx) in item.column"
+              :key="idx"
               :fixed="item.fixed"
               :sortable="item.sortable"
               :prop="item.prop"
               :label="item.label"
-              :width="item.width">
+              :width="item.width"
+            >
               <template v-if="item.column"></template>
             </el-table-column>
           </template>
@@ -101,31 +158,38 @@
         :fixed="operation.fixed"
         :label="operation.label"
         :width="operation.width"
-        :minWidth="operation.minWidth">
+        :minWidth="operation.minWidth"
+      >
         <template slot-scope="scope">
-          <template v-for="(citem, index) in operation.btns"> 
-          <el-button
-            v-if="setShow(scope.row, citem)"
-            :key="index"
-            type="text"
-            :class="citem.class"
-            @click="handle(citem.handle, scope.row)"
-            :icon="citem.icon"
-            :disabled="setDisabled(scope.row, citem)"
-            :size="citem.size">{{citem.content}}
-          </el-button>
+          <template v-for="(citem, index) in operation.btns">
+            <el-button
+              v-if="setShow(scope.row, citem)"
+              :key="index"
+              type="text"
+              :class="citem.class"
+              @click="handle(citem.handle, scope.row)"
+              :icon="citem.icon"
+              :disabled="setDisabled(scope.row, citem)"
+              :size="citem.size"
+            >{{citem.content}}
+            </el-button>
           </template>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <el-row class="pagination" v-if="total >= pageSize">
+    <el-row
+      class="pagination"
+      v-if="total >= pageSize"
+    >
       <el-pagination
+        @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="currentPage"
         :page-sizes="[pageSize,50,100, 200, 300]"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="total">
+        :total="total"
+      >
       </el-pagination>
     </el-row>
   </div>
@@ -133,7 +197,7 @@
 
 <script>
 /* eslint-disable */
-import {rem2px, px2rem, getTableHeight } from '@/plugins/util.js'
+import { rem2px, px2rem, getTableHeight } from "@/plugins/util.js";
 export default {
   name: "MyTable",
   props: {
@@ -151,7 +215,7 @@ export default {
     },
     title: {
       type: String,
-      default: '标题'
+      default: "标题"
     },
     titleShow: {
       type: Boolean,
@@ -163,7 +227,7 @@ export default {
     },
     size: {
       type: String,
-      default: 'mini'
+      default: "mini"
     },
     stripe: {
       type: Boolean,
@@ -183,15 +247,15 @@ export default {
     },
     maxHeight: {
       type: String,
-      default: 'none'
+      default: "none"
     },
     styles: {
       type: String,
-      default: ''
+      default: ""
     },
     hasIndex: {
       type: Boolean,
-      default: false
+      default: true
     },
     total: {
       type: Number,
@@ -199,7 +263,7 @@ export default {
     },
     pageSize: {
       type: Number,
-      default: 10
+      default: 15
     },
     currentPage: {
       type: Number,
@@ -207,14 +271,15 @@ export default {
     },
     layout: {
       type: String,
-      default: 'prev, pager, next'
+      default: "prev, pager, next"
     },
     operation: {
       type: Object,
       default: () => {
-        return {}
+        return {};
       }
     }
+
   },
   data() {
     return {
@@ -225,7 +290,7 @@ export default {
   methods: {
     tableRowClassName({ row, rowIndex }) {
       // 可以通过指定 Table 组件的 row-class-name 属性来为 Table 中的某一行添加 class，表明该行处于某种状态。
-      if (rowIndex%2 === 0) {
+      if (rowIndex % 2 === 0) {
         return "even-row";
       } else {
         return "odd-row";
@@ -233,88 +298,88 @@ export default {
     },
     handle(str, row) {
       this.rowClick(row);
-      this.$emit(str, row);//将事件名字和参数值传递出去，
+      this.$emit(str, row); //将事件名字和参数值传递出去，
     },
     handleSelectionChange(val) {
-      this.$emit('select', val)
+      this.$emit("select", val);
     },
     rowClick(row) {
-      if(row.username != 'admin') {
-        this.$refs.multipleTable.toggleRowSelection(row)
-      }
+      this.$emit("rowClick", row);
     },
     indexMethod(index) {
-      return index +1;
+      index = index + 1 + (this.currentPage - 1) * this.pageSize;
+      return index;
     },
-    handleSizeChange() {},
+    handleSizeChange(val) {
+      this.$emit("handleSizeChange", val);
+    },
     handleCurrentChange(index) {
-      this.$emit('handleCurrentChange', index)
+      this.$emit("handleCurrentChange", index);
     },
-    checkboxInit(row, index){
-      if (row.username === 'admin') 
-        return 0;//不可勾选
-      else
-        return 1;//可勾选
+    checkboxInit(row, index) {
+      if (row.username === "admin") return 0;
+      //不可勾选
+      else return 1; //可勾选
     },
     setDisabled(row, btn) {
-      var flag = false
+      var flag = false;
       switch (this.operation.nowPage) {
-        case 'usersList':
-          flag = row.username === 'admin'
+        case "usersList":
+          flag = row.username === "admin";
           break;
-        case 'taskList':
+        case "taskList":
           if (row.status === 1) {
-            flag = btn.content != '挂起'
+            flag = btn.content != "挂起";
           } else if (row.status === 2) {
-            flag = btn.content != '取消'
+            flag = btn.content != "取消";
           } else if (row.status === 3) {
-            flag = true
+            flag = true;
           } else if (row.status === 4) {
-            flag = false
+            flag = false;
           }
           break;
-        case 'projectDetail':
+        case "projectDetail":
           if (row.status === 1) {
-            flag = true
+            flag = true;
           } else {
-            flag = false
+            flag = false;
           }
           break;
-      
+
         default:
           break;
       }
-      return flag
+      return flag;
     },
     setShow(row, btn) {
-      var flag = true
+      var flag = true;
       switch (this.operation.nowPage) {
-        case 'usersList':
+        case "usersList":
           break;
-        case 'taskList':
+        case "taskList":
           if (row.status === 1 || row.status === 2) {
-            flag = btn.content === '挂起' || btn.content === '取消'
+            flag = btn.content === "挂起" || btn.content === "取消";
           } else if (row.status === 3 || row.status === 4) {
-            flag = btn.content === '编辑' || btn.content === '删除'
-          } 
+            flag = btn.content === "编辑" || btn.content === "删除";
+          }
           break;
-        case 'projectDetail':
+        case "projectDetail":
           break;
         default:
           break;
       }
-      return flag
+      return flag;
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/base/variables.scss';
-@import '@/assets/base/mixins.scss';
+@import "@/assets/base/variables.scss";
+@import "@/assets/base/mixins.scss";
 .title {
   @include padding(10, 10, 20, 10);
-  border-bottom: 2px dashed rgba(229,229,229,1);
+  border-bottom: 2px dashed rgba(229, 229, 229, 1);
   h5 {
     @include px2rem(font-size, 29);
     color: $tc;

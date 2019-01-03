@@ -13,10 +13,11 @@
     </el-row>
     <!-- 表格数据 -->
     <MyTable
+      v-show="radio==='从服务器还原'"
       size="mini"
       :stripe="false"
       :border="false"
-      :multiple="true"
+      :multiple="false"
       :operation="operation"
       :column="column"
       :data="data"
@@ -27,6 +28,7 @@
       @delete="deleteConfirm"
       @update="''"
       @select="handleSelectionChange"
+      @rowClick="rowClick"
     ></MyTable>
     <MyConfirm
       ref="myconfirm"
@@ -46,25 +48,15 @@
     <el-row
       class="my-startcopy-box"
       :gutter="20"
+      v-show="radio==='从本地还原'"
     >
-      <el-col :span="3">选择本地文件路径：</el-col>
-      <el-col :span="17">
-        <el-input
-          placeholder="请输入文件路径"
-          v-model="localFilePath"
-          clearable
-        >
-          <template
-            slot="append"
-            style="background:red;"
-          >选择</template>
-        </el-input>
-      </el-col>
+      <input type="file">
     </el-row>
     <el-row>
       <el-button
         type="danger"
         style="margin:20px 0px;"
+        @click="startRestore()"
       >开始还原</el-button>
     </el-row>
   </div>
@@ -112,8 +104,10 @@ export default {
       ]
     };
     return {
+      // currentRow:null,
+      radioRow: "",
       localFilePath: "",
-      radio: "",
+      radio: "从服务器还原",
       confirmType: "warning",
       confirmTitle: "提示信息",
       confirmContent: "此操作将永久删除该数据, 是否继续?",
@@ -141,6 +135,10 @@ export default {
     this.getData();
   },
   methods: {
+    rowClick(row) {
+      console.log(row);
+      this.radioRow = row;
+    },
     // table字段初始化
     fieldInit() {
       // 获取字段
@@ -244,10 +242,32 @@ export default {
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
-    // 分页切换
+    // 分页切换或 单行选中事件
     handleCurrentChange(index) {
+      // console.log(index);
+      // this.currentRow=index;
       this.currentPage = index;
       this.getData();
+    },
+    // 数据库还原
+    dbRestore(row) {
+      if (!row.filePath) {
+         this.$message({
+          message: '请先选中要还原的已备份数据',
+          type: 'warning'
+        });
+        return;
+      }
+      var filePath = { filePath: !!row ? row.filePath : "" };
+      API.dbRestore(filePath).then(res => {
+        console.log(res);
+      });
+    },
+    startRestore() {
+      if (this.radio === "从服务器还原") {
+        this.dbRestore(this.radioRow);
+      } else {
+      }
     }
   }
 };

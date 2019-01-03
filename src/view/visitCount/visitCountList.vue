@@ -37,10 +37,11 @@
                   type="warning"
                   plain
                   @click="searchVisitData"
-
                 >查询</el-button>
-                  <!-- @click="searchVisitData()" -->
               </span>
+            </div>
+            <div class="allvistdata">
+              总访问量:{{allvistdata}}
             </div>
           </div>
           <div class="left-line"></div>
@@ -70,20 +71,30 @@
 
 <script>
 import echarts from "echarts";
-import API from '@/api/api_visit.js'
+import { getNowFormatDate, Object2Array } from "@/plugins/util.js";
+import API from "@/api/api_visit.js";
 export default {
   data() {
     return {
       dataRangeValue: "",
       dateType: "最近访问",
+      visitData: {
+        name: [0],
+        value: [0]
+      },
+      moduleData: {
+        name: [0],
+        value: [0]
+      },
       chartColumn: null,
       chartBar: null,
       chartPie: null,
+      allvistdata: 0,
       drawPieChartData: {
         data: [
-          { value: 335, name: "PC门户网站" },
-          { value: 310, name: "App端" },
-          { value: 1548, name: "搜索引擎" }
+          { value:0, name: "PC门户网站" },
+          { value: 0, name: "App端" },
+          { value: 0, name: "搜索引擎" }
         ],
         legendData: [
           {
@@ -113,19 +124,28 @@ export default {
   },
   methods: {
     searchVisitData() {
-      console.log(this.dateType);
-      console.log(this.dataRangeValue);
-        var searchParams={
-            type:this.dateType,
-            data:this.dataRangeValue
-        }
-      API.searchVisitData(searchParams).then(res=>{
-
-      }).catch(res=>{
-          
-      })
+      // var searchParams = {
+      //   type: this.dateType,
+      //   startDay: this.dataRangeValue[0],
+      //   endDay: this.dataRangeValue[1]
+      // };
+      var searchParams = {
+        startDay: "2018-12-01 00:00:00",
+        endDay: getNowFormatDate()
+      };
+      var that = this;
+      API.getDeviceZzt(searchParams)
+        .then(res => {
+          console.log(res);
+          that.visitData.name = Object2Array(res.data, "name");
+          that.visitData.value = Object2Array(res.data, "value");
+          console.log(that.visitData);
+          that.drawColumnChart();
+        })
+        .catch(res => {});
     },
     drawColumnChart() {
+      var that = this;
       this.chartColumn = echarts.init(document.getElementById("chartColumn"));
       this.chartColumn.setOption({
         backgroundColor: "#F8F9FA",
@@ -145,7 +165,7 @@ export default {
           containLabel: true
         },
         xAxis: {
-          data: ["1", "2", "3", "4", "5", "6", 7, 8, 9, 10, 11, 12],
+          data: that.visitData.name,
           axisLabel: {
             textStyle: {
               color: "#EF8F64"
@@ -195,13 +215,30 @@ export default {
                 ])
               }
             },
-            data: [5, 20, 36, 10, 10, 20, 100, 239, 393, 299, 99, 3332]
+            data: that.visitData.value
           }
         ]
       });
     },
-    drawBarChart() {
+    getBarChartData() {
+      var searchParams = {
+        startDay: "2018-12-01 00:00:00",
+        endDay: getNowFormatDate()
+      };
+      var that = this;
+      API.getModuleZzt(searchParams)
+        .then(res => {
+          console.log(res);
+          that.moduleData.name = Object2Array(res.data, "name");
+          that.moduleData.value = Object2Array(res.data, "value");
+          console.log(that.moduleData);
+          that.drawBarChart();
+        })
+        .catch(res => {});
+    },
+    drawBarChart() { 
       this.chartBar = echarts.init(document.getElementById("chartBar"));
+      var that = this;
       this.chartBar.setOption({
         backgroundColor: "#F8F9FA",
         title: {
@@ -213,14 +250,12 @@ export default {
             type: "shadow"
           }
         },
-        legend: {
-          //   data: ["访问次数"]
-        },
+        legend: {},
         grid: {
-          left: "3%",
+          left: "18%",
           right: "4%",
           bottom: "3%",
-          containLabel: true
+          containLabel: false
         },
         xAxis: {
           type: "value",
@@ -240,17 +275,7 @@ export default {
         },
         yAxis: {
           type: "category",
-          data: [
-            "景区概况",
-            "景区新闻",
-            "藏品欣赏",
-            "习老精神",
-            "先烈事迹",
-            "红色中国",
-            "数字展览馆",
-            "历史文化教育",
-            "红色旅游"
-          ],
+          data: that.moduleData.name,
           axisLabel: {
             textStyle: {
               color: "#949DA6"
@@ -292,7 +317,7 @@ export default {
                 ])
               }
             },
-            data: [1820, 2489, 2934, 14970, 1344, 6302, 8833, 999, 445]
+            data: that.moduleData.value,
           }
         ]
       });
@@ -317,6 +342,7 @@ export default {
           data: that.drawPieChartData.legendData,
           formatter: function(params) {
             var thatData = that.drawPieChartData.data;
+            // console.log(thatData);
             for (var i = 0; i < thatData.length; i++) {
               if (thatData[i].name == params) {
                 var arr = [
@@ -324,7 +350,7 @@ export default {
                     params +
                     "}{b|" +
                     that.drawPieChartData.legendData[i].valueRate +
-                    "%}{c|" +
+                    "}{c|" +
                     thatData[i].value +
                     "次}"
                 ];
@@ -345,7 +371,7 @@ export default {
                 align: "left",
                 padding: [0, 10, 0, 0],
                 lineHeight: 20,
-                width: 40
+                width: 50
               },
               c: {
                 fontSize: 13
@@ -376,14 +402,61 @@ export default {
       this.drawColumnChart();
       this.drawBarChart();
       this.drawPieChart();
+    },
+    getAllVisit() {
+      //获取总访问量
+      var that = this;
+      API.getAllVisit().then(res => {
+        that.allvistdata = !!res && res.code === 20000 ? res.data : "暂无数据";
+      });
+    },
+    getDrawPieChartData() {
+      //获取饼状图数据
+      var myDate = {
+        startDay: "2018-01-01 00:00:00",
+        endDay: getNowFormatDate() + " 00:00:00"
+      };
+      var that = this;
+      API.getDeviceBzt(myDate).then(res => {
+        if (!!res && res.code === 20000) {
+          that.drawPieChartData.data = res.data;
+        }
+        that.$message({
+          message: res.message,
+          type: res.code === 20000 ? "success" : "warning"
+        });
+        for (var i = 0; i < that.drawPieChartData.legendData.length; i++) {
+          that.drawPieChartData.legendData[i].name =
+            that.drawPieChartData.data[i].name;
+          that.drawPieChartData.legendData[i].name =
+            that.drawPieChartData.data[i].name;
+          that.drawPieChartData.legendData[i].valueRate =
+            that.drawPieChartData.data[i].rate;
+        }
+        this.drawPieChart();
+      });
+    },
+    getDeviceZzt() {
+      //获取访问量柱状图
+      var myDate = {
+        startDay: "2018-01-01 00:00:00",
+        endDay: getNowFormatDate() + " 00:00:00"
+      };
+      var that = this;
     }
   },
   mounted: function() {
+    this.getAllVisit();
     this.drawCharts();
+    this.getDrawPieChartData();
+
+    this.searchVisitData();
+    this.getBarChartData();
   },
   updated: function() {
-    this.drawCharts();
-  }
+    // this.drawCharts();
+  },
+  created() {}
 };
 </script>
 
@@ -392,7 +465,12 @@ export default {
   width: 100%;
   float: left;
 }
-
+.allvistdata {
+  width: 118px;
+  position: absolute;
+  top: 89px;
+  right: 0px;
+}
 .el-col {
   padding: 30px 20px;
 }
@@ -407,7 +485,6 @@ export default {
   width: 100%;
   height: 110px;
   z-index: 110;
-
 
   .el-radio-group {
     float: right;

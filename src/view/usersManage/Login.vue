@@ -91,7 +91,7 @@
 <script>
 import API from "@/api/api_user.js";
 
-import { getCookie, setCookie } from "@/api/util"; //引用刚才我们创建的util.js文件，并使用getCookie方法
+import { getCookie, setCookie } from "@/plugins/util"; //引用刚才我们创建的util.js文件，并使用getCookie方法
 
 export default {
   name: "Login",

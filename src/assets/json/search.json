@@ -141,7 +141,7 @@
     "log": {
         "item": [{
                 "type": "text",
-                "name": "account",
+                "name": "acount",
                 "value": "",
                 "placeholder": "请输入登录账号",
                 "label": "登录账号",
@@ -150,16 +150,16 @@
             },
             {
                 "type": "text",
-                "name": "roleGrade",
+                "name": "rightLevel",
                 "value": "",
-                "placeholder": "请选择权限等级",
+                "placeholder": "请输入权限等级",
                 "width": "100%",
-                "label": "链接地址:",
+                "label": "权限等级:",
                 "show": true
             },
             {
                 "type": "text",
-                "name": "operator",
+                "name": "userName",
                 "value": "",
                 "placeholder": "请输入操作人",
                 "label": "操作人",
@@ -168,24 +168,25 @@
             },
             {
                 "type": "date",
-                "name": "uploadTime",
-                "placeholder": "请选择上传日期",
+                "name": "operateTime",
+                "placeholder": "请选择操作日期",
                 "value": "",
                 "width": "100%",
-                "label": "上传日期:",
+                "label": "操作日期:",
                 "show": true,
                 "format": "yyyy-MM-dd",
                 "rules": [{
                     "required": true,
-                    "message": "请选择上传日期",
+                    "message": "请选择操作日期",
                     "trigger": "blur"
                 }]
             }
         ],
         "data": {
-            "linkName": "",
-            "linkAddress": "",
-            "uploadTime": ""
+            "acount": "",
+            "rightLevel": "",
+            "userName": "",
+            "operateTime": ""
         }
     }
 }

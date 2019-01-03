@@ -138,6 +138,29 @@ export function dateFtt(fmt, date) {
     return fmt
 }
 /**
+ * 获取当前时间
+ * 格式YYYY-MM-DD 00:00:00
+ */
+export function getNowFormatDate() {
+    let date = new Date(value);
+    let y = date.getFullYear();
+    let MM = date.getMonth() + 1;
+    MM = MM < 10 ? ('0' + MM) : MM;
+    let d = date.getDate();
+    d = d < 10 ? ('0' + d) : d;
+    let h = date.getHours();
+    h = h < 10 ? ('0' + h) : h;
+    let m = date.getMinutes();
+    m = m < 10 ? ('0' + m) : m;
+    let s = date.getSeconds();
+    s = s < 10 ? ('0' + s) : s;
+    if (h == '00') {
+        h = 11;
+    }
+    return y + '-' + MM + '-' + d + ' ' + h + ':' + m + ':' + s;
+};
+
+/**
  *px转rem
  * @export
  * @param {*} px
@@ -209,11 +232,11 @@ export function getPageSize() {
         // var h = document.documentElement.clientHeight
     var s = 10
     if (w <= 1366) {
-        s = 9
+        s = 13
     } else if (w > 1536) {
-        s = 10
+        s = 15
     }
-    return s
+    return s;
 }
 /**
  * 获取table高度
@@ -233,7 +256,7 @@ export function getTableHeight() {
     return s
 }
 
-// 普通菜单数组转化为树形菜单
+// 普通菜单数组转化为树形菜单,暂未用
 export function translateDataToTree(data) {
     let parents = data.filter(value => value.parentId == 'undefined' || value.parentId == null || value.parentId == "0")
     let menuList = data.filter(value => value.parentId !== 'undefined' && value.parentId != null && value.parentId !== "0")
@@ -253,4 +276,19 @@ export function translateDataToTree(data) {
     translator(parents, menuList)
 
     return parents
+}
+/**
+ * 对象的每一项转化为单独的数组
+ * arrObj表示数组对象,key表示要转化的每一项的键值
+ * @export
+ * @returns
+ */
+export function Object2Array(arrObj, key) {
+    console.log(arrObj);
+    console.log(key);
+    var arr = [];
+    for (var i = 0; i < arrObj.length; i++) {
+        arr.push(arrObj[i][key]);
+    }
+    return arr;
 }
