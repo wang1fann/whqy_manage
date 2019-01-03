@@ -414,7 +414,7 @@ export default {
       //获取饼状图数据
       var myDate = {
         startDay: "2018-01-01 00:00:00",
-        endDay: getNowFormatDate() + " 00:00:00"
+        endDay: getNowFormatDate()
       };
       var that = this;
       API.getDeviceBzt(myDate).then(res => {
@@ -440,7 +440,7 @@ export default {
       //获取访问量柱状图
       var myDate = {
         startDay: "2018-01-01 00:00:00",
-        endDay: getNowFormatDate() + " 00:00:00"
+        endDay: getNowFormatDate()
       };
       var that = this;
     }
