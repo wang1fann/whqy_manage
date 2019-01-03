@@ -141,8 +141,8 @@ export function dateFtt(fmt, date) {
  * 获取当前时间
  * 格式YYYY-MM-DD 00:00:00
  */
-export function getNowFormatDate() {
-    let date = new Date(value);
+export function getNowFormatDate(value) {
+    let date = new Date(!!value ? value : '');
     let y = date.getFullYear();
     let MM = date.getMonth() + 1;
     MM = MM < 10 ? ('0' + MM) : MM;

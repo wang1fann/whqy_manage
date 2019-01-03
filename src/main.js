@@ -25,6 +25,13 @@ import '@/components/_global.js'
 
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 
+
+// 引入UE所需
+import '../static/UE/ueditor.config.js'
+import '../static/UE/ueditor.all.min.js'
+import '../static/UE/lang/zh-cn/zh-cn.js'
+import '../static/UE/ueditor.parse.min.js'
+
 require("babel-polyfill");
 require('swiper/dist/css/swiper.css')
 Vue.use(VueAwesomeSwiper)
