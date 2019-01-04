@@ -95,7 +95,6 @@ import { getField, getFormField, getSearchField } from "@/assets/json/index.js";
 import { getPageSize, px2rem, rem2px } from "@/plugins/util.js";
 import { setTimeout } from "timers";
 
-
 export default {
   name: "userList",
   data() {
@@ -264,8 +263,14 @@ export default {
       API.findUserList(config)
         .then(res => {
           console.log(res);
-          this.data = res.data.rows;
-          this.total = res.data.total;
+          if (!!res && res.code === 20000) {
+            this.data = res.data.rows;
+            this.total = res.data.total;
+          }
+           this.$message({
+            message: res.message,
+            type: res.code === 20000 ? "success" : "error"
+          });
           this.fullscreenLoading = false;
         })
         .catch(err => {

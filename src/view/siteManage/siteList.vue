@@ -70,7 +70,7 @@
           >
             <div style="margin-top: 15px;display:inline-block;">
               <el-input
-                v-for="(item,index) in menuItem.children"
+                v-for="(item,index) in !!menuItem.children?menuItem.children:menuItem.menuList"
                 :key="index"
                 class="child-menu-input"
                 placeholder="子菜单标题"
@@ -253,8 +253,11 @@ export default {
       API.findMenuList().then(res => {
         console.log(res);
         if (!!res && res.code === 20000) {
-          that.menuInfo = !!res.data
-            ? this._.filter(res.data, { parentId: "0", menuType: 2 })
+          // that.menuInfo = !!res.data
+          //   ? this._.filter(res.data, { parentId: "0", menuType: 2 })
+          //   : "";
+             that.menuInfo = !!res.data
+            ? this._.filter(res.data, { parentId: "0" })
             : "";
         }
       });

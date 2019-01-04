@@ -631,8 +631,6 @@ let contentRouter = [{
         }]
     }
 ];
-// var getContentRouter;
-
 
 let router = new Router({
     routes: [{

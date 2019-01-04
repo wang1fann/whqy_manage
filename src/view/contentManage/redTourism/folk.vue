@@ -3,11 +3,13 @@
     <common-img
       :imgList="imgList"
       :searchParams="searchParams"
-      @searchParams="searchParams"
+      @pageNum="pageNum"
+      @imgPath="addImgPath"
+      @delete="deleteInfo"
+      :deleteAPI="deleteAPI"
     ></common-img>
   </div>
 </template>
-
 <script>
 import commonImg from "@/view/contentManage/commonImgui";
 import APICommon from "@/api/api_abstract.js";
@@ -16,7 +18,11 @@ export default {
   components: { "common-img": commonImg },
   data() {
     return {
-      searchParams: {},
+      searchParams: {
+        page: 1,
+        size: 10
+      },
+      deleteAPI:'delAbstarct',
       abstractComment: {
         //文章评论
         userId: "dsa",
@@ -60,57 +66,16 @@ export default {
     };
   },
   methods: {
-    changeImage(ev) {
-      let uploadImginput = document.getElementById("upload-img-input");
-      let form = new FormData(uploadImginput); //拿到表单创建FormData对象；
-      let files = ev.target.files; //拿到选择的文件
-      console.log(files);
-      form.append("menu", "风土民俗");
-      form.append("file", files[0]);
-      window.sessionStorage.setItem("responseType", "form");
-      API.uploadUserImg(form).then(res => {
+    addImgPath(val) {
+      window.sessionStorage.setItem("responseType", "json");
+      this.abstractInfo.imgPath = val.replace(/\\/g, "/");
+      this.abstractInfo.menuId = 23;
+      APICommon.addAbstarct(this.abstractInfo).then(res => {
         this.$message({
           message: res.message,
           type: !!res && res.code === 20000 ? "success" : "error"
         });
-        if (!!res && res.code === 20000) {
-          window.sessionStorage.setItem("responseType", "json");
-          this.abstractInfo.imgPath = res.data[0].replace(/\\/g, "/");
-          this.abstractInfo.menuId = 23;
-          APICommon.addAbstarct(this.abstractInfo).then(res => {
-            this.$message({
-              message: res.message,
-              type: !!res && res.code === 20000 ? "success" : "error"
-            });
-          });
-        }
       });
-    },
-    deleteImg() {
-      var _this = this;
-      APICommon.delAbstarct({ id: _this.id })
-        .then(res => {
-          this.id = null;
-          this.$message({
-            message: res.message,
-            type: res.code === 20000 ? "success" : "error"
-          });
-          this.findMenu();
-        })
-        .catch(err => {
-          this.$message({
-            message: err,
-            type: "error"
-          });
-        });
-    },
-    deleteConfirm(item) {
-      var _this = this;
-      console.log(item);
-      _this.id = item.id;
-      setTimeout(() => {
-        this.$refs.myconfirm.confirm(_this.deleteImg, "");
-      }, 100);
     },
     findAbstract() {
       APICommon.findhongselvyou(this.searchParams).then(res => {
@@ -123,20 +88,21 @@ export default {
         });
       });
     },
-    handleCurrentChange(val) {
-      console.log(val);
+    deleteInfo(res) {
+      if (!!res && res.code === 20000) {
+          this.findAbstract();
+      }else{
+          return;
+      }
+    },
+    pageNum(val) {
       this.searchParams.page = val;
       this.findAbstract();
-    },
-    searchParams(val) {
-        this.searchParams=val;
     }
   },
   created() {
-    //   imgList
     this.findAbstract();
   },
-
   mounted() {}
 };
 </script>

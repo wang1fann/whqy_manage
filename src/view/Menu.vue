@@ -60,13 +60,11 @@
           light
           router
         >
-          <template
-            v-for="(item,index) in $router.options.routes[1].children"
-            v-show="item.show!==false"
-          >
+          <template v-for="(item,index) in $router.options.routes[1].children">
             <el-menu-item
               :index="item.path"
               :key="index"
+              v-if="item.show!==false"
             >
               <i class="menu-i">
                 <img

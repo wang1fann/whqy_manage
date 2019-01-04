@@ -5,30 +5,14 @@
 </template>
 
 <script>
-import API from "@/api/api_site";
 import { mapState } from "vuex";
 export default {
   computed: {},
   name: "App",
   created() {
-    // this.getMenuList();
   },
   methods: {
-    // getMenuList() {
-    //   API.findMenuList().then(res => {
-    //     console.log(res);
-    //     if (!!res && res.code === 20000) {
-    //       console.log(this.$router); //this.$router.options.routes
-    //       for (var i = 0; i < res.data.length; i++) {
-    //         res.data[i].component = resolve => {
-    //           require([res.data[i].component], resolve);
-    //         };
-    //       }
-    //       this.$router.options.routes[1].children[3].children = res.data;
-    //       console.log(this.$router.options);
-    //     }
-    //   });
-    // }
+  
   }
 };
 </script>

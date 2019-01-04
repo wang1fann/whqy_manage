@@ -8,7 +8,7 @@
       >
         <i
           class="el-icon-close delete-menu"
-          @click ="deleteConfirm(menuItem)"
+          @click="deleteConfirm(menuItem)"
         ></i>
         <el-row :gutter="20">
           <el-col
@@ -38,7 +38,7 @@
           >
             <div style="margin-top: 15px;display:inline-block;">
               <el-input
-                v-for="(item,index) in menuItem.children"
+                v-for="(item,index) in !!menuItem.children?menuItem.children:menuItem.menuList"
                 :key="index"
                 class="child-menu-input"
                 placeholder="子菜单标题"
@@ -49,7 +49,7 @@
                   icon="el-icon-close"
                   @click="deleteConfirm(item)"
                 ></el-button>
-                  <!-- @click="deleteChildMenu(item,ind)" -->
+                <!-- @click="deleteChildMenu(item,ind)" -->
               </el-input>
             </div>
 
@@ -71,7 +71,7 @@
           <i class="el-icon-circle-plus"></i>导航栏菜单添加</span>
       </el-row>
     </div>
-     <MyConfirm
+    <MyConfirm
       ref="myconfirm"
       :type="confirmType"
       :title="confirmTitle"
@@ -96,7 +96,7 @@ export default {
         contactAddress: "",
         contactPhone: ""
       },
-      ids:'',
+      ids: "",
       menuInfo: [
         {
           name: "",
@@ -115,12 +115,12 @@ export default {
       console.log(row);
       _this.ids = row.id;
       setTimeout(() => {
-        this.$refs.myconfirm.confirm(_this.deleteMenu, '');
+        this.$refs.myconfirm.confirm(_this.deleteMenu, "");
       }, 100);
     },
     deleteMenu(item) {
       var _this = this;
-       API.delMenu({ id: _this.ids })
+      API.delMenu({ id: _this.ids })
         .then(res => {
           this.ids = null;
           this.$message({
@@ -161,8 +161,11 @@ export default {
       API.findMenuList().then(res => {
         console.log(res);
         if (!!res && res.code === 20000) {
+          // that.menuInfo = !!res.data
+          //   ? this._.filter(res.data, { parentId: "0", menuType: 1 })
+          //   : "";
           that.menuInfo = !!res.data
-            ? this._.filter(res.data, { parentId: "0", menuType: 1 })
+            ? this._.filter(res.data, { parentId: "0" })
             : "";
         }
       });
