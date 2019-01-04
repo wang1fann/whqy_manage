@@ -27,7 +27,7 @@
         <thead>
         <tr >
           <th>
-            <input  type="checkbox">
+            <input  type="checkbox" v-model="checked" @click='checkedAll'>
             <label>全选</label>
           </th>
           <th class="huawen">姓名</th>
@@ -37,69 +37,17 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr v-for='(item,index) in items' :key="item.id">
           <td>
-            <input type="checkbox">
+            <input type="checkbox" v-model='checkboxList' :value="item.id">
           </td>
-          <td class="huatitle"><a href="#">刘子丹</a></td>
+          <td class="huatitle"><a href="#">{{item.title}}</a></td>
           <td class="ageduan">（1903-1936）</td>
           <td >{{new Date(value1).getFullYear() + '-' +(new Date(value1).getMonth() + 1) + '-' + new Date(value1).getDate()}}</td>
           <td class="btnlast">
             <button type="button" class="l" @click="reads">查看</button>
             <button type="button" class="l" @click="writes">编辑</button>
             <button type="button" class="l" @click="delMessages" >删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="huatitle"><a href="#">刘子丹</a></td>
-          <td class="ageduan">（1903-1936）</td>
-          <td>2018-06-03</td>
-          <td class="btnlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="huatitle"><a href="#">刘子丹</a></td>
-          <td class="ageduan">（1903-1936）</td>
-          <td>2018-06-03</td>
-          <td class="btnlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="huatitle"><a href="#">刘子丹</a></td>
-          <td class="ageduan">（1903-1936）</td>
-          <td>2018-06-03</td>
-          <td class="btnlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="huatitle"><a href="#">刘子丹</a></td>
-          <td class="ageduan">（1903-1936）</td>
-          <td>2018-06-03</td>
-          <td class="btnlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
           </td>
         </tr>
         <tr>
@@ -213,6 +161,13 @@
         name: "huaWord",
       data() {
         return {
+          items:[
+            {
+              title:'',//标题
+              id:'',
+              createTime:'',//时间
+            }
+          ],
           pickerOptions1: {
             disabledDate(time) {
               return time.getTime() > Date.now();
@@ -240,10 +195,22 @@
           },
           value1: '2018-6-3',
           input: '',
-          input2: ''
+          input2: '',
+          checkboxList:[],
+          checked: false
         };
       },
       methods:{
+        checkedAll: function() {
+          if (this.checked) {//实现反选
+            this.checkboxList = [];
+          } else { //实现全选
+            this.checkboxList = [];
+            this.items.forEach( (item) => {
+              this.checkboxList.push(item.id);
+            });
+          }
+        },
         delMessages() {
           this.$confirm('此操作将永久删除此条回忆纪念是否继续?', '提示', {
             confirmButtonText: '确定',
@@ -291,6 +258,33 @@
             }
           });
         },
+        getprev(){
+          var _this = this;
+          this.$axios({
+            method:'post',
+            url:'/weihuaqiyijieshao/search',
+            data:{
+              "menuId":"516101",
+              "status":1
+            },
+          }).then( (res) =>{
+            console.log(res.data.code)
+            if(res){
+              if(res.data.code === 20000){
+                //成功请求
+                console.log(res.data.message);
+                console.log(res.data.data);
+                _this.items = res.data.data;
+              } else {
+                //请求失败
+                console.log(res.data.message);
+              }
+            }
+          })
+        },
+      },
+      mounted(){
+        this.getprev()
       }
     }
 </script>

@@ -160,6 +160,27 @@
             message: '已取消删除'
           });
         });
+        var _this = this;
+        this.$axios({
+          method:'delete',
+          url:'jingquxinwen/1077457008430551040',
+          // data:{
+          //   "menuId":"51412",
+          //   "status":1
+          // },
+        }).then( (res) =>{
+          console.log(res.data.code)
+          if(res){
+            if(res.data.code === 20000){
+              //成功请求
+              console.log(res.data.message);
+              console.log(res.data.data);
+            } else {
+              //请求失败
+              console.log(res.data.message);
+            }
+          }
+        })
       },
       // clear(index) {
       //   this.checkboxData.splice(index, 1);
@@ -179,6 +200,7 @@
             message: '取消输入'
           });
         });
+        this.readwrite()
       },
       reads() {
         this.$alert('渭华起义纪念馆深入贯彻学习习总书记在全国宣传思想工作', '新闻标题', {
@@ -190,6 +212,7 @@
             });
           }
         });
+        this.readwrite()
       },
       search () {
         let searchText = this.$refs.searchval.value
@@ -203,13 +226,37 @@
         }
         axios.get('http://localhost:3000/search/suggest?keywords=' + searchText, {}, {headers:{'Content-Type':'application/x-www-form-urlencoded'}})
           .then((res) => {
-            if (res.data.code == 200) {
+            if (res.data.code == 20000) {
               this.$emit('search', res.data.result.allMatch)
             }
           })
           .catch((err) => {
             console.log(err)
           })
+      },
+      //查看编辑
+      readwrite(){
+        var _this = this;
+        this.$axios({
+          method:'post',
+          url:'jingquxinwen/1077456936301105152',
+          data:{
+            "menuId":"51412",
+            "status":1
+          },
+        }).then( (res) =>{
+          console.log(res.data.code)
+          if(res){
+            if(res.data.code === 20000){
+              //成功请求
+              console.log(res.data.message);
+              console.log(res.data.data);
+            } else {
+              //请求失败
+              console.log(res.data.message);
+            }
+          }
+        })
       },
       //内容接口
       getprev(){
@@ -229,8 +276,6 @@
               console.log(res.data.message);
               console.log(res.data.data);
               _this.items = res.data.data;
-              _this.title = res.data.data[0].title; //标题
-              _this.createTime = res.data.data[0].createTime; //时间
             } else {
               //请求失败
               console.log(res.data.message);

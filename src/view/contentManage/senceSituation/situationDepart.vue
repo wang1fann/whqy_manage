@@ -7,13 +7,59 @@
       </div>
 
     </div>
-    <button>提交</button>
+    <button @click="submitForm($event)">提交</button>
   </div>
 </template>
 
 <script>
     export default {
-        name: "situationDepart"
+        name: "situationDepart",
+        data(){
+          return{
+            items:[
+              {
+                content: ''
+              }
+            ]
+          }
+        },
+      methods:{
+        submitForm($event){
+          event.preventDefault();
+          let formData = new FormData();
+          formData.append('imgPath', this.imgPath);
+          formData.append('content', this.content);
+
+          let config = {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          }
+          var _this = this;
+          this.$axios({
+            method:'post',
+            url:'/jingqugaikuang',
+            data:{
+              "menuId":"1113",
+              "status":0
+            },
+          }, formData, config).then((res)=> {
+            console.log(res.data.code)
+            if(res){
+              if(res.data.code === 20000){
+                //成功请求
+                console.log(res.data.message);
+                // console.log(res.data.data);
+                _this.items = res.data;
+                console.log(res.data)
+              } else {
+                //请求失败
+                console.log(res.data.message);
+              }
+            }
+          })
+        }
+      }
     }
 </script>
 
