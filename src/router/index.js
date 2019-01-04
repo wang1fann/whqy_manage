@@ -2,10 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Menu from 'view/Menu'
 
+import API from '@/api/api_site'; //API.findMenuList
+
 // 懒加载方式，当路由被访问的时候才加载对应组件
 const Login = resolve => require(['view/usersManage/Login'], resolve)
 Vue.use(Router)
-const contentRouter = [{
+let contentRouter = [{
         path: 'senceSituation',
         name: '景区概况',
         component: resolve => {
@@ -128,6 +130,7 @@ const contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
+        redirect: '/contentManage/huaIntroduction/revoltIntro',
         children: [ //situationDepart
             {
                 path: 'revoltIntro',
@@ -245,6 +248,7 @@ const contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
+        redirect: '/contentManage/xiSpirit/biography',
         children: [{
                 path: 'biography',
                 name: '生平简介',
@@ -331,6 +335,7 @@ const contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
+        redirect: '/contentManage/redEducation/redSpeak',
         children: [{
             path: 'redSpeak',
             name: '红色宣传',
@@ -377,6 +382,7 @@ const contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
+        redirect: '/contentManage/partyEducation/WHspirit',
         children: [{
             path: 'WHspirit',
             name: '渭华起义精神',
@@ -423,6 +429,7 @@ const contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
+        redirect: '/contentManage/culturalEducation/culturalEducation',
         children: [{
             path: 'culturalEducation',
             name: '文化遗产',
@@ -522,6 +529,7 @@ const contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
+        redirect: '/contentManage/redTourism/classicRoute',
         children: [{
             path: 'classicRoute',
             name: '经典路线',
@@ -534,7 +542,8 @@ const contentRouter = [{
             path: 'folk',
             name: '风土民俗',
             component: resolve => {
-                require(['view/contentManage/collectionAppreciation/appreciationShow'], resolve)
+                require(['view/contentManage/redTourism/folk'], resolve)
+                    // require(['view/contentManage/collectionAppreciation/appreciationShow'], resolve)
             },
             class: 'fa-line-chart',
             children: []
@@ -556,6 +565,7 @@ const contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
+        redirect: '/contentManage/serviceGuide/TicketReservation',
         children: [{
             path: 'TicketReservation',
             name: '门票预订',
@@ -590,6 +600,7 @@ const contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
+        redirect: '/contentManage/visitMessage/SignIn',
         children: [{
             // 游客签到
             path: 'SignIn',
@@ -620,6 +631,8 @@ const contentRouter = [{
         }]
     }
 ];
+// var getContentRouter;
+
 
 let router = new Router({
     routes: [{
@@ -791,6 +804,8 @@ let router = new Router({
 
     ]
 })
+
+console.log(router);
 router.beforeEach((to, from, next) => {
     let routeName = to.meta.name || to.name;
     window.document.title = (routeName ? routeName + ' - ' : '') + '渭华起义后台管理系统';
@@ -809,4 +824,5 @@ router.beforeEach((to, from, next) => {
         }
     }
 })
+
 export default router;

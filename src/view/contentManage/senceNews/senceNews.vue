@@ -36,7 +36,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for='(item,index) in items' :key="item.id" >
+        <tr v-for='(item,index) in items' :key="index" >
           <td>
             <input type="checkbox"  v-model='checkboxList' :value="item.id">
           </td>

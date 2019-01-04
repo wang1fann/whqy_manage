@@ -62,7 +62,7 @@
         >
           <template
             v-for="(item,index) in $router.options.routes[1].children"
-            v-if="item.show!==false"
+            v-show="item.show!==false"
           >
             <el-menu-item
               :index="item.path"

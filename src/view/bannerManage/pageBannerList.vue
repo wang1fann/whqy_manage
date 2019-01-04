@@ -10,7 +10,6 @@
           class="el-icon-close delete-menu"
           @click ="deleteConfirm(menuItem)"
         ></i>
-          <!-- @click="deleteMenu(menuItem)" -->
         <el-row :gutter="20">
           <el-col
             :span="4"
@@ -39,7 +38,7 @@
           >
             <div style="margin-top: 15px;display:inline-block;">
               <el-input
-                v-for="(item,index) in menuItem.menuList"
+                v-for="(item,index) in menuItem.children"
                 :key="index"
                 class="child-menu-input"
                 placeholder="子菜单标题"
@@ -104,7 +103,7 @@ export default {
           label: "菜单标题：",
           parentId: "0",
           menuType: 1, //底部菜单传2，导航栏菜单传1
-          menuList: [{ name: "" }]
+          children: [{ name: "" }]
         }
       ]
     };
@@ -138,14 +137,14 @@ export default {
         });
     },
     addChildMenu(i) {
-      this.menuInfo[i].menuList.push({
+      this.menuInfo[i].children.push({
         name: ""
       });
     },
     deleteChildMenu(item, i) {
-      var index = this.menuInfo[i].menuList.indexOf(item);
+      var index = this.menuInfo[i].children.indexOf(item);
       if (index !== -1) {
-        this.menuInfo[i].menuList.splice(index, 1);
+        this.menuInfo[i].children.splice(index, 1);
       }
     },
     addMenu() {
@@ -154,13 +153,13 @@ export default {
         label: "菜单标题：",
         parentId: "0",
         menuType: 1, //底部菜单传2，导航栏菜单传1
-        menuList: [{ name: "" }]
+        children: [{ name: "" }]
       });
     },
     findMenu() {
       var that = this;
       API.findMenuList().then(res => {
-        // console.log(res);
+        console.log(res);
         if (!!res && res.code === 20000) {
           that.menuInfo = !!res.data
             ? this._.filter(res.data, { parentId: "0", menuType: 1 })

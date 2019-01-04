@@ -70,7 +70,7 @@
           >
             <div style="margin-top: 15px;display:inline-block;">
               <el-input
-                v-for="(item,index) in menuItem.menuList"
+                v-for="(item,index) in menuItem.children"
                 :key="index"
                 class="child-menu-input"
                 placeholder="子菜单标题"
@@ -137,7 +137,7 @@ export default {
           label: "菜单标题：",
           parentId: "0",
           menuType: 2, //底部菜单传2，导航栏菜单传1
-          menuList: [{ name: "" }]
+          children: [{ name: "" }]
         }
       ],
       siteInfo: [
@@ -208,16 +208,16 @@ export default {
         });
     },
     addChildMenu(i) {
-      if (!!this.menuInfo[i].menuList) {
-        this.menuInfo[i].menuList.push({
+      if (!!this.menuInfo[i].children) {
+        this.menuInfo[i].children.push({
           name: ""
         });
       }
     },
     // deleteChildMenu(item, i) {
-    //   var index = this.menuInfo[i].menuList.indexOf(item);
+    //   var index = this.menuInfo[i].children.indexOf(item);
     //   if (index !== -1) {
-    //     this.menuInfo[i].menuList.splice(index, 1);
+    //     this.menuInfo[i].children.splice(index, 1);
     //   }
     // },
     addMenu() {
@@ -226,7 +226,7 @@ export default {
         label: "菜单标题：",
         parentId: "0",
         menuType: 2, //底部菜单传2，导航栏菜单传1
-        menuList: [{ name: "" }]
+        children: [{ name: "" }]
       });
     },
     findSite() {
