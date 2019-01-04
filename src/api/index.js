@@ -98,13 +98,28 @@ let base = ''; //接口代理地址参见：config/index.js中的proxyTable配�
 
 //通用方法
 export const POST = (url, params) => {
-    return axios.post(`${base}${url}`, params).then(res => res.data)
+    return new Promise((resolve, reject) => {
+
+        axios.post(`${base}${url}`, params).then(res => {
+            resolve(res.data);
+        }, err => {
+            reject(err)
+        })
+    })
+
 }
 
 export const GET = (url, params) => {
-    return axios.get(`${base}${url}`, {
-        params: params
-    }).then(res => res.data)
+    return new Promise((resolve, reject) => {
+        axios.get(`${base}${url}`, {
+                params: params
+            }).then(res => {
+                resolve(res.data);
+            })
+            .catch(err => {
+                reject(err)
+            })
+    })
 }
 
 export const PUT = (url, params) => {

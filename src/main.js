@@ -10,12 +10,6 @@ import store from './store/index.js';
 import axios from 'axios';
 import ElSearchTablePagination from 'el-search-table-pagination'; //基于element封装的form、table轮子
 
-import {post,get} from './utils/request'
-
-let request={get,post};
-
- Vue.prototype.$request=request
-
 import Egrid from 'egrid'
 import 'jquery'
 import '@/assets/css/common.scss'
