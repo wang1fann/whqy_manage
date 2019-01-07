@@ -42,7 +42,7 @@
             <input type="checkbox" v-model='checkboxList' :value="item.id">
           </td>
           <td class="strtitle"><a href="#">{{item.title}}</a></td>
-          <td class="strImg"><img :src="item.imgPath"></td>
+          <td class="strImg"><img src="@/assets/img/content/photoy.png"></td>
           <td>{{new Date(value1).getFullYear() + '-' +(new Date(value1).getMonth() + 1) + '-' + new Date(value1).getDate()}}</td>
           <td class="btnlast">
             <button type="button" class="l" @click="reads">查看</button>
@@ -179,7 +179,7 @@
           var _this = this;
           this.$axios({
             method:'delete',
-            url:'/cangpinxinshang/1077485655984050176',
+            url:'/syx/cangpinxinshang/1077485655984050176',
             // data:{
             //   "menuId":"515101",
             //   "status":1
@@ -219,7 +219,7 @@
           var _this = this;
           this.$axios({
             method:'put',
-            url:'/cangpinxinshang/1077484692581781504',
+            url:'/syx/cangpinxinshang/1077484692581781504',
             data:{
               "menuId":"515102",
               "status":1
@@ -251,7 +251,7 @@
           var _this = this;
           this.$axios({
             method:'post',
-            url:'/cangpinxinshang/1077456936301105152',
+            url:'/syx/cangpinxinshang/1077456936301105152',
             // data:{
             //   "menuId":"515101",
             //   "status":1
@@ -274,9 +274,9 @@
           var _this = this;
           this.$axios({
             method:'post',
-            url:'/cangpinxinshang/search',
+            url:'/syx/cangpinxinshang/search',
             data:{
-              "menuId":"515101",
+              "menuId":"10003001",
               "status":1
             },
           }).then( (res) =>{

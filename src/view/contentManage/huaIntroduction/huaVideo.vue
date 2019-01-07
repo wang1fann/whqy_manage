@@ -27,7 +27,7 @@
         <thead>
         <tr >
           <th>
-            <input  type="checkbox">
+            <input  type="checkbox" v-model="checked" @click='checkedAll' >
             <label>全选</label>
           </th>
           <th class="huawen">作品名称</th>
@@ -37,12 +37,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr v-for='(item,index) in items' :key="index">
           <td>
-            <input type="checkbox">
+            <input type="checkbox"  v-model='checkboxList' :value="item.id">
           </td>
-          <td class="huatitle"><a href="#">《渭华起义》大型纪录片</a></td>
-          <td class="ageduan">MP4</td>
+          <td class="huatitle"><a href="#">{{item.title}}</a></td>
+          <td class="ageduan">{{item.productType}}</td>
           <td >{{new Date(value1).getFullYear() + '-' +(new Date(value1).getMonth() + 1) + '-' + new Date(value1).getDate()}}</td>
           <td class="btnlast">
             <button type="button" class="l" @click="reads">查看</button>
@@ -83,6 +83,14 @@
         name: "huaVideo",
       data() {
         return {
+          items:[
+            {
+              title:'',//标题
+              id:'',
+              createTime:'',//时间
+              productType:''
+            }
+          ],
           pickerOptions1: {
             disabledDate(time) {
               return time.getTime() > Date.now();
@@ -110,12 +118,24 @@
           },
           value1: '2018-06-03',
           input: '',
-          input2: ''
+          input2: '',
+          checkboxList:[],
+          checked: false
         };
       },
       methods:{
+        checkedAll: function() {
+          if (this.checked) {//实现反选
+            this.checkboxList = [];
+          } else { //实现全选
+            this.checkboxList = [];
+            this.items.forEach( (item) => {
+              this.checkboxList.push(item.id);
+            });
+          }
+        },
         delMessages() {
-          this.$confirm('此操作将永久删除此条影音作品是否继续?', '提示', {
+          this.$confirm('此操作将永久删除此条回忆纪念是否继续?', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning'
@@ -130,12 +150,35 @@
               message: '已取消删除'
             });
           });
+          var _this = this;
+          this.$axios({
+            method:'put',
+            url:'/syx/weihuaqiyijieshao/1',
+            // data:{
+            //   "menuId":"516101",
+            //   "status":1
+            // },
+          }).then( (res) =>{
+            console.log(res.data.code)
+            if(res){
+              if(res.data.code === 500){
+                //成功请求
+                console.log(res.data.message);
+                console.log(res.data.data);
+                _this.items = res.data.data;
+              } else {
+                //请求失败
+                console.log(res.data.message);
+              }
+            }
+          })
+
         },
         // clear(index) {
         //   this.checkboxData.splice(index, 1);
         // },
         writes() {
-          this.$prompt('作品名称', '编辑', {
+          this.$prompt('姓名', '编辑', {
             confirmButtonText: '确定',
             cancelButtonText: '取消'
           }).then(({ value }) => {
@@ -149,9 +192,31 @@
               message: '取消输入'
             });
           });
+          var _this = this;
+          this.$axios({
+            method:'put',
+            url:'/syx/weihuaqiyijieshao/1077497926311350272',
+            data:{
+              "menuId":"516101",
+              "status":1
+            },
+          }).then( (res) =>{
+            console.log(res.data.code)
+            if(res){
+              if(res.data.code === 400){
+                //成功请求
+                console.log(res.data.message);
+                console.log(res.data.data);
+                _this.items = res.data.data;
+              } else {
+                //请求失败
+                console.log(res.data.message);
+              }
+            }
+          })
         },
         reads() {
-          this.$alert('《渭华起义》大型纪录片', '作品名称', {
+          this.$alert('刘子丹', '回忆纪念', {
             confirmButtonText: '确定',
             callback: action => {
               this.$message({
@@ -160,7 +225,56 @@
               });
             }
           });
+          var _this = this;
+          this.$axios({
+            method:'get',
+            url:'/syx/weihuaqiyijieshao/1',
+            // data:{
+            //   "menuId":"516101",
+            //   "status":1
+            // },
+          }).then( (res) =>{
+            console.log(res.data.code)
+            if(res){
+              if(res.data.code === 400){
+                //成功请求
+                console.log(res.data.message);
+                console.log(res.data.data);
+                _this.items = res.data.data;
+              } else {
+                //请求失败
+                console.log(res.data.message);
+              }
+            }
+          })
         },
+        getprev(){
+          var _this = this;
+          this.$axios({
+            method:'post',
+            url:'/syx/weihuaqiyijieshao/search',
+            data:{
+              "menuId":"10004001",
+              "status":1
+            },
+          }).then( (res) =>{
+            console.log(res.data.code)
+            if(res){
+              if(res.data.code === 20000){
+                //成功请求
+                console.log(res.data.message);
+                console.log(res.data.data);
+                _this.items = res.data.data;
+              } else {
+                //请求失败
+                console.log(res.data.message);
+              }
+            }
+          })
+        },
+      },
+      mounted(){
+        this.getprev()
       }
     }
 </script>

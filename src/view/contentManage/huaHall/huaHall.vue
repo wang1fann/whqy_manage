@@ -33,7 +33,7 @@
         <!--<thead>-->
         <!--<tr >-->
           <!--<th>-->
-            <!--<input  type="checkbox">-->
+            <!--<input  type="checkbox" v-model="checked" @click='checkedAll' >-->
             <!--<label>全选</label>-->
           <!--</th>-->
           <!--<th class="huawen">标题</th>-->
@@ -43,17 +43,17 @@
         <!--</tr>-->
         <!--</thead>-->
         <!--<tbody>-->
-        <!--<tr>-->
+        <!--<tr v-for='(item,index) in items' :key="index">-->
           <!--<td>-->
-            <!--<input type="checkbox">-->
+            <!--<input type="checkbox"  v-model='checkboxList' :value="item.id">-->
           <!--</td>-->
-          <!--<td class="huatitle"><a href="#">渭华起义90年前夕渭华起义革命精神</a></td>-->
+          <!--<td class="huatitle"><a href="#">{{item.title}}</a></td>-->
           <!--<td class="ageduan">.doc</td>-->
-          <!--<td >2018-06-03</td>-->
+          <!--<td >{{new Date(value1).getFullYear() + '-' +(new Date(value1).getMonth() + 1) + '-' + new Date(value1).getDate()}}</td>-->
           <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
+            <!--<button type="button" class="l" @click="reads">查看</button>-->
+            <!--<button type="button" class="l" @click="writes">编辑</button>-->
+            <!--<button type="button" class="l" @click="delMessages" >删除</button>-->
           <!--</td>-->
         <!--</tr>-->
         <!--<tr>-->
@@ -95,110 +95,8 @@
             <!--<button type="button" class="l">删除</button>-->
           <!--</td>-->
         <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">《真相》20161221 渭华起义 第一集</a></td>-->
-          <!--<td class="ageduan">.mp4</td>-->
-          <!--<td>2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">《真相》20161221 渭华起义 第一集</a></td>-->
-          <!--<td class="ageduan">.mp4</td>-->
-          <!--<td>2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">《真相》20161221 渭华起义 第一集</a></td>-->
-          <!--<td class="ageduan">.mp4</td>-->
-          <!--<td>2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">《真相》20161221 渭华起义 第一集</a></td>-->
-          <!--<td class="ageduan">.mp4</td>-->
-          <!--<td>2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">《真相》20161221 渭华起义 第一集</a></td>-->
-          <!--<td class="ageduan">.mp4</td>-->
-          <!--<td>2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">《真相》20161221 渭华起义 第一集</a></td>-->
-          <!--<td class="ageduan">.mp4</td>-->
-          <!--<td>2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">《真相》20161221 渭华起义 第一集</a></td>-->
-          <!--<td class="ageduan">.mp4</td>-->
-          <!--<td>2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<td>-->
-            <!--<input type="checkbox">-->
-          <!--</td>-->
-          <!--<td class="huatitle"><a href="#">《真相》20161221 渭华起义 第一集</a></td>-->
-          <!--<td class="ageduan">.mp4</td>-->
-          <!--<td>2018-06-03</td>-->
-          <!--<td class="btnlast">-->
-            <!--<button type="button" class="l">查看</button>-->
-            <!--<button type="button" class="l">编辑</button>-->
-            <!--<button type="button" class="l">删除</button>-->
-          <!--</td>-->
-        <!--</tr>-->
+    <!---->
+
 
         <!--</tbody>-->
       <!--</table>-->
@@ -221,6 +119,13 @@
       components: {HuaHallAppend},
       data() {
         return {
+          items:[
+            {
+              title:'',//标题
+              id:'',
+              createTime:'',//时间
+            }
+          ],
           pickerOptions1: {
             disabledDate(time) {
               return time.getTime() > Date.now();
@@ -246,10 +151,174 @@
               }
             }]
           },
-          value1: '',
+          value1: '2018-6-3',
           input: '',
-          input2: ''
+          input2: '',
+          checkboxList:[],
+          checked: false
         };
+      },
+      methods:{
+        checkedAll: function() {
+          if (this.checked) {//实现反选
+            this.checkboxList = [];
+          } else { //实现全选
+            this.checkboxList = [];
+            this.items.forEach( (item) => {
+              this.checkboxList.push(item.id);
+            });
+          }
+        },
+        delMessages() {
+          this.$confirm('此操作将永久删除此条新闻, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除'
+            });
+          });
+          var _this = this;
+          this.$axios({
+            method:'delete',
+            url:'/syx/jingquxinwen/1077457008430551040',
+            // data:{
+            //   "menuId":"51412",
+            //   "status":1
+            // },
+          }).then( (res) =>{
+            console.log(res.data.code)
+            if(res){
+              if(res.data.code === 20000){
+                //成功请求
+                console.log(res.data.message);
+                console.log(res.data.data);
+              } else {
+                //请求失败
+                console.log(res.data.message);
+              }
+            }
+          })
+        },
+        // clear(index) {
+        //   this.checkboxData.splice(index, 1);
+        // },
+        writes() {
+          this.$prompt('请输入新闻标题', '编辑', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消'
+          }).then(({ value }) => {
+            this.$message({
+              type: 'success',
+              message: '新闻标题是: ' + value
+            });
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '取消输入'
+            });
+          });
+          this.readwrite()
+        },
+        reads() {
+          this.$alert('渭华起义纪念馆深入贯彻学习习总书记在全国宣传思想工作', '新闻标题', {
+            confirmButtonText: '确定',
+            callback: action => {
+              this.$message({
+                type: 'info',
+                message: `action: ${ action }`
+              });
+            }
+          });
+          this.readwrite()
+        },
+        search () {
+          let searchText = this.$refs.searchval.value
+          if (searchText =='') {
+            return
+          } else {
+            this.closeState = true
+            this.searchState.showsug = true
+            this.searchState.searchtext = this.$refs.searchval.value
+            this.$emit('searchstate', this.searchState)
+          }
+          var _this = this;
+          // this.$axios('/syx/jingquxinwen/search/1/1?keywords=' + searchText)
+          this.$axios({
+            method:'post',
+            url:'/syx/jingquxinwen/search/1/1',
+            data:{
+              "menuId":"51412",
+              "status":1
+            },
+          }).then((res) => {
+            if (res.data.code === 20000) {
+              this.$emit('search', res.data.result.allMatch)
+            }
+          })
+            .catch((err) => {
+              console.log(err)
+            })
+        },
+        //查看编辑
+        readwrite(){
+          var _this = this;
+          this.$axios({
+            method:'post',
+            url:'/syx/jingquxinwen/1077456936301105152',
+            data:{
+              "menuId":"51412",
+              "status":1
+            },
+          }).then( (res) =>{
+            console.log(res.data.code)
+            if(res){
+              if(res.data.code === 20000){
+                //成功请求
+                console.log(res.data.message);
+                console.log(res.data.data);
+              } else {
+                //请求失败
+                console.log(res.data.message);
+              }
+            }
+          })
+        },
+        //内容接口
+        getprev(){
+          var _this = this;
+          this.$axios({
+            method:'post',
+            url:'/syx/jingquxinwen/search',
+            data:{
+              "menuId":"10002001",
+              "status":1
+            },
+          }).then( (res) =>{
+            console.log(res.data.code)
+            if(res){
+              if(res.data.code === 20000){
+                //成功请求
+                console.log(res.data.message);
+                console.log(res.data.data);
+                _this.items = res.data.data;
+              } else {
+                //请求失败
+                console.log(res.data.message);
+              }
+            }
+          })
+        },
+      },
+      mounted(){
+        this.getprev()
       }
     }
 </script>
@@ -330,7 +399,7 @@
     color: #868e96;
   }
   .contentHall table thead tr th.huawen{
-    width: 236px;
+    width: 366px;
     padding-left: 20px;
     text-align: center;
   }
@@ -351,16 +420,15 @@
     height: 15px;
   }
   .contentHall  table thead tr th.last2{
-    width: 260px;
+    width: 336px;
     text-align: center;
   }
   .contentHall table thead tr th.wenAges{
     width: 160px;
-    padding-left: 84px;
     text-align: center;
   }
   .contentHall table tbody tr td.huatitle{
-    width: 340px;
+    width: 432px;
   }
   .contentHall table tbody tr td.ageduan{
     width: 154px;
@@ -369,7 +437,7 @@
     width: 184px;
   }
   .contentHall table tbody tr td.btnlast{
-    padding-left: 56px;
+    padding-left: 136px;
   }
 
   .contentHall table tbody tr td a{

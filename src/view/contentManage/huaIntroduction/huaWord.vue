@@ -115,32 +115,6 @@
             <button type="button" class="l">删除</button>
           </td>
         </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="huatitle"><a href="#">刘子丹</a></td>
-          <td class="ageduan">（1903-1936）</td>
-          <td>2018-06-03</td>
-          <td class="btnlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="huatitle"><a href="#">刘子丹</a></td>
-          <td class="ageduan">（1903-1936）</td>
-          <td>2018-06-03</td>
-          <td class="btnlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
 
         </tbody>
       </table>
@@ -227,6 +201,29 @@
               message: '已取消删除'
             });
           });
+          var _this = this;
+          this.$axios({
+            method:'delete',
+            url:'/syx/weihuaqiyijieshao/1',
+            // data:{
+            //   "menuId":"516101",
+            //   "status":1
+            // },
+          }).then( (res) =>{
+            console.log(res.data.code)
+            if(res){
+              if(res.data.code === 20000){
+                //成功请求
+                console.log(res.data.message);
+                console.log(res.data.data);
+                _this.items = res.data.data;
+              } else {
+                //请求失败
+                console.log(res.data.message);
+              }
+            }
+          })
+
         },
         // clear(index) {
         //   this.checkboxData.splice(index, 1);
@@ -246,6 +243,28 @@
               message: '取消输入'
             });
           });
+          var _this = this;
+          this.$axios({
+            method:'put',
+            url:'/syx/weihuaqiyijieshao/1077497926311350272',
+            // data:{
+            //   "menuId":"516101",
+            //   "status":1
+            // },
+          }).then( (res) =>{
+            console.log(res.data.code)
+            if(res){
+              if(res.data.code === 20000){
+                //成功请求
+                console.log(res.data.message);
+                console.log(res.data.data);
+                _this.items = res.data.data;
+              } else {
+                //请求失败
+                console.log(res.data.message);
+              }
+            }
+          })
         },
         reads() {
           this.$alert('刘子丹', '回忆纪念', {
@@ -257,14 +276,36 @@
               });
             }
           });
+          var _this = this;
+          this.$axios({
+            method:'get',
+            url:'/syx/weihuaqiyijieshao/1',
+            // data:{
+            //   "menuId":"516101",
+            //   "status":1
+            // },
+          }).then( (res) =>{
+            console.log(res.data.code)
+            if(res){
+              if(res.data.code === 400){
+                //成功请求
+                console.log(res.data.message);
+                console.log(res.data.data);
+                _this.items = res.data.data;
+              } else {
+                //请求失败
+                console.log(res.data.message);
+              }
+            }
+          })
         },
         getprev(){
           var _this = this;
           this.$axios({
             method:'post',
-            url:'/weihuaqiyijieshao/search',
+            url:'/syx/weihuaqiyijieshao/search',
             data:{
-              "menuId":"516101",
+              "menuId":"10004001",
               "status":1
             },
           }).then( (res) =>{

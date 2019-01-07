@@ -53,7 +53,7 @@
         var _this = this;
         this.$axios({
           method:'post',
-                url:'/jingqugaikuang',
+                url:'/syx/jingqugaikuang',
                 data:{
                   "menuId":"1113",
                   "status":0

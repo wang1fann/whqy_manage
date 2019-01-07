@@ -27,7 +27,7 @@
         <thead>
         <tr >
           <th>
-            <input  type="checkbox">
+            <input  type="checkbox" v-model="checked" @click='checkedAll'>
             <label>全选</label>
           </th>
           <th class="biao">文章标题</th>
@@ -36,11 +36,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr v-for='(item,index) in items' :key="index">
           <td>
-            <input type="checkbox">
+            <input type="checkbox" v-model='checkboxList' :value="item.id">
           </td>
-          <td class="words"><a href="#">习仲勋在五四运动六十五周年大会上的讲话</a></td>
+          <td class="words"><a href="#">{{item.title}}</a></td>
           <td class="datenews">{{new Date(value1).getFullYear() + '-' +(new Date(value1).getMonth() + 1) + '-' + new Date(value1).getDate()}}</td>
           <td class="newlast">
             <button type="button" class="l" @click="reads">查看</button>
@@ -84,102 +84,8 @@
             <button type="button" class="l">删除</button>
           </td>
         </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="words"><a href="#">习仲勋在五四运动六十五周年大会上的讲话</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="words"><a href="#">习仲勋在五四运动六十五周年大会上的讲话</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="words"><a href="#">习仲勋在五四运动六十五周年大会上的讲话</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="words"><a href="#">习仲勋在五四运动六十五周年大会上的讲话</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="words"><a href="#">习仲勋在五四运动六十五周年大会上的讲话</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="words"><a href="#">习仲勋在五四运动六十五周年大会上的讲话</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="words"><a href="#">习仲勋在五四运动六十五周年大会上的讲话</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="words"><a href="#">习仲勋在五四运动六十五周年大会上的讲话</a></td>
-          <td class="datenews">2018-06-03</td>
-          <td class="newlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
+
+
         </tbody>
       </table>
     </div>
@@ -199,6 +105,13 @@
     name: "xiSpirtArtical",
     data() {
       return {
+        items:[
+          {
+            title:'',//标题
+            id:'',
+            createTime:'',//时间
+          }
+        ],
         pickerOptions1: {
           disabledDate(time) {
             return time.getTime() > Date.now();
@@ -226,10 +139,22 @@
         },
         value1: '2018-06-03',
         input: '',
-        input2: ''
+        input2: '',
+        checkboxList:[],
+        checked: false
       };
     },
     methods:{
+      checkedAll: function() {
+        if (this.checked) {//实现反选
+          this.checkboxList = [];
+        } else { //实现全选
+          this.checkboxList = [];
+          this.items.forEach( (item) => {
+            this.checkboxList.push(item.id);
+          });
+        }
+      },
       delMessages() {
         this.$confirm('此操作将永久删除此篇著作文章是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -246,6 +171,29 @@
             message: '已取消删除'
           });
         });
+        var _this = this;
+        this.$axios({
+          method:'delete',
+          url:'/syx/xilaojingshen/1',
+          // data:{
+          //   "menuId":"10006004",
+          //   "status":1
+          // },
+        }).then( (res) =>{
+          console.log(res.data.code)
+          if(res){
+            if(res.data.code === 20000){
+              //成功请求
+              console.log(res.data.message);
+              console.log(res.data.data);
+              _this.items = res.data.data;
+            } else {
+              //请求失败
+              console.log(res.data.message);
+            }
+          }
+        })
+
       },
       // clear(index) {
       //   this.checkboxData.splice(index, 1);
@@ -265,6 +213,29 @@
             message: '取消输入'
           });
         });
+        var _this = this;
+        this.$axios({
+          method:'put',
+          url:'/syx/xilaojingshen/1077497926311350272',
+          data:{
+            "menuId":"10006004",
+            "status":1
+          },
+        }).then( (res) =>{
+          console.log(res.data.code)
+          if(res){
+            if(res.data.code === 20000){
+              //成功请求
+              console.log(res.data.message);
+              console.log(res.data.data);
+              _this.items = res.data.data;
+            } else {
+              //请求失败
+              console.log(res.data.message);
+            }
+          }
+        })
+
       },
       reads() {
         this.$alert('习仲勋在五四运动六十五周年大会上的讲话', '文章标题', {
@@ -276,7 +247,57 @@
             });
           }
         });
+        var _this = this;
+        this.$axios({
+          method:'post',
+          url:'/syx/xilaojingshen/1077497926311350272',
+          data:{
+            "menuId":"10006004",
+            "status":1
+          },
+        }).then( (res) =>{
+          console.log(res.data.code)
+          if(res){
+            if(res.data.code === 20000){
+              //成功请求
+              console.log(res.data.message);
+              console.log(res.data.data);
+              _this.items = res.data.data;
+            } else {
+              //请求失败
+              console.log(res.data.message);
+            }
+          }
+        })
+
       },
+      getprev(){
+        var _this = this;
+        this.$axios({
+          method:'post',
+          url:'/syx/xilaojingshen/search',
+          data:{
+            "menuId":"10006004",
+            "status":1
+          },
+        }).then( (res) =>{
+          console.log(res.data.code)
+          if(res){
+            if(res.data.code === 20000){
+              //成功请求
+              console.log(res.data.message);
+              console.log(res.data.data);
+              _this.items = res.data.data;
+            } else {
+              //请求失败
+              console.log(res.data.message);
+            }
+          }
+        })
+      },
+    },
+    mounted(){
+      this.getprev()
     }
   }
 </script>

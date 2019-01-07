@@ -163,7 +163,7 @@
         var _this = this;
         this.$axios({
           method:'delete',
-          url:'jingquxinwen/1077457008430551040',
+          url:'/syx/jingquxinwen/1077457008430551040',
           // data:{
           //   "menuId":"51412",
           //   "status":1
@@ -224,9 +224,17 @@
           this.searchState.searchtext = this.$refs.searchval.value
           this.$emit('searchstate', this.searchState)
         }
-        axios.get('http://localhost:3000/search/suggest?keywords=' + searchText, {}, {headers:{'Content-Type':'application/x-www-form-urlencoded'}})
-          .then((res) => {
-            if (res.data.code == 20000) {
+        var _this = this;
+        // this.$axios('/syx/jingquxinwen/search/1/1?keywords=' + searchText)
+        this.$axios({
+          method:'post',
+          url:'/syx/jingquxinwen/search/1/1',
+          data:{
+            "menuId":"51412",
+            "status":1
+          },
+        }).then((res) => {
+            if (res.data.code === 20000) {
               this.$emit('search', res.data.result.allMatch)
             }
           })
@@ -239,7 +247,7 @@
         var _this = this;
         this.$axios({
           method:'post',
-          url:'jingquxinwen/1077456936301105152',
+          url:'/syx/jingquxinwen/1077456936301105152',
           data:{
             "menuId":"51412",
             "status":1
@@ -263,9 +271,9 @@
         var _this = this;
         this.$axios({
           method:'post',
-          url:'/jingquxinwen/search',
+          url:'/syx/jingquxinwen/search',
           data:{
-            "menuId":"51412",
+            "menuId":"10002001",
             "status":1
           },
         }).then( (res) =>{
@@ -365,11 +373,12 @@
      color: #868e96;
   }
    .contentNews table thead tr th.biao{
-    width:32%;
+    width:20%;
+     padding-left: 44px;
     text-align: center;
   }
    .contentNews table thead tr th:nth-child(1){
-    width: 10%;
+    width: 6%;
     padding-left: 15px;
   }
    .contentNews table thead tr th:nth-child(1) input{
@@ -388,16 +397,16 @@
    .contentNews table thead tr th.gaidate{
     width: 18%;
     text-align: left;
-     padding-left: 108px;
+     padding-left: 160px;
   }
    .contentNews  table tbody tr td.words{
-    width: 66%;
+    width: 62%;
   }
    .contentNews  table tbody tr td.newlast{
-    padding-left: 84px;
+    padding-left: 144px;
   }
    .contentNews table tbody tr td.datenews{
-    width: 114px;
+    width:94px;
   }
    .contentNews  table tbody tr td a{
     color: #868e96;
