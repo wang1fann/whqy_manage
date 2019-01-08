@@ -19,6 +19,7 @@
         </el-input>
       </el-col>
     </el-row>
+    <!-- personName -->
     <el-row
       class="info"
       :gutter="24"
@@ -38,20 +39,67 @@
       </el-col>
     </el-row>
     <!-- 上传封面图片 -->
-    <el-upload
-      class="avatar-uploader"
-      action="http://192.168.0.110:9104/syx/file/multipleUpload"
-      :show-file-list="false"
-      :on-success="handleAvatarSuccess"
-      :before-upload="beforeAvatarUpload"
-      :auto-upload="true"
-      :http-request="uploadUserImg"
-    >
-      <i class="el-icon-plus avatar-uploader-icon"><span
-          style="font-size:14px;position: absolute;left: 0px;"
-          class="alignright"
-        >上传封面图片:</span></i>
-    </el-upload>
+    <el-row :gutter="24">
+      <el-col :span="5">
+        <el-upload
+          class="avatar-uploader"
+          action="http://192.168.0.110:9104/syx/file/multipleUpload"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload"
+          :auto-upload="true"
+          :http-request="uploadUserImg"
+        >
+          <i class="el-icon-plus avatar-uploader-icon"><span
+              style="font-size:14px;position: absolute;left: 21px;color:#000;"
+              class="alignright"
+            >上传封面图片：</span></i>
+        </el-upload>
+      </el-col>
+      <el-col :span="19">
+        <div
+          class="alignleft"
+          style="margin-top: 22px;"
+        >
+          <span>点击左图上传图片*</span><br />
+          <span class="spec">要求：</span><br />
+          <span>1.图片比例3:1</span><br />
+          <span>2.图片大小 1MB以下</span><br />
+          <span>3.图片格式 .jpg、.png、.gif等 </span><br />
+        </div>
+      </el-col>
+    </el-row>
+    <!-- 上传视频mp4 -->
+    <el-row :gutter="24" v-show="showMp4">
+      <el-col :span="5">
+        <el-upload
+          class="avatar-uploader"
+          action="http://192.168.0.110:9104/syx/file/multipleUpload"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccessMp4"
+          :before-upload="beforeAvatarUploadMp4"
+          :auto-upload="true"
+          :http-request="uploadMp4"
+        >
+          <i class="el-icon-plus avatar-uploader-icon"><span
+              style="font-size:14px;position: absolute;left: 43px;color:#000;"
+              class="alignright"
+            >上传视频：</span></i>
+        </el-upload>
+      </el-col>
+      <el-col :span="19">
+        <div
+          class="alignleft"
+          style="margin-top: 22px;"
+        >
+          <span>点击左图上传视频*</span><br />
+          <span class="spec">要求：</span><br />
+          <span>1.视频比例3:1</span><br />
+          <span>2.视频大小 3MB以下</span><br />
+          <span>3.视频格式 MP4等 </span><br />
+        </div>
+      </el-col>
+    </el-row>
     <el-row
       class="info"
       :gutter="20"
@@ -102,7 +150,6 @@ export default {
           description: "",
           imgPath: "",
           menuId: ""
-          // showUploadImg:false
         };
       }
     },
@@ -110,6 +157,10 @@ export default {
     defaultMsg: {
       type: String,
       default: "请输入文章内容"
+    },
+     showMp4: {
+      type: Boolean,
+      default: false
     },
     config: {
       type: Object,
@@ -124,7 +175,18 @@ export default {
   },
   data() {
     return {
-      imgPath:'',
+      imgPath: "",
+      mp4Path: "",
+      // mp4Data
+      mp4Data: {
+        file: {
+          type: File,
+          default: () => {
+            return new FormData();
+          }
+        },
+        menu: this.$route.query.menuId
+      },
       imgData: {
         file: {
           type: File,
@@ -132,43 +194,77 @@ export default {
             return new FormData();
           }
         },
-        menu: "门票预订"
+        menu: this.$route.query.menuId
       }
     };
   },
   created() {
-    this.getMenuId();
+    // this.getMenuId();
   },
   methods: {
-    getMenuId() {
-      this.imgData.menu=this.$route.query;
-    },
+    // getMenuId() {
+    // this.imgData.menu = this.$route.query.menuId;
+    // },
     getUEContent() {
-      let content = this.$refs.ue.getUEContent();
-      console.log(content);
-      this.$emit("submit", content);
+      console.log(this.hasContent());
+      if (this.hasContent() === "true") {
+        let content = this.$refs.ue.getUEContent();
+        this.$emit("submit", content);
+      } else {
+        this.$message({
+          type: "warning",
+          message: "请输入内容"
+        });
+      }
+    },
+    hasContent() {
+      //判断是否有内容
+      var arr = [];
+      arr.push(this.$refs.ue.hasContents());
+      return arr.join("\n");
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
+        this.$message.error("上传图片只能是 JPG 格式!");
       }
       if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
+        this.$message.error("上传图片大小不能超过 2MB!");
       }
       if (!isJPG || !isLt2M) {
         return isJPG && isLt2M;
       }
       this.imgData.file = file;
     },
+    // 检测上传视频格式MP4
+    beforeAvatarUploadMp4(file) {
+      console.log(file);
+      const isMp4 = file.type === "video/mp4";
+      const isLt3M = file.size / 1024 / 1024 < 3;
+      if (!isMp4) {
+        this.$message.error("上传视频只能是 Mp4 格式!");
+      }
+      if (!isLt3M) {
+        this.$message.error("上传视频大小不能超过 3MB!");
+      }
+      if (!isMp4 || !isLt3M) {
+        return isMp4 && isLt3M;
+      }
+      this.mp4Data.file = file;
+    },
     // 上传头像
     handleAvatarSuccess(res, file) {
       this.imgPath = URL.createObjectURL(file.raw);
       this.formData.imgPath = this.imgPath;
     },
+    // 上传视频
+    handleAvatarSuccessMp4() {
+      // this.imgPath = URL.createObjectURL(file.raw);
+      this.mp4Data.imgPath = this.imgPath;
+    },
     uploadUserImg() {
-      // console.log(this.imgData);
+      // this.getMenuId();
       var form = new FormData();
       form.append("menu", this.imgData.menu);
       form.append("file", this.imgData.file);
@@ -176,12 +272,31 @@ export default {
       API.uploadUserImg(form).then(res => {
         if (!!res && res.code === 20000) {
           this.imgPath = !!res.data ? res.data[0] : "";
-          this.$emit("imgPath",this.imgPath);
+          this.$emit("imgPath", this.imgPath);
         }
         this.$message({
           message: res.message,
           type: res.code === 20000 ? "success" : "error"
         });
+        window.sessionStorage.setItem("responseType", "json");
+      });
+    },
+    uploadMp4() {
+      // this.getMenuId();
+      var form = new FormData();
+      form.append("menu", this.mp4Data.menu);
+      form.append("file", this.mp4Data.file);
+      window.sessionStorage.setItem("responseType", "form");
+      API.uploadUserImg(form).then(res => {
+        if (!!res && res.code === 20000) {
+          this.mp4Path = !!res.data ? res.data[0] : "";
+          this.$emit("mp4Path", this.imgPath);
+        }
+        this.$message({
+          message: res.message,
+          type: res.code === 20000 ? "success" : "error"
+        });
+        window.sessionStorage.setItem("responseType", "json");
       });
     }
   }

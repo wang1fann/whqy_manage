@@ -14,8 +14,16 @@ export default {
     dbRestore: params => {
         return API.POST('/syx/backup/reduction', params)
     },
-    // 备份请求192.168.0.108:9014/syx/backup/dbbackup，type:2 自动，1 手动（后台已做判断关闭自动）
+    // 备份请求type:2 自动，1 手动（后台已做判断关闭自动）
     restore: params => {
         return API.POST('/syx/backup/dbbackup/' + params.type, params)
     },
+    //查询自动备份当前状态
+    searchAutoRestore: params => {
+        return API.POST('/syx/backup/getdataschedulerstatus', params)
+    },
+    // n自动备份状态切换，开启或关闭
+    backupturnon: params => {
+        return API.POST('/syx/backup/backupturnon', params)
+    }
 }

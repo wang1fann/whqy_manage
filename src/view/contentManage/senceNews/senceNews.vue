@@ -323,16 +323,16 @@
     height: 30px;
     margin-left: 20px;
   }
-  .el-date-editor.el-input{
+ .contentNews .el-date-editor.el-input{
     width: 148px;
   }
-  input.el-input__inner{
+  .contentNews input.el-input__inner{
     width: 380px;
   }
-  .el-input--prefix .el-input__inner{
+ .contentNews .el-input--prefix .el-input__inner{
     width: 148px;
   }
-  .el-input--prefix .el-input__inner {
+  .contentNews .el-input--prefix .el-input__inner {
     height: 32px;
     line-height: 32px;
   }

@@ -29,7 +29,6 @@ axios.defaults.baseURL = 'http://192.168.0.110:9014'; //zhenyang
 axios.interceptors.request.use(
     config => {
         const responseType = sessionStorage.getItem('responseType');
-        // console.log('responseType=' + responseType);
         if (responseType == 'form') {
             config.headers = {
                 'Content-Type': 'application/x-www-form-urlencoded' //设置跨域头部

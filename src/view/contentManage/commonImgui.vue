@@ -1,7 +1,7 @@
 <template>
   <div class="content-manageappre">
     <div class="clearfix">
-      <div class="l left">
+      <div class="img-box left">
         <input
           class="upload-img"
           type="file"
@@ -17,19 +17,19 @@
         </div>
       </div>
       <div
-        class="l tuImg"
-        v-for="(item,index) in imgList"
+        class="img-box tuImg"
+        v-for="(item,index) in imgList.rows"
         :key="index"
       >
-        <img :src="item.src" />
+        <img :src="item.imgPath" />
         <span @click="deleteConfirm(item)"></span>
-        <p>{{item.name}}</p>
+        <p>{{item.scenicSpotName}}</p>
       </div>
     </div>
     <div style="margin-top:15px;">
       <el-pagination
         layout="prev, pager, next"
-        :total="total"
+        :total="imgList.total"
         @current-change="handleCurrentChange"
       >
       </el-pagination>
@@ -80,8 +80,8 @@ export default {
     },
     deleteImg() {
       var _this = this;//deleteAPI
-    //   APICommon.delAbstarct({ id: _this.id })
-      APICommon[deleteAPI]({ id: _this.id })
+      // APICommon[deleteAPI]({ id: _this.id })
+      APICommon.delAbstarct({ id: _this.id })
         .then(res => {
           this.id = null;
           this.$message({
@@ -115,9 +115,12 @@ export default {
 </script>
 
 <style scoped>
-.l {
+.img-box {
   float: left;
   position: relative;
+}
+.img-box:nth-child(5n+1){
+  margin-left: 0px !important;
 }
 input.upload-img {
   height: 100%;
@@ -146,16 +149,14 @@ input.upload-img {
   width: 18%;
   height: 330px;
   background: #f0f4f7;
+  margin-top: 35px;
+
 }
 .content-manageappre .left img {
   margin: 0 auto;
   width: 40px;
   height: 30px;
   margin-top: 130px;
-}
-* {
-  margin: 0;
-  padding: 0;
 }
 .content-manageappre .left p {
   font-size: 12px;
@@ -173,6 +174,7 @@ input.upload-img {
   box-sizing: border-box;
   background: #f5fafc;
   margin-left: 28px;
+  margin-top: 35px;
 }
 .content-manageappre .tuImg span {
   display: block;

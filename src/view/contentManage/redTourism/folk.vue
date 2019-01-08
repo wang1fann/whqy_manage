@@ -20,9 +20,10 @@ export default {
     return {
       searchParams: {
         page: 1,
-        size: 10
+        size: 10,
+        menuId: this.$route.query.menuId
       },
-      deleteAPI:'delAbstarct',
+      deleteAPI: "delAbstarct",
       abstractComment: {
         //文章评论
         userId: "dsa",
@@ -66,6 +67,10 @@ export default {
     };
   },
   methods: {
+    getMenuId() {
+      // this.menuId
+      console.log(this.$route.query.menuId);
+    },
     addImgPath(val) {
       window.sessionStorage.setItem("responseType", "json");
       this.abstractInfo.imgPath = val.replace(/\\/g, "/");
@@ -83,16 +88,17 @@ export default {
           this.imgList = res.data;
         }
         this.$message({
-          message: res.message,
+          message:
+            !!res && res.data.total === 0 ? "查询成功，暂无相关数据。" : res.message,
           type: !!res && res.code === 20000 ? "success" : "error"
         });
       });
     },
     deleteInfo(res) {
       if (!!res && res.code === 20000) {
-          this.findAbstract();
-      }else{
-          return;
+        this.findAbstract();
+      } else {
+        return;
       }
     },
     pageNum(val) {

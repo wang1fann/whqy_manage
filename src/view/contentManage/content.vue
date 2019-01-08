@@ -24,9 +24,9 @@
             <router-link
               v-for="(item,index) in childMenuArr.children"
               :key="!!item.id?item.id:index"
-              :to="{name: item.name,query:item.id}"
               v-show="!item.show&&item.show!==false"
               tag="el-button"
+              :to="{path: !!item.path ? item.path : '',query: { menuId: !!item.id ? item.id : '' }}"
             >{{item.name}}</router-link>
           </div>
         </el-col>
@@ -51,18 +51,25 @@ export default {
   },
   created() {},
   mounted() {
-    // this.id = this.$route.params.id;
+    // this.autoClick(this.childMenuArr.children[0],0);
   },
   methods: {
     MenuArr(val) {
       this.childMenuArr = !!val && val !== undefined ? val : "";
+    },
+    // autoClick(item,index) {
+    //   console.log(item);
+    //   this.toRouter(item,index);
+    // },
+    toRouter: function(item, index) {
+      console.log(item);
+      this.$router.push({
+        path: !!item.path ? item.path : "",
+        query: { menuId: !!item.id ? item.id : "" }
+      });
     }
   },
-  watch: {
-    // id() {
-    //   console.log(this.id);
-    // }
-  }
+  watch: {}
 };
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss" scoped>

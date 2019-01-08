@@ -27,24 +27,24 @@ export default {
       ticketForm: {
         title: "表示梯三",
         imgPath: "",
-        menuId: this.$route.query,
+        menuId: this.$route.query.menuId,
         description: "",
         content: ""
       }
     };
   },
   created() {},
+  mounted() {},
   methods: {
     submitcontent(content) {
-      console.log(content);
       this.ticketForm.content = content;
       console.log(this.ticketForm);
       window.sessionStorage.setItem("responseType", "json");
       API.addServerInfo(this.ticketForm).then(res => {
         console.log(res);
         this.$message({
-          type:"success",
-          message:res.message
+          type: !!res && res.code === 20000 ? "success" : "warning",
+          message: res.message
         });
       });
     },

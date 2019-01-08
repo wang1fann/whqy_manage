@@ -41,7 +41,25 @@
         :gutter="20"
         class="my-redbutton"
       >
-        <el-button @click="submitcopyData()">开始备份</el-button>
+        <el-button
+          v-if="dataCopyType==='手动备份'"
+          @click="submitcopyData()"
+        >开始备份</el-button>
+        <el-tooltip
+          :content="'Switch value: ' + dataCopyType"
+          placement="top"
+          v-else-if="dataCopyType==='自动备份'"
+        >
+          <el-switch
+            v-model="autoCopyValue"
+            active-color="#eb5e5f"
+            inactive-color="#C1C1C1"
+            active-value="ON"
+            inactive-value="OFF"
+            @change="changeAutoCopyValue"
+          >
+          </el-switch>
+        </el-tooltip>
       </el-row>
     </div>
   </div>
@@ -56,10 +74,14 @@ export default {
       pic1: require("@/assets/img/data/The backup1.png"),
       pic2: require("@/assets/img/data/restore.png"),
       id: "",
-      dataCopyType: "手动备份"
+      dataCopyType: "手动备份",
+      autoCopyValue: ""
     };
   },
   created: function() {},
+  watch: {
+    dataCopyType: "dataCopyTypeChange"
+  },
   mounted: function() {},
   methods: {
     gotoUrl(path, query) {
@@ -69,7 +91,7 @@ export default {
       });
     },
     submitcopyData() {
-      API.restore({ "type": this.dataCopyType === "手动备份" ? 1 : "2" }).then(
+      API.restore({ type: this.dataCopyType === "手动备份" ? 1 : "2" }).then(
         res => {
           //dbbackup,type:1手动，2自动
           this.$message({
@@ -78,6 +100,28 @@ export default {
           });
         }
       );
+    },
+    dataCopyTypeChange() {
+      // 查询自动备份状态
+      API.searchAutoRestore().then(res => {
+        this.autoCopyValue =
+          !!res && res.data ? res.data.IS_AUTOMATIC_BACKUP : "";
+        this.$message({
+          message: res.message,
+          type: res.code === 20000 ? "success" : "error"
+        });
+      });
+    },
+    changeAutoCopyValue(val) {
+      console.log(val);
+      API.backupturnon({ type: 2, status: val }).then(res => {
+        // this.autoCopyValue =
+        //   !!res && res.data ? res.data.IS_AUTOMATIC_BACKUP : "";
+        this.$message({
+          message: res.message,
+          type: res.code === 20000 ? "success" : "error"
+        });
+      });
     }
   }
 };

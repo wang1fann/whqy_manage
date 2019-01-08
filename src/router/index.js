@@ -16,13 +16,13 @@ let contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
-        redirect: '/contentManage/senceSituation/situationIntroduce',
+        redirect: { path: '/contentManage/senceSituation/situationIntroduce', query: { menuId: 10001001 } },
         children: [{
                 id: 10001001,
                 path: 'situationIntroduce',
                 name: '景区简介',
                 component: resolve => {
-                    require(['view/contentManage/senceSituation/situationIntroduce'], resolve)
+                    require(['view/contentManage/serviceGuide/TicketReservation'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -33,7 +33,7 @@ let contentRouter = [{
                 path: 'situationImg',
                 name: '景区掠影',
                 component: resolve => {
-                    require(['view/contentManage/senceSituation/situationImg'], resolve)
+                    require(['view/contentManage/redTourism/folk'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -44,7 +44,8 @@ let contentRouter = [{
                 path: 'situationDepart',
                 name: '组织机构',
                 component: resolve => {
-                    require(['view/contentManage/senceSituation/situationDepart'], resolve)
+                    require(['view/contentManage/serviceGuide/TicketReservation'], resolve)
+                        // require(['view/contentManage/senceSituation/situationDepart'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -60,7 +61,7 @@ let contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
-        redirect: '/contentManage/senceNews/senceNews',
+        redirect: { path: '/contentManage/senceNews/senceNews', query: { menuId: 10001001 } },
         children: [{
                 id: 10002001,
                 // 新闻中心
@@ -96,13 +97,13 @@ let contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
-        redirect: '/contentManage/collectionAppreciation/appreciationShow',
+        redirect: { path: '/contentManage/collectionAppreciation/appreciationShow', query: { menuId: 10003001 } },
         children: [{
                 id: 10003001,
                 path: 'appreciationShow',
                 name: '精品展示',
                 component: resolve => {
-                    require(['view/contentManage/collectionAppreciation/appreciationShow'], resolve)
+                    require(['view/contentManage/redTourism/folk'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -125,7 +126,8 @@ let contentRouter = [{
                 path: 'souvenir',
                 name: '亲切留念',
                 component: resolve => {
-                    require(['view/contentManage/senceSituation/situationImg'], resolve)
+                    require(['view/contentManage/redTourism/folk'], resolve)
+                        // require(['view/contentManage/senceSituation/situationImg'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -142,14 +144,15 @@ let contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
-        redirect: '/contentManage/huaIntroduction/revoltIntro',
+        redirect: { path: '/contentManage/huaIntroduction/revoltIntro', query: { menuId: 10004001 } },
         children: [ //situationDepart
             {
                 id: 10004001,
                 path: 'revoltIntro',
                 name: '起义简介',
                 component: resolve => {
-                    require(['view/contentManage/senceSituation/situationDepart'], resolve)
+                    require(['view/contentManage/serviceGuide/TicketReservation'], resolve)
+                        // require(['view/contentManage/senceSituation/situationDepart'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -171,7 +174,8 @@ let contentRouter = [{
                 path: 'revoltProcess',
                 name: '起义经过',
                 component: resolve => {
-                    require(['view/contentManage/senceSituation/situationDepart'], resolve)
+                    require(['view/contentManage/serviceGuide/TicketReservation'], resolve)
+                        // require(['view/contentManage/senceSituation/situationDepart'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -181,7 +185,8 @@ let contentRouter = [{
                 path: 'imgRecord',
                 name: '图片档案',
                 component: resolve => {
-                    require(['view/contentManage/senceSituation/situationImg'], resolve)
+                    require(['view/contentManage/redTourism/folk'], resolve)
+                        // require(['view/contentManage/senceSituation/situationImg'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -239,7 +244,7 @@ let contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
-        redirect: '/contentManage/xianThings/heros',
+        redirect: { path: '/contentManage/xianThings/heros', query: { menuId: 10005001 } },
         children: [{
             id: 10005001,
             path: 'heros',
@@ -271,13 +276,14 @@ let contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
-        redirect: '/contentManage/xiSpirit/biography',
+        redirect: { path: '/contentManage/xiSpirit/biography', query: { menuId: 10006001 } },
         children: [{
                 id: 10006001,
                 path: 'biography',
                 name: '生平简介',
                 component: resolve => {
-                    require(['view/contentManage/senceSituation/situationIntroduce'], resolve)
+                    require(['view/contentManage/serviceGuide/TicketReservation'], resolve)
+                        // require(['view/contentManage/senceSituation/situationIntroduce'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -288,7 +294,8 @@ let contentRouter = [{
                 path: 'TheFeats',
                 name: '丰功伟绩',
                 component: resolve => {
-                    require(['view/contentManage/senceSituation/situationDepart'], resolve)
+                    require(['view/contentManage/serviceGuide/TicketReservation'], resolve)
+                        // require(['view/contentManage/senceSituation/situationDepart'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -298,7 +305,8 @@ let contentRouter = [{
                 path: 'HistoricalMoments',
                 name: '历史瞬间',
                 component: resolve => {
-                    require(['view/contentManage/collectionAppreciation/appreciationShow'], resolve)
+                    require(['view/contentManage/redTourism/folk'], resolve)
+                        // require(['view/contentManage/collectionAppreciation/appreciationShow'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -366,7 +374,7 @@ let contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
-        redirect: '/contentManage/redEducation/redSpeak',
+        redirect: { path: '/contentManage/redEducation/redSpeak', query: { menuId: 10007001 } },
         children: [{
             id: 10007001,
             path: 'redSpeak',
@@ -417,13 +425,13 @@ let contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
-        redirect: '/contentManage/partyEducation/WHspirit',
+        redirect: { path: '/contentManage/partyEducation/WHspirit', query: { menuId: 10008001 } },
         children: [{
             id: 10008001,
             path: 'WHspirit',
             name: '渭华起义精神',
             component: resolve => {
-                require(['view/contentManage/senceSituation/situationDepart'], resolve)
+                require(['view/contentManage/serviceGuide/TicketReservation'], resolve)
             },
             class: 'fa-line-chart',
             img: require('@/assets/img/access/user.png'),
@@ -433,7 +441,7 @@ let contentRouter = [{
             path: '19thSpirit',
             name: '十九大精神',
             component: resolve => {
-                require(['view/contentManage/senceSituation/situationDepart'], resolve)
+                require(['view/contentManage/serviceGuide/TicketReservation'], resolve)
             },
             class: 'fa-line-chart',
             img: require('@/assets/img/access/user.png'),
@@ -469,7 +477,7 @@ let contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
-        redirect: '/contentManage/culturalEducation/culturalEducation',
+        redirect: { path: '/contentManage/culturalEducation/culturalEducation', query: { menuId: 10009001 } },
         children: [{
             id: 10009001,
             path: 'culturalEducation',
@@ -578,7 +586,7 @@ let contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
-        redirect: '/contentManage/redTourism/classicRoute',
+        redirect: { path: '/contentManage/redTourism/classicRoute', query: { menuId: 10013001 } },
         children: [{
             id: 10013001,
             path: 'classicRoute',
@@ -617,7 +625,7 @@ let contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
-        redirect: '/contentManage/serviceGuide/TicketReservation',
+        redirect: { path: '/contentManage/serviceGuide/TicketReservation', query: { menuId: 10014001 } },
         children: [{
             id: 10014001,
             path: 'TicketReservation',
@@ -656,7 +664,7 @@ let contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
-        redirect: '/contentManage/visitMessage/SignIn',
+        redirect: { path: '/contentManage/visitMessage/SignIn', query: { menuId: 10015001 } },
         children: [{
             // 游客签到
             id: 10015001,
@@ -698,7 +706,7 @@ let router = new Router({
             component: Login
         },
         {
-            path: '/',
+            path: '/home',
             component: Menu,
             redirect: "/rights",
             children: [{
