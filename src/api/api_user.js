@@ -5,7 +5,7 @@ import * as API from './'
 export default {
     // 登录
     login: params => {
-        return API.POST('/syx/user/login', params)
+        return API.POST('/syx/user/userlogin/' + params.phone + "/" + params.passwd, params)
     },
     getUserById: params => {
         return API.GET('/syx/user/1', params)

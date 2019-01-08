@@ -8,6 +8,7 @@ import API from '@/api/api_site'; //API.findMenuList
 const Login = resolve => require(['view/usersManage/Login'], resolve)
 Vue.use(Router)
 let contentRouter = [{
+        id: 10001,
         path: 'senceSituation',
         name: '景区概况',
         component: resolve => {
@@ -17,6 +18,7 @@ let contentRouter = [{
         img: require('@/assets/img/access/user.png'),
         redirect: '/contentManage/senceSituation/situationIntroduce',
         children: [{
+                id: 10001001,
                 path: 'situationIntroduce',
                 name: '景区简介',
                 component: resolve => {
@@ -27,6 +29,7 @@ let contentRouter = [{
                 children: []
             },
             {
+                id: 10001002,
                 path: 'situationImg',
                 name: '景区掠影',
                 component: resolve => {
@@ -37,6 +40,7 @@ let contentRouter = [{
                 children: []
             },
             {
+                id: 10001003,
                 path: 'situationDepart',
                 name: '组织机构',
                 component: resolve => {
@@ -48,6 +52,7 @@ let contentRouter = [{
             }
         ]
     }, {
+        id: 10002,
         path: 'senceNews',
         name: '景区新闻',
         component: resolve => {
@@ -57,6 +62,7 @@ let contentRouter = [{
         img: require('@/assets/img/access/user.png'),
         redirect: '/contentManage/senceNews/senceNews',
         children: [{
+                id: 10002001,
                 // 新闻中心
                 path: 'senceNews',
                 name: '新闻中心',
@@ -68,6 +74,7 @@ let contentRouter = [{
                 children: []
             },
             {
+                id: 10002002,
                 // 新闻中心
                 path: 'inform',
                 name: '通知公告',
@@ -81,6 +88,7 @@ let contentRouter = [{
         ]
     },
     {
+        id: 10003,
         path: 'collectionAppreciation',
         name: '藏品欣赏',
         component: resolve => {
@@ -90,6 +98,7 @@ let contentRouter = [{
         img: require('@/assets/img/access/user.png'),
         redirect: '/contentManage/collectionAppreciation/appreciationShow',
         children: [{
+                id: 10003001,
                 path: 'appreciationShow',
                 name: '精品展示',
                 component: resolve => {
@@ -100,6 +109,7 @@ let contentRouter = [{
                 children: []
             },
             {
+                id: 10003002,
                 path: 'appreciationStrory',
                 name: '文物故事',
                 component: resolve => {
@@ -111,6 +121,7 @@ let contentRouter = [{
 
                 ]
             }, {
+                id: 10003003,
                 path: 'souvenir',
                 name: '亲切留念',
                 component: resolve => {
@@ -123,6 +134,7 @@ let contentRouter = [{
         ]
     },
     {
+        id: 10004,
         path: 'huaIntroduction',
         name: '渭华起义',
         component: resolve => {
@@ -133,6 +145,7 @@ let contentRouter = [{
         redirect: '/contentManage/huaIntroduction/revoltIntro',
         children: [ //situationDepart
             {
+                id: 10004001,
                 path: 'revoltIntro',
                 name: '起义简介',
                 component: resolve => {
@@ -154,6 +167,7 @@ let contentRouter = [{
                 }]
             },
             {
+                id: 10004003,
                 path: 'revoltProcess',
                 name: '起义经过',
                 component: resolve => {
@@ -163,6 +177,7 @@ let contentRouter = [{
                 img: require('@/assets/img/access/user.png'),
                 children: []
             }, {
+                id: 10004004,
                 path: 'imgRecord',
                 name: '图片档案',
                 component: resolve => {
@@ -172,6 +187,7 @@ let contentRouter = [{
                 img: require('@/assets/img/access/user.png'),
                 children: []
             }, {
+                id: 10004005,
                 path: 'souvenir',
                 name: '回忆纪念',
                 component: resolve => {
@@ -181,6 +197,7 @@ let contentRouter = [{
                 img: require('@/assets/img/access/user.png'),
                 children: []
             }, {
+                id: 10004006,
                 path: 'historyData',
                 name: '历史资料',
                 component: resolve => {
@@ -191,6 +208,7 @@ let contentRouter = [{
                 children: []
             },
             {
+                id: 10004007,
                 path: 'StudyTheTheoryOf',
                 name: '研究论著',
                 component: resolve => {
@@ -200,6 +218,7 @@ let contentRouter = [{
                 img: require('@/assets/img/access/user.png'),
                 children: []
             }, {
+                id: 10004008,
                 path: 'VideoWorks',
                 name: '影音作品',
                 component: resolve => {
@@ -212,6 +231,7 @@ let contentRouter = [{
         ]
     },
     {
+        id: 10005,
         path: 'xianThings',
         name: '先烈事迹',
         component: resolve => {
@@ -221,6 +241,7 @@ let contentRouter = [{
         img: require('@/assets/img/access/user.png'),
         redirect: '/contentManage/xianThings/heros',
         children: [{
+            id: 10005001,
             path: 'heros',
             name: '渭华英雄',
             component: resolve => {
@@ -230,6 +251,7 @@ let contentRouter = [{
             img: require('@/assets/img/access/user.png'),
             children: []
         }, {
+            id: 10005002,
             path: 'GreatDeeds',
             name: '重大事迹',
             component: resolve => {
@@ -241,6 +263,7 @@ let contentRouter = [{
         }]
     },
     {
+        id: 10006,
         path: 'xiSpirit',
         name: '习老精神',
         component: resolve => {
@@ -250,6 +273,7 @@ let contentRouter = [{
         img: require('@/assets/img/access/user.png'),
         redirect: '/contentManage/xiSpirit/biography',
         children: [{
+                id: 10006001,
                 path: 'biography',
                 name: '生平简介',
                 component: resolve => {
@@ -260,6 +284,7 @@ let contentRouter = [{
                 children: []
             },
             {
+                id: 10006002,
                 path: 'TheFeats',
                 name: '丰功伟绩',
                 component: resolve => {
@@ -269,6 +294,7 @@ let contentRouter = [{
                 img: require('@/assets/img/access/user.png'),
                 children: []
             }, {
+                id: 10006003,
                 path: 'HistoricalMoments',
                 name: '历史瞬间',
                 component: resolve => {
@@ -278,6 +304,7 @@ let contentRouter = [{
                 img: require('@/assets/img/access/user.png'),
                 children: []
             }, {
+                id: 10006004,
                 path: 'xiSpirtArtical',
                 name: '著作文章',
                 component: resolve => {
@@ -297,6 +324,7 @@ let contentRouter = [{
                     show: false
                 }]
             }, {
+                id: 10006005,
                 path: 'motto',
                 name: '格言精选',
                 component: resolve => {
@@ -306,6 +334,7 @@ let contentRouter = [{
                 img: require('@/assets/img/access/user.png'),
                 children: []
             }, {
+                id: 10006006,
                 path: 'inscription',
                 name: '题词手迹',
                 component: resolve => {
@@ -316,6 +345,7 @@ let contentRouter = [{
                 children: []
             },
             {
+                id: 10006007,
                 path: 'Memoriam',
                 name: '追思缅怀',
                 component: resolve => {
@@ -328,6 +358,7 @@ let contentRouter = [{
         ]
     },
     {
+        id: 10007,
         path: 'redEducation',
         name: '红色教育',
         component: resolve => {
@@ -337,6 +368,7 @@ let contentRouter = [{
         img: require('@/assets/img/access/user.png'),
         redirect: '/contentManage/redEducation/redSpeak',
         children: [{
+            id: 10007001,
             path: 'redSpeak',
             name: '红色宣传',
             component: resolve => {
@@ -355,6 +387,7 @@ let contentRouter = [{
                 children: []
             }]
         }, {
+            id: 10007002,
             path: 'TradeAlerts',
             name: '行业快讯',
             component: resolve => {
@@ -364,6 +397,7 @@ let contentRouter = [{
             img: require('@/assets/img/access/user.png'),
             children: []
         }, {
+            id: 10007003,
             path: 'LeadingCare',
             name: '领导关怀',
             component: resolve => {
@@ -375,6 +409,7 @@ let contentRouter = [{
         }]
     },
     {
+        id: 10008,
         path: 'partyEducation',
         name: '党性教育',
         component: resolve => {
@@ -384,6 +419,7 @@ let contentRouter = [{
         img: require('@/assets/img/access/user.png'),
         redirect: '/contentManage/partyEducation/WHspirit',
         children: [{
+            id: 10008001,
             path: 'WHspirit',
             name: '渭华起义精神',
             component: resolve => {
@@ -393,6 +429,7 @@ let contentRouter = [{
             img: require('@/assets/img/access/user.png'),
             children: []
         }, {
+            id: 10008002,
             path: '19thSpirit',
             name: '十九大精神',
             component: resolve => {
@@ -402,6 +439,7 @@ let contentRouter = [{
             img: require('@/assets/img/access/user.png'),
             children: []
         }, {
+            id: 10008003,
             path: 'ThePartyConstitution',
             name: '党章党规',
             component: resolve => {
@@ -411,6 +449,7 @@ let contentRouter = [{
             img: require('@/assets/img/access/user.png'),
             children: []
         }, {
+            id: 10008004,
             path: 'classic',
             name: '经典著作',
             component: resolve => {
@@ -422,6 +461,7 @@ let contentRouter = [{
         }]
     },
     {
+        id: 10009,
         path: 'culturalEducation',
         name: '历史文化教育',
         component: resolve => {
@@ -431,6 +471,7 @@ let contentRouter = [{
         img: require('@/assets/img/access/user.png'),
         redirect: '/contentManage/culturalEducation/culturalEducation',
         children: [{
+            id: 10009001,
             path: 'culturalEducation',
             name: '文化遗产',
             component: resolve => {
@@ -440,6 +481,7 @@ let contentRouter = [{
             img: require('@/assets/img/access/user.png'),
             children: []
         }, {
+            id: 10009002,
             path: 'culturalOldAppend',
             name: '文化古迹',
             component: resolve => {
@@ -449,6 +491,7 @@ let contentRouter = [{
             img: require('@/assets/img/access/user.png'),
             children: []
         }, {
+            id: 10009003,
             path: 'celebrity',
             name: '古今名人',
             component: resolve => {
@@ -457,7 +500,6 @@ let contentRouter = [{
             class: 'fa-line-chart',
             img: require('@/assets/img/access/user.png'),
             children: [{
-                // culturalOldAppend添加
                 path: 'culturalOldAppend',
                 name: '添加',
                 component: resolve => {
@@ -465,11 +507,13 @@ let contentRouter = [{
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
-                children: []
+                children: [],
+                show: false
             }]
         }]
     },
     {
+        id: 10010,
         path: 'themeEducation',
         name: '主题教育',
         component: resolve => {
@@ -480,6 +524,7 @@ let contentRouter = [{
         show: false
     },
     {
+        id: 10011,
         path: 'huaHall',
         name: '渭华讲堂',
         component: resolve => {
@@ -487,8 +532,10 @@ let contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
+        id: "",
         children: [{
             // 添加
+            id: 10011,
             path: 'huaHallAppend',
             name: '渭华讲堂添加',
             component: resolve => {
@@ -510,6 +557,7 @@ let contentRouter = [{
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
         children: [{
+            id: 10012,
             path: 'knowledgeAnswerAppend',
             name: '知识问答添加',
             component: resolve => {
@@ -522,6 +570,7 @@ let contentRouter = [{
         }]
     },
     {
+        id: 10013,
         path: 'redTourism',
         name: '红色旅游',
         component: resolve => {
@@ -531,6 +580,7 @@ let contentRouter = [{
         img: require('@/assets/img/access/user.png'),
         redirect: '/contentManage/redTourism/classicRoute',
         children: [{
+            id: 10013001,
             path: 'classicRoute',
             name: '经典路线',
             component: resolve => {
@@ -539,15 +589,16 @@ let contentRouter = [{
             class: 'fa-line-chart',
             children: []
         }, {
+            id: 10013002,
             path: 'folk',
             name: '风土民俗',
             component: resolve => {
                 require(['view/contentManage/redTourism/folk'], resolve)
-                    // require(['view/contentManage/collectionAppreciation/appreciationShow'], resolve)
             },
             class: 'fa-line-chart',
             children: []
         }, {
+            id: 10013003,
             path: 'convenienceSearch',
             name: '便民查询',
             component: resolve => {
@@ -558,6 +609,7 @@ let contentRouter = [{
         }]
     },
     {
+        id: 10014,
         path: 'serviceGuide',
         name: '服务指南',
         component: resolve => {
@@ -567,6 +619,7 @@ let contentRouter = [{
         img: require('@/assets/img/access/user.png'),
         redirect: '/contentManage/serviceGuide/TicketReservation',
         children: [{
+            id: 10014001,
             path: 'TicketReservation',
             name: '门票预订',
             component: resolve => {
@@ -575,6 +628,7 @@ let contentRouter = [{
             class: 'fa-line-chart',
             children: []
         }, {
+            id: 10014002,
             path: 'InterpretationOfTheBook',
             name: '讲解预订',
             component: resolve => {
@@ -583,6 +637,7 @@ let contentRouter = [{
             class: 'fa-line-chart',
             children: []
         }, {
+            id: 10014003,
             path: 'rulesAndRegulations',
             name: '游客须知',
             component: resolve => {
@@ -593,6 +648,7 @@ let contentRouter = [{
         }]
     },
     {
+        id: 10015,
         path: 'visitMessage',
         name: '参观留言',
         component: resolve => {
@@ -603,6 +659,7 @@ let contentRouter = [{
         redirect: '/contentManage/visitMessage/SignIn',
         children: [{
             // 游客签到
+            id: 10015001,
             path: 'SignIn',
             name: '游客签到',
             component: resolve => {
@@ -612,6 +669,7 @@ let contentRouter = [{
             children: []
         }, {
             // 游客留言
+            id: 10015002,
             path: 'message',
             name: '游客留言',
             component: resolve => {
@@ -621,6 +679,7 @@ let contentRouter = [{
             children: []
         }, {
             // 留言回复
+            id: 10015003,
             path: 'answering',
             name: '留言回复',
             component: resolve => {
@@ -813,9 +872,6 @@ router.beforeEach((to, from, next) => {
     } else {
         let user = window.localStorage.getItem('access-user');
         if (!user) {
-            // next({
-            //     path: '/login'
-            // })
             next()
         } else {
             next()

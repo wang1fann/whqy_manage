@@ -21,11 +21,12 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 
 
 // 引入UE所需
-import '../static/UE/ueditor.config.js'
-import '../static/UE/ueditor.all.min.js'
-import '../static/UE/lang/zh-cn/zh-cn.js'
-import '../static/UE/ueditor.parse.min.js'
+import '../static/ueditor/ueditor.config.js'
+import '../static/ueditor/ueditor.all.js'
+import '../static/ueditor/lang/zh-cn/zh-cn.js'
+import '../static/ueditor/jquery-2.2.3.min.js'
 
+// import MenuUtils from '@/utils/MenuUtils' //动态菜单
 require("babel-polyfill");
 require('swiper/dist/css/swiper.css')
 Vue.use(VueAwesomeSwiper)
@@ -41,6 +42,18 @@ Vue.use(ElSearchTablePagination, {
 });
 Vue.prototype.$axios = axios;
 Vue.prototype._ = _;
+
+// 动态路由
+let data = JSON.parse(window.sessionStorage.getItem('user'))
+if (data) {
+    //这里是防止用户手动刷新页面，整个app要重新加载,动态新增的路由，会消失，所以我们重新add一次
+    let routes = [];
+    // MenuUtils(routes, data);
+    console.log(routes);
+    router.addRoutes(routes)
+    window.sessionStorage.removeItem('isLoadNodes')
+}
+
 
 /* eslint-disable no-new */
 new Vue({

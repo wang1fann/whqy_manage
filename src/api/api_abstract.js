@@ -13,5 +13,11 @@ export default {
     //删除
     delAbstarct: params => {
         return API.DELETE('/syx/hongselvyou/delete', params);
+    },
+    // 服务指南
+    // 添加信息
+    addServerInfo: params => {
+        return API.POST('/syx/fuwuzhinan', params)
     }
+
 }

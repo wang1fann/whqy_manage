@@ -90,8 +90,8 @@
 </template>
 <script>
 import API from "@/api/api_user.js";
-
 import { getCookie, setCookie } from "@/plugins/util"; //引用刚才我们创建的util.js文件，并使用getCookie方法
+import NProgress from "nprogress";
 
 export default {
   name: "Login",
@@ -99,7 +99,7 @@ export default {
     return {
       loading: false,
       account: {
-        userName: "admin",
+        userName: "18409208420",
         passWord: "admin",
         vrifyCode: ""
       },
@@ -118,6 +118,7 @@ export default {
   created() {
     this.editCaptcha();
   },
+
   methods: {
     editCaptcha() {
       API.getRandomCode()
@@ -129,53 +130,43 @@ export default {
           console.log(res);
         });
     },
-    handleLogin() {
+    login(data) {
+      window.sessionStorage.setItem("user", JSON.stringify(data));
+      MenuUtils(routers, data);
+    },
+    handleLogin(ev) {
+      var that = this;
       window.sessionStorage.responseType = "json";
-      let that = this;
       this.$refs.AccountFrom.validate(valid => {
         if (valid) {
-          this.loading = true;
-          let loginParams = {
-            userName: this.account.userName,
-            passWord: this.account.passWord,
-            vrifyCode: this.account.vrifyCode
+          this.logining = true;
+          NProgress.start();
+          var loginParams = {
+            phone: this.account.userName,
+            passwd: this.account.passWord
           };
-          API.login(loginParams)
-            .then(
-              function(result) {
-                that.loading = false;
-                if (result && result.ret === true) {
-                  localStorage.setItem("access-user", JSON.stringify(result));
-                  that.$router.push({ path: "/" });
-                  let expireDays = 1000 * 60 * 60;
-                  setCookie("loginFlag", result.ret, expireDays); //设置Session
-                } else {
-                  that.$message.error({
-                    showClose: true,
-                    message: result.msg || "登录失败",
-                    duration: 2000
-                  });
-                }
-              },
-              function(err) {
-                that.loading = false;
-                that.$message.error({
-                  showClose: true,
-                  message: err.toString(),
-                  duration: 2000
-                });
-              }
-            )
-            .catch(function(error) {
-              that.loading = false;
-              console.log(error);
-              that.$message,
-                error({
-                  showClose: true,
-                  message: "请求出现异常",
-                  duration: 2000
-                });
-            });
+          API.login(loginParams).then(res => {
+            this.logining = false;
+            NProgress.done();
+            if (!!res && res.code !== 20000) {
+              this.$notify({
+                title: "错误",
+                message: res.message,
+                type: "error"
+              });
+            } else {
+              localStorage.setItem(
+                "access-user",
+                JSON.stringify(this.account.userName)
+              );
+              let expireDays = 1000 * 60 * 60;
+              setCookie("loginFlag", res.message, expireDays); //设置Session
+              that.$router.push({ path: "/" });
+            }
+          });
+        } else {
+          console.log("error submit!!");
+          return false;
         }
       });
     }

@@ -18,8 +18,12 @@ axios.defaults.withCredentials = false;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'; //配置请求头application/x-www-form-urlencoded;
 
 axios.defaults.timeout = 3000; //设置请求过期时间
-axios.defaults.baseURL = 'http://192.168.0.107:9014';
+// axios.defaults.baseURL = 'http://192.168.0.107:9014';
 // axios.defaults.baseURL = 'http://192.168.0.106:9014'; //lili
+// axios.defaults.baseURL = 'http://192.168.0.111:9014'; //lili
+// axios.defaults.baseURL = 'http://192.168.0.106:9014'; //lili
+axios.defaults.baseURL = 'http://192.168.0.110:9014'; //zhenyang
+// axios.defaults.baseURL = 'http://192.168.0.119:9014'; //lihao 
 // http request 拦截器，通过这个，我们就可以把Cookie传到后台
 // 请求拦截器
 axios.interceptors.request.use(

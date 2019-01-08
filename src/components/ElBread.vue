@@ -35,8 +35,7 @@ export default {
   methods: {
     getBreadcrumb() {
       this.breadlist = this.$route.matched;
-      this.contentRouter = this.$router.options.routes[1].children[3].children;
-      // console.log(this.$route);
+      this.contentRouter = !!this.$router.options.routes[1].children[3].children?this.$router.options.routes[1].children[3].children:[];
       this.currentRouteName = !!this.$route.matched[2]?this.$route.matched[2].name:'';
       this.currentContentRouter = this.getRounterIndex();
       this.$emit("currentContentRouter", this.currentContentRouter);

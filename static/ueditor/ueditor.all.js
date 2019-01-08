@@ -8054,7 +8054,7 @@ UE.Editor.defaultOptions = function(editor){
         autoClearEmptyNode: true,
         fullscreen: false,
         readonly: false,
-        zIndex: 999,
+        zIndex: 9999,
         imagePopup: true,
         enterTag: 'p',
         customDomain: false,
@@ -8078,13 +8078,12 @@ UE.Editor.defaultOptions = function(editor){
         setTimeout(function(){
             try{
                 me.options.imageUrl && me.setOpt('serverUrl', me.options.imageUrl.replace(/^(.*[\/]).+([\.].+)$/, '$1controller$2'));
-
                 var configUrl = me.getActionUrl('config'),
-                    isJsonp = utils.isCrossDomainUrl(configUrl);
+                    //isJsonp = utils.isCrossDomainUrl(configUrl);
+                  isJsonp = false;
 
                 /* 发出ajax请求 */
                 me._serverConfigLoaded = false;
-
                 configUrl && UE.ajax.request(configUrl,{
                     'method': 'GET',
                     'dataType': isJsonp ? 'jsonp':'',
@@ -8240,6 +8239,7 @@ UE.ajax = function() {
                 }
             }
         };
+        xhr.setRequestHeader('Authorization', sessionStorage.getItem("token") );
         if (method == "POST") {
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.send(submitStr);
@@ -8249,7 +8249,6 @@ UE.ajax = function() {
     }
 
     function doJsonp(url, opts) {
-
         var successhandler = opts.onsuccess || function(){},
             scr = document.createElement('SCRIPT'),
             options = opts || {},
@@ -12665,7 +12664,7 @@ UE.plugins['paragraph'] = function() {
                         } );
                     }
                     tmpRange.setEndAfter( tmpNode );
-                    
+
                     para = range.document.createElement( style );
                     if(attrs){
                         domUtils.setAttributes(para,attrs);
@@ -12677,7 +12676,7 @@ UE.plugins['paragraph'] = function() {
                     //需要内容占位
                     if(domUtils.isEmptyNode(para)){
                         domUtils.fillChar(range.document,para);
-                        
+
                     }
 
                     tmpRange.insertNode( para );
@@ -12801,7 +12800,7 @@ UE.plugins['paragraph'] = function() {
 
         },
         doDirectionality = function(range,editor,forward){
-            
+
             var bookmark,
                 filterFn = function( node ) {
                     return   node.nodeType == 1 ? !domUtils.isBookmarkNode(node) : !domUtils.isWhitespace(node);
@@ -17765,8 +17764,8 @@ UE.plugins['video'] = function (){
             var html = [],id = 'tmpVedio', cl;
             for(var i=0,vi,len = videoObjs.length;i<len;i++){
                 vi = videoObjs[i];
-                cl = (type == 'upload' ? 'edui-upload-video video-js vjs-default-skin':'edui-faked-video');
-                html.push(creatInsertStr( vi.url, vi.width || 420,  vi.height || 280, id + i, null, cl, 'image'));
+                cl = (type == 'upload' ? 'video-js vjs-default-skin':'edui-faked-video');
+                html.push(creatInsertStr( vi.url, vi.width || 420,  vi.height || 280, id + i, null, cl, 'video'));
             }
             me.execCommand("inserthtml",html.join(""),true);
             var rng = this.selection.getRange();
@@ -22723,7 +22722,7 @@ UE.plugins['formatmatch'] = function(){
      });
 
     function addList(type,evt){
-        
+
         if(browser.webkit){
             var target = evt.target.tagName == 'IMG' ? evt.target : null;
         }
@@ -22789,7 +22788,7 @@ UE.plugins['formatmatch'] = function(){
 
     me.commands['formatmatch'] = {
         execCommand : function( cmdName ) {
-          
+
             if(flag){
                 flag = 0;
                 list = [];
@@ -22798,7 +22797,7 @@ UE.plugins['formatmatch'] = function(){
             }
 
 
-              
+
             var range = me.selection.getRange();
             img = range.getClosedNode();
             if(!img || img.tagName != 'IMG'){
@@ -23187,7 +23186,7 @@ UE.plugins['catchremoteimage'] = function () {
         ajax = UE.ajax;
 
     /* 设置默认值 */
-    if (me.options.catchRemoteImageEnable === false) return;
+    if (me.options.catchRemoteImageEnable === undefined) return;
     me.setOpt({
         catchRemoteImageEnable: false
     });
@@ -23792,10 +23791,8 @@ UE.plugin.register('autoupload', function (){
                 rng.moveToBookmark(bk).select();
             };
         }
-
-        /* 插入loading的占位符 */
+      /* 插入loading的占位符 */
         me.execCommand('inserthtml', loadingHtml);
-
         /* 判断后端配置是否没有加载成功 */
         if (!me.getOpt(filetype + 'ActionName')) {
             errorHandler(me.getLang('autoupload.errorLoadConfig'));
@@ -24487,7 +24484,6 @@ UE.plugin.register('simpleupload', function (){
             'style="' + btnStyle + '">' +
             '</form>' +
             '<iframe id="edui_iframe_' + timestrap + '" name="edui_iframe_' + timestrap + '" style="display:none;width:0;height:0;border:0;margin:0;padding:0;position:absolute;"></iframe>';
-
             wrapper.className = 'edui-' + me.options.theme;
             wrapper.id = me.ui.id + '_iframeupload';
             btnIframeBody.style.cssText = btnStyle;
@@ -24504,7 +24500,79 @@ UE.plugin.register('simpleupload', function (){
             var input = btnIframeDoc.getElementById('edui_input_' + timestrap);
             var iframe = btnIframeDoc.getElementById('edui_iframe_' + timestrap);
 
-            domUtils.on(input, 'change', function(){
+          /**
+           * 2017-09-07 改掉了ueditor源码，将本身的单文件上传的方法改为ajax上传，主要目的是为了解决跨域的问题
+           * @author Guoqing
+           */
+          domUtils.on(input, 'change', function() {
+              if(!input.value) return;
+              var loadingId = 'loading_' + (+new Date()).toString(36);
+              var imageActionUrl = me.getActionUrl(me.getOpt('imageActionName'));
+              var allowFiles = me.getOpt('imageAllowFiles');
+
+              me.focus();
+              me.execCommand('inserthtml', '<img class="loadingclass" id="' + loadingId + '" src="' + me.options.themePath + me.options.theme +'/images/spacer.gif" title="' + (me.getLang('simpleupload.loading') || '') + '" >');
+
+              /!* 判断后端配置是否没有加载成功 *!/
+              if (!me.getOpt('imageActionName')) {
+                errorHandler(me.getLang('autoupload.errorLoadConfig'));
+                return;
+              }
+              // 判断文件格式是否错误
+              var filename = input.value,
+                fileext = filename ? filename.substr(filename.lastIndexOf('.')):'';
+              if (!fileext || (allowFiles && (allowFiles.join('') + '.').indexOf(fileext.toLowerCase() + '.') == -1)) {
+                showErrorLoader(me.getLang('simpleupload.exceedTypeError'));
+                return;
+              }
+
+              var params = utils.serializeParam(me.queryCommandValue('serverparam')) || '';
+              var action = utils.formatUrl(imageActionUrl + (imageActionUrl.indexOf('?') == -1 ? '?' : '&') + params);
+              var formData = new FormData();
+              formData.append("upfile", form[0].files[0] );
+              $.ajax({
+                url: action,
+                type: 'POST',
+                cache: false,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                  data = JSON.parse(data);
+                  var link, loader,
+                    body = (iframe.contentDocument || iframe.contentWindow.document).body,
+                    result = body.innerText || body.textContent || '';
+                  link = me.options.imageUrlPrefix + data.url;
+
+                  if(data.state == 'SUCCESS' && data.url) {
+                    loader = me.document.getElementById(loadingId);
+                    loader.setAttribute('src', link);
+                    loader.setAttribute('_src', link);
+                    loader.setAttribute('title', data.title || '');
+                    loader.setAttribute('alt', data.original || '');
+                    loader.removeAttribute('id');
+                    domUtils.removeClasses(loader, 'loadingclass');
+                  } else {
+                    showErrorLoader && showErrorLoader(data.state);
+                  }
+                  form.reset();
+                }
+              });
+              function showErrorLoader(title){
+                if(loadingId) {
+                  var loader = me.document.getElementById(loadingId);
+                  loader && domUtils.remove(loader);
+                  me.fireEvent('showmessage', {
+                    'id': loadingId,
+                    'content': title,
+                    'type': 'error',
+                    'timeout': 4000
+                  });
+                }
+              }
+            });
+            /*domUtils.on(input, 'change', function(){
+
                 if(!input.value) return;
                 var loadingId = 'loading_' + (+new Date()).toString(36);
                 var params = utils.serializeParam(me.queryCommandValue('serverparam')) || '';
@@ -24522,6 +24590,7 @@ UE.plugin.register('simpleupload', function (){
                             result = body.innerText || body.textContent || '';
                         json = (new Function("return " + result))();
                         link = me.options.imageUrlPrefix + json.url;
+
                         if(json.state == 'SUCCESS' && json.url) {
                             loader = me.document.getElementById(loadingId);
                             loader.setAttribute('src', link);
@@ -24552,7 +24621,7 @@ UE.plugin.register('simpleupload', function (){
                     }
                 }
 
-                /* 判断后端配置是否没有加载成功 */
+                /!* 判断后端配置是否没有加载成功 *!/
                 if (!me.getOpt('imageActionName')) {
                     errorHandler(me.getLang('autoupload.errorLoadConfig'));
                     return;
@@ -24568,7 +24637,7 @@ UE.plugin.register('simpleupload', function (){
                 domUtils.on(iframe, 'load', callback);
                 form.action = utils.formatUrl(imageActionUrl + (imageActionUrl.indexOf('?') == -1 ? '?':'&') + params);
                 form.submit();
-            });
+            });*/
 
             var stateTimer;
             me.addListener('selectionchange', function () {
@@ -25271,7 +25340,7 @@ UE.ui = baidu.editor.ui = {};
         domUtils = baidu.editor.dom.domUtils,
         UIBase = baidu.editor.ui.UIBase,
         uiUtils = baidu.editor.ui.uiUtils;
-    
+
     var Mask = baidu.editor.ui.Mask = function (options){
         this.initOptions(options);
         this.initUIBase();
@@ -25567,7 +25636,7 @@ UE.ui = baidu.editor.ui = {};
         }
     };
     utils.inherits(Popup, UIBase);
-    
+
     domUtils.on( document, 'mousedown', function ( evt ) {
         var el = evt.target || evt.srcElement;
         closeAllPopup( evt,el );
@@ -25663,7 +25732,7 @@ UE.ui = baidu.editor.ui = {};
     var utils = baidu.editor.utils,
         uiUtils = baidu.editor.ui.uiUtils,
         UIBase = baidu.editor.ui.UIBase;
-    
+
     var TablePicker = baidu.editor.ui.TablePicker = function (options){
         this.initOptions(options);
         this.initTablePicker();
@@ -25747,7 +25816,7 @@ UE.ui = baidu.editor.ui = {};
     var browser = baidu.editor.browser,
         domUtils = baidu.editor.dom.domUtils,
         uiUtils = baidu.editor.ui.uiUtils;
-    
+
     var TPL_STATEFUL = 'onmousedown="$$.Stateful_onMouseDown(event, this);"' +
         ' onmouseup="$$.Stateful_onMouseUp(event, this);"' +
         ( browser.ie ? (
@@ -25756,7 +25825,7 @@ UE.ui = baidu.editor.ui = {};
         : (
         ' onmouseover="$$.Stateful_onMouseOver(event, this);"' +
         ' onmouseout="$$.Stateful_onMouseOut(event, this);"' ));
-    
+
     baidu.editor.ui.Stateful = {
         alwalysHoverable: false,
         target:null,//目标元素和this指向dom不一样
@@ -27381,7 +27450,7 @@ UE.ui = baidu.editor.ui = {};
         setValue : function(value){
             this._value = value;
         }
-        
+
     };
     utils.inherits(MenuButton, SplitButton);
 })();

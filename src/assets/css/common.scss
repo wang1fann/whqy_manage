@@ -247,11 +247,6 @@ span.el-dialog__title {
     box-shadow: -1px 0 0 0 #e24142;
 }
 
-.el-range__icon {
-    margin-top: -9px !important;
-    vertical-align: middle;
-}
-
 .my-redbutton {
     .el-button {
         border: 1px solid #eb5e5f;
@@ -297,6 +292,15 @@ span.el-dialog__title {
         span.el-radio-button__inner {
             background: #e24142;
             color: #fff;
+        }
+        .el-input__inner {
+            padding: 15px 30px;
+        }
+        .el-icon-date {
+            margin-top: -4px !important;
+        }
+        .el-input__icon {
+            margin-top: -2px;
         }
     }
     button {

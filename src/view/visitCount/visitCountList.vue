@@ -12,7 +12,6 @@
           >
           </div>
           <div class="date-box">
-
             <el-radio-group
               v-model="dateType"
               size="small"
@@ -22,7 +21,7 @@
               <el-radio-button label="最近访问"></el-radio-button>
             </el-radio-group>
             <div class="rate-select">
-              <span>
+              <span v-if="dateType!=='月访问量'">
                 <el-date-picker
                   v-model="dataRangeValue"
                   type="daterange"
@@ -32,11 +31,20 @@
                 >
                 </el-date-picker>
               </span>
+              <span v-else-if="dateType==='月访问量'">
+                <el-date-picker
+                  v-model="dataRangeValue"
+                  type="month"
+                  value-format="yyyy-MM"
+                  placeholder="选择月"
+                >
+                </el-date-picker>
+              </span>
               <span>
                 <el-button
                   type="warning"
                   plain
-                  @click="searchVisitData"
+                  @click="updateDate"
                 >查询</el-button>
               </span>
             </div>
@@ -92,7 +100,7 @@ export default {
       allvistdata: 0,
       drawPieChartData: {
         data: [
-          { value:0, name: "PC门户网站" },
+          { value: 0, name: "PC门户网站" },
           { value: 0, name: "App端" },
           { value: 0, name: "搜索引擎" }
         ],
@@ -124,23 +132,33 @@ export default {
   },
   methods: {
     searchVisitData() {
-      // var searchParams = {
-      //   type: this.dateType,
-      //   startDay: this.dataRangeValue[0],
-      //   endDay: this.dataRangeValue[1]
-      // };
-      var searchParams = {
+      var searchParamsDay = {
         startDay: "2018-12-01 00:00:00",
-        endDay: getNowFormatDate()
+        // endDay: getNowFormatDate(),
+        endDay: "2019-01-01 00:00:00",
+        type: this.dateType
+      };
+      var searchParamsMonth = {
+        startMonth: this.dataRangeValue,
+        endMonth: "2019-09",
+        type: this.dateType
       };
       var that = this;
-      API.getDeviceZzt(searchParams)
+      API.getDeviceZzt(
+        this.dateType !== "月访问量" ? searchParamsDay : searchParamsMonth
+      )
         .then(res => {
           console.log(res);
-          that.visitData.name = Object2Array(res.data, "name");
-          that.visitData.value = Object2Array(res.data, "value");
-          console.log(that.visitData);
-          that.drawColumnChart();
+          if(!!res && res.code ===20000){
+            that.visitData.name = Object2Array(res.data, "name");
+            that.visitData.value = Object2Array(res.data, "value");
+            console.log(that.visitData);
+            that.drawColumnChart();
+          }
+          that.$message({
+            type:res.code===20000 ? "success":"warning",
+            message:res.message
+          })
         })
         .catch(res => {});
     },
@@ -203,6 +221,8 @@ export default {
             type: "bar",
             itemStyle: {
               normal: {
+                //柱形图圆角，初始化效果
+                barBorderRadius: [10, 10, 10, 10],
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                   { offset: 0, color: "#EF8F64" },
                   { offset: 1, color: "#F46F70" }
@@ -221,22 +241,36 @@ export default {
       });
     },
     getBarChartData() {
-      var searchParams = {
+      var searchParamsDay = {
         startDay: "2018-12-01 00:00:00",
-        endDay: getNowFormatDate()
+        endDay: getNowFormatDate(),
+        type: this.dateType
+      };
+      var searchParamsMonth = {
+        startMonth:this.dataRangeValue,
+        endMonth: "2019-09",
+        type: this.dateType
       };
       var that = this;
-      API.getModuleZzt(searchParams)
+      API.getModuleZzt(
+        this.dateType !== "月访问量" ? searchParamsDay : searchParamsMonth
+      )
         .then(res => {
           console.log(res);
-          that.moduleData.name = Object2Array(res.data, "name");
-          that.moduleData.value = Object2Array(res.data, "value");
-          console.log(that.moduleData);
-          that.drawBarChart();
+          if (!!res && res.code === 20000) {
+            that.moduleData.name = Object2Array(res.data, "name");
+            that.moduleData.value = Object2Array(res.data, "value");
+            console.log(that.moduleData);
+            that.drawBarChart();
+          }
+          that.$message({
+            type:res.code===20000 ? "success":"warning",
+            message:res.message
+          })
         })
         .catch(res => {});
     },
-    drawBarChart() { 
+    drawBarChart() {
       this.chartBar = echarts.init(document.getElementById("chartBar"));
       var that = this;
       this.chartBar.setOption({
@@ -296,6 +330,8 @@ export default {
             type: "bar",
             itemStyle: {
               normal: {
+                //柱形图圆角，初始化效果
+                barBorderRadius: [10, 10, 10, 10],
                 color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
                   { offset: 0, color: "#EF8F64" },
                   { offset: 1, color: "#F46F70" }
@@ -317,7 +353,7 @@ export default {
                 ])
               }
             },
-            data: that.moduleData.value,
+            data: that.moduleData.value
           }
         ]
       });
@@ -342,7 +378,6 @@ export default {
           data: that.drawPieChartData.legendData,
           formatter: function(params) {
             var thatData = that.drawPieChartData.data;
-            // console.log(thatData);
             for (var i = 0; i < thatData.length; i++) {
               if (thatData[i].name == params) {
                 var arr = [
@@ -411,13 +446,21 @@ export default {
       });
     },
     getDrawPieChartData() {
-      //获取饼状图数据
-      var myDate = {
-        startDay: "2018-01-01 00:00:00",
-        endDay: getNowFormatDate()
+      //饼状图
+      var searchParamsDay = {
+        startDay: "2018-12-01 00:00:00",
+        endDay: getNowFormatDate(),
+        type: this.dateType
+      };
+      var searchParamsMonth = {
+        startMonth: this.dataRangeValue,
+        endMonth: "2019-09",
+        type: this.dateType
       };
       var that = this;
-      API.getDeviceBzt(myDate).then(res => {
+      API.getDeviceBzt(
+        this.dateType !== "月访问量" ? searchParamsDay : searchParamsMonth
+      ).then(res => {
         if (!!res && res.code === 20000) {
           that.drawPieChartData.data = res.data;
         }
@@ -436,20 +479,16 @@ export default {
         this.drawPieChart();
       });
     },
-    getDeviceZzt() {
-      //获取访问量柱状图
-      var myDate = {
-        startDay: "2018-01-01 00:00:00",
-        endDay: getNowFormatDate()
-      };
-      var that = this;
+    updateDate() {
+      this.getDrawPieChartData();
+      this.searchVisitData();
+      this.getBarChartData();
     }
   },
   mounted: function() {
     this.getAllVisit();
     this.drawCharts();
     this.getDrawPieChartData();
-
     this.searchVisitData();
     this.getBarChartData();
   },

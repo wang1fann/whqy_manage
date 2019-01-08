@@ -104,6 +104,7 @@
 import { bus } from "../bus.js";
 import API from "../api/api_rights";
 import ElBread from "../components/ElBread"; //面包屑
+
 export default {
   name: "home",
   components: {
@@ -128,7 +129,7 @@ export default {
     return {
       defaultActiveIndex: "0",
       user: {
-        name: "网易堞",
+        name: "wangyifan",
         sex: "man"
       },
       menuRouter: "",
@@ -148,10 +149,10 @@ export default {
     handleSelect(index, indexPath) {
       this.defaultActiveIndex = index;
       this.breads = indexPath;
-      console.log(index);
-      console.log(indexPath);
-      console.log(this.$router.options.routes[indexPath[0]].name);
-      console.log(this.$router.options.routes);
+      // console.log(index);
+      // console.log(indexPath);
+      // console.log(this.$router.options.routes[indexPath[0]].name);
+      // console.log(this.$router.options.routes);
     },
     handleMenuSelect(index, indexPath) {
       this.breads = indexPath;

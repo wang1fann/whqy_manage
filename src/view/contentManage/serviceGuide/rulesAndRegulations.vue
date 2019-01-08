@@ -1,7 +1,11 @@
 
 <template>
   <el-row class="components-container">
-    <my-uepage :titleVal="titleVal" @content="submitcontent"></my-uepage>
+    <my-uepage
+      :Form="ticketForm"
+      @submit="submitcontent"
+      @imgPath="getImgPath"
+    ></my-uepage>
   </el-row>
 </template>
 <style>
@@ -14,25 +18,38 @@
 }
 </style>
 <script>
+import API from "@/api/api_abstract";
 import myUEpage from "@/components/myUEpage";
 export default {
   components: { "my-uepage": myUEpage },
   data() {
     return {
-      titleVal: "表wnagyifann三",
+      ticketForm: {
+        title: "表示梯三",
+        imgPath: "",
+        menuId: this.$route.query,
+        description: "",
+        content: ""
+      }
     };
   },
-  created() {
-    // this.getUEContent();
-  },
+  created() {},
   methods: {
-    // getUEContent() {
-    //   let content = this.$refs.ue.getUEContent();
-    //   console.log(content);
-    // }
-    submitcontent(content){
-        console.log(content);
-        console.log(this.titleVal);
+    submitcontent(content) {
+      console.log(content);
+      this.ticketForm.content = content;
+      console.log(this.ticketForm);
+      window.sessionStorage.setItem("responseType", "json");
+      API.addServerInfo(this.ticketForm).then(res => {
+        console.log(res);
+        this.$message({
+          type:"success",
+          message:res.message
+        });
+      });
+    },
+    getImgPath(val) {
+      this.ticketForm.imgPath = val.replace(/\\/g, "/");
     }
   }
 };

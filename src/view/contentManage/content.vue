@@ -4,7 +4,7 @@
       <ul>
         <router-link
           v-for="(item,index) in $router.options.routes[1].children[3].children"
-          :key="index"
+          :key="!!item.id?item.id:index"
           :to="{name: item.name}"
           tag="li"
           v-show="!item.show&&item.show!==false"
@@ -23,8 +23,8 @@
           >
             <router-link
               v-for="(item,index) in childMenuArr.children"
-              :key="index"
-              :to="{name: item.name}"
+              :key="!!item.id?item.id:index"
+              :to="{name: item.name,query:item.id}"
               v-show="!item.show&&item.show!==false"
               tag="el-button"
             >{{item.name}}</router-link>
@@ -45,18 +45,24 @@ export default {
   data() {
     return {
       subMenus: [],
+      id: null,
       childMenuArr: { children: [] }
     };
   },
   created() {},
-  mounted() {},
+  mounted() {
+    // this.id = this.$route.params.id;
+  },
   methods: {
     MenuArr(val) {
-      // console.log(val);
       this.childMenuArr = !!val && val !== undefined ? val : "";
     }
   },
-  watch: {}
+  watch: {
+    // id() {
+    //   console.log(this.id);
+    // }
+  }
 };
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss" scoped>

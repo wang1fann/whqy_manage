@@ -1,17 +1,19 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+// import API from '@/api/api_site'; //API.findMenuList
 
 Vue.use(Vuex);
 export default new Vuex.Store({
- state: {
-        LOADING: false
+    state: {
+        LOADING: false,
     },
     mutations: {
-        showLoading(state){
-            state.LOADING = true    
+        showLoading(state) {
+            state.LOADING = true
         },
-        hideLoading (state) {
+        hideLoading(state) {
             state.LOADING = false
         }
-    }
+    },
+    modules: {}
 })
