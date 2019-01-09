@@ -160,6 +160,7 @@ export default {
       // 添加查询字段
       config = $.extend(config, this.searchFormData);
       // 接口调用
+        window.sessionStorage.setItem("responseType", "json");
       API.findDataRestoreList(config)
         .then(res => {
           console.log(res);

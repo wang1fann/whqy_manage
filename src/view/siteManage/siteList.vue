@@ -230,6 +230,7 @@ export default {
       });
     },
     findSite() {
+        window.sessionStorage.setItem("responseType", "json");
       API.findSiteList()
         .then(res => {
           console.log(res);
@@ -249,6 +250,7 @@ export default {
         .catch(res => {});
     },
     findMenu() {
+        window.sessionStorage.setItem("responseType", "json");
       var that = this;
       API.findMenuList().then(res => {
         console.log(res);

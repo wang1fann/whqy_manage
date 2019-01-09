@@ -1,487 +1,266 @@
 <template>
-  <div class="contentword">
-    <div class="up">
-      <div class="l">
-        <label class="l">文物标题</label>
-        <div class="l">
-          <el-input v-model="input"  placeholder="请输入内容"></el-input>
-        </div>
-      </div>
-      <div class="l">
-        <label class="l">上传时间</label>
-        <div class="l block">
-          <el-date-picker
-            v-model="value1"
-            placeholder="请选择日期"
-            suffix-icon="el-icon-date">
-          </el-date-picker>
-        </div>
-        <el-row class="l">
-          <el-button type="danger" class="btn">查询</el-button>
-        </el-row>
-      </div>
-
-    </div>
-    <div class="xia">
-      <table class="biao4">
-        <thead>
-        <tr >
-          <th>
-            <input  type="checkbox">
-            <label>全选</label>
-          </th>
-          <th class="huawen">景区名称</th>
-          <th class="wenAges">景区开放时间</th>
-          <th>门票价格</th>
-          <th class="last2">订票电话</th>
-          <th class="last2">公交路线</th>
-          <th class="last2">上传时间</th>
-          <th class="last2">操作</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="huatitle"><a href="#">渭华起义数字纪念馆</a></td>
-          <td >周六、周天(9:00-17:00)_</td>
-          <td class="ageduan">免费</td>
-          <td class="ageduan">032-23456</td>
-          <td >2路、23路、12路、106路</td>
-          <td class="shijian">{{new Date(value1).getFullYear() + '-' +(new Date(value1).getMonth() + 1) + '-' + new Date(value1).getDate()}}</td>
-          <td class="btnlast">
-            <button type="button" class="l" @click="reads">查看</button>
-            <button type="button" class="l" @click="writes">编辑</button>
-            <button type="button" class="l" @click="delMessages" >删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="huatitle"><a href="#">渭华起义数字纪念馆</a></td>
-          <td >周六、周天(9:00-17:00)_</td>
-          <td class="ageduan">免费</td>
-          <td class="ageduan">032-23456</td>
-          <td >2路、23路、12路、106路</td>
-          <td >2018-06-03</td>
-          <td class="btnlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="huatitle"><a href="#">渭华起义数字纪念馆</a></td>
-          <td >周六、周天(9:00-17:00)_</td>
-          <td class="ageduan">免费</td>
-          <td class="ageduan">032-23456</td>
-          <td >2路、23路、12路、106路</td>
-          <td >2018-06-03</td>
-          <td class="btnlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="huatitle"><a href="#">渭华起义数字纪念馆</a></td>
-          <td >周六、周天(9:00-17:00)_</td>
-          <td class="ageduan">免费</td>
-          <td class="ageduan">032-23456</td>
-          <td >2路、23路、12路、106路</td>
-          <td >2018-06-03</td>
-          <td class="btnlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="huatitle"><a href="#">渭华起义数字纪念馆</a></td>
-          <td >周六、周天(9:00-17:00)_</td>
-          <td class="ageduan">免费</td>
-          <td class="ageduan">032-23456</td>
-          <td >2路、23路、12路、106路</td>
-          <td >2018-06-03</td>
-          <td class="btnlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="huatitle"><a href="#">渭华起义数字纪念馆</a></td>
-          <td >周六、周天(9:00-17:00)_</td>
-          <td class="ageduan">免费</td>
-          <td class="ageduan">032-23456</td>
-          <td >2路、23路、12路、106路</td>
-          <td >2018-06-03</td>
-          <td class="btnlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="huatitle"><a href="#">渭华起义数字纪念馆</a></td>
-          <td >周六、周天(9:00-17:00)_</td>
-          <td class="ageduan">免费</td>
-          <td class="ageduan">032-23456</td>
-          <td >2路、23路、12路、106路</td>
-          <td >2018-06-03</td>
-          <td class="btnlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="huatitle"><a href="#">渭华起义数字纪念馆</a></td>
-          <td >周六、周天(9:00-17:00)_</td>
-          <td class="ageduan">免费</td>
-          <td class="ageduan">032-23456</td>
-          <td >2路、23路、12路、106路</td>
-          <td >2018-06-03</td>
-          <td class="btnlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="huatitle"><a href="#">渭华起义数字纪念馆</a></td>
-          <td >周六、周天(9:00-17:00)_</td>
-          <td class="ageduan">免费</td>
-          <td class="ageduan">032-23456</td>
-          <td >2路、23路、12路、106路</td>
-          <td >2018-06-03</td>
-          <td class="btnlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="huatitle"><a href="#">渭华起义数字纪念馆</a></td>
-          <td >周六、周天(9:00-17:00)_</td>
-          <td class="ageduan">免费</td>
-          <td class="ageduan">032-23456</td>
-          <td >2路、23路、12路、106路</td>
-          <td >2018-06-03</td>
-          <td class="btnlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="huatitle"><a href="#">渭华起义数字纪念馆</a></td>
-          <td >周六、周天(9:00-17:00)_</td>
-          <td class="ageduan">免费</td>
-          <td class="ageduan">032-23456</td>
-          <td >2路、23路、12路、106路</td>
-          <td >2018-06-03</td>
-          <td class="btnlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox">
-          </td>
-          <td class="huatitle"><a href="#">渭华起义数字纪念馆</a></td>
-          <td >周六、周天(9:00-17:00)_</td>
-          <td class="ageduan">免费</td>
-          <td class="ageduan">032-23456</td>
-          <td >2路、23路、12路、106路</td>
-          <td >2018-06-03</td>
-          <td class="btnlast">
-            <button type="button" class="l">查看</button>
-            <button type="button" class="l">编辑</button>
-            <button type="button" class="l">删除</button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="down">
-      <el-pagination
-        background
-        class="gai"
-        layout="prev, pager, next"
-        :total="1000">
-      </el-pagination>
-    </div>
+  <div class="list content-top-line">
+    <!-- 按钮操作 -->
+    <el-row
+      class="btn-group"
+      :gutter="24"
+    >
+      <el-col
+        :span="8"
+        class="pull-left alignleft"
+      >
+        <el-button
+          type="primary"
+          size="mini"
+          icon="el-icon-circle-plus"
+          @click="gotoUrl('/contentManage/redTourism/convenienceAdd',{menuId: $route.query.menuId})"
+        >添加路线</el-button>
+        <el-button
+          type="primary"
+          size="mini"
+          icon="el-icon-delete"
+          @click="deleteBatch"
+        >删除路线</el-button>
+      </el-col>
+      <el-col
+        :span="16"
+        class="pull-right alignright"
+      >
+        <MySearch
+          class="search"
+          :formData="searchFormData"
+          :formItem="searchFormItem"
+          @submit="searchSubmit"
+        ></MySearch>
+      </el-col>
+    </el-row>
+    <!-- 表格数据 -->
+    <MyTable
+      size="mini"
+      :stripe="false"
+      :border="false"
+      :multiple="true"
+      :operation="operation"
+      :column="column"
+      :data="data"
+      :currentPage="currentPage"
+      :pageSize="pageSize"
+      :total="total"
+      @handleCurrentChange="handleCurrentChange"
+      @delete="deleteConfirm"
+      @update="update"
+      @select="handleSelectionChange"
+    ></MyTable>
+    <!-- myconfirm -->
+    <MyConfirm
+      ref="myconfirm"
+      :type="confirmType"
+      :title="confirmTitle"
+      :content="confirmContent"
+    ></MyConfirm>
   </div>
 </template>
 
 <script>
-    export default {
-        name: "convenienceSearch",
-      data() {
-        return {
-          pickerOptions1: {
-            disabledDate(time) {
-              return time.getTime() > Date.now();
-            },
-            shortcuts: [{
-              text: '今天',
-              onClick(picker) {
-                picker.$emit('pick', new Date());
-              }
-            }, {
-              text: '昨天',
-              onClick(picker) {
-                const date = new Date();
-                date.setTime(date.getTime() - 3600 * 1000 * 24);
-                picker.$emit('pick', date);
-              }
-            }, {
-              text: '一周前',
-              onClick(picker) {
-                const date = new Date();
-                date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-                picker.$emit('pick', date);
-              }
-            }]
-          },
-          value1: '2018-06-03',
-          input: '',
-          input2: ''
-        };
-      },
-      methods:{
-        delMessages() {
-          this.$confirm('此操作将永久删除此条查询信息是否继续?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).then(() => {
-            this.$message({
-              type: 'success',
-              message: '删除成功!'
-            });
-          }).catch(() => {
-            this.$message({
-              type: 'info',
-              message: '已取消删除'
-            });
-          });
+import API from "@/api/api_hongselvyou.js";
+import { getField, getFormField, getSearchField } from "@/assets/json/index.js";
+import { getPageSize, px2rem, rem2px } from "@/plugins/util.js";
+import { setTimeout } from "timers";
+export default {
+  name: "convenienceSearchList",
+  data() {
+
+    // 表格操作配置
+    var operation = {
+      nowPage: "convenienceSearchList",
+      show: true,
+      fixed: false,
+      size: "mini",
+      width: 80 + rem2px(px2rem(160)),
+      minWidth: 100,
+      label: "操作",
+      btns: [
+        {
+          type: "text",
+          size: "mini",
+          content: "编辑",
+          icon: "el-icon-edit-outline",
+          handle: "update",
+          class: "button-operator"
         },
-        // clear(index) {
-        //   this.checkboxData.splice(index, 1);
-        // },
-        writes() {
-          this.$prompt('景区名称', '编辑', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消'
-          }).then(({ value }) => {
-            this.$message({
-              type: 'success',
-              message: '文物标题是: ' + value
-            });
-          }).catch(() => {
-            this.$message({
-              type: 'info',
-              message: '取消输入'
-            });
+        {
+          type: "text",
+          size: "mini",
+          content: "删除",
+          icon: "el-icon-delete",
+          handle: "delete",
+          class: "button-operator"
+        }
+      ]
+    };
+    return {
+      confirmType: "warning",
+      confirmTitle: "提示信息",
+      confirmContent: "此操作将永久删除该文件, 是否继续?",
+      dialogTitle: "添加路线",
+      multipleSelection: [],
+      ids: null,
+      operation: operation, // 操作按钮
+      column: [],
+      data: [],
+      formItem: [],
+      formData: {},
+      pageSize: getPageSize(),
+      currentPage: 1,
+      total: 0,
+      type: "addhongselvyou",
+      searchFormData: {},
+      searchFormItem: [],
+      menuId: this.$route.query.menuId
+    };
+  },
+  created() {
+    this.fieldInit();
+    this.searchFormInit();
+  },
+  mounted() {
+    this.getData();
+  },
+  activated() {
+    this.getData();
+  },
+  methods: {
+    gotoUrl(path, query) {
+      this.$router.push({
+        path: !!path ? path : "",
+        query: !!query ? query : ""
+      });
+    },
+    fieldInit() {
+      // 获取字段
+      var column = getField("convenienceSearch");
+      column.forEach(item => {
+        if (!!item.width && item.width != "auto") {
+          item.width = rem2px(px2rem(item.width));
+        }
+      });
+      this.column = column;
+    },
+    // 搜索表单数据初始化
+    searchFormInit() {
+      this.searchFormItem = getSearchField("convenienceSearch", "item");
+      this.searchFormData = getSearchField("convenienceSearch", "data");
+    },
+    // 更新数据
+    update(row) {
+      row.menuId= this.$route.query.menuId;
+      this.gotoUrl(
+      "/contentManage/redTourism/convenienceAdd",
+       row);
+    },
+    // 获取数据
+    getData() {
+      var _this = this;
+      var config = {
+        page: _this.currentPage,
+        size: _this.pageSize,
+        menuId: this.$route.query.menuId
+      };
+      // 添加查询字段
+      config = $.extend(config, this.searchFormData);
+      window.sessionStorage.setItem("responseType", "json");
+      // 接口调用
+      API.findhongselvyouList(config)
+        .then(res => {
+          console.log(res);
+          if (!!res && res.code === 20000) {
+            this.data = res.data.rows;
+            this.total = res.data.total;
+          }
+          this.$message({
+            message: res.message,
+            type: !!res && res.code === 20000 ? "success" : "warning"
           });
-        },
-        reads() {
-          this.$alert('渭华起义数字纪念馆', '景区名称', {
-            confirmButtonText: '确定',
-            callback: action => {
-              this.$message({
-                type: 'info',
-                message: `action: ${ action }`
-              });
+        })
+        .catch(err => {
+          console.log(err);
+          this.total = 10;
+          this.data = [
+            {
+              scenicSpotName: "wangyifan",
+              ticketPrice: 5556788992,
+              id: 99,
+              busRoute: "5"
             }
+          ];
+        });
+    },
+       // 删除
+    delete() {
+      var _this = this;
+      console.log(_this.ids);
+      API.delhongselvyou({ id: _this.ids })
+        .then(res => {
+          this.ids = null;
+          this.$message({
+            message: res.message,
+            type: res.code === 20000 ? "success" : "error"
           });
-        },
+          this.getData();
+        })
+        .catch(err => {
+          this.$message({
+            message: err,
+            type: "error"
+          });
+        });
+    },
+    // 批量删除
+    deleteBatch() {
+      var id = [];
+      this.multipleSelection.forEach(item => {
+        id.push(item.id);
+      });
+      this.ids = id.join();
+      if (id.length > 0) {
+        this.deleteConfirm({ id: this.ids });
+      } else {
+        this.$message({
+          message: "请至少选择一个选项",
+          type: "warning"
+        });
       }
+    },
+    // 删除确认
+    // 删除确认
+    deleteConfirm(row) {
+      var _this = this;
+      _this.ids = row.id;
+      setTimeout(() => {
+        this.$refs.myconfirm.confirm(_this.delete, _this.cancle);
+      }, 100);
+    },
+    // 取消删除
+    cancle() {
+      this.ids = null;
+    },
+    // 获取选中行
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
+    // 分页切换
+    handleCurrentChange(index) {
+      this.currentPage = index;
+      this.getData();
+    },
+    // 搜索
+    searchSubmit() {
+      this.getData();
     }
+  }
+};
 </script>
 
-<style scoped>
-  .contentword .gai{
-    padding-top: 0;
-  }
-  .l{float: left}
-  .r{float: right}
-  .contentword .up{
-    line-height: 34px;
-    margin-top: 20px;
-    margin-left:100px;
-    overflow: hidden;
-  }
-  .contentword  .up label{
-    margin-right: 16px;
-    color: #999;
-  }
-  .contentword .up>div{
-    margin-left: 34px;
-  }
-  .contentword .el-button{
-    padding: 7px 20px;
-    background: #e24142;
-    height: 30px;
-    margin-left: 20px;
-  }
-  .contentword .el-date-editor.el-input{
-    width: 148px;
-  }
-  .contentword input.el-input__inner{
-    width: 380px;
-  }
-  .contentword .el-input--prefix .el-input__inner{
-    width: 148px;
-  }
-  .contentword .el-input--prefix .el-input__inner {
-    height: 32px;
-    line-height: 32px;
-  }
-  .contentword .xia{
-    width: 96%;
-    overflow: hidden;
-    margin: 0 auto;
-    margin-left: 48px;
-    margin-top: 20px;
-
-  }
-
-  .contentword table{
-    width: 94%;
-    margin-bottom:20px;
-    border-spacing: 0;
-    padding: 5px;
-    empty-cells: show;
-    border-collapse: separate;
-  }
-  .contentword table{border-collapse:collapse;}
-  .contentword table tr{display: block; }
-  .contentword tbody tr{border:1px solid #ddd; display: block; margin-bottom: 6px}
-  .contentword table thead tr{ margin-bottom: 8px}
-  .contentword table thead tr th{
-    vertical-align: bottom;
-    font-size: 15px;
-    background: #e5e8ef;
-    color: #666;
-    padding: 8px;
-    text-align: left;
-    padding-left: 8px;
-  }
-
-  .contentword table tbody tr td{
-    padding: 6px;
-    font-size: 15px;
-    padding-left: 14px;
-    color: #868e96;
-  }
-  .contentword table thead tr th.huawen{
-    width: 310px;
-    padding-left: 20px;
-    text-align: center;
-  }
-  .contentword table thead tr th:nth-child(4){
-    width: 205px;
-    text-align: center;
-  }
-  .contentword table thead tr th:nth-child(1){
-    width: 102px;
-    padding-left: 15px;
-  }
-  .contentword table thead tr th:nth-child(1) input{
-    width: 15px;
-    height: 15px;
-  }
-  .contentword table tbody tr td:nth-child(1) input{
-    width: 15px;
-    height: 15px;
-  }
-  .contentword  table thead tr th.last2{
-    width: 280px;
-    text-align: center;
-  }
-  .contentword table thead tr th.wenAges{
-    width: 272px;
-    text-align: center;
-  }
-  .contentword table tbody tr td.huatitle{
-    width: 234px;
-  }
-  .contentword table tbody tr td.ageduan{
-    width: 182px;
-  }
-  .contentword table tbody tr td:nth-child(4){
-    width: 44px;
-  }
-  .contentword table tbody tr td.shijian{
-    width: 80px;
-  }
-  .contentword table tbody tr td.btnlast{
-    padding-left: 48px;
-  }
-
-  .contentword table tbody tr td a{
-    color: #868e96;
-    font-size: 15px;
-    text-decoration: none;
-  }
-  .contentword table tbody tr td button{
-    padding:0px 10px;
-    padding-right: 9px;
-    display: inline-block;
-    margin-bottom: 0;
-    vertical-align: middle;
-    font-size: 13px;
-    font-weight: normal;
-    text-align: center;
-    white-space: nowrap;
-    border: 1px solid transparent;
-    cursor: pointer;
-    border-right: 1px solid #ccc;
-    background: #fff;
-    color: #eb5e5f;
-
-  }
-  .contentword table tbody tr td button:last-child{
-    border-right: 0;
-  }
-  .contentword table tbody tr td button span{
-    display: inline-block;
-    width:15px;
-    height:17px;
-    margin-right: 4px;
-  }
+<style lang="scss" scoped>
+@import "@/assets/base/variables.scss";
 </style>

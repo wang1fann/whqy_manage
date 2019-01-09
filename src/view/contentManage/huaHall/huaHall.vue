@@ -1,365 +1,260 @@
 <template>
-  <hua-hall-append></hua-hall-append>
+  <div class="list content-top-line">
+    <!-- 按钮操作 -->
+    <el-row
+      class="btn-group"
+      :gutter="24"
+    >
+      <el-col
+        :span="8"
+        class="pull-left alignleft"
+      >
+        <el-button
+          type="primary"
+          size="mini"
+          icon="el-icon-circle-plus"
+          @click="gotoUrl('/contentManage/huaHallAppend',{menuId: $route.query.menuId})"
+        >添加渭华讲堂</el-button>
+        <el-button
+          type="primary"
+          size="mini"
+          icon="el-icon-delete"
+          @click="deleteBatch"
+        >删除渭华讲堂</el-button>
+      </el-col>
+      <el-col
+        :span="16"
+        class="pull-right alignright"
+      >
+        <MySearch
+          class="search"
+          :formData="searchFormData"
+          :formItem="searchFormItem"
+          @submit="searchSubmit"
+        ></MySearch>
+      </el-col>
+    </el-row>
+    <!-- 表格数据 -->
+    <MyTable
+      size="mini"
+      :stripe="false"
+      :border="false"
+      :multiple="true"
+      :operation="operation"
+      :column="column"
+      :data="data"
+      :currentPage="currentPage"
+      :pageSize="pageSize"
+      :total="total"
+      @handleCurrentChange="handleCurrentChange"
+      @delete="deleteConfirm"
+      @update="update"
+      @select="handleSelectionChange"
+    ></MyTable>
+    <!-- myconfirm -->
+    <MyConfirm
+      ref="myconfirm"
+      :type="confirmType"
+      :title="confirmTitle"
+      :content="confirmContent"
+    ></MyConfirm>
+  </div>
 </template>
 
 <script>
-    import HuaHallAppend from "./huaHallAppend";
-    export default {
-        name: "huaHall",
-      components: {HuaHallAppend},
-      data() {
-        return {
-          items:[
-            {
-              title:'',//标题
-              id:'',
-              createTime:'',//时间
-            }
-          ],
-          pickerOptions1: {
-            disabledDate(time) {
-              return time.getTime() > Date.now();
-            },
-            shortcuts: [{
-              text: '今天',
-              onClick(picker) {
-                picker.$emit('pick', new Date());
-              }
-            }, {
-              text: '昨天',
-              onClick(picker) {
-                const date = new Date();
-                date.setTime(date.getTime() - 3600 * 1000 * 24);
-                picker.$emit('pick', date);
-              }
-            }, {
-              text: '一周前',
-              onClick(picker) {
-                const date = new Date();
-                date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-                picker.$emit('pick', date);
-              }
-            }]
-          },
-          value1: '2018-6-3',
-          input: '',
-          input2: '',
-          checkboxList:[],
-          checked: false
-        };
-      },
-      methods:{
-        checkedAll: function() {
-          if (this.checked) {//实现反选
-            this.checkboxList = [];
-          } else { //实现全选
-            this.checkboxList = [];
-            this.items.forEach( (item) => {
-              this.checkboxList.push(item.id);
-            });
+import API from "@/api/api_weihuajiangtang.js";
+import { getField, getFormField, getSearchField } from "@/assets/json/index.js";
+import { getPageSize, px2rem, rem2px } from "@/plugins/util.js";
+import { setTimeout } from "timers";
+export default {
+  name: "convenienceSearchList",
+  data() {
+    // 表格操作配置
+    var operation = {
+      nowPage: "convenienceSearchList",
+      show: true,
+      fixed: false,
+      size: "mini",
+      width: 80 + rem2px(px2rem(160)),
+      minWidth: 100,
+      label: "操作",
+      btns: [
+        {
+          type: "text",
+          size: "mini",
+          content: "编辑",
+          icon: "el-icon-edit-outline",
+          handle: "update",
+          class: "button-operator"
+        },
+        {
+          type: "text",
+          size: "mini",
+          content: "删除",
+          icon: "el-icon-delete",
+          handle: "delete",
+          class: "button-operator"
+        }
+      ]
+    };
+    return {
+      confirmType: "warning",
+      confirmTitle: "提示信息",
+      confirmContent: "此操作将永久删除该文件, 是否继续?",
+      dialogTitle: "添加渭华讲堂",
+      multipleSelection: [],
+      ids: null,
+      operation: operation, // 操作按钮
+      column: [],
+      data: [],
+      formItem: [],
+      formData: {},
+      pageSize: getPageSize(),
+      currentPage: 1,
+      total: 0,
+      type: "add",
+      searchFormData: {},
+      searchFormItem: [],
+      menuId: !!this.$route.query.menuId
+        ? this.$route.query.menuId
+        : this.$route.name
+    };
+  },
+  created() {
+    this.fieldInit();
+    this.searchFormInit();
+  },
+  mounted() {
+    this.getData();
+  },
+  activated() {
+    this.getData();
+  },
+  methods: {
+    gotoUrl(path, query) {
+      this.$router.push({
+        path: !!path ? path : "",
+        query: !!query ? query : ""
+      });
+    },
+    fieldInit() {
+      // 获取字段
+      var column = getField("huaHall");
+      column.forEach(item => {
+        if (!!item.width && item.width != "auto") {
+          item.width = rem2px(px2rem(item.width));
+        }
+      });
+      this.column = column;
+    },
+    // 搜索表单数据初始化
+    searchFormInit() {
+      this.searchFormItem = getSearchField("huaHall", "item");
+      this.searchFormData = getSearchField("huaHall", "data");
+    },
+    // 更新数据
+    update(row) {
+      row.menuId = !!this.$route.query.menuId
+        ? this.$route.query.menuId
+        : this.$route.name;
+      this.gotoUrl("/contentManage/huaHallAppend", row);
+    },
+    // 获取数据
+    getData() {
+      var _this = this;
+      var config = {
+        page: _this.currentPage,
+        size: _this.pageSize,
+        menuId: !!this.$route.query.menuId
+          ? this.$route.query.menuId
+          : this.$route.name
+      };
+      // 添加查询字段
+      window.sessionStorage.setItem("responseType", "json");
+      config = $.extend(config, this.searchFormData);
+      // 接口调用
+      API.findhongselvyou(config)
+        .then(res => {
+          console.log(res);
+          if (!!res && res.code === 20000) {
+            this.data = res.data.rows;
+            this.total = res.data.total;
           }
-        },
-        delMessages() {
-          this.$confirm('此操作将永久删除此条新闻, 是否继续?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).then(() => {
-            this.$message({
-              type: 'success',
-              message: '删除成功!'
-            });
-          }).catch(() => {
-            this.$message({
-              type: 'info',
-              message: '已取消删除'
-            });
+          this.$message({
+            message: res.message,
+            type: !!res && res.code === 20000 ? "success" : "warning"
           });
-          var _this = this;
-          this.$axios({
-            method:'delete',
-            url:'/syx/jingquxinwen/1077457008430551040',
-            // data:{
-            //   "menuId":"51412",
-            //   "status":1
-            // },
-          }).then( (res) =>{
-            console.log(res.data.code)
-            if(res){
-              if(res.data.code === 20000){
-                //成功请求
-                console.log(res.data.message);
-                console.log(res.data.data);
-              } else {
-                //请求失败
-                console.log(res.data.message);
-              }
-            }
-          })
-        },
-        // clear(index) {
-        //   this.checkboxData.splice(index, 1);
-        // },
-        writes() {
-          this.$prompt('请输入新闻标题', '编辑', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消'
-          }).then(({ value }) => {
-            this.$message({
-              type: 'success',
-              message: '新闻标题是: ' + value
-            });
-          }).catch(() => {
-            this.$message({
-              type: 'info',
-              message: '取消输入'
-            });
+        })
+        .catch(err => {
+          alert(err);
+        });
+    },
+    // 删除
+    delete() {
+      var _this = this;
+      console.log(_this.ids);
+      API.delhongselvyou({ id: _this.ids })
+        .then(res => {
+          this.ids = null;
+          this.$message({
+            message: res.message,
+            type: res.code === 20000 ? "success" : "error"
           });
-          this.readwrite()
-        },
-        reads() {
-          this.$alert('渭华起义纪念馆深入贯彻学习习总书记在全国宣传思想工作', '新闻标题', {
-            confirmButtonText: '确定',
-            callback: action => {
-              this.$message({
-                type: 'info',
-                message: `action: ${ action }`
-              });
-            }
+          this.getData();
+        })
+        .catch(err => {
+          this.$message({
+            message: err,
+            type: "error"
           });
-          this.readwrite()
-        },
-        search () {
-          let searchText = this.$refs.searchval.value
-          if (searchText =='') {
-            return
-          } else {
-            this.closeState = true
-            this.searchState.showsug = true
-            this.searchState.searchtext = this.$refs.searchval.value
-            this.$emit('searchstate', this.searchState)
-          }
-          var _this = this;
-          // this.$axios('/syx/jingquxinwen/search/1/1?keywords=' + searchText)
-          this.$axios({
-            method:'post',
-            url:'/syx/jingquxinwen/search/1/1',
-            data:{
-              "menuId":"51412",
-              "status":1
-            },
-          }).then((res) => {
-            if (res.data.code === 20000) {
-              this.$emit('search', res.data.result.allMatch)
-            }
-          })
-            .catch((err) => {
-              console.log(err)
-            })
-        },
-        //查看编辑
-        readwrite(){
-          var _this = this;
-          this.$axios({
-            method:'post',
-            url:'/syx/jingquxinwen/1077456936301105152',
-            data:{
-              "menuId":"51412",
-              "status":1
-            },
-          }).then( (res) =>{
-            console.log(res.data.code)
-            if(res){
-              if(res.data.code === 20000){
-                //成功请求
-                console.log(res.data.message);
-                console.log(res.data.data);
-              } else {
-                //请求失败
-                console.log(res.data.message);
-              }
-            }
-          })
-        },
-        //内容接口
-        getprev(){
-          var _this = this;
-          this.$axios({
-            method:'post',
-            url:'/syx/jingquxinwen/search',
-            data:{
-              "menuId":"10002001",
-              "status":1
-            },
-          }).then( (res) =>{
-            console.log(res.data.code)
-            if(res){
-              if(res.data.code === 20000){
-                //成功请求
-                console.log(res.data.message);
-                console.log(res.data.data);
-                _this.items = res.data.data;
-              } else {
-                //请求失败
-                console.log(res.data.message);
-              }
-            }
-          })
-        },
-      },
-      mounted(){
-        this.getprev()
+        });
+    },
+    // 批量删除
+    deleteBatch() {
+      var id = [];
+      this.multipleSelection.forEach(item => {
+        id.push(item.id);
+      });
+      this.ids = id.join();
+      if (id.length > 0) {
+        this.deleteConfirm({ id: this.ids });
+      } else {
+        this.$message({
+          message: "请至少选择一个选项",
+          type: "warning"
+        });
       }
+    },
+    // 删除确认
+    // 删除确认
+    deleteConfirm(row) {
+      var _this = this;
+      _this.ids = row.id;
+      setTimeout(() => {
+        this.$refs.myconfirm.confirm(_this.delete, _this.cancle);
+      }, 100);
+    },
+    // 取消删除
+    cancle() {
+      this.ids = null;
+    },
+    // 获取选中行
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
+    // 分页切换
+    handleCurrentChange(index) {
+      this.currentPage = index;
+      this.getData();
+    },
+    // 搜索
+    searchSubmit() {
+      this.getData();
     }
+  }
+};
 </script>
 
-<style scoped>
-  .contentHall .gai{
-    padding-top: 0;
-  }
-  .l{float: left}
-  .r{float: right}
-  .contentHall .up{
-    line-height: 34px;
-    margin-top: 20px;
-    margin-left:100px;
-    overflow: hidden;
-  }
-  .contentHall  .up label{
-    margin-right: 16px;
-    color: #999;
-  }
-  .contentHall .up>div{
-    margin-left: 34px;
-  }
-  .contentHall .el-button{
-    padding: 7px 20px;
-    background: #e24142;
-    height: 30px;
-    margin-left: 20px;
-  }
-  .contentHall .el-date-editor.el-input{
-    width: 148px;
-  }
-  .contentHall input.el-input__inner{
-    width: 380px;
-  }
-  .contentHall .el-input--prefix .el-input__inner{
-    width: 148px;
-  }
-  .contentHall .el-input--prefix .el-input__inner {
-    height: 32px;
-    line-height: 32px;
-  }
-  .contentHall .xia{
-    width: 96%;
-    overflow: hidden;
-    margin: 0 auto;
-    margin-left: 48px;
-    margin-top: 20px;
-
-  }
-
-  .contentHall table{
-    width: 94%;
-    margin-bottom:20px;
-    border-spacing: 0;
-    padding: 5px;
-    empty-cells: show;
-    border-collapse: separate;
-  }
-  .contentHall table{border-collapse:collapse;}
-  .contentHall table tr{display: block; }
-  .contentHall tbody tr{border:1px solid #ddd; display: block; margin-bottom: 6px}
-  .contentHall table thead tr{ margin-bottom: 8px}
-  .contentHall table thead tr th{
-    vertical-align: bottom;
-    font-size: 15px;
-    background: #e5e8ef;
-    color: #666;
-    padding: 8px;
-    text-align: left;
-    padding-left: 8px;
-  }
-
-  .contentHall table tbody tr td{
-    padding: 6px;
-    font-size: 15px;
-    padding-left: 14px;
-    color: #868e96;
-  }
-  .contentHall table thead tr th.huawen{
-    width: 366px;
-    padding-left: 20px;
-    text-align: center;
-  }
-  .contentHall table thead tr th:nth-child(4){
-    width: 205px;
-    text-align: center;
-  }
-  .contentHall table thead tr th:nth-child(1){
-    width: 80px;
-    padding-left: 15px;
-  }
-  .contentHall table thead tr th:nth-child(1) input{
-    width: 15px;
-    height: 15px;
-  }
-  .contentHall table tbody tr td:nth-child(1) input{
-    width: 15px;
-    height: 15px;
-  }
-  .contentHall  table thead tr th.last2{
-    width: 336px;
-    text-align: center;
-  }
-  .contentHall table thead tr th.wenAges{
-    width: 160px;
-    text-align: center;
-  }
-  .contentHall table tbody tr td.huatitle{
-    width: 432px;
-  }
-  .contentHall table tbody tr td.ageduan{
-    width: 154px;
-  }
-  .contentHall table tbody tr td:nth-child(4){
-    width: 184px;
-  }
-  .contentHall table tbody tr td.btnlast{
-    padding-left: 136px;
-  }
-
-  .contentHall table tbody tr td a{
-    color: #868e96;
-    font-size: 15px;
-    text-decoration: none;
-  }
-  .contentHall table tbody tr td button{
-    padding:0px 10px;
-    padding-right: 9px;
-    display: inline-block;
-    margin-bottom: 0;
-    vertical-align: middle;
-    font-size: 13px;
-    font-weight: normal;
-    text-align: center;
-    white-space: nowrap;
-    border: 1px solid transparent;
-    cursor: pointer;
-    border-right: 1px solid #ccc;
-    background: #fff;
-    color: #eb5e5f;
-
-  }
-  .contentHall table tbody tr td button:last-child{
-    border-right: 0;
-  }
-  .contentHall table tbody tr td button span{
-    display: inline-block;
-    width:15px;
-    height:17px;
-    margin-right: 4px;
-  }
-
+<style lang="scss" scoped>
+@import "@/assets/base/variables.scss";
 </style>

@@ -174,6 +174,7 @@ export default {
         size: _this.pageSize
       };
       // 添加查询字段
+      window.sessionStorage.setItem("responseType", "json");
       config = $.extend(config, this.searchFormData);
       // 接口调用
       API.findlogList(config)
@@ -257,7 +258,7 @@ export default {
       this.currentPage = index;
       this.getData();
     },
-     //每页显示条数切换
+    //每页显示条数切换
     handleSizeChange(val) {
       this.pageSize = val;
       this.getData();

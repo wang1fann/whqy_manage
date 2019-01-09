@@ -39,6 +39,14 @@ $width80:80%;
     font-size: 20px;
 }
 
+.margintop15 {
+    margin-top: 15px;
+}
+
+.margintop20 {
+    margin-top: 20px;
+}
+
 @function calculateRem($size) {
     $remSize: $size / 16px;
     @return $remSize * 1rem;
@@ -199,6 +207,7 @@ button.el-button.button-operator {
 .content-top-line {
     border-top: 0.5px solid #ebeef5;
     padding-top: 20px;
+    margin-top: 20px;
 }
 
 .el-table::before {
@@ -208,7 +217,6 @@ button.el-button.button-operator {
 .el-dialog__header {
     background: #E24142;
     padding: 10px 10px 10px;
-    /* color: #fff; */
 }
 
 span.el-dialog__title {

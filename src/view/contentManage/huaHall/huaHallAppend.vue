@@ -3,9 +3,10 @@
   <el-row class="components-container">
     <my-uepage
       :Form="ticketForm"
-      :showMp4="showMp4"
+      :showMp4="true"
       @submit="submitcontent"
       @imgPath="getImgPath"
+      @uploadPath="getMp4Path"
     ></my-uepage>
   </el-row>
 </template>
@@ -19,20 +20,22 @@
 }
 </style>
 <script>
-import API from "@/api/api_abstract";
+import API from "@/api/api_weihuajiangtang";
 import myUEpage from "@/components/myUEpage";
 export default {
   components: { "my-uepage": myUEpage },
   data() {
     return {
       ticketForm: {
-        title: "表示梯三",
+        title: "",
         imgPath: "",
-        menuId: this.$route.query.menuId,
+        menuId: !!this.$route.query.menuId
+          ? this.$route.query.menuId
+          : this.$route.name,
         description: "",
-        content: ""
-      },
-      showMp4:true
+        content: "",
+        uploadPath:''
+      }
     };
   },
   created() {},
@@ -52,6 +55,9 @@ export default {
     },
     getImgPath(val) {
       this.ticketForm.imgPath = val.replace(/\\/g, "/");
+    },
+    getMp4Path(val){
+      this.ticketForm.uploadPath = val.replace(/\\/g, "/");
     }
   }
 };

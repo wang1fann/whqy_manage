@@ -67,10 +67,6 @@ export default {
     };
   },
   methods: {
-    getMenuId() {
-      // this.menuId
-      console.log(this.$route.query.menuId);
-    },
     addImgPath(val) {
       window.sessionStorage.setItem("responseType", "json");
       this.abstractInfo.imgPath = val.replace(/\\/g, "/");
@@ -83,6 +79,7 @@ export default {
       });
     },
     findAbstract() {
+        window.sessionStorage.setItem("responseType", "json");
       APICommon.findhongselvyou(this.searchParams).then(res => {
         if (!!res && res.code === 20000) {
           this.imgList = res.data;

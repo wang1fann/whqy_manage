@@ -157,7 +157,8 @@ export default {
       });
     },
     findMenu() {
-      var that = this;
+      var that = this;  
+      window.sessionStorage.setItem("responseType", "json");
       API.findMenuList().then(res => {
         console.log(res);
         if (!!res && res.code === 20000) {

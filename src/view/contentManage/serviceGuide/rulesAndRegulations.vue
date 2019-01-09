@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       ticketForm: {
-        title: "表示梯三",
+        title: "",
         imgPath: "",
         menuId: this.$route.query,
         description: "",

@@ -84,6 +84,70 @@
             "name": ""
         }
     },
+    "convenienceSearch": {
+        "item": [{
+            "type": "text",
+            "name": "scenicSpotName",
+            "value": "",
+            "placeholder": "请输入景区名称",
+            "label": "景区名称",
+            "width": "100%",
+            "show": true
+        }, {
+            "type": "text",
+            "name": "ticketPrice",
+            "value": "",
+            "placeholder": "请输入门票价格",
+            "label": "门票价格",
+            "width": "100%",
+            "show": true
+        }],
+        "data": {
+            "scenicSpotName": "",
+            "ticketPrice": ""
+        }
+    },
+    "huaHall": {
+        "item": [{
+                "type": "text",
+                "name": "title",
+                "value": "",
+                "placeholder": "请输入标题",
+                "label": "链接名称",
+                "width": "100%",
+                "show": true
+            },
+            {
+                "type": "text",
+                "name": "content",
+                "value": "",
+                "placeholder": "请输入内容",
+                "width": "100%",
+                "label": "内容:",
+                "show": true
+            },
+            {
+                "type": "date",
+                "name": "updateTime",
+                "placeholder": "上传日期",
+                "value": "",
+                "width": "100%",
+                "label": "上传日期:",
+                "show": true,
+                "format": "yyyy-MM-dd",
+                "rules": [{
+                    "required": true,
+                    "message": "上传日期",
+                    "trigger": "blur"
+                }]
+            }
+        ],
+        "data": {
+            "title": "",
+            "content": "",
+            "updateTime": ""
+        }
+    },
     "link": {
         "item": [{
                 "type": "text",

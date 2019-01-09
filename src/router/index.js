@@ -282,8 +282,7 @@ let contentRouter = [{
                 path: 'biography',
                 name: '生平简介',
                 component: resolve => {
-                    require(['view/contentManage/serviceGuide/TicketReservation'], resolve)
-                        // require(['view/contentManage/senceSituation/situationIntroduce'], resolve)
+                    require(['view/contentManage/xiSpirit/biography'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -294,8 +293,7 @@ let contentRouter = [{
                 path: 'TheFeats',
                 name: '丰功伟绩',
                 component: resolve => {
-                    require(['view/contentManage/serviceGuide/TicketReservation'], resolve)
-                        // require(['view/contentManage/senceSituation/situationDepart'], resolve)
+                    require(['view/contentManage/xiSpirit/biography'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -431,7 +429,7 @@ let contentRouter = [{
             path: 'WHspirit',
             name: '渭华起义精神',
             component: resolve => {
-                require(['view/contentManage/serviceGuide/TicketReservation'], resolve)
+                require(['view/contentManage/partyEducation/WHspirit'], resolve)
             },
             class: 'fa-line-chart',
             img: require('@/assets/img/access/user.png'),
@@ -441,7 +439,7 @@ let contentRouter = [{
             path: '19thSpirit',
             name: '十九大精神',
             component: resolve => {
-                require(['view/contentManage/serviceGuide/TicketReservation'], resolve)
+                require(['view/contentManage/partyEducation/WHspirit'], resolve)
             },
             class: 'fa-line-chart',
             img: require('@/assets/img/access/user.png'),
@@ -483,11 +481,22 @@ let contentRouter = [{
             path: 'culturalEducation',
             name: '文化遗产',
             component: resolve => {
-                require(['view/contentManage/collectionAppreciation/appreciationStrory'], resolve)
+                require(['view/contentManage/culturalEducation/culturalEducation'], resolve)
             },
             class: 'fa-line-chart',
             img: require('@/assets/img/access/user.png'),
             children: []
+        }, {
+            id: "",
+            path: 'culturalEducationAdd',
+            name: '文化遗产-添加',
+            component: resolve => {
+                require(['view/contentManage/culturalEducation/culturalEducationAdd'], resolve)
+            },
+            class: 'fa-line-chart',
+            img: require('@/assets/img/access/user.png'),
+            children: [],
+            show: false
         }, {
             id: 10009002,
             path: 'culturalOldAppend',
@@ -541,20 +550,20 @@ let contentRouter = [{
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
         id: "",
-        children: [{
-            // 添加
-            id: 10011,
-            path: 'huaHallAppend',
-            name: '渭华讲堂添加',
-            component: resolve => {
-                require(['view/contentManage/huaHall/huaHallAppend'], resolve)
-            },
-            class: 'fa-line-chart',
-            img: require('@/assets/img/access/user.png'),
-            children: [],
-            show: false
-        }]
-
+        children: []
+    },
+    {
+        // 添加
+        id: 1001101,
+        path: 'huaHallAppend',
+        name: '渭华讲堂添加',
+        component: resolve => {
+            require(['view/contentManage/huaHall/huaHallAppend'], resolve)
+        },
+        class: 'fa-line-chart',
+        img: require('@/assets/img/access/user.png'),
+        children: [],
+        show: false
     },
     {
         path: 'knowledgeAnswer',
@@ -614,6 +623,16 @@ let contentRouter = [{
             },
             class: 'fa-line-chart',
             children: []
+        }, {
+            id: "",
+            path: 'convenienceAdd',
+            name: '便民查询添加',
+            component: resolve => {
+                require(['view/contentManage/redTourism/convenienceAdd'], resolve)
+            },
+            class: 'fa-line-chart',
+            children: [],
+            show: false
         }]
     },
     {
@@ -671,7 +690,7 @@ let contentRouter = [{
             path: 'SignIn',
             name: '游客签到',
             component: resolve => {
-                require(['view/contentManage/visitMessage/SignIn'], resolve)
+                require(['view/contentManage/contentCommon'], resolve)
             },
             class: 'fa-line-chart',
             children: []
@@ -681,7 +700,7 @@ let contentRouter = [{
             path: 'message',
             name: '游客留言',
             component: resolve => {
-                require(['view/contentManage/visitMessage/message'], resolve)
+                require(['view/contentManage/contentCommon'], resolve)
             },
             class: 'fa-line-chart',
             children: []
@@ -691,7 +710,7 @@ let contentRouter = [{
             path: 'answering',
             name: '留言回复',
             component: resolve => {
-                require(['view/contentManage/visitMessage/answering'], resolve)
+                require(['view/contentManage/contentCommon'], resolve)
             },
             class: 'fa-line-chart',
             children: []
@@ -882,6 +901,7 @@ router.beforeEach((to, from, next) => {
         if (!user) {
             next()
         } else {
+            window.token = window.localStorage.getItem('token');
             next()
         }
     }

@@ -225,7 +225,6 @@
           this.$emit('searchstate', this.searchState)
         }
         var _this = this;
-        // this.$axios('/syx/jingquxinwen/search/1/1?keywords=' + searchText)
         this.$axios({
           method:'post',
           url:'/syx/jingquxinwen/search/1/1',

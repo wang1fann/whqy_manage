@@ -33,12 +33,8 @@ export default {
       }
     };
   },
-  created() {
-    // this.getData();
-  },
-  mounted() {
-    this.getData();
-  },
+  created() {},
+  mounted() {},
   methods: {
     submitcontent(content) {
       this.ticketForm.content = content;
@@ -54,20 +50,6 @@ export default {
     },
     getImgPath(val) {
       this.ticketForm.imgPath = val.replace(/\\/g, "/");
-    },
-    //查询 http://192.168.0.110:9014/syx/fuwuzhinan/search/1/10
-    getData() {
-      // API.findfuwuzhinan({ menuId: JSON.stringify(this.ticketForm.menuId) }).then(res => {
-      API.findfuwuzhinan({ menuId: this.ticketForm.menuId }).then(res => {
-        if (!!res && res.code === 20000) {
-          this.ticketForm = res.data.rows[0];
-          // this.ticketForm = !!res && res.code === 20000 ? res.data.rows[0] : this.ticketForm;
-        }
-        this.$message({
-          type: !!res && res.code === 20000 ? "success" : "warning",
-          message: res.message
-        });
-      });
     }
   }
 };

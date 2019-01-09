@@ -260,6 +260,7 @@ export default {
       // 接口调用
       var options = {};
       this.fullscreenLoading = true;
+      window.sessionStorage.setItem("responseType", "json");
       API.findUserList(config)
         .then(res => {
           console.log(res);
@@ -267,7 +268,7 @@ export default {
             this.data = res.data.rows;
             this.total = res.data.total;
           }
-           this.$message({
+          this.$message({
             message: res.message,
             type: res.code === 20000 ? "success" : "error"
           });

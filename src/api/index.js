@@ -12,15 +12,16 @@ import {
 
 axios.defaults.withCredentials = false;
 // axios.defaults.withCredentials = true;
-// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;//window.localStorage.getItem('token')
+axios.defaults.headers.common['Authorization'] = window.localStorage.getItem('token') || ''; //window.localStorage.getItem('token')
+
 
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'; //配置请求头
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'; //配置请求头application/x-www-form-urlencoded;
 
 axios.defaults.timeout = 3000; //设置请求过期时间
 // axios.defaults.baseURL = 'http://192.168.0.107:9014';
-// axios.defaults.baseURL = 'http://192.168.0.106:9014'; //lili
-// axios.defaults.baseURL = 'http://192.168.0.111:9014'; //lili
+// axios.defaults.baseURL = 'http://192.168.0.101:9014'; //lili
 // axios.defaults.baseURL = 'http://192.168.0.106:9014'; //lili
 axios.defaults.baseURL = 'http://192.168.0.110:9014'; //zhenyang
 // axios.defaults.baseURL = 'http://192.168.0.119:9014'; //lihao 
@@ -31,7 +32,8 @@ axios.interceptors.request.use(
         const responseType = sessionStorage.getItem('responseType');
         if (responseType == 'form') {
             config.headers = {
-                'Content-Type': 'application/x-www-form-urlencoded' //设置跨域头部
+                'Content-Type': 'application/x-www-form-urlencoded', //设置跨域头部
+                'token': window.token
             };
         } else if (responseType == 'file') {
             config.headers = {
@@ -39,11 +41,13 @@ axios.interceptors.request.use(
             };
         } else if (responseType == 'excel') {
             config.headers = {
-                'Content-Type': 'application/vnd.ms-excel' //设置跨域头部
+                'Content-Type': 'application/vnd.ms-excel', //设置跨域头部
+                'token': window.token
             };
         } else {
             config.headers = {
-                'Content-Type': 'application/json' //设置跨域头部
+                'Content-Type': 'application/json', //设置跨域头部
+                'token': window.token
             };
         }
         return config;

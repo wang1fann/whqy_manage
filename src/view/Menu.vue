@@ -12,8 +12,8 @@
             style="font-size:30px;vertical-align:middle;"
             class="fa fa-user-circle-o"
           ></i>
-          <span v-show="user.sex==='man'">您好！ {{user.name}}先生</span>
-          <span v-show="user.sex!=='man'">您好！ {{user.name}}女士</span>
+          <span v-show="userInfo.sex==='1'">您好！ {{userInfo.userName}}先生</span>
+          <span v-show="userInfo.sex!=='2'">您好！ {{userInfo.userName}}女士</span>
         </span>
         <span class="user-set-up">
           <i
@@ -110,7 +110,9 @@ export default {
   components: {
     "el-bread": ElBread
   },
-  watch: {},
+  // watch: {
+  //   userInfo:"getUserInfo"
+  // },
   created() {
     this.menuRouter = _.filter(this.$router.options.routes, function(o) {
       return !!o.menuShow;
@@ -121,6 +123,7 @@ export default {
     bus.$on("goto", url => {
       if (url === "/login") {
         localStorage.removeItem("access-user");
+        localStorage.removeItem("token");
       }
       this.$router.push(url);
     });
@@ -128,8 +131,8 @@ export default {
   data() {
     return {
       defaultActiveIndex: "0",
-      user: {
-        name: "wangyifan",
+      userInfo: {
+        userName: "wangyifan",
         sex: "man"
       },
       menuRouter: "",
@@ -139,6 +142,14 @@ export default {
     };
   },
   methods: {
+    getUserInfo() {
+      let user = localStorage.getItem("access-user");
+      if (user) {
+        user = JSON.parse(user);
+        console.log(user);
+        this.userInfo = user;
+      }
+    },
     gotoUrl(path, query) {
       this.$router.push({
         path: !!path ? path : "",
@@ -149,10 +160,6 @@ export default {
     handleSelect(index, indexPath) {
       this.defaultActiveIndex = index;
       this.breads = indexPath;
-      // console.log(index);
-      // console.log(indexPath);
-      // console.log(this.$router.options.routes[indexPath[0]].name);
-      // console.log(this.$router.options.routes);
     },
     handleMenuSelect(index, indexPath) {
       this.breads = indexPath;
@@ -201,12 +208,9 @@ export default {
         .catch(() => {});
     }
   },
-  mounted() {
-    let user = localStorage.getItem("access-user");
-    if (user) {
-      user = JSON.parse(user);
-      this.nickname = user.nickname || "王祎凡";
-    }
+  mounted() {},
+  created() {
+    this.getUserInfo();
   }
 };
 </script>

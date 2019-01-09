@@ -3,6 +3,7 @@
   <el-row class="components-container">
     <my-uepage
       :Form="ticketForm"
+      :showPersonName="true"
       @submit="submitcontent"
       @imgPath="getImgPath"
     ></my-uepage>
@@ -18,31 +19,28 @@
 }
 </style>
 <script>
-import API from "@/api/api_abstract";
+import API from "@/api/api_xiSpirit";
 import myUEpage from "@/components/myUEpage";
 export default {
   components: { "my-uepage": myUEpage },
   data() {
     return {
       ticketForm: {
-        title: "",
+        title: "习老精神-生平简介",
         imgPath: "",
         menuId: this.$route.query.menuId,
         description: "",
-        content: ""
+        content: "",
+        personName: "习仲勋",
+        linkUrl:'www.baidu.com',
+        linkName:"链接"
       }
     };
   },
-  created() {
-    // this.getData();
-  },
-  mounted() {
-    this.getData();
-  },
+  created() {},
+  mounted() {},
   methods: {
     submitcontent(content) {
-      this.ticketForm.content = content;
-      console.log(this.ticketForm);
       window.sessionStorage.setItem("responseType", "json");
       API.addServerInfo(this.ticketForm).then(res => {
         console.log(res);
@@ -54,20 +52,6 @@ export default {
     },
     getImgPath(val) {
       this.ticketForm.imgPath = val.replace(/\\/g, "/");
-    },
-    //查询 http://192.168.0.110:9014/syx/fuwuzhinan/search/1/10
-    getData() {
-      // API.findfuwuzhinan({ menuId: JSON.stringify(this.ticketForm.menuId) }).then(res => {
-      API.findfuwuzhinan({ menuId: this.ticketForm.menuId }).then(res => {
-        if (!!res && res.code === 20000) {
-          this.ticketForm = res.data.rows[0];
-          // this.ticketForm = !!res && res.code === 20000 ? res.data.rows[0] : this.ticketForm;
-        }
-        this.$message({
-          type: !!res && res.code === 20000 ? "success" : "warning",
-          message: res.message
-        });
-      });
     }
   }
 };

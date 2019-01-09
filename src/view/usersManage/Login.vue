@@ -157,11 +157,12 @@ export default {
             } else {
               localStorage.setItem(
                 "access-user",
-                JSON.stringify(this.account.userName)
+                JSON.stringify(res.data.user)
               );
+              localStorage.setItem("token", res.data.token);
               let expireDays = 1000 * 60 * 60;
               setCookie("loginFlag", res.message, expireDays); //设置Session
-              that.$router.push({ path: "/" });
+              that.$router.push({ path: "/home" });
             }
           });
         } else {

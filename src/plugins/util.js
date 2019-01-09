@@ -117,7 +117,7 @@ export function delCookie(name) {
  * @param {*} date
  * @returns
  */
-export function dateFtt(fmt, date) {
+export function dateFtt(date, fmt) {
     var o = {
         'M+': date.getMonth() + 1,
         'd+': date.getDate(),
