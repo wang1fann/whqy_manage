@@ -116,7 +116,7 @@ export default {
       type: "addhongselvyou",
       searchFormData: {},
       searchFormItem: [],
-      menuId: this.$route.query.menuId
+      menuId: this.$route.query.menuId+""
     };
   },
   created() {
@@ -164,7 +164,7 @@ export default {
       var config = {
         page: _this.currentPage,
         size: _this.pageSize,
-        menuId: this.$route.query.menuId
+        menuId: this.$route.query.menuId+""
       };
       // 添加查询字段
       config = $.extend(config, this.searchFormData);

@@ -101,10 +101,60 @@
             "label": "门票价格",
             "width": "100%",
             "show": true
+        }, {
+            "type": "text",
+            "name": "openTime",
+            "value": "",
+            "placeholder": "请输入开放时间",
+            "label": "开放时间",
+            "width": "100%",
+            "show": true
+        }, {
+            "type": "text",
+            "name": "busRoute",
+            "value": "",
+            "placeholder": "请输入公交路线",
+            "label": "开放时间",
+            "width": "100%",
+            "show": true
         }],
         "data": {
             "scenicSpotName": "",
-            "ticketPrice": ""
+            "ticketPrice": "",
+            "openTime": "",
+            "busRoute": ""
+        }
+    },
+    "culturalEducation": {
+        "item": [{
+            "type": "text",
+            "name": "title",
+            "value": "",
+            "placeholder": "请输入名称",
+            "label": "名称",
+            "width": "100%",
+            "show": true
+        }, {
+            "type": "text",
+            "name": "content",
+            "value": "",
+            "placeholder": "请输入内容",
+            "label": "内容",
+            "width": "100%",
+            "show": true
+        }, {
+            "type": "text",
+            "name": "author",
+            "value": "",
+            "placeholder": "请输入作者",
+            "label": "作者",
+            "width": "100%",
+            "show": true
+        }],
+        "data": {
+            "title": "",
+            "content": "",
+            "author": ""
         }
     },
     "huaHall": {

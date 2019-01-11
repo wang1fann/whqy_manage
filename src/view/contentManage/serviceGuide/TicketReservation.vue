@@ -27,17 +27,17 @@ export default {
       ticketForm: {
         title: "",
         imgPath: "",
-        menuId: this.$route.query.menuId,
+        menuId: this.$route.query.menuId+"",
         description: "",
         content: ""
       }
     };
   },
   created() {
-    // this.getData();
+    this.getData();
   },
   mounted() {
-    this.getData();
+    // this.getData();
   },
   methods: {
     submitcontent(content) {
@@ -55,13 +55,10 @@ export default {
     getImgPath(val) {
       this.ticketForm.imgPath = val.replace(/\\/g, "/");
     },
-    //查询 http://192.168.0.110:9014/syx/fuwuzhinan/search/1/10
     getData() {
-      // API.findfuwuzhinan({ menuId: JSON.stringify(this.ticketForm.menuId) }).then(res => {
       API.findfuwuzhinan({ menuId: this.ticketForm.menuId }).then(res => {
         if (!!res && res.code === 20000) {
           this.ticketForm = res.data.rows[0];
-          // this.ticketForm = !!res && res.code === 20000 ? res.data.rows[0] : this.ticketForm;
         }
         this.$message({
           type: !!res && res.code === 20000 ? "success" : "warning",

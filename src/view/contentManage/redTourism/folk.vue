@@ -3,60 +3,45 @@
     <common-img
       :imgList="imgList"
       :searchParams="searchParams"
+      :showAuthor="false"
       @pageNum="pageNum"
-      @imgPath="addImgPath"
-      @delete="deleteInfo"
-      :deleteAPI="deleteAPI"
+      @deleteItem="confirmDeleteItem"
+      @formfile="uploadFormFile"
+      @formInfo="submitFormInfo"
     ></common-img>
+    <MyConfirm
+      ref="myconfirm"
+      :type="confirmType"
+      :title="confirmTitle"
+      :content="confirmContent"
+    ></MyConfirm>
   </div>
 </template>
 <script>
 import commonImg from "@/view/contentManage/commonImgui";
-import APICommon from "@/api/api_abstract.js";
+import API from "@/api/api_abstract.js";
 export default {
   name: "folk",
   components: { "common-img": commonImg },
   data() {
     return {
+      id: "",
+      confirmType: "warning",
+      confirmTitle: "提示信息",
+      confirmContent: "此操作将永久删除, 是否继续?",
+      formFile: {}, //上传图片
+      imgPath: "",
       searchParams: {
         page: 1,
         size: 10,
-        menuId: this.$route.query.menuId
+        menuId: this.$route.query.menuId+""
       },
-      deleteAPI: "delAbstarct",
-      abstractComment: {
-        //文章评论
-        userId: "dsa",
-        name: "das",
-        phone: "111",
-        email: null,
-        content: "dasdsa",
-        imgPath: null,
-        address: "dsadsad",
-        createTime: null,
-        updateTime: null,
-        status: "1",
-        description: "dasdasdsad",
-        hongSeId: "1077409063303778304",
-        isGood: true, //是否好评
-        score: 9
-      },
-      abstractInfo: {
-        //添加风土民俗信息
-        scenicSpotName: "风土民俗", //景区名称
-        openTime: "2018-01-01", //开放时间
-        ticketPrice: "10", //门票价格
-        phone: "029-292838444", //订票电话
-        content: "dasdsadasd", //内容
-        imgPath: "adssad", //图片路径
-        busRoute: "sadsadsad", //公交路线
-        trainTime: "asdsad", //列车时刻表
-        sortNum: "sdsadsa", //排序号码
-        status: "1", //状态
-        menuId: "33", //所属菜单id
-        description: "dasdsadsdas", //描述
-        sugestLine: "5路", //推荐线路
-        adress: "dsadsadsa" //地址
+      addFormInfo: {
+        scenicSpotName: "",
+        author: "",
+        content: "",
+        imgPath: "",
+        menuId: this.$route.query.menuId+""
       },
       imgList: [
         {
@@ -67,44 +52,98 @@ export default {
     };
   },
   methods: {
-    addImgPath(val) {
-      window.sessionStorage.setItem("responseType", "json");
-      this.abstractInfo.imgPath = val.replace(/\\/g, "/");
-      this.abstractInfo.menuId = 23;
-      APICommon.addAbstarct(this.abstractInfo).then(res => {
+    uploadFile() {
+      window.sessionStorage.setItem("responseType", "form");
+      API.uploadImg(this.formFile).then(res => {
         this.$message({
           message: res.message,
           type: !!res && res.code === 20000 ? "success" : "error"
         });
+        if (!!res && res.code === 20000) {
+          this.addFormInfo.imgPath = res.data[0].replace(/\\/g, "/");
+        }
+        window.sessionStorage.setItem("responseType", "json");
       });
     },
-    findAbstract() {
-        window.sessionStorage.setItem("responseType", "json");
-      APICommon.findhongselvyou(this.searchParams).then(res => {
+    uploadFormFile(val) {
+      this.formFile = val;
+    },
+    submitFormInfo(val) {
+      this.addFormInfo = val;
+      this.uploadFile();
+      window.sessionStorage.setItem("responseType", "json");
+      this.addFormInfo.imgPath = this.imgPath.replace(/\\/g, "/");
+      this.addFormInfo.menuId = this.$route.query.menuId+"";
+      console.log(this.addFormInfo);
+      var that = this;
+      setTimeout(function() {
+        API.addFormInfo(that.addFormInfo).then(res => {
+          if (!!res && res.code === 20000) {
+            this.findList();
+          }
+          that.$message({
+            message: res.message,
+            type: !!res && res.code === 20000 ? "success" : "error"
+          });
+        });
+      }, 50);
+    },
+    findList() {
+      window.sessionStorage.setItem("responseType", "json");
+      API.findhongselvyou(this.searchParams).then(res => {
         if (!!res && res.code === 20000) {
           this.imgList = res.data;
         }
         this.$message({
           message:
-            !!res && res.data.total === 0 ? "查询成功，暂无相关数据。" : res.message,
+            !!res && res.data.total === 0
+              ? "查询成功，暂无相关数据。"
+              : res.message,
           type: !!res && res.code === 20000 ? "success" : "error"
         });
       });
     },
-    deleteInfo(res) {
-      if (!!res && res.code === 20000) {
-        this.findAbstract();
-      } else {
-        return;
-      }
+    // 取消删除
+    cancle() {
+      this.id = null;
+    },
+    deleteImg() {
+      var _this = this; 
+      // console.log(_this.id);
+      window.sessionStorage.setItem("responseType", "json");
+      API.delAbstarct({ id: _this.id })
+        .then(res => {
+          if (!!res && res.code === 20000) {
+            this.findList();
+            this.id = null;
+          }
+          this.$message({
+            message: res.message,
+            type: res.code === 20000 ? "success" : "error"
+          });
+        })
+        .catch(err => {
+          this.$message({
+            message: err,
+            type: "error"
+          });
+        });
+    },
+    confirmDeleteItem(item) {
+      console.log(item);
+      var _this = this;
+      _this.id = item.id;
+      setTimeout(() => {
+        this.$refs.myconfirm.confirm(_this.deleteImg, _this.cancle);
+      }, 100);
     },
     pageNum(val) {
       this.searchParams.page = val;
-      this.findAbstract();
+      this.findList();
     }
   },
   created() {
-    this.findAbstract();
+    this.findList();
   },
   mounted() {}
 };

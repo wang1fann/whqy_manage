@@ -30,7 +30,7 @@ export default {
         title: "",
         imgPath: "",
         menuId: !!this.$route.query.menuId
-          ? this.$route.query.menuId
+          ? this.$route.query.menuId+""
           : this.$route.name,
         description: "",
         content: "",

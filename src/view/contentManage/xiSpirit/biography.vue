@@ -28,7 +28,7 @@ export default {
       ticketForm: {
         title: "习老精神-生平简介",
         imgPath: "",
-        menuId: this.$route.query.menuId,
+        menuId: this.$route.query.menuId+"",
         description: "",
         content: "",
         personName: "习仲勋",

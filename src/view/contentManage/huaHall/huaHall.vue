@@ -116,7 +116,7 @@ export default {
       searchFormData: {},
       searchFormItem: [],
       menuId: !!this.$route.query.menuId
-        ? this.$route.query.menuId
+        ? this.$route.query.menuId+""
         : this.$route.name
     };
   },
@@ -155,7 +155,7 @@ export default {
     // 更新数据
     update(row) {
       row.menuId = !!this.$route.query.menuId
-        ? this.$route.query.menuId
+        ? this.$route.query.menuId+""
         : this.$route.name;
       this.gotoUrl("/contentManage/huaHallAppend", row);
     },
@@ -166,7 +166,7 @@ export default {
         page: _this.currentPage,
         size: _this.pageSize,
         menuId: !!this.$route.query.menuId
-          ? this.$route.query.menuId
+          ? this.$route.query.menuId+""
           : this.$route.name
       };
       // 添加查询字段

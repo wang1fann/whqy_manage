@@ -1,121 +1,285 @@
 <template>
-  <div class="content-manageOld">
-    <div class="sitUp">
-      <div class="l left">
-        <img src="@/assets/img/content/Thepicturet.png"/>
-        <p>暂无图片</p>
-      </div>
-      <div class="l right">
-        <span>点击左图上传图片*</span><br/>
-        <span class="spec">要求：</span><br/>
-        <span>1.图片比例4:5</span><br/>
-        <span>2.图片大小 1MB以下</span><br/>
-        <span>3.图片格式 .jpg、.png、.gif等 </span><br/>
-      </div>
-    </div>
-    <div class="decenter">
-      <label class="l">姓名:</label>
-      <div class="l"></div>
-    </div>
-    <div class="sitDown">
-      <label class="l">文物详解:</label>
-      <div class="l">
-        <textarea cols="112" rows="22">请输入简介内容...</textarea>
-      </div>
-
-    </div>
-    <button>提交</button>
+  <div class="list content-top-line">
+    <!-- 按钮操作 -->
+    <el-row
+      class="btn-group"
+      :gutter="24"
+    >
+      <el-col
+        :span="8"
+        class="pull-left alignleft"
+      >
+        <el-button
+          type="primary"
+          size="mini"
+          icon="el-icon-circle-plus"
+          @click="gotoUrl('/contentManage/culturalEducation/culturalEducationAdd',{menuId: $route.query.menuId})"
+        >添加<i>{{buttonName}}</i></el-button>
+        <el-button
+          type="primary"
+          size="mini"
+          icon="el-icon-delete"
+          @click="deleteBatch"
+        >删除{{buttonName}}</el-button>
+      </el-col>
+      <el-col
+        :span="16"
+        class="pull-right alignright"
+      >
+        <MySearch
+          class="search"
+          :formData="searchFormData"
+          :formItem="searchFormItem"
+          @submit="searchSubmit"
+        ></MySearch>
+      </el-col>
+    </el-row>
+    <!-- 表格数据 -->
+    <MyTable
+      size="mini"
+      :stripe="false"
+      :border="false"
+      :multiple="true"
+      :operation="operation"
+      :column="column"
+      :data="data"
+      :currentPage="currentPage"
+      :pageSize="pageSize"
+      :total="total"
+      @handleCurrentChange="handleCurrentChange"
+      @delete="deleteConfirm"
+      @update="update"
+      @select="handleSelectionChange"
+    ></MyTable>
+    <!-- myconfirm -->
+    <MyConfirm
+      ref="myconfirm"
+      :type="confirmType"
+      :title="confirmTitle"
+      :content="confirmContent"
+    ></MyConfirm>
   </div>
 </template>
 
 <script>
-    export default {
-        name: "culturalOldAppend"
+import API from "@/api/api_lishiwenhuajiaoyu.js";
+import { getField, getFormField, getSearchField } from "@/assets/json/index.js";
+import { getPageSize, px2rem, rem2px } from "@/plugins/util.js";
+import { setTimeout } from "timers";
+export default {
+  name: "convenienceSearchList",
+  data() {
+    // 表格操作配置
+    var operation = {
+      nowPage: "convenienceSearchList",
+      show: true,
+      fixed: false,
+      size: "mini",
+      width: 80 + rem2px(px2rem(160)),
+      minWidth: 100,
+      label: "操作",
+      btns: [
+        {
+          type: "text",
+          size: "mini",
+          content: "编辑",
+          icon: "el-icon-edit-outline",
+          handle: "update",
+          class: "button-operator"
+        },
+        {
+          type: "text",
+          size: "mini",
+          content: "删除",
+          icon: "el-icon-delete",
+          handle: "delete",
+          class: "button-operator"
+        }
+      ]
+    };
+    return {
+      buttonName:this.$route.query.name,
+      confirmType: "warning",
+      confirmTitle: "提示信息",
+      confirmContent: "此操作将永久删除该文件, 是否继续?",
+      dialogTitle: "添加文化遗产",
+      multipleSelection: [],
+      ids: null,
+      operation: operation, // 操作按钮
+      column: [],
+      data: [],
+      formItem: [],
+      formData: {},
+      pageSize: getPageSize(),
+      currentPage: 1,
+      total: 0,
+      type: "addhongselvyou",
+      searchFormData: {},
+      searchFormItem: [],
+      menu: !!this.$route.query.menuId
+        ? this.$route.query.menuId+""
+        : this.$route.name
+    };
+  },
+  created() {
+    this.fieldInit();
+    this.searchFormInit();
+  },
+  mounted() {
+    this.getData();
+  },
+  activated() {
+    this.getData();
+  },
+  methods: {
+    gotoUrl(path, query) {
+      this.$router.push({
+        path: !!path ? path : "",
+        query: !!query ? query : ""
+      });
+    },
+    fieldInit() {
+      // 获取字段
+      var column = getField("culturalEducation");
+      column.forEach(item => {
+        if (!!item.width && item.width != "auto") {
+          item.width = rem2px(px2rem(item.width));
+        }
+      });
+      this.column = column;
+    },
+    // 搜索表单数据初始化
+    searchFormInit() {
+      this.searchFormItem = getSearchField("culturalEducation", "item");
+      this.searchFormData = getSearchField("culturalEducation", "data");
+    },
+    // 更新数据
+    update(row) {
+       row.menuId= this.$route.query.menuId+"";
+      this.gotoUrl(
+        "/contentManage/culturalEducation/culturalEducationAdd",
+        row
+      );
+    },
+    // 弹框关闭时的回调函数
+    handleClose(done) {
+      for (const key in this.formData) {
+        if (this.formData.hasOwnProperty(key)) {
+          this.formData[key] = "";
+        }
+      }
+      done();
+    },
+    // 获取数据
+    getData() {
+      var _this = this;
+      var config = {
+        page: _this.currentPage,
+        size: _this.pageSize,
+        menuId: !!this.$route.query.menuId
+          ? this.$route.query.menuId+""
+          : this.$route.name
+      };
+      window.sessionStorage.setItem("responseType", "json");
+      // 添加查询字段
+      config = $.extend(config, this.searchFormData);
+      // 接口调用
+      API.findList(config)
+        .then(res => {
+          console.log(res);
+          if (!!res && res.code === 20000 && res.data.total !== 0) {
+            this.data = res.data.rows;
+            this.total = res.data.total;
+          }
+          this.$message({
+            message:
+              !!res && res.data.total === 0
+                ? "查询成功，暂无相关数据"
+                : res.message,
+            type: !!res && res.code === 20000 ? "success" : "warning"
+          });
+        })
+        .catch(err => {
+          console.log(err);
+          this.total = 10;
+          this.data = [
+            {
+              scenicSpotName: "wangyifan",
+              ticketPrice: 5556788992,
+              id: 99,
+              busRoute: "5"
+            }
+          ];
+        });
+    },
+    // 删除
+    delete() {
+      var _this = this;
+      console.log(_this.ids);
+      API.delAPI({ id: _this.ids })
+        .then(res => {
+          this.ids = null;
+          this.$message({
+            message: res.message,
+            type: res.code === 20000 ? "success" : "error"
+          });
+          if(!!res && res.code ===2000){
+              this.getData();
+          }
+        })
+        .catch(err => {
+          this.$message({
+            message: err,
+            type: "error"
+          });
+        });
+    },
+    // 批量删除
+    deleteBatch() {
+      var id = [];
+      this.multipleSelection.forEach(item => {
+        id.push(item.id);
+      });
+      this.ids = id.join();
+      if (id.length > 0) {
+        this.deleteConfirm({ id: this.ids });
+      } else {
+        this.$message({
+          message: "请至少选择一个选项",
+          type: "warning"
+        });
+      }
+    },
+    // 删除确认
+    // 删除确认
+    deleteConfirm(row) {
+      var _this = this;
+      _this.ids = row.id;
+      setTimeout(() => {
+        this.$refs.myconfirm.confirm(_this.delete, _this.cancle);
+      }, 100);
+    },
+    // 取消删除
+    cancle() {
+      this.ids = null;
+    },
+    // 获取选中行
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
+    // 分页切换
+    handleCurrentChange(index) {
+      this.currentPage = index;
+      this.getData();
+    },
+    // 搜索
+    searchSubmit() {
+      this.getData();
     }
+  }
+};
 </script>
 
-<style scoped>
-  .content-manageOld .l{
-    float: left;
-  }
-  .content-manageOld .r{float: right}
-  .content-manageOld{
-    margin: 0 auto;
-    margin-top: 20px;
-    width: 80%;
-    overflow: hidden;
-  }
-  .content-manageOld .sitUp{
-    overflow: hidden;
-    margin-left: 86px;
-  }
-  .content-manageOld .sitUp .left{
-    width: 164px;
-    height: 164px;
-    background: #f0f4f7;
-    border-radius: 50%;
-  }
-  .content-manageOld .sitUp .left img{
-    margin: 0 auto;
-    margin-top: 50px;
-  }
-  *{margin: 0 ;padding: 0}
-  .content-manageOld .sitUp .left p{
-    font-size: 13px;
-    margin-top: 4px;
-    color:#d8dde1 ;
-  }
-  .content-manageOld .sitUp .right {
-    text-align: left;
-    margin-left: 30px;
-    margin-top: 40px;
-    font-size: 12px;
-  }
-  .content-manageOld .sitUp .right  span{
-    display: block;
-    line-height: .5;
-    color: #65707b;
-  }
-  .content-manageOld .sitUp .right  span.spec{
-    font-weight: bold;
-  }
-  .content-manageOld .sitDown{
-    overflow: hidden;
-    margin-top: 35px;
-  }
-  .content-manageOld .sitDown label{
-    margin-right: 24px;
-    color: #7f8891;
-  }
-  .content-manageOld  .sitDown textarea{
-    color: #ccc;
-    padding-left: 10px;
-    padding-top: 10px;
-  }
-  .content-manageOld  button{
-    padding: 12px 40px;
-    background: #e24142;
-    text-align: center;
-    color: #fff;
-    margin-top: 40px;
-    border-radius: 4px;
-    outline: 0;
-    border: 0;
-  }
-  .content-manageOld .decenter{
-    overflow: hidden;
-    margin-top:20px;
-  }
-  .content-manageOld .decenter label{
-    margin-right: 24px;
-    color: #7f8891;
-    margin-top: 12px;
-    margin-left: 26px;
-  }
-  .content-manageOld .decenter div.l{
-    color: #ccc;
-    width: 89%;
-    height: 40px;
-    border: 1px solid #ccc;
-  }
+<style lang="scss" scoped>
+@import "@/assets/base/variables.scss";
 </style>

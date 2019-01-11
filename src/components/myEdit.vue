@@ -23,6 +23,10 @@ export default {
           initialFrameHeight: 350
         };
       }
+    },
+    defaultMsg: {
+      type: String,
+      default: "请输入内容"
     }
   },
   data() {
@@ -35,6 +39,10 @@ export default {
     const _this = this;
     this.editor = UE.delEditor("editor");
     this.editor = UE.getEditor("editor", this.config);
+    this.editor.addListener("ready", function() {
+      _this.editor.setContent(_this.defaultMsg); // 确保UE加载完成后，放入内容。
+    });
+    // console.log(this.defaultMsg);
   },
   destoryed() {
     this.editor.destory();
@@ -46,8 +54,13 @@ export default {
     getContentTxt: function() {
       return this.editor.getContentTxt();
     },
-     hasContents: function() {
+    hasContents: function() {
       return this.editor.hasContents();
+    },
+    setContent: function(isAppendTo) {
+      console.log(isAppendTo);
+      this.editor.setContent("<div>" + isAppendTo + "</div>");
+      // return this.editor.setContent(isAppendTo);
     }
   }
 };

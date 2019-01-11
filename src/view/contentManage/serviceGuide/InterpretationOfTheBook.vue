@@ -27,29 +27,44 @@ export default {
       ticketForm: {
         title: "",
         imgPath: "",
-        menuId: this.$route.query,
+        menuId: this.$route.query.menuId+"",
         description: "",
         content: ""
       }
     };
   },
-  created() {},
+  created() {
+    this.getData();
+  },
+  mounted() {
+    // this.getData();
+  },
   methods: {
     submitcontent(content) {
-      console.log(content);
       this.ticketForm.content = content;
       console.log(this.ticketForm);
       window.sessionStorage.setItem("responseType", "json");
       API.addServerInfo(this.ticketForm).then(res => {
         console.log(res);
         this.$message({
-          type:"success",
-          message:res.message
+          type: !!res && res.code === 20000 ? "success" : "warning",
+          message: res.message
         });
       });
     },
     getImgPath(val) {
       this.ticketForm.imgPath = val.replace(/\\/g, "/");
+    },
+    getData() {
+      API.findfuwuzhinan({ menuId: this.ticketForm.menuId }).then(res => {
+        if (!!res && res.code === 20000) {
+          this.ticketForm = res.data.rows[0];
+        }
+        this.$message({
+          type: !!res && res.code === 20000 ? "success" : "warning",
+          message: res.message
+        });
+      });
     }
   }
 };

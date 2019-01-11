@@ -1,6 +1,5 @@
 <template>
   <div class="margintop20">
-
     <el-form
       style="width:80%;margin:0 auto;"
       :model="ruleForm"
@@ -92,23 +91,6 @@ export default {
         scenicSpotName: [
           { required: true, message: "请输入景区名称", trigger: "blur" },
           { min: 1, max: 55, message: "长度在 1 到 55 个字符", trigger: "blur" }
-        ],
-
-        date1: [
-          {
-            type: "date",
-            required: true,
-            message: "请选择时间",
-            trigger: "change"
-          }
-        ],
-        date2: [
-          {
-            type: "date",
-            required: true,
-            message: "请选择时间",
-            trigger: "change"
-          }
         ],
         ticketPrice: [
           { required: true, message: "请输入门票价格", trigger: "blur" }

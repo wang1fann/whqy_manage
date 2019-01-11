@@ -382,22 +382,24 @@ let contentRouter = [{
             },
             class: 'fa-line-chart',
             img: require('@/assets/img/access/user.png'),
-            children: [{
-                path: 'redEducationDetail',
-                name: '详情',
-                component: resolve => {
-                    require(['view/contentManage/redEducation/redEducationDetail'], resolve)
-                },
-                class: 'fa-line-chart',
-                img: require('@/assets/img/access/user.png'),
-                children: []
-            }]
+            children: []
+        }, {
+            id: "",
+            path: 'redEducationAdd',
+            name: '红色教育-添加',
+            component: resolve => {
+                require(['view/contentManage/redEducation/redEducationAdd'], resolve)
+            },
+            class: 'fa-line-chart',
+            img: require('@/assets/img/access/user.png'),
+            children: [],
+            show: false
         }, {
             id: 10007002,
             path: 'TradeAlerts',
             name: '行业快讯',
             component: resolve => {
-                require(['view/contentManage/redEducation/redSpeak'], resolve)
+                require(['view/contentManage/redEducation/TradeAlerts'], resolve)
             },
             class: 'fa-line-chart',
             img: require('@/assets/img/access/user.png'),
@@ -407,7 +409,7 @@ let contentRouter = [{
             path: 'LeadingCare',
             name: '领导关怀',
             component: resolve => {
-                require(['view/contentManage/redEducation/redSpeak'], resolve)
+                require(['view/contentManage/redEducation/LeadingCare'], resolve)
             },
             class: 'fa-line-chart',
             img: require('@/assets/img/access/user.png'),
@@ -425,46 +427,60 @@ let contentRouter = [{
         img: require('@/assets/img/access/user.png'),
         redirect: { path: '/contentManage/partyEducation/WHspirit', query: { menuId: 10008001 } },
         children: [{
-            id: 10008001,
-            path: 'WHspirit',
-            name: '渭华起义精神',
-            component: resolve => {
-                require(['view/contentManage/partyEducation/WHspirit'], resolve)
+                id: 10008001,
+                path: 'WHspirit',
+                name: '渭华起义精神',
+                component: resolve => {
+                    require(['view/contentManage/partyEducation/WHspirit'], resolve)
+                },
+                class: 'fa-line-chart',
+                img: require('@/assets/img/access/user.png'),
+                children: []
             },
-            class: 'fa-line-chart',
-            img: require('@/assets/img/access/user.png'),
-            children: []
-        }, {
-            id: 10008002,
-            path: '19thSpirit',
-            name: '十九大精神',
-            component: resolve => {
-                require(['view/contentManage/partyEducation/WHspirit'], resolve)
+            {
+                id: "",
+                path: 'partyEducationAdd',
+                name: '添加',
+                component: resolve => {
+                    require(['view/contentManage/partyEducation/partyEducationAdd'], resolve)
+                },
+                class: 'fa-line-chart',
+                img: require('@/assets/img/access/user.png'),
+                children: [],
+                show: false
             },
-            class: 'fa-line-chart',
-            img: require('@/assets/img/access/user.png'),
-            children: []
-        }, {
-            id: 10008003,
-            path: 'ThePartyConstitution',
-            name: '党章党规',
-            component: resolve => {
-                require(['view/contentManage/xiSpirit/xiSpirtArtical'], resolve)
-            },
-            class: 'fa-line-chart',
-            img: require('@/assets/img/access/user.png'),
-            children: []
-        }, {
-            id: 10008004,
-            path: 'classic',
-            name: '经典著作',
-            component: resolve => {
-                require(['view/contentManage/xiSpirit/xiSpirtArtical'], resolve)
-            },
-            class: 'fa-line-chart',
-            img: require('@/assets/img/access/user.png'),
-            children: []
-        }]
+            {
+                id: 10008002,
+                path: '19thSpirit',
+                name: '十九大精神',
+                component: resolve => {
+                    require(['view/contentManage/partyEducation/19thSpirit'], resolve)
+                },
+                class: 'fa-line-chart',
+                img: require('@/assets/img/access/user.png'),
+                children: []
+            }, {
+                id: 10008003,
+                path: 'ThePartyConstitution',
+                name: '党章党规',
+                component: resolve => {
+                    require(['view/contentManage/partyEducation/ThePartyConstitution'], resolve)
+                },
+                class: 'fa-line-chart',
+                img: require('@/assets/img/access/user.png'),
+                children: []
+            }, {
+                id: 10008004,
+                path: 'classic',
+                name: '经典著作',
+                component: resolve => {
+                    require(['view/contentManage/partyEducation/classic'], resolve)
+                },
+                class: 'fa-line-chart',
+                img: require('@/assets/img/access/user.png'),
+                children: []
+            }
+        ]
     },
     {
         id: 10009,
@@ -502,7 +518,7 @@ let contentRouter = [{
             path: 'culturalOldAppend',
             name: '文化古迹',
             component: resolve => {
-                require(['view/contentManage/collectionAppreciation/appreciationStrory'], resolve)
+                require(['view/contentManage/culturalEducation/culturalOldAppend'], resolve)
             },
             class: 'fa-line-chart',
             img: require('@/assets/img/access/user.png'),
@@ -512,21 +528,11 @@ let contentRouter = [{
             path: 'celebrity',
             name: '古今名人',
             component: resolve => {
-                require(['view/contentManage/huaIntroduction/huaWord'], resolve)
+                require(['view/contentManage/culturalEducation/celebrity'], resolve)
             },
             class: 'fa-line-chart',
             img: require('@/assets/img/access/user.png'),
-            children: [{
-                path: 'culturalOldAppend',
-                name: '添加',
-                component: resolve => {
-                    require(['view/contentManage/culturalEducation/culturalOldAppend'], resolve)
-                },
-                class: 'fa-line-chart',
-                img: require('@/assets/img/access/user.png'),
-                children: [],
-                show: false
-            }]
+            children: []
         }]
     },
     {
@@ -553,8 +559,7 @@ let contentRouter = [{
         children: []
     },
     {
-        // 添加
-        id: 1001101,
+        id: "",
         path: 'huaHallAppend',
         name: '渭华讲堂添加',
         component: resolve => {
@@ -566,6 +571,7 @@ let contentRouter = [{
         show: false
     },
     {
+        id: 10012,
         path: 'knowledgeAnswer',
         name: '知识问答',
         component: resolve => {
@@ -574,7 +580,7 @@ let contentRouter = [{
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
         children: [{
-            id: 10012,
+            id: "",
             path: 'knowledgeAnswerAppend',
             name: '知识问答添加',
             component: resolve => {
@@ -601,7 +607,9 @@ let contentRouter = [{
             path: 'classicRoute',
             name: '经典路线',
             component: resolve => {
-                require(['view/contentManage/redTourism/redTourism'], resolve)
+                // classicRoute
+                require(['view/contentManage/redTourism/classicRoute'], resolve)
+                    // require(['view/contentManage/redTourism/redTourism'], resolve)
             },
             class: 'fa-line-chart',
             children: []

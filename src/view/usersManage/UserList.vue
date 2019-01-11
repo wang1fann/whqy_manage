@@ -190,7 +190,6 @@ export default {
     },
     formInit(row) {
       this.formItem = getFormField("user", "item");
-      console.log(row);
       this.formData = !!row ? row : getFormField("user", "data");
     },
     searchFormInit() {

@@ -31,8 +31,8 @@
           style="margin-top: 22px;"
         >
           <span>点击左图上传封面图片</span><br />
-          <span class="spec">*要求：</span><br />
-          <span>1.图片比例3:1</span><br />
+          <span class="spec">要求：</span><br />
+          <span>1.建议图片比例 3:1</span><br />
           <span>2.图片大小 1MB以下</span><br />
           <span>3.图片格式 .jpg、.png、.gif等 </span><br />
         </div>
@@ -77,8 +77,8 @@
           style="margin-top: 22px;"
         >
           <span>点击左图上传视频</span><br />
-          <span class="spec">*要求：</span><br />
-          <span>1.视频比例3:1</span><br />
+          <span class="spec">要求：</span><br />
+          <span>1.视频比例 3:1</span><br />
           <span>2.视频大小 3MB以下</span><br />
           <span>3.视频格式 MP4等 </span><br />
         </div>
@@ -194,8 +194,7 @@
       </el-col>
       <el-col :span="22">
         <UE
-          :defaultMsg=defaultMsg
-          :config=config
+          :defaultMsg="Form.content"
           ref="ue"
         ></UE>
       </el-col>
@@ -232,7 +231,7 @@ export default {
           description: "",
           imgPath: "",
           menuId: !!this.$route.query.menuId
-            ? this.$route.query.menuId
+            ? this.$route.query.menuId + ""
             : this.$route.name,
           personName: "",
           linkUrl: "",
@@ -240,10 +239,6 @@ export default {
           uploadPath: ""
         };
       }
-    },
-    defaultMsg: {
-      type: String,
-      default: "请输入文章内容"
     },
     showMp4: {
       type: Boolean,
@@ -261,22 +256,21 @@ export default {
       type: Boolean,
       default: false
     },
-    config: {
-      type: Object,
-      default: function() {
-        return {
-          UEDITOR_HOME_URL: "static/ueditor/",
-          initialFrameWidth: null,
-          initialFrameHeight: 350
-        };
-      }
-    }
+    // config: {
+    //   type: Object,
+    //   default: function() {
+    //     return {
+    //       UEDITOR_HOME_URL: "static/ueditor/",
+    //       initialFrameWidth: null,
+    //       initialFrameHeight: 350
+    //     };
+    //   }
+    // }
   },
   data() {
     return {
       imgPath: "",
       uploadPath: "",
-      // mp4Data
       mp4Data: {
         file: {
           type: File,
@@ -285,7 +279,7 @@ export default {
           }
         },
         menu: !!this.$route.query.menuId
-          ? this.$route.query.menuId
+          ? this.$route.query.menuId + ""
           : this.$route.name
       },
       imgData: {
@@ -296,12 +290,14 @@ export default {
           }
         },
         menu: !!this.$route.query.menuId
-          ? this.$route.query.menuId
+          ? this.$route.query.menuId + ""
           : this.$route.name
       }
     };
   },
-  created() {},
+  created() {
+
+  },
   methods: {
     getUEContent() {
       console.log(this.hasContent());

@@ -153,8 +153,47 @@
             "show": false
         },
         {
+            "prop": "description",
+            "label": "描述",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }, {
+            "prop": "author",
+            "label": "作者",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "updateTime",
+            "label": "上传时间",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }
+    ],
+    "classicRouterList": [{
+            "prop": "scenicSpotName",
+            "label": "标题",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": false
+        },
+        {
             "prop": "ticketPrice",
             "label": "门票价格",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }, {
+            "prop": "openTime",
+            "label": "开放时间",
             "width": "auto",
             "fixed": false,
             "sortable": false,
@@ -166,7 +205,8 @@
             "fixed": false,
             "sortable": false,
             "show": true
-        }, {
+        },
+        {
             "prop": "busRoute",
             "label": "公交路线",
             "width": "auto",
@@ -175,8 +215,8 @@
             "show": true
         },
         {
-            "prop": "updateTime",
-            "label": "上传时间",
+            "prop": "adress",
+            "label": "地址",
             "width": "auto",
             "fixed": false,
             "sortable": false,

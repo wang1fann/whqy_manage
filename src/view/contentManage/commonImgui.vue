@@ -1,19 +1,16 @@
 <template>
   <div class="content-manageappre">
     <div class="clearfix">
-      <div class="img-box left">
-        <input
-          class="upload-img"
-          type="file"
-          @change="changeImage($event)"
-          id="upload-img-input"
-        >
+      <div
+        class="img-box left"
+        @click="showDialog"
+      >
         <div class="uplaod-bgimg">
           <img
             class="uplaod-bgimg"
             src="@/assets/img/content/photou.png"
           />
-          <p>点上传击图片</p>
+          <p>点击上传图片</p>
         </div>
       </div>
       <div
@@ -34,79 +31,118 @@
       >
       </el-pagination>
     </div>
-    <MyConfirm
-      ref="myconfirm"
-      :type="confirmType"
-      :title="confirmTitle"
-      :content="confirmContent"
-    ></MyConfirm>
+    <el-dialog
+      :title="dialogTitle"
+      :visible.sync="dialogVisible"
+      top="10vh"
+      width="525px"
+      :before-close="handleClose"
+    >
+      <div
+        class="clearfix"
+        style="margin-bottom:10px"
+      >
+        <div
+          class="img-box showleft"
+          @click="showDialog"
+        >
+          <input
+            class="upload-img"
+            type="file"
+            @change="changeImage($event)"
+            id="upload-img-input"
+          >
+          <div class="uplaod-bgimg">
+            <img
+              class="uplaod-bgimg"
+              src="@/assets/img/content/photou.png"
+            />
+            <p>点击上传图片</p>
+          </div>
+        </div>
+      </div>
+      <el-form
+        ref="otherFormInfo"
+        :model="otherFormInfo"
+        label-width="40px"
+        class="margintop10"
+      >
+        <!-- 名称 -->
+        <el-form-item label="标题">
+          <el-input v-model="otherFormInfo.scenicSpotName"></el-input>
+        </el-form-item>
+        <!-- author -->
+        <el-form-item label="作者" v-show="showAuthor">
+          <el-input v-model="otherFormInfo.author"></el-input>
+        </el-form-item>
+        <!-- content -->
+        <el-form-item label="内容">
+          <el-input
+            type="textarea"
+            :rows="4"
+            v-model="otherFormInfo.content"
+          ></el-input>
+        </el-form-item>
+        <el-button
+          type="danger"
+          @click="submit()"
+        >提交</el-button>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import API from "@/api/api_user.js";
-import APICommon from "@/api/api_abstract.js";
-
 export default {
   name: "commonImgui",
   data() {
     return {
+      dialogTitle: "上传",
+      dialogVisible: false,
       id: "",
-      confirmType: "warning",
-      confirmTitle: "提示信息",
-      confirmContent: "此操作将永久删除该文件, 是否继续?",
-      total: 50
+      total: 50,
+      otherFormInfo: {
+        scenicSpotName: "",
+        author: "",
+        content: "",
+        imgPath:""
+      }
     };
   },
-  props: ["imgList", "searchParams","deleteAPI"],
+  props: ["imgList", "searchParams","showAuthor"],
   methods: {
+    submit() {
+      console.log(this.otherFormInfo);
+      this.$emit("formInfo", this.otherFormInfo);
+    },
     changeImage(ev) {
       let uploadImginput = document.getElementById("upload-img-input");
-      let form = new FormData(uploadImginput); //拿到表单创建FormData对象；
+      let formfile = new FormData(uploadImginput); //拿到表单创建FormData对象；
       let files = ev.target.files; //拿到选择的文件
       console.log(files);
-      form.append("menu", "风土民俗");
-      form.append("file", files[0]);
-      window.sessionStorage.setItem("responseType", "form");
-      API.uploadUserImg(form).then(res => {
-        this.$message({
-          message: res.message,
-          type: !!res && res.code === 20000 ? "success" : "error"
-        });
-        if (!!res && res.code === 20000) {
-          this.$emit("imgPath", res.data[0]);
-        }
-      });
+      formfile.append("menu", this.$route.query.menuId+""||this.$route.query.name);
+      formfile.append("file", files[0]);
+      this.$emit("formfile", formfile);
     },
-    deleteImg() {
-      var _this = this;//deleteAPI
-      // APICommon[deleteAPI]({ id: _this.id })
-      APICommon.delAbstarct({ id: _this.id })
-        .then(res => {
-          this.id = null;
-          this.$message({
-            message: res.message,
-            type: res.code === 20000 ? "success" : "error"
-          });
-          this.$emit("delete", res);
-        })
-        .catch(err => {
-          this.$message({
-            message: err,
-            type: "error"
-          });
-        });
-    },
+
     deleteConfirm(item) {
-      var _this = this;
-      console.log(item);
-      _this.id = item.id;
-      setTimeout(() => {
-        this.$refs.myconfirm.confirm(_this.deleteImg, "");
-      }, 100);
+      this.$emit("deleteItem",item);
     },
     handleCurrentChange(val) {
       this.$emit("pageNum", val);
+    },
+    // 添加数据
+    showDialog() {
+      this.dialogVisible = true;
+    },
+    // 弹框关闭时的回调函数
+    handleClose(done) {
+      for (const key in this.otherFormInfo) {
+        if (this.otherFormInfo.hasOwnProperty(key)) {
+          this.otherFormInfo[key] = "";
+        }
+      }
+      done();
     }
   },
   created() {},
@@ -119,12 +155,11 @@ export default {
   float: left;
   position: relative;
 }
-.img-box:nth-child(5n+1){
+.img-box:nth-child(5n + 1) {
   margin-left: 0px !important;
 }
 input.upload-img {
   height: 100%;
-  border: 1px solid red;
   width: 100%;
   opacity: 0;
 }
@@ -135,8 +170,17 @@ input.upload-img {
   top: 195px;
   left: 86px;
 }
+.showleft .uplaod-bgimg {
+  top: 115px;
+  left: 30%;
+}
 .uplaod-bgimg img {
   left: 14px;
+  top: -61px;
+  margin-top: 0px !important;
+}
+.showleft .uplaod-bgimg img {
+  left: 7px;
   top: -61px;
   margin-top: 0px !important;
 }
@@ -150,8 +194,14 @@ input.upload-img {
   height: 330px;
   background: #f0f4f7;
   margin-top: 35px;
-
 }
+.content-manageappre .showleft {
+  width: 40%;
+  left: 30%;
+  height: 215px;
+  background: #f5fafc;
+}
+
 .content-manageappre .left img {
   margin: 0 auto;
   width: 40px;
@@ -166,6 +216,10 @@ input.upload-img {
 .content-manageappre img {
   width: 100%;
   height: 270px;
+}
+.content-manageappre .showleft img {
+  width: 79%;
+  height: 46px;
 }
 .content-manageappre .tuImg {
   position: relative;

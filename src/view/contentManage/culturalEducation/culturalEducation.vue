@@ -13,14 +13,14 @@
           type="primary"
           size="mini"
           icon="el-icon-circle-plus"
-          @click="gotoUrl('/contentManage/culturalEducation/culturalEducationAdd')"
-        >添加文化遗产</el-button>
+          @click="gotoUrl('/contentManage/culturalEducation/culturalEducationAdd',{menuId: $route.query.menuId})"
+        >添加<i>{{buttonName}}</i></el-button>
         <el-button
           type="primary"
           size="mini"
           icon="el-icon-delete"
           @click="deleteBatch"
-        >删除文化遗产</el-button>
+        >删除{{buttonName}}</el-button>
       </el-col>
       <el-col
         :span="16"
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import API from "@/api/api_hongselvyou.js";
+import API from "@/api/api_lishiwenhuajiaoyu.js";
 import { getField, getFormField, getSearchField } from "@/assets/json/index.js";
 import { getPageSize, px2rem, rem2px } from "@/plugins/util.js";
 import { setTimeout } from "timers";
@@ -98,6 +98,7 @@ export default {
       ]
     };
     return {
+      buttonName:this.$route.query.name,
       confirmType: "warning",
       confirmTitle: "提示信息",
       confirmContent: "此操作将永久删除该文件, 是否继续?",
@@ -116,7 +117,7 @@ export default {
       searchFormData: {},
       searchFormItem: [],
       menu: !!this.$route.query.menuId
-        ? this.$route.query.menuId
+        ? this.$route.query.menuId+""
         : this.$route.name
     };
   },
@@ -149,11 +150,12 @@ export default {
     },
     // 搜索表单数据初始化
     searchFormInit() {
-      this.searchFormItem = getSearchField("convenienceSearch", "item");
-      this.searchFormData = getSearchField("convenienceSearch", "data");
+      this.searchFormItem = getSearchField("culturalEducation", "item");
+      this.searchFormData = getSearchField("culturalEducation", "data");
     },
     // 更新数据
     update(row) {
+       row.menuId= this.$route.query.menuId+"";
       this.gotoUrl(
         "/contentManage/culturalEducation/culturalEducationAdd",
         row
@@ -175,14 +177,14 @@ export default {
         page: _this.currentPage,
         size: _this.pageSize,
         menuId: !!this.$route.query.menuId
-          ? this.$route.query.menuId
+          ? this.$route.query.menuId+""
           : this.$route.name
       };
       window.sessionStorage.setItem("responseType", "json");
       // 添加查询字段
       config = $.extend(config, this.searchFormData);
       // 接口调用
-      API.findhongselvyouList(config)
+      API.findList(config)
         .then(res => {
           console.log(res);
           if (!!res && res.code === 20000 && res.data.total !== 0) {
@@ -214,14 +216,16 @@ export default {
     delete() {
       var _this = this;
       console.log(_this.ids);
-      API.delhongselvyou({ id: _this.ids })
+      API.delAPI({ id: _this.ids })
         .then(res => {
           this.ids = null;
           this.$message({
             message: res.message,
             type: res.code === 20000 ? "success" : "error"
           });
-          this.getData();
+           if(!!res && res.code ===2000){
+              this.getData();
+          }
         })
         .catch(err => {
           this.$message({
