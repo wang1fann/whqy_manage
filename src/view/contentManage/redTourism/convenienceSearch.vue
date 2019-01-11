@@ -69,7 +69,6 @@ import { setTimeout } from "timers";
 export default {
   name: "convenienceSearchList",
   data() {
-
     // 表格操作配置
     var operation = {
       nowPage: "convenienceSearchList",
@@ -116,7 +115,7 @@ export default {
       type: "addhongselvyou",
       searchFormData: {},
       searchFormItem: [],
-      menuId: this.$route.query.menuId+""
+      menuId: this.$route.query.menuId + ""
     };
   },
   created() {
@@ -153,10 +152,8 @@ export default {
     },
     // 更新数据
     update(row) {
-      row.menuId= this.$route.query.menuId;
-      this.gotoUrl(
-      "/contentManage/redTourism/convenienceAdd",
-       row);
+      row.menuId = this.$route.query.menuId;
+      this.gotoUrl("/contentManage/redTourism/convenienceAdd", row);
     },
     // 获取数据
     getData() {
@@ -164,7 +161,7 @@ export default {
       var config = {
         page: _this.currentPage,
         size: _this.pageSize,
-        menuId: this.$route.query.menuId+""
+        menuId: this.$route.query.menuId + ""
       };
       // 添加查询字段
       config = $.extend(config, this.searchFormData);
@@ -195,18 +192,20 @@ export default {
           ];
         });
     },
-       // 删除
+    // 删除
     delete() {
       var _this = this;
       console.log(_this.ids);
       API.delhongselvyou({ id: _this.ids })
         .then(res => {
-          this.ids = null;
           this.$message({
             message: res.message,
             type: res.code === 20000 ? "success" : "error"
           });
-          this.getData();
+          if (!!res && res.code === 20000) {
+            this.ids = null;
+            this.getData();
+          }
         })
         .catch(err => {
           this.$message({

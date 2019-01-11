@@ -42,12 +42,14 @@ export default {
     submitcontent(content) {
       this.ticketForm.content = content;
       console.log(this.ticketForm);
-      var that= this;
+      var that = this;
       window.sessionStorage.setItem("responseType", "json");
       API.addAPI(this.ticketForm).then(res => {
-        console.log(res);
         if (!!res && res.code === 20000) {
-          that.$router.go(-1);
+          var that = this;
+          setTimeout(function() {
+            that.$router.go(-1);
+          }, 1000);
         }
         that.$message({
           type: !!res && res.code === 20000 ? "success" : "warning",

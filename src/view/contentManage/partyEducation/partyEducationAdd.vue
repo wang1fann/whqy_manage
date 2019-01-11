@@ -4,6 +4,7 @@
     <my-uepage
       :Form="ticketForm"
       :defaultMsg="ticketForm.content"
+      :showAuthor="true"
       @submit="submitcontent"
       @imgPath="getImgPath"
     ></my-uepage>
@@ -28,6 +29,7 @@ export default {
       ticketForm: {
         title: "",
         imgPath: "",
+        author:"",
         menuId: this.$route.query.menuId + "",
         description: "",
         content: ""
@@ -45,7 +47,6 @@ export default {
       var that= this;
       window.sessionStorage.setItem("responseType", "json");
       API.addAPI(this.ticketForm).then(res => {
-        console.log(res);
         if (!!res && res.code === 20000) {
           that.$router.go(-1);
         }
@@ -60,7 +61,6 @@ export default {
     },
     getData() {
       this.ticketForm = this.$route.query;
-      console.log(this.$route.query);
     }
   }
 };

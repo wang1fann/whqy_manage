@@ -4,10 +4,11 @@
     <my-uepage
       :Form="ticketForm"
       :defaultMsg="ticketForm.content"
+      :showAuthor="true"
       @submit="submitcontent"
       @imgPath="getImgPath"
     ></my-uepage>
-      <!-- :content="ticketForm.content" -->
+    <!-- :content="ticketForm.content" -->
   </el-row>
 </template>
 <style>
@@ -29,7 +30,8 @@ export default {
       ticketForm: {
         title: "",
         imgPath: "",
-        menuId: this.$route.query.menuId+"",
+        author: "",
+        menuId: this.$route.query.menuId + "",
         description: "",
         content: ""
       }
@@ -45,19 +47,24 @@ export default {
       console.log(this.ticketForm);
       window.sessionStorage.setItem("responseType", "json");
       API.addAPI(this.ticketForm).then(res => {
-        console.log(res);
         this.$message({
           type: !!res && res.code === 20000 ? "success" : "warning",
           message: res.message
         });
+        if (!!res && res.code === 20000) {
+          var that = this;
+          setTimeout(function() {
+            that.$router.go(-1);
+          }, 1000);
+        }
       });
     },
     getImgPath(val) {
       this.ticketForm.imgPath = val.replace(/\\/g, "/");
     },
-    getData(){
-      this.ticketForm=this.$route.query;
-      console.log(this.$route.query)
+    getData() {
+      this.ticketForm = this.$route.query;
+      console.log(this.$route.query);
     }
   }
 };

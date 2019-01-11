@@ -113,7 +113,10 @@ export default {
               type: !!res && res.code === 20000 ? "success" : "warning"
             });
             if (!!res && res.code === 20000) {
-              this.$router.go(-1);
+              var that = this;
+              setTimeout(function(){
+                that.$router.go(-1);
+              },1000)
             }
           });
         } else {

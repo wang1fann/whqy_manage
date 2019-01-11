@@ -6,14 +6,13 @@ export default {
         return API.POST('/syx/lishiwenhuajiaoyu/search/' + params.page + '/' + params.size, params)
     },
     addAPI: params => {
-        return API.POST('/syx/lishiwenhuajiaoyu', params)
+        if (!!params.id && params.id !== '' && params.id !== undefined) {
+            return API.PUT('/syx/lishiwenhuajiaoyu/' + params.id, params)
+        } else {
+            return API.POST('/syx/lishiwenhuajiaoyu', params)
+        }
     },
     delAPI: params => {
         return API.DELETE('/syx/lishiwenhuajiaoyu/delete', params)
-    },
-    // 修改
-    // /syx/lishiwenhuajiaoyu/1077497926311350272
-    updateAPI: params => {
-        return API.POST('/syx/lishiwenhuajiaoyu/' + params.id, params)
     }
 }

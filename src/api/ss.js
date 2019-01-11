@@ -28,7 +28,6 @@ export default {
     },
     // /syx/dangxingjiaoyu/search
     findFormData: params => {
-        // http://192.168.0.119:9014/syx/hongselvyou/search/1/2 根据条件搜索接口
         return API.POST('/syx/dangxingjiaoyu/search/1/30', params)
     },
 

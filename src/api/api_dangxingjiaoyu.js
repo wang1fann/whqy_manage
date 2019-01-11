@@ -6,14 +6,18 @@ export default {
         return API.POST('/syx/dangxingjiaoyu/search/' + params.page + '/' + params.size, params)
     },
     addAPI: params => {
-        return API.POST('/syx/dangxingjiaoyu', params)
+        if (!!params.id && params.id !== '' && params.id !== undefined) {
+            return API.PUT('/syx/dangxingjiaoyu/' + params.id, params)
+        } else {
+            return API.POST('/syx/dangxingjiaoyu', params)
+        }
     },
     delAPI: params => {
         return API.DELETE('/syx/dangxingjiaoyu/delete', params)
     },
-    // 修改
-    // /syx/dangxingjiaoyu/1077497926311350272
-    updateAPI: params => {
-        return API.POST('/syx/dangxingjiaoyu/' + params.id, params)
-    }
+    findFormData: params => {
+        params.page = !!params.page ? params.page : 1;
+        params.size = !!params.size ? params.size : 10;
+        return API.POST('/syx/dangxingjiaoyu/search/' + params.page + '/' + params.size, params)
+    },
 }

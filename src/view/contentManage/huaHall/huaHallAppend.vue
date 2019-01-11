@@ -4,6 +4,7 @@
     <my-uepage
       :Form="ticketForm"
       :showMp4="true"
+      :defaultMsg="ticketForm.content"
       @submit="submitcontent"
       @imgPath="getImgPath"
       @uploadPath="getMp4Path"
@@ -30,11 +31,11 @@ export default {
         title: "",
         imgPath: "",
         menuId: !!this.$route.query.menuId
-          ? this.$route.query.menuId+""
+          ? this.$route.query.menuId + ""
           : this.$route.name,
         description: "",
         content: "",
-        uploadPath:''
+        uploadPath: ""
       }
     };
   },
@@ -56,7 +57,7 @@ export default {
     getImgPath(val) {
       this.ticketForm.imgPath = val.replace(/\\/g, "/");
     },
-    getMp4Path(val){
+    getMp4Path(val) {
       this.ticketForm.uploadPath = val.replace(/\\/g, "/");
     }
   }

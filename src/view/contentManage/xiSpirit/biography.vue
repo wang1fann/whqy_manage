@@ -3,6 +3,7 @@
   <el-row class="components-container">
     <my-uepage
       :Form="ticketForm"
+       :defaultMsg="ticketForm.content"
       :showPersonName="true"
       @submit="submitcontent"
       @imgPath="getImgPath"

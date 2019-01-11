@@ -122,6 +122,26 @@
         </el-input>
       </el-col>
     </el-row>
+     <!-- author -->
+    <el-row
+      class="info"
+      :gutter="24"
+      v-show="showAuthor"
+    >
+      <el-col
+        :span="2"
+        class="alignright"
+      >
+        作者：
+      </el-col>
+      <el-col :span="22">
+        <el-input
+          placeholder="请输入作者"
+          v-model="Form.author"
+        >
+        </el-input>
+      </el-col>
+    </el-row>
     <!-- 友情链接 -->
     <el-row
       class="info"
@@ -256,16 +276,10 @@ export default {
       type: Boolean,
       default: false
     },
-    // config: {
-    //   type: Object,
-    //   default: function() {
-    //     return {
-    //       UEDITOR_HOME_URL: "static/ueditor/",
-    //       initialFrameWidth: null,
-    //       initialFrameHeight: 350
-    //     };
-    //   }
-    // }
+     showAuthor: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
