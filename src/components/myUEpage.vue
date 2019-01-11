@@ -122,7 +122,7 @@
         </el-input>
       </el-col>
     </el-row>
-     <!-- author -->
+    <!-- author -->
     <el-row
       class="info"
       :gutter="24"
@@ -138,6 +138,46 @@
         <el-input
           placeholder="请输入作者"
           v-model="Form.author"
+        >
+        </el-input>
+      </el-col>
+    </el-row>
+    <!-- 姓名 -->
+    <el-row
+      class="info"
+      :gutter="24"
+      v-show="showName"
+    >
+      <el-col
+        :span="2"
+        class="alignright"
+      >
+        姓名：
+      </el-col>
+      <el-col :span="22">
+        <el-input
+          placeholder="请输入姓名"
+          v-model="Form.name"
+        >
+        </el-input>
+      </el-col>
+    </el-row>
+    <!-- 生卒 -->
+    <el-row
+      class="info"
+      :gutter="24"
+      v-show="showAgePeriod"
+    >
+      <el-col
+        :span="2"
+        class="alignright"
+      >
+        生卒：
+      </el-col>
+      <el-col :span="22">
+        <el-input
+          placeholder="请输入姓名"
+          v-model="Form.agePeriod"
         >
         </el-input>
       </el-col>
@@ -210,7 +250,7 @@
         :span="2"
         class="alignright"
       >
-        内容：
+        文章内容：
       </el-col>
       <el-col :span="22">
         <UE
@@ -256,6 +296,8 @@ export default {
           personName: "",
           linkUrl: "",
           linkName: "",
+          name: "",
+          agePeriod: "",
           uploadPath: ""
         };
       }
@@ -276,7 +318,15 @@ export default {
       type: Boolean,
       default: false
     },
-     showAuthor: {
+    showAuthor: {
+      type: Boolean,
+      default: false
+    },
+    showName: {
+      type: Boolean,
+      default: false
+    },
+    showAgePeriod: {
       type: Boolean,
       default: false
     }
@@ -309,9 +359,7 @@ export default {
       }
     };
   },
-  created() {
-
-  },
+  created() {},
   methods: {
     getUEContent() {
       console.log(this.hasContent());

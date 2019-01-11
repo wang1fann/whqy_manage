@@ -176,6 +176,30 @@
             "show": true
         }
     ],
+    "redEducation": [{
+            "prop": "title",
+            "label": "标题",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "description",
+            "label": "描述",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }, {
+            "prop": "content",
+            "label": "内容",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": false
+        }
+    ],
     "classicRouterList": [{
             "prop": "scenicSpotName",
             "label": "标题",
@@ -217,6 +241,37 @@
         {
             "prop": "adress",
             "label": "地址",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }
+    ],
+    "xiSpirtArtical": [{
+            "prop": "personName",
+            "label": "人物",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": false
+        },
+        {
+            "prop": "title",
+            "label": "标题",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }, {
+            "prop": "description",
+            "label": "描述",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }, {
+            "prop": "content",
+            "label": "内容",
             "width": "auto",
             "fixed": false,
             "sortable": false,

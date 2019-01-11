@@ -10,13 +10,13 @@
           class="el-icon-close delete-menu"
           @click="deleteConfirm(menuItem)"
         ></i>
-        <el-row :gutter="20">
+        <el-row :gutter="24">
           <el-col
             :span="4"
             style="min-width:100px;"
           > {{!!menuItem.label?menuItem.label:"导航栏菜单标题："}}</el-col>
           <el-col
-            :span="16"
+            :span="20"
             class="alignleft"
           >
             <el-input
@@ -26,13 +26,13 @@
             </el-input>
           </el-col>
         </el-row>
-        <el-row :gutter="20">
+        <el-row :gutter="24">
           <el-col
             :span="4"
             style="min-width:100px;"
           >&nbsp;</el-col>
           <el-col
-            :span="16"
+            :span="20"
             class="alignleft"
             style="margin: 20px 0px 0px;"
           >

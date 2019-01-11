@@ -71,6 +71,23 @@
         :index="indexMethod"
       >
       </el-table-column>
+      <!-- 图片 -->
+      <el-table-column
+        label="图片"
+        width="180"
+        :align="'center'"
+      >
+        <template slot-scope="scope">
+          <!-- <span>{{scope.row}}</span> -->
+          <img
+            v-if="scope.row.imgPath!==''"
+            :src="scope.row.imgPath"
+            width="70"
+            height="70"
+            style="border-radius:50%;border:none;"
+          />
+        </template>
+      </el-table-column>
       <!-- 选项内容 -->
       <template v-for="(item, idx) in column">
         <el-table-column
@@ -278,8 +295,13 @@ export default {
       default: () => {
         return {};
       }
+    },
+    operation: {
+      type: Object,
+      default: () => {
+        return {};
+      }
     }
-
   },
   data() {
     return {

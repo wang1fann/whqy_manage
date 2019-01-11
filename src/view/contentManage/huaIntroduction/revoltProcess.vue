@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import revoltIntro from "@/view/contentManage/senceSituation/situationIntroduce";
+import revoltIntro from "@/view/contentManage/huaIntroduction/revoltIntro";
 export default {
   components: { "my-revoltIntro":revoltIntro },
   data() {

@@ -157,6 +157,38 @@
             "author": ""
         }
     },
+    "redEducation": {
+        "item": [{
+            "type": "text",
+            "name": "title",
+            "value": "",
+            "placeholder": "请输入标题",
+            "label": "名称",
+            "width": "100%",
+            "show": true
+        }, {
+            "type": "text",
+            "name": "content",
+            "value": "",
+            "placeholder": "请输入内容",
+            "label": "内容",
+            "width": "100%",
+            "show": true
+        }, {
+            "type": "text",
+            "name": "description",
+            "value": "",
+            "placeholder": "请输入描述",
+            "label": "描述",
+            "width": "100%",
+            "show": true
+        }],
+        "data": {
+            "title": "",
+            "content": "",
+            "description": ""
+        }
+    },
     "huaHall": {
         "item": [{
                 "type": "text",
@@ -169,11 +201,11 @@
             },
             {
                 "type": "text",
-                "name": "content",
+                "name": "description",
                 "value": "",
-                "placeholder": "请输入内容",
+                "placeholder": "请输入描述",
                 "width": "100%",
-                "label": "内容:",
+                "label": "描述:",
                 "show": true
             },
             {

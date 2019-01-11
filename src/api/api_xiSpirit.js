@@ -1,24 +1,22 @@
 import * as API from '.'
 
 export default {
-    findhongselvyou: params => {
-        // http://192.168.0.119:9014/syx/hongselvyou/search/1/2 根据条件搜索接口
-        return API.POST('/syx/hongselvyou/search/' + params.page + '/' + params.size, params)
+    findList: params => {
+        return API.POST('/syx/xilaojingshen/search/' + params.page + '/' + params.size, params)
     },
-
-    addAbstarct: params => {
-        // /syx/hongselvyouPinglunbiao 添加文章评论
-        return API.POST('/syx/hongselvyouPinglunbiao', params)
+    addAPI: params => {
+        if (!!params.id && params.id !== '' && params.id !== undefined) {
+            return API.PUT('/syx/xilaojingshen/' + params.id, params)
+        } else {
+            return API.POST('/syx/xilaojingshen', params)
+        }
     },
-    //删除
-    delAbstarct: params => {
-        return API.DELETE('/syx/hongselvyou/delete', params);
+    delAPI: params => {
+        return API.DELETE('/syx/xilaojingshen/delete', params)
     },
-    // 服务指南
-    // 添加信息
-    addServerInfo: params => {
-        return API.POST('/syx/fuwuzhinan', params)
-    }
-
-
+    findFormData: params => {
+        params.page = !!params.page ? params.page : 1;
+        params.size = !!params.size ? params.size : 10;
+        return API.POST('/syx/xilaojingshen/search/' + params.page + '/' + params.size, params)
+    },
 }

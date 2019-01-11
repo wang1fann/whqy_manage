@@ -264,6 +264,9 @@ export default {
         .then(res => {
           console.log(res);
           if (!!res && res.code === 20000) {
+            for (var i = 0; i < res.data.rows.length; i++) {
+              res.data.rows[i].sex = res.data.rows[i].sex === "2" ? "男" : "女";
+            }
             this.data = res.data.rows;
             this.total = res.data.total;
           }

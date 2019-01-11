@@ -19,7 +19,7 @@
 }
 </style>
 <script>
-import API from "@/api/api_jingqugaikuang";
+import API from "@/api/api_senceNews";
 import myUEpage from "@/components/myUEpage";
 export default {
   components: { "my-uepage": myUEpage },
@@ -41,10 +41,17 @@ export default {
   methods: {
     submitcontent(content) {
       this.ticketForm.content = content;
+      console.log(this.ticketForm);
+      var that = this;
       window.sessionStorage.setItem("responseType", "json");
       API.addAPI(this.ticketForm).then(res => {
-        console.log(res);
-        this.$message({
+        if (!!res && res.code === 20000) {
+          var that = this;
+          setTimeout(function() {
+            that.$router.go(-1);
+          }, 1000);
+        }
+        that.$message({
           type: !!res && res.code === 20000 ? "success" : "warning",
           message: res.message
         });
@@ -54,15 +61,8 @@ export default {
       this.ticketForm.imgPath = val.replace(/\\/g, "/");
     },
     getData() {
-      API.findFormData({ menuId: this.ticketForm.menuId }).then(res => {
-        if (!!res && res.code === 20000) {
-          this.ticketForm = res.data.rows[0];
-        }
-        this.$message({
-          type: !!res && res.code === 20000 ? "success" : "warning",
-          message: res.message
-        });
-      });
+      this.ticketForm = this.$route.query;
+      console.log(this.$route.query);
     }
   }
 };

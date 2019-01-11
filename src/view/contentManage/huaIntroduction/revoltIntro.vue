@@ -19,7 +19,7 @@
 }
 </style>
 <script>
-import API from "@/api/api_jingqugaikuang";
+import API from "@/api/api_weihuaqiyi";
 import myUEpage from "@/components/myUEpage";
 export default {
   components: { "my-uepage": myUEpage },
@@ -30,6 +30,7 @@ export default {
         imgPath: "",
         menuId: this.$route.query.menuId + "",
         description: "",
+        personName: "",
         content: ""
       }
     };

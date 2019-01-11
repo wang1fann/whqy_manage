@@ -213,6 +213,7 @@ body {
     color: #e8343a;
     font-size: 21px;
     padding: 7px 20px;
+    float: right;
   }
   #captcha_img {
     width: 35%;
@@ -227,7 +228,7 @@ body {
   }
   .login-container {
     position: absolute;
-    top: 20%;
+    top: 28%;
     left: 0px;
     right: 0px;
     z-index: 2;
@@ -239,7 +240,8 @@ body {
     -moz-border-radius: 5px;
     background-clip: padding-box;
     margin: 10px auto;
-    width: 25%;
+    width: 19%;
+    min-width: 310px;
     padding: 35px 35px 15px 35px;
     background: #fff;
     border: 1px solid #eaeaea;
@@ -251,7 +253,9 @@ body {
     }
     .login_btn {
       background: #e8343a;
+      padding: 11px 10px;
       border: none;
+      font-size: 16px;
     }
   }
 }

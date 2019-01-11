@@ -13,7 +13,7 @@
           type="primary"
           size="mini"
           icon="el-icon-circle-plus"
-          @click="gotoUrl('/contentManage/xianThings/xianTingsAdd',{menuId: $route.query.menuId})"
+          @click="gotoUrl('/contentManage/huaIntroduction/huaAdd',{menuId: $route.query.menuId})"
         >添加<i>{{buttonName}}</i></el-button>
         <el-button
           type="primary"
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import API from "@/api/api_xianTingsHero.js";
+import API from "@/api/api_weihuaqiyi.js";
 import { getField, getFormField, getSearchField } from "@/assets/json/index.js";
 import { getPageSize, px2rem, rem2px, dateFtt } from "@/plugins/util.js";
 import { setTimeout } from "timers";
@@ -154,7 +154,7 @@ export default {
     // 更新数据
     update(row) {
       row.menuId = this.$route.query.menuId + "";
-      this.gotoUrl("/contentManage/xianThings/xianTingsAdd", row);
+      this.gotoUrl("/contentManage/huaIntroduction/huaAdd", row);
     },
     // 弹框关闭时的回调函数
     handleClose(done) {

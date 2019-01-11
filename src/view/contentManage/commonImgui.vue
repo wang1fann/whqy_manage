@@ -72,7 +72,10 @@
           <el-input v-model="otherFormInfo.scenicSpotName"></el-input>
         </el-form-item>
         <!-- author -->
-        <el-form-item label="作者" v-show="showAuthor">
+        <el-form-item
+          label="作者"
+          v-show="showAuthor"
+        >
           <el-input v-model="otherFormInfo.author"></el-input>
         </el-form-item>
         <!-- content -->
@@ -98,21 +101,19 @@ export default {
   data() {
     return {
       dialogTitle: "上传",
-      dialogVisible: false,
       id: "",
       total: 50,
       otherFormInfo: {
         scenicSpotName: "",
         author: "",
         content: "",
-        imgPath:""
+        imgPath: ""
       }
     };
   },
-  props: ["imgList", "searchParams","showAuthor"],
+  props: ["imgList", "searchParams", "showAuthor","dialogVisible"],
   methods: {
     submit() {
-      console.log(this.otherFormInfo);
       this.$emit("formInfo", this.otherFormInfo);
     },
     changeImage(ev) {
@@ -120,20 +121,23 @@ export default {
       let formfile = new FormData(uploadImginput); //拿到表单创建FormData对象；
       let files = ev.target.files; //拿到选择的文件
       console.log(files);
-      formfile.append("menu", this.$route.query.menuId+""||this.$route.query.name);
+      formfile.append(
+        "menu",
+        this.$route.query.menuId + "" || this.$route.query.name
+      );
       formfile.append("file", files[0]);
       this.$emit("formfile", formfile);
     },
 
     deleteConfirm(item) {
-      this.$emit("deleteItem",item);
+      this.$emit("deleteItem", item);
     },
     handleCurrentChange(val) {
       this.$emit("pageNum", val);
     },
     // 添加数据
     showDialog() {
-      this.dialogVisible = true;
+      this.$emit("showDialog",true)
     },
     // 弹框关闭时的回调函数
     handleClose(done) {

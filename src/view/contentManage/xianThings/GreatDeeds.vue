@@ -1,142 +1,275 @@
 <template>
-  <div class="content-manageBig">
-    <div class="xian">
-      <span></span>
-      <label>事纪添加</label>
-    </div>
-    <div class="bigdown">
-      <div class="sitDown">
-        <label class="l">事纪标题</label>
-        <div class="l">
-          <div >第一阶段(1919-1926)</div>
-        </div>
-      </div>
-      <div class="sitDowns">
-        <label class="l">事纪标题</label>
-        <div class="l">
-          <div ></div>
-        </div>
-      </div>
-      <button>提交</button>
-    </div>
-
+  <div class="list content-top-line">
+    <!-- 按钮操作 -->
+    <el-row
+      class="btn-group"
+      :gutter="24"
+    >
+      <el-col
+        :span="8"
+        class="pull-left alignleft"
+      >
+        <el-button
+          type="primary"
+          size="mini"
+          icon="el-icon-circle-plus"
+          @click="gotoUrl('/contentManage/xianThings/xianTingsAdd',{menuId: $route.query.menuId})"
+        >添加<i>{{buttonName}}</i></el-button>
+        <el-button
+          type="primary"
+          size="mini"
+          icon="el-icon-delete"
+          @click="deleteBatch"
+        >删除{{buttonName}}</el-button>
+      </el-col>
+      <el-col
+        :span="16"
+        class="pull-right alignright"
+      >
+        <MySearch
+          class="search"
+          :formData="searchFormData"
+          :formItem="searchFormItem"
+          @submit="searchSubmit"
+          @updateTime="getUpdateTime"
+        ></MySearch>
+      </el-col>
+    </el-row>
+    <!-- 表格数据 -->
+    <MyTable
+      size="mini"
+      :stripe="false"
+      :border="false"
+      :multiple="true"
+      :operation="operation"
+      :column="column"
+      :data="data"
+      :currentPage="currentPage"
+      :pageSize="pageSize"
+      :total="total"
+      @handleCurrentChange="handleCurrentChange"
+      @delete="deleteConfirm"
+      @update="update"
+      @select="handleSelectionChange"
+    ></MyTable>
+    <!-- myconfirm -->
+    <MyConfirm
+      ref="myconfirm"
+      :type="confirmType"
+      :title="confirmTitle"
+      :content="confirmContent"
+    ></MyConfirm>
   </div>
 </template>
 
 <script>
-    export default {
-        name: "xianBigThings"
+import API from "@/api/api_xianTings.js";
+import { getField, getFormField, getSearchField } from "@/assets/json/index.js";
+import { getPageSize, px2rem, rem2px, dateFtt } from "@/plugins/util.js";
+import { setTimeout } from "timers";
+
+export default {
+  name: "xilaojingshengList",
+  data() {
+    // 表格操作配置
+    var operation = {
+      nowPage: "xilaojingshengList",
+      show: true,
+      fixed: false,
+      size: "mini",
+      width: 80 + rem2px(px2rem(160)),
+      minWidth: 100,
+      label: "操作",
+      btns: [
+        {
+          type: "text",
+          size: "mini",
+          content: "编辑",
+          icon: "el-icon-edit-outline",
+          handle: "update",
+          class: "button-operator"
+        },
+        {
+          type: "text",
+          size: "mini",
+          content: "删除",
+          icon: "el-icon-delete",
+          handle: "delete",
+          class: "button-operator"
+        }
+      ]
+    };
+    return {
+      buttonName: this.$route.query.name,
+      confirmType: "warning",
+      confirmTitle: "提示信息",
+      confirmContent: "此操作将永久删除该文件, 是否继续?",
+      dialogTitle: "添加文化遗产",
+      multipleSelection: [],
+      ids: null,
+      operation: operation, // 操作按钮
+      column: [],
+      data: [],
+      formItem: [],
+      formData: {},
+      pageSize: getPageSize(),
+      currentPage: 1,
+      total: 0,
+      type: "addhongselvyou",
+      searchFormData: {},
+      searchFormItem: [],
+      menu: !!this.$route.query.menuId
+        ? this.$route.query.menuId + ""
+        : this.$route.name
+    };
+  },
+  created() {
+    this.fieldInit();
+    this.searchFormInit();
+    this.getData();
+  },
+  methods: {
+    gotoUrl(path, query) {
+      this.$router.push({
+        path: !!path ? path : "",
+        query: !!query ? query : ""
+      });
+    },
+    fieldInit() {
+      // 获取字段
+      var column = getField("xiSpirtArtical");
+      column.forEach(item => {
+        if (!!item.width && item.width != "auto") {
+          item.width = rem2px(px2rem(item.width));
+        }
+      });
+      this.column = column;
+    },
+    // 搜索表单数据初始化
+    searchFormInit() {
+      this.searchFormItem = getSearchField("huaHall", "item");
+      this.searchFormData = getSearchField("huaHall", "data");
+      this.searchFormData.updateTime = "";
+    },
+    // 更新数据
+    update(row) {
+      row.menuId = this.$route.query.menuId + "";
+      this.gotoUrl("/contentManage/xianThings/xianTingsAdd", row);
+    },
+    // 弹框关闭时的回调函数
+    handleClose(done) {
+      for (const key in this.formData) {
+        if (this.formData.hasOwnProperty(key)) {
+          this.formData[key] = "";
+        }
+      }
+      done();
+    },
+    getUpdateTime(val) {
+      console.log(val);
+      this.searchFormData.updateTime = val;
+    },
+    // 获取数据
+    getData() {
+      var that = this;
+      var config = {
+        page: that.currentPage,
+        size: that.pageSize,
+        menuId: !!this.$route.query.menuId
+          ? this.$route.query.menuId + ""
+          : this.$route.name
+      };
+      console.log(this.searchFormData);
+      config = $.extend(config, this.searchFormData);
+      window.sessionStorage.setItem("responseType", "json");
+      // 添加查询字段
+      // 接口调用
+      API.findList(config)
+        .then(res => {
+          console.log(res);
+          if (!!res && res.code === 20000 && res.data.total !== 0) {
+            that.data = res.data.rows;
+            that.total = res.data.total;
+            that.searchFormData.updateTime = "";
+          }
+          that.$message({
+            message:
+              !!res && res.data.total === 0
+                ? "查询成功，暂无相关数据"
+                : res.message,
+            type: !!res && res.code === 20000 ? "success" : "warning"
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 删除
+    delete() {
+      var that = this;
+      console.log(that.ids);
+      API.delAPI({ id: that.ids })
+        .then(res => {
+          this.ids = null;
+          this.$message({
+            message: res.message,
+            type: res.code === 20000 ? "success" : "error"
+          });
+          this.getData();
+        })
+        .catch(err => {
+          this.$message({
+            message: err,
+            type: "error"
+          });
+        });
+    },
+    // 批量删除
+    deleteBatch() {
+      var id = [];
+      this.multipleSelection.forEach(item => {
+        id.push(item.id);
+      });
+      this.ids = id.join();
+      if (id.length > 0) {
+        this.deleteConfirm({ id: this.ids });
+      } else {
+        this.$message({
+          message: "请至少选择一个选项",
+          type: "warning"
+        });
+      }
+    },
+    // 删除确认
+    // 删除确认
+    deleteConfirm(row) {
+      var that = this;
+      that.ids = row.id;
+      setTimeout(() => {
+        this.$refs.myconfirm.confirm(that.delete, that.cancle);
+      }, 100);
+    },
+    // 取消删除
+    cancle() {
+      this.ids = null;
+    },
+    // 获取选中行
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
+    // 分页切换
+    handleCurrentChange(index) {
+      this.currentPage = index;
+      this.getData();
+    },
+    // 搜索
+    searchSubmit() {
+      this.getData();
     }
+  }
+};
 </script>
 
-<style scoped>
-  .content-manageBig .l{
-    float: left;
-  }
-  .content-manageBig .r{float: right}
-  .content-manageBig{
-    margin: 0 auto;
-    margin-top: 20px;
-    width: 84%;
-    overflow: hidden;
-  }
-  .content-manageBig .xian{
-    width: 99.6%;
-    height: 46px;
-    line-height: 46px;
-    color: #7f8891;
-    border: 1px solid #ddd;
-    border-radius: 2px;
-    position: relative;
-  }
-  .content-manageBig .xian span{
-    display: inline-block;
-    position: absolute;
-    top:12px;
-    width: 20px;
-    height: 20px;
-    background: url("../../../assets/img/content/addf.png") no-repeat;
-    background-size: 20px auto;
-  }
-  .content-manageBig .xian label{
-    margin-left: 30px;
-    font-size: 13px;
-  }
-  .content-manageBig .bigdown{
-    overflow: hidden;
-    background: #f7f9fa;
-    margin-top: 30px;
-    padding-bottom: 20px;
-  }
-
-  .content-manageBig .sitDown{
-    overflow: hidden;
-    margin-top: 35px;
-    margin-left: 40px;
-  }
-  .content-manageBig .sitDown label{
-    margin-right: 16px;
-    margin-top: 10px;
-    color: #7f8891;
-  }
-  .content-manageBig .sitDown div.l{
-    width: 88%;
-  }
-  .content-manageBig .sitDown div.l div{
-    width: 100%;
-    padding-left: 14px;
-    border-radius:3px;
-    color: #697179;
-    height: 40px;
-    text-align: left;
-    line-height: 40px;
-    background: #fff;
-  }
-  .content-manageBig .sitDown button{
-    padding: 12px 40px;
-    background: #e24142;
-    text-align: center;
-    color: #fff;
-    margin-top: 40px;
-    border-radius: 4px;
-    outline: 0;
-    border: 0;
-  }
-  .content-manageBig .sitDowns{
-    overflow: hidden;
-    margin-top: 20px;
-    margin-left: 40px;
-
-  }
-  .content-manageBig .sitDowns label{
-    margin-right: 16px;
-    margin-top: 10px;
-    color: #7f8891;
-  }
-  .content-manageBig .sitDowns div.l{
-    width: 88%;
-  }
-  .content-manageBig .sitDowns div.l div{
-    width: 100%;
-    padding-left: 14px;
-    border-radius:3px;
-    color: #697179;
-    height: 260px;
-    text-align: left;
-    line-height: 40px;
-    background: #fff;
-  }
-
-  .content-manageBig  button{
-    padding: 12px 40px;
-    background: #e24142;
-    text-align: center;
-    color: #fff;
-    margin-top: 40px;
-    border-radius: 4px;
-    outline: 0;
-    border: 0;
-  }
+<style lang="scss" scoped>
+@import "@/assets/base/variables.scss";
 </style>
-
-

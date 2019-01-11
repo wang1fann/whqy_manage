@@ -22,7 +22,7 @@ let contentRouter = [{
                 path: 'situationIntroduce',
                 name: '景区简介',
                 component: resolve => {
-                    require(['view/contentManage/serviceGuide/TicketReservation'], resolve)
+                    require(['view/contentManage/senceSituation/situationIntroduce'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -44,8 +44,7 @@ let contentRouter = [{
                 path: 'situationDepart',
                 name: '组织机构',
                 component: resolve => {
-                    require(['view/contentManage/serviceGuide/TicketReservation'], resolve)
-                        // require(['view/contentManage/senceSituation/situationDepart'], resolve)
+                    require(['view/contentManage/senceSituation/situationDepart'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -61,7 +60,7 @@ let contentRouter = [{
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
-        redirect: { path: '/contentManage/senceNews/senceNews', query: { menuId: 10001001 } },
+        redirect: { path: '/contentManage/senceNews/senceNews', query: { menuId: 10002001 } },
         children: [{
                 id: 10002001,
                 // 新闻中心
@@ -80,11 +79,23 @@ let contentRouter = [{
                 path: 'inform',
                 name: '通知公告',
                 component: resolve => {
-                    require(['view/contentManage/senceNews/senceNews'], resolve)
+                    require(['view/contentManage/senceNews/inform'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
                 children: []
+            },
+            {
+                id: "",
+                path: 'newsAdd',
+                name: '新闻-添加',
+                component: resolve => {
+                    require(['view/contentManage/senceNews/newsAdd'], resolve)
+                },
+                class: 'fa-line-chart',
+                img: require('@/assets/img/access/user.png'),
+                children: [],
+                show: false
             }
         ]
     },
@@ -118,20 +129,29 @@ let contentRouter = [{
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
-                children: [
-
-                ]
+                children: []
             }, {
                 id: 10003003,
                 path: 'souvenir',
                 name: '亲切留念',
                 component: resolve => {
                     require(['view/contentManage/redTourism/folk'], resolve)
-                        // require(['view/contentManage/senceSituation/situationImg'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
                 children: []
+            },
+            {
+                id: "",
+                path: 'collectionAppreciationAdd',
+                name: '添加/修改',
+                component: resolve => {
+                    require(['view/contentManage/collectionAppreciation/collectionAppreciationAdd'], resolve)
+                },
+                class: 'fa-line-chart',
+                img: require('@/assets/img/access/user.png'),
+                children: [],
+                show: false
             }
         ]
     },
@@ -151,42 +171,40 @@ let contentRouter = [{
                 path: 'revoltIntro',
                 name: '起义简介',
                 component: resolve => {
-                    require(['view/contentManage/serviceGuide/TicketReservation'], resolve)
-                        // require(['view/contentManage/senceSituation/situationDepart'], resolve)
+                    require(['view/contentManage/huaIntroduction/revoltIntro'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
-                children: [{
-                    // 详情
-                    path: 'situationIntroduce',
-                    name: '起义详情',
-                    component: resolve => {
-                        require(['view/contentManage/senceSituation/situationIntroduce'], resolve)
-                    },
-                    class: 'fa-line-chart',
-                    img: require('@/assets/img/access/user.png'),
-                    children: [],
-                    show: false
-                }]
+                children: []
             },
             {
                 id: 10004003,
                 path: 'revoltProcess',
                 name: '起义经过',
                 component: resolve => {
-                    require(['view/contentManage/serviceGuide/TicketReservation'], resolve)
-                        // require(['view/contentManage/senceSituation/situationDepart'], resolve)
+                    require(['view/contentManage/huaIntroduction/revoltProcess'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
                 children: []
+            },
+            {
+                id: "",
+                path: 'huaAdd',
+                name: '渭华起义-添加',
+                component: resolve => {
+                    require(['view/contentManage/huaIntroduction/huaAdd'], resolve)
+                },
+                class: 'fa-line-chart',
+                img: require('@/assets/img/access/user.png'),
+                children: [],
+                show: false
             }, {
                 id: 10004004,
                 path: 'imgRecord',
                 name: '图片档案',
                 component: resolve => {
                     require(['view/contentManage/redTourism/folk'], resolve)
-                        // require(['view/contentManage/senceSituation/situationImg'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -196,7 +214,7 @@ let contentRouter = [{
                 path: 'souvenir',
                 name: '回忆纪念',
                 component: resolve => {
-                    require(['view/contentManage/huaIntroduction/huaWord'], resolve)
+                    require(['view/contentManage/huaIntroduction/souvenir'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -206,7 +224,7 @@ let contentRouter = [{
                 path: 'historyData',
                 name: '历史资料',
                 component: resolve => {
-                    require(['view/contentManage/huaIntroduction/huaWord'], resolve)
+                    require(['view/contentManage/huaIntroduction/historyData'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -217,7 +235,7 @@ let contentRouter = [{
                 path: 'StudyTheTheoryOf',
                 name: '研究论著',
                 component: resolve => {
-                    require(['view/contentManage/huaIntroduction/huaWord'], resolve)
+                    require(['view/contentManage/huaIntroduction/StudyTheTheoryOf'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -227,7 +245,7 @@ let contentRouter = [{
                 path: 'VideoWorks',
                 name: '影音作品',
                 component: resolve => {
-                    require(['view/contentManage/huaIntroduction/huaVideo'], resolve)
+                    require(['view/contentManage/huaIntroduction/VideoWorks'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -265,6 +283,17 @@ let contentRouter = [{
             class: 'fa-line-chart',
             img: require('@/assets/img/access/user.png'),
             children: []
+        }, {
+            id: "",
+            path: 'xianTingsAdd',
+            name: '添加',
+            component: resolve => {
+                require(['view/contentManage/xianThings/xianTingsAdd'], resolve)
+            },
+            class: 'fa-line-chart',
+            img: require('@/assets/img/access/user.png'),
+            children: [],
+            show: false
         }]
     },
     {
@@ -293,18 +322,28 @@ let contentRouter = [{
                 path: 'TheFeats',
                 name: '丰功伟绩',
                 component: resolve => {
-                    require(['view/contentManage/xiSpirit/biography'], resolve)
+                    require(['view/contentManage/xiSpirit/TheFeats'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
                 children: []
+            }, {
+                id: "",
+                path: 'xiSpiritAdd',
+                name: '习老精神-添加',
+                component: resolve => {
+                    require(['view/contentManage/xiSpirit/xiSpiritAdd'], resolve)
+                },
+                class: 'fa-line-chart',
+                img: require('@/assets/img/access/user.png'),
+                children: [],
+                show: false
             }, {
                 id: 10006003,
                 path: 'HistoricalMoments',
                 name: '历史瞬间',
                 component: resolve => {
                     require(['view/contentManage/redTourism/folk'], resolve)
-                        // require(['view/contentManage/collectionAppreciation/appreciationShow'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -318,23 +357,13 @@ let contentRouter = [{
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
-                children: [{
-                    path: 'situationIntroduce',
-                    name: '著作文章添加',
-                    component: resolve => {
-                        require(['view/contentManage/senceSituation/situationIntroduce'], resolve)
-                    },
-                    class: 'fa-line-chart',
-                    img: require('@/assets/img/access/user.png'),
-                    children: [],
-                    show: false
-                }]
+                children: []
             }, {
                 id: 10006005,
                 path: 'motto',
                 name: '格言精选',
                 component: resolve => {
-                    require(['view/contentManage/xiSpirit/xiSpirtArtical'], resolve)
+                    require(['view/contentManage/xiSpirit/motto'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -344,7 +373,7 @@ let contentRouter = [{
                 path: 'inscription',
                 name: '题词手迹',
                 component: resolve => {
-                    require(['view/contentManage/xiSpirit/xiSpirtArtical'], resolve)
+                    require(['view/contentManage/xiSpirit/inscription'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -355,7 +384,7 @@ let contentRouter = [{
                 path: 'Memoriam',
                 name: '追思缅怀',
                 component: resolve => {
-                    require(['view/contentManage/xiSpirit/xiSpirtArtical'], resolve)
+                    require(['view/contentManage/xiSpirit/Memoriam'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -849,15 +878,6 @@ let router = new Router({
                     class: 'fa-line-chart',
                     img: require('@/assets/img/access/maintain.png'),
                     children: []
-                },
-                {
-                    path: '/system/interfaceManage',
-                    name: '接口管理',
-                    component: resolve => {
-                        require(['view/interfaceManage/interfaceManageList'], resolve)
-                    },
-                    class: 'fa-line-chart',
-                    img: require('@/assets/img/access/interface.png')
                 },
                 {
                     path: '/system/cacheClear',

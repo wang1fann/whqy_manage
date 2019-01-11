@@ -4,10 +4,12 @@
       :imgList="imgList"
       :searchParams="searchParams"
       :showAuthor="false"
+      :dialogVisible="dialogVisible"
       @pageNum="pageNum"
       @deleteItem="confirmDeleteItem"
       @formfile="uploadFormFile"
       @formInfo="submitFormInfo"
+      @showDialog="setShowDialog"
     ></common-img>
     <MyConfirm
       ref="myconfirm"
@@ -31,17 +33,18 @@ export default {
       confirmContent: "此操作将永久删除, 是否继续?",
       formFile: {}, //上传图片
       imgPath: "",
+      dialogVisible: false,
       searchParams: {
         page: 1,
         size: 10,
-        menuId: this.$route.query.menuId+""
+        menuId: this.$route.query.menuId + ""
       },
       addFormInfo: {
         scenicSpotName: "",
         author: "",
         content: "",
         imgPath: "",
-        menuId: this.$route.query.menuId+""
+        menuId: this.$route.query.menuId + ""
       },
       imgList: [
         {
@@ -73,13 +76,14 @@ export default {
       this.uploadFile();
       window.sessionStorage.setItem("responseType", "json");
       this.addFormInfo.imgPath = this.imgPath.replace(/\\/g, "/");
-      this.addFormInfo.menuId = this.$route.query.menuId+"";
+      this.addFormInfo.menuId = this.$route.query.menuId + "";
       console.log(this.addFormInfo);
       var that = this;
       setTimeout(function() {
         API.addFormInfo(that.addFormInfo).then(res => {
           if (!!res && res.code === 20000) {
-            this.findList();
+            that.dialogVisible = false;
+            that.findList();
           }
           that.$message({
             message: res.message,
@@ -88,8 +92,12 @@ export default {
         });
       }, 50);
     },
+    setShowDialog(val) {
+      this.dialogVisible = true;
+    },
     findList() {
       window.sessionStorage.setItem("responseType", "json");
+      // alert(this.searchParams.menuId);
       API.findhongselvyou(this.searchParams).then(res => {
         if (!!res && res.code === 20000) {
           this.imgList = res.data;
@@ -108,8 +116,7 @@ export default {
       this.id = null;
     },
     deleteImg() {
-      var _this = this; 
-      // console.log(_this.id);
+      var _this = this;
       window.sessionStorage.setItem("responseType", "json");
       API.delAbstarct({ id: _this.id })
         .then(res => {
@@ -130,7 +137,6 @@ export default {
         });
     },
     confirmDeleteItem(item) {
-      console.log(item);
       var _this = this;
       _this.id = item.id;
       setTimeout(() => {

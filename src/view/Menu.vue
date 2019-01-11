@@ -12,8 +12,8 @@
             style="font-size:30px;vertical-align:middle;"
             class="fa fa-user-circle-o"
           ></i>
-          <span v-show="userInfo.sex==='1'">您好！ {{userInfo.userName}}先生</span>
-          <span v-show="userInfo.sex!=='2'">您好！ {{userInfo.userName}}女士</span>
+     <span v-show="userInfo.sex === '2'">您好！ {{userInfo.userName}}先生</span>
+          <span v-show="userInfo.sex !== '2'">您好！ {{userInfo.userName}}女士</span>
         </span>
         <span class="user-set-up">
           <i
@@ -110,14 +110,25 @@ export default {
   components: {
     "el-bread": ElBread
   },
-  // watch: {
-  //   userInfo:"getUserInfo"
-  // },
+  data() {
+    return {
+      defaultActiveIndex: "0",
+      userInfo: {
+        userName: "wangyifan",
+        sex: "1"
+      },
+      menuRouter: "",
+      breads: "",
+      collapsed: false,
+      currentRouterIsContent: false
+    };
+  },
   created() {
     this.menuRouter = _.filter(this.$router.options.routes, function(o) {
       return !!o.menuShow;
     });
     bus.$on("setNickName", text => {
+      console.log(text);
       this.user.name = text;
     });
     bus.$on("goto", url => {
@@ -127,19 +138,7 @@ export default {
       }
       this.$router.push(url);
     });
-  },
-  data() {
-    return {
-      defaultActiveIndex: "0",
-      userInfo: {
-        userName: "wangyifan",
-        sex: "man"
-      },
-      menuRouter: "",
-      breads: "",
-      collapsed: false,
-      currentRouterIsContent: false
-    };
+    this.getUserInfo();
   },
   methods: {
     getUserInfo() {
@@ -207,10 +206,6 @@ export default {
         })
         .catch(() => {});
     }
-  },
-  mounted() {},
-  created() {
-    this.getUserInfo();
   }
 };
 </script>

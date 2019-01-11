@@ -73,7 +73,6 @@
 </template>
 <script>
 import API from "@/api/api_hongselvyou.js";
-import { dateFtt } from "@/plugins/util.js";
 export default {
   data() {
     return {

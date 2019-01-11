@@ -140,7 +140,7 @@ export default {
     },
     fieldInit() {
       // 获取字段
-      var column = getField("culturalEducation");
+      var column = getField("redEducation");
       column.forEach(item => {
         if (!!item.width && item.width != "auto") {
           item.width = rem2px(px2rem(item.width));
@@ -150,8 +150,8 @@ export default {
     },
     // 搜索表单数据初始化
     searchFormInit() {
-      this.searchFormItem = getSearchField("culturalEducation", "item");
-      this.searchFormData = getSearchField("culturalEducation", "data");
+      this.searchFormItem = getSearchField("redEducation", "item");
+      this.searchFormData = getSearchField("redEducation", "data");
     },
     // 更新数据
     update(row) {
