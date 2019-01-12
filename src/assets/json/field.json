@@ -8,6 +8,14 @@
             "show": true
         },
         {
+            "prop": "permissionId",
+            "label": "用户类型",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
             "prop": "sex",
             "label": "性别",
             "width": "auto",
@@ -32,20 +40,13 @@
             "show": true
         },
         {
-            "prop": "roles",
-            "label": "角色",
+            "prop": "deviceType",
+            "label": "用户来源",
             "width": "auto",
             "fixed": false,
             "sortable": false,
-            "show": false
-        },
-        {
-            "prop": "rights",
-            "label": "所属权限",
-            "width": "auto",
-            "fixed": false,
-            "sortable": false,
-            "show": false
+            "show": true
+
         },
         {
             "prop": "updateTime",
@@ -145,23 +146,23 @@
         }
     ],
     "culturalEducation": [{
-            "prop": "title",
-            "label": "标题",
-            "width": "auto",
-            "fixed": false,
-            "sortable": false,
-            "show": false
-        },
-        {
-            "prop": "description",
-            "label": "描述",
+            "prop": "author",
+            "label": "作者",
             "width": "auto",
             "fixed": false,
             "sortable": false,
             "show": true
         }, {
-            "prop": "author",
-            "label": "作者",
+            "prop": "title",
+            "label": "标题",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "description",
+            "label": "描述",
             "width": "auto",
             "fixed": false,
             "sortable": false,
@@ -253,6 +254,14 @@
             "width": "auto",
             "fixed": false,
             "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "name",
+            "label": "姓名",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
             "show": false
         },
         {
@@ -276,6 +285,53 @@
             "fixed": false,
             "sortable": false,
             "show": true
+        }
+    ],
+    "huaIntroduction": [{
+            "prop": "name",
+            "label": "姓名",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }, {
+            "prop": "agePeriod",
+            "label": "生卒",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "title",
+            "label": "标题",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "author",
+            "label": "作者",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "description",
+            "label": "描述",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }, {
+            "prop": "content",
+            "label": "内容",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": false
         }
     ],
     "rights": [{
@@ -344,7 +400,7 @@
         }
     ],
     "data": [{
-            "prop": "filePath",
+            "prop": "dbSqlFilePath",
             "label": "文件路径",
             "width": "auto",
             "fixed": false,
@@ -352,7 +408,14 @@
             "show": true
         },
         {
-            "prop": "restoreTime",
+            "prop": "dbSqlFileSize",
+            "label": "文件大小",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }, {
+            "prop": "dbSqlFileCreateTime",
             "label": "备份时间",
             "width": "auto",
             "fixed": false,

@@ -43,6 +43,7 @@
       :operation="operation"
       :column="column"
       :data="data"
+       :showImgColumn="true"
       :currentPage="currentPage"
       :pageSize="pageSize"
       :total="total"

@@ -41,6 +41,7 @@
       :stripe="false"
       :border="false"
       :multiple="true"
+      :showImgColumn="true"
       :operation="operation"
       :column="column"
       :data="data"

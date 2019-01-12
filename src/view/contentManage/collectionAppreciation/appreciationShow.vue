@@ -22,7 +22,7 @@
 </template>
 <script>
 import commonImg from "@/view/contentManage/commonImgui";
-import API from "@/api/api_abstract.js";
+import API from "@/api/api_cangpinxinshang.js";
 export default {
   name: "folk",
   components: { "common-img": commonImg },
@@ -41,18 +41,13 @@ export default {
         menuId: this.$route.query.menuId + ""
       },
       addFormInfo: {
-        scenicSpotName: "",
+        title: "",
         author: "",
         content: "",
         imgPath: "",
         menuId: this.$route.query.menuId + ""
       },
-      imgList: [
-        {
-          name: "渭华起义工农红军使用过的土铁枪",
-          src: require("@/assets/img/content/photoe.png")
-        }
-      ]
+      imgList: []
     };
   },
   methods: {
@@ -76,14 +71,12 @@ export default {
     },
     submitFormInfo(val) {
       this.addFormInfo = val;
-      // this.uploadFile();
-      window.sessionStorage.setItem("responseType", "json");
-      this.addFormInfo.imgPath = this.imgPath.replace(/\\/g, "/");
-      this.addFormInfo.menuId = this.$route.query.menuId + "";
-      console.log(this.addFormInfo);
       var that = this;
+      this.addFormInfo.imgPath = this.imgPath;
       setTimeout(function() {
-        API.addFormInfo(that.addFormInfo).then(res => {
+        window.sessionStorage.setItem("responseType", "json");
+        that.addFormInfo.menuId = that.$route.query.menuId + "";
+        API.addAPI(that.addFormInfo).then(res => {
           if (!!res && res.code === 20000) {
             that.dialogVisible = false;
             that.findList();
@@ -93,15 +86,14 @@ export default {
             type: !!res && res.code === 20000 ? "success" : "error"
           });
         });
-      }, 50);
+      }, 100);
     },
     setShowDialog(val) {
       this.dialogVisible = true;
     },
     findList() {
       window.sessionStorage.setItem("responseType", "json");
-      // alert(this.searchParams.menuId);
-      API.findhongselvyou(this.searchParams).then(res => {
+      API.findList(this.searchParams).then(res => {
         if (!!res && res.code === 20000) {
           this.imgList = res.data;
         }
@@ -121,7 +113,7 @@ export default {
     deleteImg() {
       var _this = this;
       window.sessionStorage.setItem("responseType", "json");
-      API.delAbstarct({ id: _this.id })
+      API.delAPI({ id: _this.id })
         .then(res => {
           if (!!res && res.code === 20000) {
             this.findList();

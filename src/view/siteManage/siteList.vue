@@ -17,7 +17,7 @@
                 v-model="siteForm[item.name]"
                 value=""
                 :placeholder="item.placeholder"
-                :disabled="true"
+                :disabled="siteForm[item.status]"
               ></el-input>
             </el-col>
             <el-col :span="4">
@@ -119,7 +119,7 @@ export default {
       confirmType: "warning",
       confirmTitle: "提示信息",
       confirmContent: "此操作将永久删除该文件, 是否继续?",
-      id:"",
+      id: "",
       siteForm: {
         copyright: "",
         tecSupport: "",
@@ -173,24 +173,18 @@ export default {
     };
   },
   methods: {
-    // deleteMenu(item) {//本地测试从数组删除
-    //   var index = this.menuInfo.indexOf(item);
-    //   if (index !== -1) {
-    //     this.menuInfo.splice(index, 1);
-    //   }
-    // },
-      // 删除确认
+    // 删除确认
     deleteConfirm(row) {
       var _this = this;
       console.log(row);
       _this.ids = row.id;
       setTimeout(() => {
-        this.$refs.myconfirm.confirm(_this.deleteMenu, '');
+        this.$refs.myconfirm.confirm(_this.deleteMenu, "");
       }, 100);
     },
     deleteMenu(item) {
       var _this = this;
-       API.delMenu({ id: _this.ids })
+      API.delMenu({ id: _this.ids })
         .then(res => {
           this.ids = null;
           this.$message({
@@ -213,12 +207,6 @@ export default {
         });
       }
     },
-    // deleteChildMenu(item, i) {
-    //   var index = this.menuInfo[i].children.indexOf(item);
-    //   if (index !== -1) {
-    //     this.menuInfo[i].children.splice(index, 1);
-    //   }
-    // },
     addMenu() {
       this.menuInfo.push({
         name: "",
@@ -229,7 +217,7 @@ export default {
       });
     },
     findSite() {
-        window.sessionStorage.setItem("responseType", "json");
+      window.sessionStorage.setItem("responseType", "json");
       API.findSiteList()
         .then(res => {
           console.log(res);
@@ -249,7 +237,7 @@ export default {
         .catch(res => {});
     },
     findMenu() {
-        window.sessionStorage.setItem("responseType", "json");
+      window.sessionStorage.setItem("responseType", "json");
       var that = this;
       API.findMenuList().then(res => {
         console.log(res);
@@ -257,7 +245,7 @@ export default {
           // that.menuInfo = !!res.data
           //   ? this._.filter(res.data, { parentId: "0", menuType: 2 })
           //   : "";
-             that.menuInfo = !!res.data
+          that.menuInfo = !!res.data
             ? this._.filter(res.data, { parentId: "0" })
             : "";
         }

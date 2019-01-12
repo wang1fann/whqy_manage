@@ -20,7 +20,7 @@
       :multiple="false"
       :operation="operation"
       :column="column"
-      :data="data"
+      :data="data.slice((currentPage-1)*pageSize,currentPage*pageSize)"
       :currentPage="currentPage"
       :pageSize="pageSize"
       :total="total"
@@ -160,12 +160,11 @@ export default {
       // 添加查询字段
       config = $.extend(config, this.searchFormData);
       // 接口调用
-        window.sessionStorage.setItem("responseType", "json");
+      window.sessionStorage.setItem("responseType", "json");
       API.findDataRestoreList(config)
         .then(res => {
-          console.log(res);
-          this.data = res.data.rows;
-          this.total = res.data.total;
+          this.data = !!res ? res : [];
+          this.total = res.length;
         })
         .catch(err => {
           this.$message({
@@ -245,17 +244,15 @@ export default {
     },
     // 分页切换或 单行选中事件
     handleCurrentChange(index) {
-      // console.log(index);
-      // this.currentRow=index;
       this.currentPage = index;
       this.getData();
     },
     // 数据库还原
     dbRestore(row) {
       if (!row.filePath) {
-         this.$message({
-          message: '请先选中要还原的已备份数据',
-          type: 'warning'
+        this.$message({
+          message: "请先选中要还原的已备份数据",
+          type: "warning"
         });
         return;
       }

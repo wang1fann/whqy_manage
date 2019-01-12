@@ -376,7 +376,6 @@ export default {
 
     onSubmit() {
       this.getSubmitData();
-      console.log(this.formData);
       this.$emit("submit", this.formData);
     },
 
@@ -388,7 +387,6 @@ export default {
     submitForm() {
       this.$refs[this.form.ref].validate(valid => {
         if (valid) {
-          // this.onSubmit();
           this.$emit("submit");
         } else {
           console.log("error submit!!");

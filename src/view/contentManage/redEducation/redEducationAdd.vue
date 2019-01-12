@@ -41,20 +41,19 @@ export default {
   methods: {
     submitcontent(content) {
       this.ticketForm.content = content;
-      console.log(this.ticketForm);
       var that = this;
       window.sessionStorage.setItem("responseType", "json");
       API.addAPI(this.ticketForm).then(res => {
+        that.$message({
+          type: !!res && res.code === 20000 ? "success" : "warning",
+          message: res.message
+        });
         if (!!res && res.code === 20000) {
           var that = this;
           setTimeout(function() {
             that.$router.go(-1);
           }, 1000);
         }
-        that.$message({
-          type: !!res && res.code === 20000 ? "success" : "warning",
-          message: res.message
-        });
       });
     },
     getImgPath(val) {

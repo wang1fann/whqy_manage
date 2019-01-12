@@ -5,7 +5,7 @@
       :model="ruleForm"
       :rules="rules"
       ref="ruleForm"
-      label-width="130px"
+      label-width="110px"
       class="demo-ruleForm"
     >
       <el-form-item
@@ -58,6 +58,15 @@
       >
         <el-input v-model="ruleForm.trainTime"></el-input>
       </el-form-item>
+      <el-form-item
+        label="内容："
+        prop="content"
+      >
+        <UE
+          :defaultMsg="ruleForm.content"
+          ref="ue"
+        ></UE>
+      </el-form-item>
       <el-form-item class="margintop10">
         <el-button
           type="primary"
@@ -73,6 +82,7 @@
 </template>
 <script>
 import API from "@/api/api_hongselvyou.js";
+import UE from "@/components/myEdit";
 export default {
   data() {
     return {
@@ -82,10 +92,11 @@ export default {
         ticketPrice: "22",
         trainTime: "",
         busRoute: "",
-        menuId:'',
-        id:''
+        menuId: "",
+        content: "",
+        id: ""
       },
-      type:"add",
+      type: "add",
       rules: {
         scenicSpotName: [
           { required: true, message: "请输入景区名称", trigger: "blur" },
@@ -97,15 +108,15 @@ export default {
       }
     };
   },
+  components: { UE },
   created() {
     this.getUpdate();
   },
   methods: {
     submitForm(formName) {
-      console.log(formName);
       this.$refs[formName].validate(valid => {
         if (valid) {
-          console.log(this.ruleForm);
+          this.ruleForm.content = this.$refs.ue.getUEContent();
           API.addhongselvyou(this.ruleForm).then(res => {
             this.$message({
               message: res.message,
@@ -113,9 +124,9 @@ export default {
             });
             if (!!res && res.code === 20000) {
               var that = this;
-              setTimeout(function(){
+              setTimeout(function() {
                 that.$router.go(-1);
-              },1000)
+              }, 1000);
             }
           });
         } else {
@@ -131,10 +142,7 @@ export default {
       this.$refs[formName].resetFields();
     },
     getUpdate() {
-      console.log(this.$route.query);
-      this.ruleForm = !!this.$route.query
-        ? this.$route.query
-        : this.ruleForm;
+      this.ruleForm = !!this.$route.query ? this.$route.query : this.ruleForm;
     }
   }
 };

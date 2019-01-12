@@ -18,9 +18,12 @@
         v-for="(item,index) in imgList.rows"
         :key="index"
       >
-        <img :src="item.imgPath" />
+        <img
+          :src="!!item.imgPath?item.imgPath:''"
+          :onerror="errorImg"
+        />
         <span @click="deleteConfirm(item)"></span>
-        <p>{{item.scenicSpotName}}</p>
+        <p>{{item.scenicSpotName||item.title}}</p>
       </div>
     </div>
     <div style="margin-top:15px;">
@@ -54,8 +57,14 @@
           >
           <div class="uplaod-bgimg">
             <img
+              v-if="!imgPath"
               class="uplaod-bgimg"
               src="@/assets/img/content/photou.png"
+            />
+            <img
+              v-if="!!imgPath"
+              class="uplaod-bgimg"
+              :src="imgPath"
             />
             <p>点击上传图片</p>
           </div>
@@ -100,20 +109,24 @@ export default {
   name: "commonImgui",
   data() {
     return {
+      errorImg: 'this.src="' + require("@/assets/img/noImg.png") + '"',
       dialogTitle: "上传",
       id: "",
       total: 50,
+      // imgPath:"",
       otherFormInfo: {
         scenicSpotName: "",
+        title: "",
         author: "",
         content: "",
         imgPath: ""
       }
     };
   },
-  props: ["imgList", "searchParams", "showAuthor","dialogVisible"],
+  props: ["imgList", "imgPath", "searchParams", "showAuthor", "dialogVisible"],
   methods: {
     submit() {
+      this.otherFormInfo.title = this.otherFormInfo.scenicSpotName;
       this.$emit("formInfo", this.otherFormInfo);
     },
     changeImage(ev) {
@@ -137,7 +150,7 @@ export default {
     },
     // 添加数据
     showDialog() {
-      this.$emit("showDialog",true)
+      this.$emit("showDialog", true);
     },
     // 弹框关闭时的回调函数
     handleClose(done) {

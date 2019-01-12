@@ -2,7 +2,7 @@
   <el-form
     :inline="true"
     ref="searchForm"
-    label-width="0px"
+    label-width="75px"
     :model="formData"
     @submit.native.prevent
   >
@@ -30,6 +30,7 @@
       <el-form-item
         v-else-if="item.type == 'text' && item.show"
         :key="index"
+        :label="item.label+':'"
       >
         <el-input
           v-model="formData[item.name]"
@@ -74,6 +75,7 @@
       <el-form-item
         v-else-if="item.type == 'date' && item.show"
         :key="index"
+        :label="item.label"
       >
         <el-date-picker
           v-model="formData[item.name]"

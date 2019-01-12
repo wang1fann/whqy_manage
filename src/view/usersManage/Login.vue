@@ -99,8 +99,8 @@ export default {
     return {
       loading: false,
       account: {
-        userName: "18409208420",
-        passWord: "admin",
+        userName: "admin",
+        passWord: "123456",
         vrifyCode: ""
       },
       captcha: "",

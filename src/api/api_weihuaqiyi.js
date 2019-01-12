@@ -19,4 +19,8 @@ export default {
         params.size = !!params.size ? params.size : 10;
         return API.POST('/syx/weihuaqiyijieshao/search/' + params.page + '/' + params.size, params)
     },
+    // 上传图片
+    uploadImg: params => {
+        return API.POST('/syx/file/multipleUpload', params)
+    }
 }

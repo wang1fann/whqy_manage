@@ -2,6 +2,30 @@
     "user": {
         "item": [{
                 "type": "radioGroup",
+                "name": "permissionId",
+                "placeholder": "用户类型",
+                "width": "100",
+                "label": "用户类型:",
+                "show": true,
+                "value": [],
+                "options": [{
+                    "id": "",
+                    "value": "1",
+                    "label": "超级管理员",
+                    "name": "1"
+                }, {
+                    "id": "",
+                    "value": "2",
+                    "label": "一般管理员",
+                    "name": "2"
+                }, {
+                    "id": "",
+                    "value": "3",
+                    "label": "普通用户",
+                    "name": "3"
+                }]
+            }, {
+                "type": "radioGroup",
                 "name": "sex",
                 "placeholder": "性别",
                 "width": "100",
@@ -10,14 +34,14 @@
                 "value": [],
                 "options": [{
                     "id": "",
-                    "value": "男",
+                    "value": "1",
                     "label": "男",
-                    "name": "man"
+                    "name": "1"
                 }, {
                     "id": "",
-                    "value": "女",
+                    "value": "2",
                     "label": "女",
-                    "name": "women"
+                    "name": "2"
                 }]
             }, {
                 "type": "text",

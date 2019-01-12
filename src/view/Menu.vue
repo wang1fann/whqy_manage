@@ -12,13 +12,14 @@
             style="font-size:30px;vertical-align:middle;"
             class="fa fa-user-circle-o"
           ></i>
-     <span v-show="userInfo.sex === '2'">您好！ {{userInfo.userName}}先生</span>
+          <span v-show="userInfo.sex === '2'">您好！ {{userInfo.userName}}先生</span>
           <span v-show="userInfo.sex !== '2'">您好！ {{userInfo.userName}}女士</span>
         </span>
         <span class="user-set-up">
           <i
             style="font-size:15px;vertical-align:middle;"
             class="fa fa-refresh"
+            @click="$router.go(0)"
           ></i>
           <i
             style="font-size:15px;vertical-align:middle;"

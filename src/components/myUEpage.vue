@@ -33,7 +33,7 @@
           <span>点击左图上传封面图片</span><br />
           <span class="spec">要求：</span><br />
           <span>1.建议图片比例 3:1</span><br />
-          <span>2.图片大小 1MB以下</span><br />
+          <span>2.图片大小 10MB以下</span><br />
           <span>3.图片格式 .jpg、.png、.gif等 </span><br />
         </div>
       </el-col>
@@ -78,9 +78,7 @@
         >
           <span>点击左图上传视频</span><br />
           <span class="spec">要求：</span><br />
-          <span>1.视频比例 3:1</span><br />
-          <span>2.视频大小 3MB以下</span><br />
-          <span>3.视频格式 MP4等 </span><br />
+          <span>1.视频格式 MP4 </span><br />
         </div>
       </el-col>
     </el-row>
@@ -380,32 +378,27 @@ export default {
       return arr.join("\n");
     },
     beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
+      const isJPG = file.type === "image/jpeg" || "png" || "gif";
+      const isLt10M = file.size / 1024 / 1024 < 10;
       if (!isJPG) {
-        this.$message.error("上传图片只能是 JPG 格式!");
+        this.$message.error("上传图片只能是 jpg 、png格式!");
       }
-      if (!isLt2M) {
-        this.$message.error("上传图片大小不能超过 2MB!");
+      if (!isLt10M) {
+        this.$message.error("上传图片大小不能超过 10MB!");
       }
-      if (!isJPG || !isLt2M) {
-        return isJPG && isLt2M;
+      if (!isJPG || !isLt10M) {
+        return isJPG && isLt10M;
       }
       this.imgData.file = file;
     },
     // 检测上传视频格式MP4
     beforeAvatarUploadMp4(file) {
-      console.log(file);
       const isMp4 = file.type === "video/mp4";
-      const isLt3M = file.size / 1024 / 1024 < 3;
       if (!isMp4) {
         this.$message.error("上传视频只能是 Mp4 格式!");
       }
-      if (!isLt3M) {
-        this.$message.error("上传视频大小不能超过 3MB!");
-      }
-      if (!isMp4 || !isLt3M) {
-        return isMp4 && isLt3M;
+      if (!isMp4) {
+        return isMp4;
       }
       this.mp4Data.file = file;
     },
@@ -457,9 +450,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-// @import "@/assets/base/variables.scss";
-
-// @import "@/assets/base/mixins.scss";
 .uepage-container {
   i.el-icon-plus.avatar-uploader-icon {
     border: 1px dashed #d9d9d9;

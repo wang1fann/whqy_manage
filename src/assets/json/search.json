@@ -6,6 +6,7 @@
                 "value": "",
                 "placeholder": "请输入用户名",
                 "width": "100%",
+                "label": "用户名",
                 "show": true
             },
             {
@@ -13,13 +14,33 @@
                 "name": "phone",
                 "value": "",
                 "placeholder": "请输入电话号码",
+                "label": "电话",
+                "width": "100%",
+                "show": true
+            },
+            {
+                "type": "text",
+                "name": "permissionId",
+                "value": "",
+                "placeholder": "用户类型",
+                "label": "用户类型",
+                "width": "100%",
+                "show": true
+            }, {
+                "type": "text",
+                "name": "deviceType",
+                "value": "",
+                "placeholder": "用户来源",
+                "label": "用户来源",
                 "width": "100%",
                 "show": true
             }
         ],
         "data": {
             "userName": "",
-            "phone": ""
+            "phone": "",
+            "permissionId": "",
+            "deviceType": ""
         }
     },
     "role": {
@@ -114,7 +135,7 @@
             "name": "busRoute",
             "value": "",
             "placeholder": "请输入公交路线",
-            "label": "开放时间",
+            "label": "公交路线",
             "width": "100%",
             "show": true
         }],
@@ -205,7 +226,7 @@
                 "value": "",
                 "placeholder": "请输入描述",
                 "width": "100%",
-                "label": "描述:",
+                "label": "描述",
                 "show": true
             },
             {
@@ -246,7 +267,7 @@
                 "value": "",
                 "placeholder": "请输入链接地址",
                 "width": "100%",
-                "label": "链接地址:",
+                "label": "链接地址",
                 "show": true
             },
             {
@@ -300,7 +321,7 @@
                 "value": "",
                 "placeholder": "请输入权限等级",
                 "width": "100%",
-                "label": "权限等级:",
+                "label": "权限等级",
                 "show": true
             },
             {

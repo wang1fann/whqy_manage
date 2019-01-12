@@ -232,7 +232,7 @@ export function getPageSize() {
         // var h = document.documentElement.clientHeight
     var s = 10
     if (w <= 1366) {
-        s = 13
+        s = 10
     } else if (w > 1536) {
         s = 15
     }

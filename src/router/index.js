@@ -33,7 +33,7 @@ let contentRouter = [{
                 path: 'situationImg',
                 name: '景区掠影',
                 component: resolve => {
-                    require(['view/contentManage/redTourism/folk'], resolve)
+                    require(['view/contentManage/senceSituation/situationImg'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -114,7 +114,7 @@ let contentRouter = [{
                 path: 'appreciationShow',
                 name: '精品展示',
                 component: resolve => {
-                    require(['view/contentManage/redTourism/folk'], resolve)
+                    require(['view/contentManage/collectionAppreciation/appreciationShow'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -135,7 +135,7 @@ let contentRouter = [{
                 path: 'souvenir',
                 name: '亲切留念',
                 component: resolve => {
-                    require(['view/contentManage/redTourism/folk'], resolve)
+                    require(['view/contentManage/collectionAppreciation/souvenir'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -204,7 +204,7 @@ let contentRouter = [{
                 path: 'imgRecord',
                 name: '图片档案',
                 component: resolve => {
-                    require(['view/contentManage/redTourism/folk'], resolve)
+                    require(['view/contentManage/huaIntroduction/imgRecord'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -343,7 +343,7 @@ let contentRouter = [{
                 path: 'HistoricalMoments',
                 name: '历史瞬间',
                 component: resolve => {
-                    require(['view/contentManage/redTourism/folk'], resolve)
+                    require(['view/contentManage/xiSpirit/HistoricalMoments'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),
@@ -756,6 +756,7 @@ let contentRouter = [{
 ];
 
 let router = new Router({
+
     routes: [{
             path: '/login',
             name: 'Login',
@@ -921,13 +922,18 @@ console.log(router);
 router.beforeEach((to, from, next) => {
     let routeName = to.meta.name || to.name;
     window.document.title = (routeName ? routeName + ' - ' : '') + '渭华起义后台管理系统';
+    console.log(to.path.startsWith('/login'));
     if (to.path.startsWith('/login')) {
         window.localStorage.removeItem('access-user')
         next()
     } else {
-        let user = window.localStorage.getItem('access-user');
-        if (!user) {
-            next()
+        let token = window.localStorage.getItem('token');
+        if (!token) {
+            console.log(token);
+            next({
+                path: '/login'
+            })
+
         } else {
             window.token = window.localStorage.getItem('token');
             next()

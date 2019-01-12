@@ -8,7 +8,7 @@
       :gutter="24"
     >
       <el-col
-        :span="8"
+        :span="6"
         class="pull-left alignleft"
       >
         <el-button
@@ -29,7 +29,7 @@
         </el-button>
       </el-col>
       <el-col
-        :span="16"
+        :span="18"
         class="pull-right alignright"
       >
         <el-button
@@ -58,6 +58,7 @@
       :currentPage="currentPage"
       :pageSize="pageSize"
       :total="total"
+      :showImgColumn="true"
       @handleCurrentChange="handleCurrentChange"
       @delete="deleteConfirm"
       @update="update"
@@ -215,7 +216,26 @@ export default {
       window.sessionStorage.setItem("responseType", "json");
       var a = this.formData.imgPath;
       this.formData.imgPath = a.replace(/\\/g, "/");
+      this.formData.sex = this.formData.sex === "女" ? "2" : "1";
+      this.formData.permissionId =
+        this.formData.permissionId === "超级管理员"
+          ? "1"
+          : this.formData.permissionId === "一般管理员"
+          ? "2"
+          : "3";
+      this.formData.deviceType =
+        this.formData.deviceType === "PC"
+          ? "1"
+          : this.formData.deviceType === "IOS"
+          ? "2"
+          : this.formData.deviceType === "安卓"
+          ? "3"
+          : "4";
+
       setTimeout(() => {
+        this.formData.userName = !!this.formData.userName
+          ? this.formData.userName
+          : "未命名";
         API[this.type](this.formData).then(res => {
           this.dialogVisible = false;
           if (res.code === 20000) {
@@ -256,48 +276,55 @@ export default {
       };
       // 添加查询字段
       config = $.extend(config, this.searchFormData);
+      config.permissionId =
+        config.permissionId === "超级管理员"
+          ? "1"
+          : config.permissionId === "一般管理员"
+          ? "2"
+          : "3";
       // 接口调用
-      var options = {};
       this.fullscreenLoading = true;
       window.sessionStorage.setItem("responseType", "json");
       API.findUserList(config)
         .then(res => {
           console.log(res);
           if (!!res && res.code === 20000) {
+            // this.handleClose();
             for (var i = 0; i < res.data.rows.length; i++) {
-              res.data.rows[i].sex = res.data.rows[i].sex === "2" ? "男" : "女";
+              res.data.rows[i].sex = res.data.rows[i].sex === "2" ? "女" : "男";
+              res.data.rows[i].permissionId =
+                res.data.rows[i].permissionId === "1"
+                  ? "超级管理员"
+                  : res.data.rows[i].permissionId === "2"
+                  ? "一般管理员"
+                  : "普通用户";
+              //用户来源 1.pc  2.ios  3.安卓 4.未识别
+              res.data.rows[i].deviceType =
+                res.data.rows[i].deviceType === "1"
+                  ? "PC"
+                  : res.data.rows[i].deviceType === "2"
+                  ? "IOS"
+                  : res.data.rows[i].deviceType === "3"
+                  ? "安卓"
+                  : "未识别";
+              // android
             }
             this.data = res.data.rows;
             this.total = res.data.total;
+            var user = JSON.parse(window.localStorage.getItem("access-user"));
+            this.data =
+              user.permissionId !== "1"
+                ? this._.filter(this.data, { permissionId: user.permissionId })
+                : this.data;
+            console.log(this.data);
           }
           this.$message({
             message: res.message,
-            type: res.code === 20000 ? "success" : "error"
+            type: !!res && res.code === 20000 ? "success" : "error"
           });
           this.fullscreenLoading = false;
         })
         .catch(err => {
-          this.total = 100;
-          this.data = [
-            {
-              userName: "wangyifan",
-              phone: 5556788992,
-              email: "7777@qq.com",
-              id: 22,
-              sex: "男",
-              uploadTime: "2018-10-11",
-              imgPath: require("@/assets/img/user.jpg")
-            },
-            {
-              userName: "wifan3",
-              phone: 55567000992,
-              email: "77@qq.com",
-              id: 223,
-              sex: "女",
-              uploadTime: "2018-10-11",
-              imgPath: ""
-            }
-          ];
           this.fullscreenLoading = false;
         });
     },
@@ -370,7 +397,9 @@ export default {
       this.getData();
     },
     exportUserList() {
-      window.open("http://192.168.0.106:9014/syx/user/downloadexcel");
+      window.open(
+        "http://192.168.0.110:9014/syx/user/downloadexcel?token=" + window.token
+      );
     }
   }
 };

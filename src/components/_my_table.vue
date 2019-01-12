@@ -46,19 +46,6 @@
       >
       </el-table-column>
       <!-- 单选框 -->
-      <!-- <el-table-column
-        label="选择"
-        width="50"
-        align="center"
-      >
-        <template scope="scope">
-          <el-radio
-            class="radio"
-            v-model="radio"
-            :label="scope.$index"
-          >&nbsp;</el-radio>
-        </template>
-      </el-table-column> -->
       <!-- 序号 -->
       <el-table-column
         v-if="hasIndex"
@@ -73,15 +60,15 @@
       </el-table-column>
       <!-- 图片 -->
       <el-table-column
+        v-if="showImgColumn"
         label="图片"
         width="180"
         :align="'center'"
       >
         <template slot-scope="scope">
-          <!-- <span>{{scope.row}}</span> -->
           <img
-            v-if="scope.row.imgPath!==''"
-            :src="scope.row.imgPath"
+            :src="!!scope.row.imgPath?scope.row.imgPath:require('@/assets/img/noImg.png')"
+            :onerror="errorImg"
             width="70"
             height="70"
             style="border-radius:50%;border:none;"
@@ -242,6 +229,11 @@ export default {
       type: Boolean,
       default: false
     },
+    // showImgColumn
+    showImgColumn: {
+      type: Boolean,
+      default: false
+    },
     size: {
       type: String,
       default: "mini"
@@ -280,7 +272,7 @@ export default {
     },
     pageSize: {
       type: Number,
-      default: 15
+      default: 10
     },
     currentPage: {
       type: Number,
@@ -306,6 +298,7 @@ export default {
   data() {
     return {
       width: rem2px(px2rem(50)),
+      errorImg:'this.src="' + require('@/assets/img/noImg.png') + '"',
       multipleSelection: []
     };
   },

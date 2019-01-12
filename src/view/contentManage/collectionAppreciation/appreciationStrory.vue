@@ -40,6 +40,7 @@
       :stripe="false"
       :border="false"
       :multiple="true"
+      :showImgColumn="true"
       :operation="operation"
       :column="column"
       :data="data"
@@ -98,7 +99,7 @@ export default {
       ]
     };
     return {
-      buttonName:this.$route.query.name,
+      buttonName: this.$route.query.name,
       confirmType: "warning",
       confirmTitle: "提示信息",
       confirmContent: "此操作将永久删除该文件, 是否继续?",
@@ -117,7 +118,7 @@ export default {
       searchFormData: {},
       searchFormItem: [],
       menu: !!this.$route.query.menuId
-        ? this.$route.query.menuId+""
+        ? this.$route.query.menuId + ""
         : this.$route.name
     };
   },
@@ -155,11 +156,8 @@ export default {
     },
     // 更新数据
     update(row) {
-       row.menuId= this.$route.query.menuId+"";
-      this.gotoUrl(
-        "/contentManage/senceNews/newsAdd",
-        row
-      );
+      row.menuId = this.$route.query.menuId + "";
+      this.gotoUrl("/contentManage/senceNews/newsAdd", row);
     },
     // 弹框关闭时的回调函数
     handleClose(done) {
@@ -177,7 +175,7 @@ export default {
         page: _this.currentPage,
         size: _this.pageSize,
         menuId: !!this.$route.query.menuId
-          ? this.$route.query.menuId+""
+          ? this.$route.query.menuId + ""
           : this.$route.name
       };
       window.sessionStorage.setItem("responseType", "json");
@@ -223,8 +221,8 @@ export default {
             message: res.message,
             type: res.code === 20000 ? "success" : "error"
           });
-           if(!!res && res.code === 20000){
-              this.getData();
+          if (!!res && res.code === 20000) {
+            this.getData();
           }
         })
         .catch(err => {

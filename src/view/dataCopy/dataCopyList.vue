@@ -113,10 +113,11 @@ export default {
       });
     },
     changeAutoCopyValue(val) {
-      console.log(val);
-      API.backupturnon({ type: 2, status: val }).then(res => {
-        // this.autoCopyValue =
-        //   !!res && res.data ? res.data.IS_AUTOMATIC_BACKUP : "";
+       window.sessionStorage.setItem("responseType", "json");
+      API.backupturnon({ type: 2+"", status: val }).then(res => {
+        this.autoCopyValue =
+          !!res && res.data ? res.data.IS_AUTOMATIC_BACKUP : "";
+       window.sessionStorage.setItem("responseType", "json");
         this.$message({
           message: res.message,
           type: res.code === 20000 ? "success" : "error"
