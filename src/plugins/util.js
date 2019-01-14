@@ -142,7 +142,9 @@ export function dateFtt(date, fmt) {
  * 格式YYYY-MM-DD 00:00:00
  */
 export function getNowFormatDate(value) {
-    let date = new Date(!!value ? value : '');
+    // let date = new Date(!!value ? value : null);
+    let date = new Date();
+    // console.log(date);
     let y = date.getFullYear();
     let MM = date.getMonth() + 1;
     MM = MM < 10 ? ('0' + MM) : MM;
@@ -157,8 +159,42 @@ export function getNowFormatDate(value) {
     if (h == '00') {
         h = 11;
     }
+    console.log(y + '-' + MM + '-' + d + ' ' + h + ':' + m + ':' + s);
     return y + '-' + MM + '-' + d + ' ' + h + ':' + m + ':' + s;
 };
+// 获取系统当前时间的上个月时间
+export function perMonthtDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() === 0 ? "12" : date.getMonth();
+    var strDate = date.getDate();
+    var strHours = date.getHours();
+    var strMinutes = date.getMinutes();
+    var strSeconds = date.getSeconds();
+
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    if (strHours >= 0 && strHours <= 9) {
+        strHours = "0" + strHours;
+    }
+    if (strMinutes >= 0 && strMinutes <= 9) {
+        strMinutes = "0" + strMinutes;
+    }
+    if (strSeconds >= 0 && strSeconds <= 9) {
+        strSeconds = "0" + strSeconds;
+    }
+
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +
+        " " + strHours + seperator2 + strMinutes +
+        seperator2 + strSeconds;
+    console.log(currentdate);
+    return currentdate;
+}
 
 /**
  *px转rem
@@ -284,8 +320,8 @@ export function translateDataToTree(data) {
  * @returns
  */
 export function Object2Array(arrObj, key) {
-    console.log(arrObj);
-    console.log(key);
+    // console.log(arrObj);
+    // console.log(key);
     var arr = [];
     for (var i = 0; i < arrObj.length; i++) {
         arr.push(arrObj[i][key]);

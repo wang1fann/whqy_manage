@@ -46,10 +46,6 @@ export default {
     },
     // 删除用户
     delUser: params => {
-        // if (!!params.id && params.id.indexOf(',') === -1) {
-        //     return API.DELETE('/syx/user/' + params.id, params)
-        // } else {
-        // }
         return API.DELETE('/syx/user/deleteUser', params)
     },
     // 生成随机吗

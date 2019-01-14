@@ -335,14 +335,7 @@
         }
     ],
     "rights": [{
-            "prop": "role",
-            "label": "角色",
-            "width": "auto",
-            "fixed": false,
-            "sortable": false,
-            "show": true
-        }, {
-            "prop": "name",
+            "prop": "userName",
             "label": "用户名",
             "width": "auto",
             "fixed": false,
@@ -350,15 +343,15 @@
             "show": true
         },
         {
-            "prop": "password",
-            "label": "密码",
+            "prop": "phone",
+            "label": "电话",
             "width": "auto",
             "fixed": false,
             "sortable": false,
             "show": true
         },
         {
-            "prop": "section",
+            "prop": "departmentId",
             "label": "科室",
             "width": "auto",
             "fixed": false,
@@ -366,8 +359,8 @@
             "show": true
         },
         {
-            "prop": "task",
-            "label": "任务",
+            "prop": "permissionId",
+            "label": "用户类型",
             "width": "auto",
             "fixed": false,
             "sortable": false,

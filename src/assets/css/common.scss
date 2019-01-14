@@ -219,6 +219,17 @@ button.el-button.button-operator {
     padding: 10px 10px 10px;
 }
 
+.el-table--striped .el-table__body tr.el-table__row--striped.current-row td,
+.el-table__body tr.current-row>td,
+.el-table__body tr.hover-row.current-row>td,
+.el-table__body tr.hover-row.el-table__row--striped.current-row>td,
+.el-table__body tr.hover-row.el-table__row--striped>td,
+.el-table__body tr.hover-row>td {
+    /* background-color: crimson; */
+    /* color: #fff; */
+    color: #E24142;
+}
+
 span.el-dialog__title {
     color: #fff;
 }
@@ -234,6 +245,10 @@ span.el-dialog__title {
 .el-input--prefix .el-input__inner {
     height: 28px;
     line-height: 28px;
+}
+
+.border-all-grey.el-row.first-row .main-conent-input200 .el-form--inline .el-form-item__content {
+    width: 61%;
 }
 
 .el-radio-button__orig-radio:checked+span {

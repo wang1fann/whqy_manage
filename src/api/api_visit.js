@@ -6,14 +6,17 @@ import * as API from '.'
 export default {
     getDeviceBzt: params => {
         // return API.POST('/syx/other/deviceBzt', params); //
+        // deviceZztHour 小时分组
         var URL;
-        URL = params.type !== "月访问量" ? API.POST('/syx/other/deviceBzt', params) : API.POST('/syx/other/deviceBztMonth', params);
+        var type = params.type;
+        delete params["type"];
+        URL = type !== "月访问量" ? API.POST('/syx/other/deviceBzt', params) : API.POST('/syx/other/deviceBztMonth', params);
         //访问路径饼状图
         return URL;
     },
     getDeviceZzt: params => {
         var URL;
-        URL = params.type !== "月访问量" ? API.POST('/syx/other/deviceZzt', params) : API.POST('/syx/other/deviceZztMonth', params);
+        URL = params.type !== "月访问量" ? API.POST('/syx/other/deviceZztHour', params) : API.POST('/syx/other/deviceZztMonth', params);
         //访问量柱状图
         return URL;
     },

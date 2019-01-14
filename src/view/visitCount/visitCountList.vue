@@ -16,9 +16,15 @@
               v-model="dateType"
               size="small"
             >
-              <el-radio-button label="日访问量"></el-radio-button>
-              <el-radio-button label="月访问量"></el-radio-button>
-              <el-radio-button label="最近访问"></el-radio-button>
+              <el-radio-button
+                label="月访问量"
+                @click="updateDate()"
+              ></el-radio-button>
+              <el-radio-button
+                label="日访问量"
+                @click="updateDate()"
+              ></el-radio-button>
+              <!-- <el-radio-button label="最近访问"></el-radio-button> -->
             </el-radio-group>
             <div class="rate-select">
               <span v-if="dateType!=='月访问量'">
@@ -45,6 +51,7 @@
                   type="warning"
                   plain
                   @click="updateDate"
+                  :disabled="false"
                 >查询</el-button>
               </span>
             </div>
@@ -79,13 +86,18 @@
 
 <script>
 import echarts from "echarts";
-import { getNowFormatDate, Object2Array } from "@/plugins/util.js";
+import {
+  getNowFormatDate,
+  Object2Array,
+  perMonthtDate,
+  dateFtt
+} from "@/plugins/util.js";
 import API from "@/api/api_visit.js";
 export default {
   data() {
     return {
       dataRangeValue: "",
-      dateType: "最近访问",
+      dateType: "日访问量",
       visitData: {
         name: [0],
         value: [0]
@@ -130,35 +142,40 @@ export default {
       }
     };
   },
+  created() {},
   methods: {
+    perMonthtDate,
+    getNowFormatDate,
+    dateFtt,
     searchVisitData() {
+      var today = new Date();
       var searchParamsDay = {
-        startDay: "2018-12-01 00:00:00",
-        // endDay: getNowFormatDate(),
-        endDay: "2019-01-01 00:00:00",
+        startHour: this.dateFtt(today, "yyyy-MM-dd") + " 00:00:00",
+        endHour: this.getNowFormatDate(),
         type: this.dateType
       };
       var searchParamsMonth = {
-        startMonth: this.dataRangeValue,
-        endMonth: "2019-09",
+        startMonth: this.perMonthtDate(),
+        endMonth: this.getNowFormatDate(),
         type: this.dateType
       };
+      console.log(this.dateType);
       var that = this;
       API.getDeviceZzt(
         this.dateType !== "月访问量" ? searchParamsDay : searchParamsMonth
       )
         .then(res => {
           console.log(res);
-          if(!!res && res.code ===20000){
+          if (!!res && res.code === 20000 && !!res.data) {
             that.visitData.name = Object2Array(res.data, "name");
             that.visitData.value = Object2Array(res.data, "value");
             console.log(that.visitData);
             that.drawColumnChart();
           }
           that.$message({
-            type:res.code===20000 ? "success":"warning",
-            message:res.message
-          })
+            type: res.code === 20000 ? "success" : "warning",
+            message: res.message
+          });
         })
         .catch(res => {});
     },
@@ -183,8 +200,11 @@ export default {
           containLabel: true
         },
         xAxis: {
+          type: "category",
           data: that.visitData.name,
           axisLabel: {
+            interval: 0, //横轴信息全部显示
+            rotate: 40, // -20度角倾斜显示
             textStyle: {
               color: "#EF8F64"
             }
@@ -197,6 +217,17 @@ export default {
             }
           }
         },
+        dataZoom: [
+          {
+            type: "slider",
+            show: true, //flase直接隐藏图形
+            xAxisIndex: [0],
+            left: "7%", //滚动条靠左侧的百分比
+            bottom: -5,
+            start: 0, //滚动条的起始位置
+            end: 20 //滚动条的截止位置（按比例分割你的柱状图x轴长度）
+          }
+        ],
         yAxis: {
           name: "访问次数", // 轴名称
           nameLocation: "end", // 轴名称相对位置
@@ -247,7 +278,7 @@ export default {
         type: this.dateType
       };
       var searchParamsMonth = {
-        startMonth:this.dataRangeValue,
+        startMonth: this.dataRangeValue,
         endMonth: "2019-09",
         type: this.dateType
       };
@@ -264,9 +295,9 @@ export default {
             that.drawBarChart();
           }
           that.$message({
-            type:res.code===20000 ? "success":"warning",
-            message:res.message
-          })
+            type: res.code === 20000 ? "success" : "warning",
+            message: res.message
+          });
         })
         .catch(res => {});
     },
@@ -433,11 +464,7 @@ export default {
         ]
       });
     },
-    drawCharts() {
-      this.drawColumnChart();
-      this.drawBarChart();
-      this.drawPieChart();
-    },
+
     getAllVisit() {
       //获取总访问量
       var that = this;
@@ -479,10 +506,13 @@ export default {
         this.drawPieChart();
       });
     },
+    drawCharts() {
+      this.drawColumnChart();
+      this.drawBarChart();
+      this.drawPieChart();
+    },
     updateDate() {
-      this.getDrawPieChartData();
       this.searchVisitData();
-      this.getBarChartData();
     }
   },
   mounted: function() {
@@ -493,9 +523,8 @@ export default {
     this.getBarChartData();
   },
   updated: function() {
-    // this.drawCharts();
-  },
-  created() {}
+    this.drawCharts();
+  }
 };
 </script>
 

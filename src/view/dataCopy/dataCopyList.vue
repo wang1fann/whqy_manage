@@ -75,7 +75,7 @@ export default {
       pic2: require("@/assets/img/data/restore.png"),
       id: "",
       dataCopyType: "手动备份",
-      autoCopyValue: ""
+      autoCopyValue: false
     };
   },
   created: function() {},
@@ -91,7 +91,7 @@ export default {
       });
     },
     submitcopyData() {
-      API.restore({ type: this.dataCopyType === "手动备份" ? 1 : "2" }).then(
+      API.restore({ type: this.dataCopyType === "手动备份" ? "1" : "2" }).then(
         res => {
           //dbbackup,type:1手动，2自动
           this.$message({
@@ -105,7 +105,9 @@ export default {
       // 查询自动备份状态
       API.searchAutoRestore().then(res => {
         this.autoCopyValue =
-          !!res && res.data ? res.data.IS_AUTOMATIC_BACKUP : "";
+          !!res && res.code === 20000 && !!res.data.IS_AUTOMATIC_SCHEDULER_START
+            ? "ON"
+            : "OFF";
         this.$message({
           message: res.message,
           type: res.code === 20000 ? "success" : "error"
@@ -113,15 +115,13 @@ export default {
       });
     },
     changeAutoCopyValue(val) {
-       window.sessionStorage.setItem("responseType", "json");
-      API.backupturnon({ type: 2+"", status: val }).then(res => {
-        this.autoCopyValue =
-          !!res && res.data ? res.data.IS_AUTOMATIC_BACKUP : "";
-       window.sessionStorage.setItem("responseType", "json");
+      window.sessionStorage.setItem("responseType", "json");
+      API.backupturnon({ type: 2 + "", status: val }).then(res => {
         this.$message({
           message: res.message,
           type: res.code === 20000 ? "success" : "error"
         });
+        this.dataCopyTypeChange();
       });
     }
   }

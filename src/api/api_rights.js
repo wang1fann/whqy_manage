@@ -1,54 +1,29 @@
 import * as API from '.'
 export default {
-    // 公司相关接口
-    addCompanyInfo: params => {
-        return API.POST('/blstation-web/information/add', params);
-    },
-    getCompanyInfo: params => {
-        return API.GET('/blstation-web/information/findAll', params);
-    },
-    delCompanyInfo: params => {
-        // return API.POST('/blstation-web/information/DELETE', params);
-    },
-    updateCompanyInfo: params => {
-        return API.POST('/blstation-web/information/findOne/' + params, '');
-    },
-    // 公司荣誉相关接口
-    addHonor: params => {
-        console.log(params.get('id'))
-        if (params.get('id') != "" && params.get('id') != undefined) {
-            return API.POST('/blstation-web/honor/update', params);
-        } else {
-            return API.POST('/blstation-web/honor/add', params);
-        }
-    },
-    findAllHonor: params => {
-        return API.GET('/blstation-web/honor/findAll', params)
-    },
-    findRightsList: params => {
-        return API.GET('/blstation-web/honor/pageQuery', params)
-    },
-    delHonor: params => {
-        return API.POST('/blstation-web/honor/delete', params)
-    },
-    // 公司职位相关接口
-    addJob: params => {
+    // 权限相关
+    addAPI: params => {
+        // /syx/user/addAdminUser
+        // /syx/user/addAdminUser
         if (params.id != "" && params.id != 0 && params.id != undefined) { //json类型
-            return API.POST('/blstation-web/job/update', params);
+            return API.POST('/syx/user/addAdminUser', params);
         } else {
-            return API.POST('/blstation-web/job/add', params);
+            return API.POST('/syx/user/addAdminUser', params);
         }
     },
-    findAllJob: params => { //前端
-        return API.GET('/blstation-web/job/findAll', params)
+    findPermissionList: params => { //查询所有操作权限菜单
+        return API.POST('/syx/user/permission/' + params.permissionId, params)
     },
-    findJobList: params => { //后端
-        return API.GET('/blstation-web/job/pageQuery', params)
+    findPermissionAll: params => { //分页查询后台权限和角色
+        return API.POST('/syx/user/permission/alluser', params)
     },
-    delJob: params => { //删除职位
-        return API.POST('/blstation-web/job/delete', params)
+    // 删除用户
+    delUser: params => {
+        return API.DELETE('/syx/user/deleteUser', params)
     },
-    jobDetail: params => {
-        return API.POST('/blstation-web/job/findById', params);
+    getDepartment: params => {
+        return API.GET('/syx/department', params)
     },
+    getUserType: params => {
+        return API.POST('/syx/user/admin/roles', params)
+    }
 }

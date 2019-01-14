@@ -13,7 +13,7 @@
           type="primary"
           size="mini"
           icon="el-icon-circle-plus"
-          @click="gotoUrl('/contentManage/senceNews/newsAdd',{menuId: $route.query.menuId})"
+          @click="gotoUrl('/contentManage/collectionAppreciation/collectionAppreciationAdd',{menuId: $route.query.menuId})"
         >添加<i>{{buttonName}}</i></el-button>
         <el-button
           type="primary"
@@ -157,7 +157,8 @@ export default {
     // 更新数据
     update(row) {
       row.menuId = this.$route.query.menuId + "";
-      this.gotoUrl("/contentManage/senceNews/newsAdd", row);
+      this.gotoUrl("/contentManage/collectionAppreciation/collectionAppreciationAdd", row);
+
     },
     // 弹框关闭时的回调函数
     handleClose(done) {

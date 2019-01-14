@@ -18,7 +18,7 @@ export default {
     },
     // 备份请求type:2 自动，1 手动（后台已做判断关闭自动）
     restore: params => {
-        return API.POST('/syx/backup/dbbackup/' + params.type, params)
+        return API.POST('/syx/backup/dbbackup', params)
     },
     //查询自动备份当前状态
     searchAutoRestore: params => {
@@ -27,5 +27,9 @@ export default {
     // n自动备份状态切换，开启或关闭
     backupturnon: params => {
         return API.POST('/syx/backup/backupturnon?status=' + params.status + '&type=' + params.type, params)
+    },
+    // 上传本地文件
+    uploadFile: params => {
+        return API.POST('/syx/file/multipleUpload', params)
     }
 }

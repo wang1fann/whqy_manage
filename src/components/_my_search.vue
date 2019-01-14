@@ -11,6 +11,7 @@
       <el-form-item
         v-if="item.type == 'select' && item.show"
         :key="index"
+        :label="item.label"
       >
         <el-select
           v-model="formData[item.name]"
@@ -46,6 +47,8 @@
         v-else-if="item.type ==='checkbox'"
         :key="index"
       >
+      <!-- <span>{{formData}}</span> -->
+      <!-- <span>{{formData[item.name]}}</span> -->
         <el-checkbox-group
           v-model="formData[item.name]"
           :style="'width: ' + (item.width ? item.width : '100%')"
@@ -107,11 +110,11 @@
         >
         </el-date-picker>
       </el-form-item>
-      <span
+      <!-- <span
         class="line"
         :key="item.name"
         v-if="(index != formItem.length-1) && item.show"
-      >-</span>
+      >-</span> -->
     </template>
     <el-form-item
       class="el-form-item-search"
@@ -179,7 +182,7 @@ export default {
     };
   },
   created() {
-    console.log(this.buttonShow);
+    // console.log(this.buttonShow);
   },
   mounted() {},
   methods: {

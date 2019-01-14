@@ -13,7 +13,7 @@
           type="primary"
           size="mini"
           icon="el-icon-circle-plus"
-          @click="gotoUrl('/addRights')"
+          @click="gotoUrl('/addRights','')"
         >添加权限</el-button>
         <el-button
           type="primary"
@@ -51,22 +51,6 @@
       @update="update"
       @select="handleSelectionChange"
     ></MyTable>
-    <!-- 表单提交 -->
-    <el-dialog
-      :title="dialogTitle"
-      :visible.sync="dialogVisible"
-      top="10vh"
-      width="50%"
-      :before-close="handleClose"
-    >
-      <MyForm
-        :form="form"
-        ref="myform"
-        :formData="formData"
-        :formItem="formItem"
-        @submit="submit"
-      ></MyForm>
-    </el-dialog>
     <!-- myconfirm -->
     <MyConfirm
       ref="myconfirm"
@@ -150,7 +134,6 @@ export default {
   },
   created() {
     this.fieldInit();
-    this.formInit();
     this.searchFormInit();
   },
   mounted() {
@@ -178,104 +161,118 @@ export default {
       this.column = column;
     },
     // 表单数据初始化
-    formInit() {
-      // 获取form字段
-      this.formItem = getFormField("rights", "item");
-      this.formData = getFormField("rights", "data");
-    },
     searchFormInit() {
       this.searchFormItem = getSearchField("rights", "item");
+      console.log(this.searchFormItem[2]);
+      this.getUserTypeData(this.searchFormItem[1]);
+      this.getFormInfoData(this.searchFormItem[2]);
       this.searchFormData = getSearchField("rights", "data");
     },
     // 添加数据
-    // showDialog() {
-    //   this.formInit();
-    //   this.dialogTitle = "添加权限";
-    //   this.type = "saveTask";
-    //   this.dialogVisible = true;
-    // },
     // 更新数据
     update(row) {
-      this.formInit();
-      this.dialogTitle = "添加权限";
-      this.type = "updateTaskById";
-      this.dialogVisible = true;
+      row.menuId = this.$route.query.menuId;
+      this.gotoUrl("/addRights", row);
     },
-    // 提交数据
-    submit() {
-      console.log(this.formData);
-      setTimeout(() => {
-        API[this.type](this.formData).then(res => {
-          this.dialogVisible = false;
-          this.$message({
-            message: res.msg,
-            type: "success"
-          });
-          this.getData();
-        });
-      }, 50);
-    },
-    // 弹框关闭时的回调函数
-    handleClose(done) {
-      for (const key in this.formData) {
-        if (this.formData.hasOwnProperty(key)) {
-          this.formData[key] = "";
+    // 获取科室列表
+    getFormInfoData(obj) {
+      // formInfo   初始化加载formInfo 科室选项
+      obj.options = [
+        {
+          value: "0",
+          label: "全部",
+          id: "0"
         }
-      }
-      this.resetForm();
-      done();
+      ];
+      API.getDepartment().then(res => {
+        if (!!res && res.code === 20000) {
+          for (var i = 0; i < res.data.length; i++) {
+            obj.options.push({
+              value: res.data[i].id,
+              label: res.data[i].name,
+              id: res.data[i].id
+            });
+          }
+        }
+      });
+    },
+    // 获取用户类型列表
+    getUserTypeData(obj) {
+      // formInfo   初始化加载formInfo 科室选项
+      obj.options = [
+        {
+          value: "0",
+          label: "全部",
+          id: "0"
+        }
+      ];
+      API.getUserType().then(res => {
+        if (!!res && res.code === 20000) {
+          for (var i = 0; i < res.data.length; i++) {
+            obj.options.push({
+              value: res.data[i].roleId,
+              label: res.data[i].roleName,
+              id: res.data[i].roleId
+            });
+          }
+        }
+      });
     },
     // 获取数据
     getData() {
       var _this = this;
       var config = {
-        pageNo: _this.currentPage,
-        size: _this.pageSize
+        page: _this.currentPage + "",
+        size: _this.pageSize + ""
       };
+
       // 添加查询字段
       config = $.extend(config, this.searchFormData);
+       config.deptid = !config.deptid ? "0" : config.deptid;
+      config.permissionId = !config.permissionId ? "0" : config.permissionId;
+      console.log(config);
       // 接口调用
-      API.findRightsList(config)
+      API.findPermissionAll(config)
         .then(res => {
           console.log(res);
-          this.data = res.data.list;
-          this.total = res.data.total;
+          if (!!res && res.code === 20000) {
+            this.data = res.data.rows;
+            this.total = res.data.total;
+          }
         })
         .catch(err => {
           console.log(err);
-          this.total = 10;
-          this.data = [
-            {
-              role: "wangyifan",
-              name: "yifanwang",
-              password: 5556788992,
-              section: "科目一",
-              id: 99,
-              task: "任务"
-            }
-          ];
         });
     },
     // 删除
     delete() {
       var _this = this;
-      API.deleteTaskById({ ids: _this.ids }).then(res => {
-        this.ids = null;
-        this.$message({
-          message: "删除成功",
-          type: "success"
+      console.log(_this.ids);
+      API.delUser({ id: _this.ids })
+        .then(res => {
+          this.ids = null;
+          this.$message({
+            message: res.message,
+            type: res.code === 20000 ? "success" : "error"
+          });
+          this.getData();
+        })
+        .catch(err => {
+          this.$message({
+            message: err,
+            type: "error"
+          });
         });
-        this.getData();
-      });
     },
-    // 批量删除
+    // 批量.删除
     deleteBatch() {
       var id = [];
       this.multipleSelection.forEach(item => {
         id.push(item.id);
       });
+      this.ids = id.join();
       if (id.length > 0) {
-        this.deleteConfirm({ id: id });
+        this.deleteConfirm({ id: this.ids });
       } else {
         this.$message({
           message: "请至少选择一个选项",
@@ -286,17 +283,14 @@ export default {
     // 删除确认
     deleteConfirm(row) {
       var _this = this;
-      var ids = [];
-      if (typeof row.id === "number") {
-        ids.push(row.id);
-      } else {
-        ids = row.id;
-      }
-      this.ids = ids.join();
-      this.confirmContent = "此操作将永久删除该文件, 是否继续?";
+      _this.ids = row.id;
       setTimeout(() => {
         this.$refs.myconfirm.confirm(_this.delete, _this.cancle);
       }, 100);
+    },
+    // 取消删除
+    cancle() {
+      this.ids = null;
     },
     // 取消删除
     cancle() {

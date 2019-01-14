@@ -20,13 +20,13 @@
       :multiple="false"
       :operation="operation"
       :column="column"
-      :data="data.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+      :data="data.length>0?data.slice((currentPage-1)*pageSize,currentPage*pageSize):[]"
       :currentPage="currentPage"
       :pageSize="pageSize"
       :total="total"
       @handleCurrentChange="handleCurrentChange"
       @delete="deleteConfirm"
-      @update="''"
+      @update="update"
       @select="handleSelectionChange"
       @rowClick="rowClick"
     ></MyTable>
@@ -50,7 +50,11 @@
       :gutter="20"
       v-show="radio==='从本地还原'"
     >
-      <input type="file">
+      <input
+        type="file"
+        @change="changeImage($event)"
+        id="upload-data-input"
+      >
     </el-row>
     <el-row>
       <el-button
@@ -98,13 +102,13 @@ export default {
           size: "mini",
           content: "下载",
           icon: "el-icon-download",
-          handle: "downloadData",
+          handle: "update",
           class: "button-operator"
         }
       ]
     };
     return {
-      // currentRow:null,
+      filePath: "",
       radioRow: "",
       localFilePath: "",
       radio: "从服务器还原",
@@ -168,20 +172,9 @@ export default {
         })
         .catch(err => {
           this.$message({
-            message: "数据加载失败",
+            message: res.err,
             type: "error"
           });
-          this.total = 10;
-          this.data = [
-            {
-              filePath: "wangyifan",
-              restoreTime: "2018-10-11"
-            },
-            {
-              filePath: "E:/后台ui",
-              restoreTime: "2010-10-11"
-            }
-          ];
         });
     },
     // 删除
@@ -249,23 +242,68 @@ export default {
     },
     // 数据库还原
     dbRestore(row) {
-      if (!row.filePath) {
+      if (!row) {
         this.$message({
           message: "请先选中要还原的已备份数据",
           type: "warning"
         });
         return;
       }
-      var filePath = { filePath: !!row ? row.filePath : "" };
+      var filePath = { filePath: !!row ? row.dbSqlFilePath : "" };
       API.dbRestore(filePath).then(res => {
-        console.log(res);
+        this.$message({
+          message: res.message,
+          type: !!res && res.code === 20000 ? "success" : "warning"
+        });
+        this.filePath = "";
+      });
+    },
+    changeImage(ev) {
+      let uploadImginput = document.getElementById("upload-data-input");
+      let formfile = new FormData(uploadImginput); //拿到表单创建FormData对象；
+      let files = ev.target.files; //拿到选择的文件
+      formfile.append(
+        "menu",
+        this.$route.query.menuId + "" || this.$route.query.name || "数据备份"
+      );
+      formfile.append("file", files[0]);
+      this.formFile = formfile;
+      formfile.delete("menu");
+      formfile.delete("file");
+    },
+    uploadFile() {
+      window.sessionStorage.setItem("responseType", "form");
+      if (!this.formFile) {
+        this.$message({
+          message: "请选择要还原的本地文件",
+          type: "warning"
+        });
+        return;
+      }
+      API.uploadFile(this.formFile).then(res => {
+        this.$message({
+          message: res.message,
+          type: !!res && res.code === 20000 ? "success" : "error"
+        });
+        if (!!res && res.code === 20000) {
+          this.filePath = res.data[0].replace(/\\/g, "/");
+          this.dbRestore({ dbSqlFilePath: this.filePath });
+          document.getElementById("upload-data-input").value = "";
+          this.formFile = "";
+        }
+        window.sessionStorage.setItem("responseType", "json");
       });
     },
     startRestore() {
       if (this.radio === "从服务器还原") {
         this.dbRestore(this.radioRow);
       } else {
+        this.uploadFile();
+         document.getElementById("upload-data-input").value = "";
       }
+    },
+    update(row) {
+      window.open(row.dbSqlFilePath);
     }
   }
 };
