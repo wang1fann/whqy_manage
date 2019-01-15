@@ -35,7 +35,7 @@
       :pageSize="pageSize"
       :total="total"
       @handleCurrentChange="handleCurrentChange"
-      @delete="deleteConfirm"
+      @delete="''"
       @update="''"
       @select="handleSelectionChange"
     ></MyTable>
@@ -67,14 +67,14 @@ export default {
       minWidth: 100,
       label: "操作",
       btns: [
-        // {
-        //   type: "text",
-        //   size: "mini",
-        //   content: "删除",
-        //   icon: "el-icon-delete",
-        //   handle: "delete",
-        //   class: "button-operator"
-        // }
+        {
+          type: "text",
+          size: "mini",
+          content: "删除",
+          icon: "el-icon-delete",
+          handle: "delete",
+          class: "button-operator"
+        }
       ]
     };
     return {
@@ -104,13 +104,12 @@ export default {
   },
   mounted() {
     this.getData();
-     this.getMessageTotal(this.total);
+     this.getMessageTotal();
   },
   methods: {
     getMessageTotal(total) {
       API.getMessageTotal().then(res => {
-        
-        total = res.data;
+       this.total = !!res && res.code === 20000 ? res.data : 0;
       });
     },
     gotoUrl(path, query) {
@@ -168,12 +167,12 @@ export default {
     handleCurrentChange(index) {
       this.currentPage = index;
       this.getData();
-      this.getMessageTotal(this.total);
+      this.getMessageTotal();
     },
     // 搜索
     searchSubmit() {
       this.getData();
-      this.getMessageTotal(this.total);
+      this.getMessageTotal();
     }
   }
 };

@@ -101,10 +101,8 @@ export default {
   created() {
     this.fieldInit();
     this.searchFormInit();
-  },
-  mounted() {
+    this.getSingInTotal();
     this.getData();
-     this.getSingInTotal(this.total);
   },
   methods: {
     gotoUrl(path, query) {
@@ -128,9 +126,9 @@ export default {
       this.searchFormItem = getSearchField("SinIn", "item");
       this.searchFormData = getSearchField("SinIn", "data");
     },
-    getSingInTotal(total) {
+    getSingInTotal() {
       API.getSingInTotal().then(res => {
-        total = res.data;
+        this.total = !!res && res.code === 20000 ? res.data : 0;
       });
     },
     // 获取数据
@@ -146,10 +144,8 @@ export default {
       // 接口调用
       API.findSingInList(config)
         .then(res => {
-          
           if (!!res && res.code === 20000) {
             this.data = res.data;
-           
           }
           this.$message({
             message: res.message,
@@ -172,7 +168,7 @@ export default {
             type: res.code === 20000 ? "success" : "error"
           });
           this.getData();
-          this.getSingInTotal(this.total);
+          this.getSingInTotal();
         })
         .catch(err => {
           this.$message({
@@ -218,12 +214,12 @@ export default {
     handleCurrentChange(index) {
       this.currentPage = index;
       this.getData();
-      this.getSingInTotal(this.total);
+      this.getSingInTotal();
     },
     // 搜索
     searchSubmit() {
       this.getData();
-      this.getSingInTotal(this.total);
+      this.getSingInTotal();
     }
   }
 };
