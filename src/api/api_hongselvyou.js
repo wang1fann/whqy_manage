@@ -11,7 +11,6 @@ export default {
     },
 
     addhongselvyou: params => {
-        console.log(params);
         if (!!params.id) {
             return API.PUT(`/syx/hongselvyou/` + params.id, params)
         } else {

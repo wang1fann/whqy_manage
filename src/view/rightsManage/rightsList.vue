@@ -1,5 +1,8 @@
 <template>
-  <div class="list content-top-line">
+  <div
+    class="list content-top-line"
+    v-loading="fullscreenLoading"
+  >
     <!-- 按钮操作 -->
     <el-row
       class="btn-group"
@@ -111,6 +114,7 @@ export default {
       ]
     };
     return {
+      fullscreenLoading: false,
       confirmType: "warning",
       confirmTitle: "提示信息",
       confirmContent: "此操作将永久删除该文件, 是否继续?",
@@ -135,11 +139,9 @@ export default {
   created() {
     this.fieldInit();
     this.searchFormInit();
+    this.getData();
   },
   mounted() {
-    this.resetForm();
-  },
-  activated() {
     this.getData();
   },
   methods: {
@@ -225,23 +227,26 @@ export default {
         page: _this.currentPage + "",
         size: _this.pageSize + ""
       };
-
       // 添加查询字段
       config = $.extend(config, this.searchFormData);
-       config.deptid = !config.deptid ? "0" : config.deptid;
+      config.deptid = !config.deptid ? "0" : config.deptid;
       config.permissionId = !config.permissionId ? "0" : config.permissionId;
-      console.log(config);
       // 接口调用
+      this.fullscreenLoading = true;
       API.findPermissionAll(config)
         .then(res => {
-          console.log(res);
+          this.fullscreenLoading = false;
+          this.$message({
+            message: res.message,
+            type: !!res && res.code === 20000 ? "success" : "warning"
+          });
           if (!!res && res.code === 20000) {
             this.data = res.data.rows;
             this.total = res.data.total;
           }
         })
         .catch(err => {
-          console.log(err);
+          this.fullscreenLoading = false;
         });
     },
     // 删除

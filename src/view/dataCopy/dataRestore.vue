@@ -1,5 +1,8 @@
 <template>
-  <div class="list content-top-line">
+  <div
+    class="list content-top-line"
+    v-loading="fullscreenLoading"
+  >
     <!-- 按钮操作 -->
     <el-row
       class="btn-group alignleft"
@@ -108,6 +111,7 @@ export default {
       ]
     };
     return {
+      fullscreenLoading: false,
       filePath: "",
       radioRow: "",
       localFilePath: "",
@@ -167,6 +171,13 @@ export default {
       window.sessionStorage.setItem("responseType", "json");
       API.findDataRestoreList(config)
         .then(res => {
+          if (!!res && res.code === 20011) {
+            //登录已过期
+            localStorage.removeItem("access-user");
+            localStorage.removeItem("token");
+            this.$router.push({ path: "/login" });
+            return;
+          }
           this.data = !!res ? res : [];
           this.total = res.length;
         })
@@ -240,21 +251,19 @@ export default {
       this.currentPage = index;
       this.getData();
     },
-    // 数据库还原
+    // 数据还原
     dbRestore(row) {
-      if (!row) {
-        this.$message({
-          message: "请先选中要还原的已备份数据",
-          type: "warning"
-        });
-        return;
-      }
-      var filePath = { filePath: !!row ? row.dbSqlFilePath : "" };
+      var filePath = {
+        filepath: !!row ? row.dbSqlFilePath : "",
+        type: row.type
+      };
+      this.fullscreenLoading = true;
       API.dbRestore(filePath).then(res => {
         this.$message({
           message: res.message,
           type: !!res && res.code === 20000 ? "success" : "warning"
         });
+        this.fullscreenLoading = false;
         this.filePath = "";
       });
     },
@@ -287,7 +296,7 @@ export default {
         });
         if (!!res && res.code === 20000) {
           this.filePath = res.data[0].replace(/\\/g, "/");
-          this.dbRestore({ dbSqlFilePath: this.filePath });
+          this.dbRestore({ dbSqlFilePath: this.filePath, type: "1" });
           document.getElementById("upload-data-input").value = "";
           this.formFile = "";
         }
@@ -295,15 +304,24 @@ export default {
       });
     },
     startRestore() {
+      // 2代表服务器还原 1.本地还原
       if (this.radio === "从服务器还原") {
-        this.dbRestore(this.radioRow);
+        var row = this.radioRow;
+        if (!row) {
+          this.$message({
+            message: "请先选中要还原的已备份数据",
+            type: "warning"
+          });
+          return;
+        }
+        this.dbRestore({ dbSqlFilePath: row.dbSqlFilePath, type: "2" });
       } else {
         this.uploadFile();
-         document.getElementById("upload-data-input").value = "";
+        document.getElementById("upload-data-input").value = "";
       }
     },
     update(row) {
-      window.open(row.dbSqlFilePath);
+      window.open("http://" + row.dbSqlFilePath);
     }
   }
 };

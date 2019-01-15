@@ -82,7 +82,14 @@ export default {
             { label: "2", name: "role", value: "一般管理员" },
             { label: "3", name: "role", value: "普通用户" }
           ],
-          radioValue: "1",
+          radioValue:
+            !!this.$route.query.permissionId &&
+            this.$route.query.permissionId === "普通用户"
+              ? "3"
+              : !!this.$route.query.permissionId &&
+                this.$route.query.permissionId === "超级管理员"
+              ? "1"
+              : "2",
           formInfo: [
             {
               type: "text",
@@ -124,9 +131,13 @@ export default {
           ],
           formData: {
             buttonShow: false,
-            userName: "",
+            userName: !!this.$route.query.userName
+              ? this.$route.query.userName
+              : "",
             passwd: "",
-            departmentId: ""
+            departmentId: !!this.$route.query.departmentId
+              ? this.$route.query.departmentId
+              : ""
           }
         },
         {
@@ -167,13 +178,25 @@ export default {
   computed: {
     setPermissionId() {
       return this.pageItem[0].radioValue;
+    },
+    setUserName() {
+      return this.$route.query;
     }
   },
   watch: {
     setPermissionId(val) {
       this.permissionId = val;
       this.findPermissionList();
-      console.log(this.permissionId);
+    },
+    setUserName(val) {
+      this.pageItem[0].formData.userName = !!val.userName ? val.userName : "";
+      this.pageItem[0].formData.departmentId = val.departmentId;
+      this.pageItem[0].radioValue =
+        !!val.permissionId && val.permissionId === "普通用户"
+          ? "3"
+          : !!val.permissionId && val.permissionId === "超级管理员"
+          ? "1"
+          : "2";
     }
   },
   created() {
@@ -189,7 +212,6 @@ export default {
       });
     },
     getFormInfoData() {
-      // formInfo   初始化加载formInfo 科室选项
       this.pageItem[0].formInfo[2].options = [];
       API.getDepartment().then(res => {
         if (!!res && res.code === 20000) {
@@ -203,31 +225,22 @@ export default {
         }
       });
     },
-    dataHandle() {
-      this.submitData = this.pageItem[0].formData;
-      this._.assignIn(this.submitData, this.pageItem[1].formData);
-      console.log(this.submitData);
-    },
     addRightsSubmit() {
       var that = this;
       that.fullscreenLoading = true;
       var menuArr = [];
       var optionsArr = this.pageItem[1].formInfo[0].options;
       var checkidArr = this.pageItem[1].formData.tbMenusFilter;
-      console.log(optionsArr);
-      console.log(checkidArr);
       for (let j = 0; j < checkidArr.length; j++) {
         for (let i = 0; i < optionsArr.length; i++) {
-          console.log(checkidArr[j]);
-
           if (checkidArr[j] == optionsArr[i].id) {
-            console.log(checkidArr[j]);
             menuArr.push(optionsArr[i]);
           }
         }
       }
       var params = {
         user: {
+          id: !!this.$route.query.id ? this.$route.query.id : "",
           userName: this.pageItem[0].formData.userName,
           passwd: this.pageItem[0].formData.passwd,
           departmentId: this.pageItem[0].formData.departmentId,
@@ -235,26 +248,29 @@ export default {
         },
         tbMenus: menuArr
       };
-      console.log(params);
-      setTimeout(() => {
-        API.addAPI(params).then(res => {
-          this.$message({
-            message: res.message,
-            type: !!res && res.code === 20000 ? "success" : "warning"
-          });
-          if (!!res && res.code === 20000) {
-            that.gotoUrl("/rights");
-          }
+      API.addAPI(params).then(res => {
+        this.$message({
+          message: res.message,
+          type: !!res && res.code === 20000 ? "success" : "warning"
         });
-      }, 50);
+        if (!!res && res.code === 20000) {
+          var that = this;
+          setTimeout(function() {
+            that.$router.go(-1);
+          }, 1000);
+        }
+      });
       that.fullscreenLoading = false;
     },
     findPermissionList() {
       this.pageItem[1].formInfo[0].options = [];
+      this.pageItem[1].formInfo[0].options.length = 0;
       API.findPermissionList({
         permissionId: this.permissionId
       }).then(res => {
         if (!!res && res.code === 20000) {
+          console.log(res.data);
+          console.log(this.pageItem[1].formInfo[0].options);
           for (var i = 0; i < res.data.length; i++) {
             this.pageItem[1].formInfo[0].options.push({
               menuId: res.data[i].menuId,

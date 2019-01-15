@@ -14,11 +14,18 @@ export default {
     delMenu: params => { //删除菜单
         return API.DELETE('/syx/menu/delete', params);
     },
-    addSite: params => { //添加或修改站点
+    addMenu: params => { //添加或修改站点/syx/site/123456789
         if (!!params.id && params.id != "" && params.id != undefined) {
             return API.POST('/syx/menu/' + params.id, params);
         } else {
             return API.POST('/syx/menu', params);
+        }
+    },
+    addSite: params => { //添加或修改站点/syx/site/123456789
+        if (!!params.id && params.id != "" && params.id != undefined) {
+            return API.PUT('/syx/site/' + params.id, params);
+        } else {
+            return API.POST('/syx/site', params);
         }
     }
 }

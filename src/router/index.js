@@ -88,7 +88,7 @@ let contentRouter = [{
             {
                 id: "",
                 path: 'newsAdd',
-                name: '新闻-添加',
+                name: '新闻',
                 component: resolve => {
                     require(['view/contentManage/senceNews/newsAdd'], resolve)
                 },
@@ -144,7 +144,7 @@ let contentRouter = [{
             {
                 id: "",
                 path: 'collectionAppreciationAdd',
-                name: '添加/修改',
+                name: '藏品欣赏-添加/编辑',
                 component: resolve => {
                     require(['view/contentManage/collectionAppreciation/collectionAppreciationAdd'], resolve)
                 },
@@ -285,8 +285,19 @@ let contentRouter = [{
             children: []
         }, {
             id: "",
+            path: 'heroAdd',
+            name: '渭华英雄-添加/编辑',
+            component: resolve => {
+                require(['view/contentManage/xianThings/heroAdd'], resolve)
+            },
+            class: 'fa-line-chart',
+            img: require('@/assets/img/access/user.png'),
+            children: [],
+            show: false
+        }, {
+            id: "",
             path: 'xianTingsAdd',
-            name: '添加',
+            name: '先烈事迹-添加/编辑',
             component: resolve => {
                 require(['view/contentManage/xianThings/xianTingsAdd'], resolve)
             },
@@ -469,7 +480,7 @@ let contentRouter = [{
             {
                 id: "",
                 path: 'partyEducationAdd',
-                name: '添加',
+                name: '党性教育-添加',
                 component: resolve => {
                     require(['view/contentManage/partyEducation/partyEducationAdd'], resolve)
                 },
@@ -524,6 +535,7 @@ let contentRouter = [{
         children: [{
             id: 10009001,
             path: 'culturalEducation',
+            meta: "文化遗产",
             name: '文化遗产',
             component: resolve => {
                 require(['view/contentManage/culturalEducation/culturalEducation'], resolve)
@@ -534,7 +546,7 @@ let contentRouter = [{
         }, {
             id: "",
             path: 'culturalEducationAdd',
-            name: '文化遗产-添加',
+            name: '添加/编辑',
             component: resolve => {
                 require(['view/contentManage/culturalEducation/culturalEducationAdd'], resolve)
             },
@@ -546,6 +558,9 @@ let contentRouter = [{
             id: 10009002,
             path: 'culturalOldAppend',
             name: '文化古迹',
+            meta: {
+                title: "文化古迹"
+            },
             component: resolve => {
                 require(['view/contentManage/culturalEducation/culturalOldAppend'], resolve)
             },
@@ -556,6 +571,7 @@ let contentRouter = [{
             id: 10009003,
             path: 'celebrity',
             name: '古今名人',
+            meta: "古今名人",
             component: resolve => {
                 require(['view/contentManage/culturalEducation/celebrity'], resolve)
             },
@@ -590,7 +606,7 @@ let contentRouter = [{
     {
         id: "",
         path: 'huaHallAppend',
-        name: '渭华讲堂添加',
+        name: '渭华讲堂-添加',
         component: resolve => {
             require(['view/contentManage/huaHall/huaHallAppend'], resolve)
         },
@@ -611,7 +627,7 @@ let contentRouter = [{
         children: [{
             id: "",
             path: 'knowledgeAnswerAppend',
-            name: '知识问答添加',
+            name: '知识问答-添加',
             component: resolve => {
                 require(['view/contentManage/knowledgeAnswer/knowledgeAnswerAppend'], resolve)
             },
@@ -663,7 +679,7 @@ let contentRouter = [{
         }, {
             id: "",
             path: 'convenienceAdd',
-            name: '便民查询添加',
+            name: '红色旅游-添加',
             component: resolve => {
                 require(['view/contentManage/redTourism/convenienceAdd'], resolve)
             },
@@ -727,7 +743,7 @@ let contentRouter = [{
             path: 'SignIn',
             name: '游客签到',
             component: resolve => {
-                require(['view/contentManage/contentCommon'], resolve)
+                require(['view/contentManage/visitMessage/SignIn'], resolve)
             },
             class: 'fa-line-chart',
             children: []
@@ -737,7 +753,7 @@ let contentRouter = [{
             path: 'message',
             name: '游客留言',
             component: resolve => {
-                require(['view/contentManage/contentCommon'], resolve)
+                require(['view/contentManage/visitMessage/message'], resolve)
             },
             class: 'fa-line-chart',
             children: []
@@ -747,7 +763,7 @@ let contentRouter = [{
             path: 'answering',
             name: '留言回复',
             component: resolve => {
-                require(['view/contentManage/contentCommon'], resolve)
+                require(['view/contentManage/visitMessage/answering'], resolve)
             },
             class: 'fa-line-chart',
             children: []
@@ -902,7 +918,7 @@ let router = new Router({
                     img: require('@/assets/img/system/problem.png')
                 },
                 {
-                    path: 'performanceOptimize',
+                    path: '/system/performanceOptimize',
                     name: '性能优化',
                     show: false,
                     component: resolve => {
@@ -918,18 +934,15 @@ let router = new Router({
     ]
 })
 
-console.log(router);
 router.beforeEach((to, from, next) => {
     let routeName = to.meta.name || to.name;
     window.document.title = (routeName ? routeName + ' - ' : '') + '渭华起义后台管理系统';
-    console.log(to.path.startsWith('/login'));
     if (to.path.startsWith('/login')) {
         window.localStorage.removeItem('access-user')
         next()
     } else {
         let token = window.localStorage.getItem('token');
         if (!token) {
-            console.log(token);
             next({
                 path: '/login'
             })

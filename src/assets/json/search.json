@@ -19,13 +19,24 @@
                 "show": true
             },
             {
-                "type": "text",
+                "type": "select",
                 "name": "permissionId",
+                "cname": "permissionId",
                 "value": "",
-                "placeholder": "用户类型",
-                "label": "用户类型",
+                "placeholder": "请选择用户类型",
+                "filterable": true,
                 "width": "100%",
-                "show": true
+                "label": "用户类型:",
+                "show": true,
+                "options": [{
+                    "value": "全部",
+                    "label": ""
+                }],
+                "rules": [{
+                    "required": true,
+                    "message": "请选择用户类型",
+                    "trigger": "blur"
+                }]
             }, {
                 "type": "text",
                 "name": "deviceType",
@@ -120,6 +131,65 @@
             "username": "",
             "permissionId": "",
             "deptid": ""
+        }
+    },
+    "visitMessage": {
+        "item": [{
+            "type": "text",
+            "name": "userName",
+            "value": "",
+            "placeholder": "请输入用户名",
+            "label": "用户名",
+            "width": "100%",
+            "show": true
+        }, {
+            "type": "date",
+            "name": "updateTime",
+            "placeholder": "上传日期",
+            "value": "",
+            "width": "100%",
+            "label": "上传日期:",
+            "show": true,
+            "format": "yyyy-MM-dd",
+            "rules": [{
+                "required": true,
+                "message": "上传日期",
+                "trigger": "blur"
+            }]
+        }],
+        "data": {
+            "userName": "",
+            "signTime": "",
+            "updateTime": ""
+        }
+    },
+    "SinIn": {
+        "item": [{
+            "type": "text",
+            "name": "userName",
+            "value": "",
+            "placeholder": "请输入用户名",
+            "label": "用户名",
+            "width": "100%",
+            "show": true
+        }, {
+            "type": "date",
+            "name": "signTime",
+            "placeholder": "上传日期",
+            "value": "",
+            "width": "100%",
+            "label": "上传日期:",
+            "show": true,
+            "format": "yyyy-MM-dd",
+            "rules": [{
+                "required": true,
+                "message": "上传日期",
+                "trigger": "blur"
+            }]
+        }],
+        "data": {
+            "userName": "",
+            "signTime": ""
         }
     },
     "convenienceSearch": {

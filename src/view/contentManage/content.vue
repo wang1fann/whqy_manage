@@ -51,18 +51,12 @@ export default {
   },
   created() {},
   mounted() {
-    // this.autoClick(this.childMenuArr.children[0],0);
   },
   methods: {
     MenuArr(val) {
       this.childMenuArr = !!val && val !== undefined ? val : "";
     },
-    // autoClick(item,index) {
-    //   console.log(item);
-    //   this.toRouter(item,index);
-    // },
     toRouter: function(item, index) {
-      console.log(item);
       this.$router.push({
         path: !!item.path ? item.path : "",
         query: { menuId: !!item.id ? item.id : "" }

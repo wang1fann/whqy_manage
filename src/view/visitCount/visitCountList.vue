@@ -2,6 +2,7 @@
   <section
     class="chart-container"
     style="position:relative;"
+    v-loading="fullscreenLoading"
   >
     <el-row>
       <el-col :span="13">
@@ -96,6 +97,7 @@ import API from "@/api/api_visit.js";
 export default {
   data() {
     return {
+      fullscreenLoading: false,
       dataRangeValue: "",
       dateType: "日访问量",
       visitData: {
@@ -155,21 +157,20 @@ export default {
         type: this.dateType
       };
       var searchParamsMonth = {
-        startMonth: this.perMonthtDate(),
-        endMonth: this.getNowFormatDate(),
+        startDay: this.perMonthtDate(),
+        endDay: this.getNowFormatDate(),
         type: this.dateType
       };
-      console.log(this.dateType);
+      this.fullscreenLoading = true;
       var that = this;
       API.getDeviceZzt(
         this.dateType !== "月访问量" ? searchParamsDay : searchParamsMonth
       )
         .then(res => {
-          console.log(res);
+           that.fullscreenLoading = false;
           if (!!res && res.code === 20000 && !!res.data) {
             that.visitData.name = Object2Array(res.data, "name");
             that.visitData.value = Object2Array(res.data, "value");
-            console.log(that.visitData);
             that.drawColumnChart();
           }
           that.$message({
@@ -177,7 +178,9 @@ export default {
             message: res.message
           });
         })
-        .catch(res => {});
+        .catch(res => {
+           that.fullscreenLoading = false;
+        });
     },
     drawColumnChart() {
       var that = this;
@@ -273,7 +276,7 @@ export default {
     },
     getBarChartData() {
       var searchParamsDay = {
-        startDay: "2018-12-01 00:00:00",
+        startDay: this.dateFtt(new Date(), "yyyy-MM-dd") + " 00:00:00",
         endDay: getNowFormatDate(),
         type: this.dateType
       };
@@ -287,11 +290,10 @@ export default {
         this.dateType !== "月访问量" ? searchParamsDay : searchParamsMonth
       )
         .then(res => {
-          console.log(res);
           if (!!res && res.code === 20000) {
+            res.data = that._.reverse(res.data);
             that.moduleData.name = Object2Array(res.data, "name");
             that.moduleData.value = Object2Array(res.data, "value");
-            console.log(that.moduleData);
             that.drawBarChart();
           }
           that.$message({
@@ -475,7 +477,7 @@ export default {
     getDrawPieChartData() {
       //饼状图
       var searchParamsDay = {
-        startDay: "2018-12-01 00:00:00",
+        startDay: this.dateFtt(new Date(), "yyyy-MM-dd") + " 00:00:00",
         endDay: getNowFormatDate(),
         type: this.dateType
       };

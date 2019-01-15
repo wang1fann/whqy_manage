@@ -254,7 +254,7 @@
             "width": "auto",
             "fixed": false,
             "sortable": false,
-            "show": true
+            "show": false
         },
         {
             "prop": "name",
@@ -270,7 +270,54 @@
             "width": "auto",
             "fixed": false,
             "sortable": false,
+            "show": false
+        }, {
+            "prop": "description",
+            "label": "描述",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
             "show": true
+        }, {
+            "prop": "content",
+            "label": "内容",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }
+    ],
+    "xianThings": [{
+            "prop": "personName",
+            "label": "人物",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "agePeriod",
+            "label": "生卒",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "name",
+            "label": "姓名",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "title",
+            "label": "标题",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": false
         }, {
             "prop": "description",
             "label": "描述",
@@ -334,6 +381,74 @@
             "show": false
         }
     ],
+    "visitMessage": [{
+            "prop": "userName",
+            "label": "用户名",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "userId",
+            "label": "用户Id",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "signTime",
+            "label": "签到时间",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }
+    ],
+    "messageList": [{
+        "prop": "userName",
+        "label": "用户",
+        "width": "auto",
+        "fixed": false,
+        "sortable": false,
+        "show": true
+    }, {
+        "prop": "name",
+        "label": "用户名",
+        "width": "auto",
+        "fixed": false,
+        "sortable": false,
+        "show": true
+    }, {
+        "prop": "phone",
+        "label": "电话",
+        "width": "auto",
+        "fixed": false,
+        "sortable": false,
+        "show": true
+    }, {
+        "prop": "address",
+        "label": "地址",
+        "width": "auto",
+        "fixed": false,
+        "sortable": false,
+        "show": true
+    }, {
+        "prop": "content",
+        "label": "内容",
+        "width": "auto",
+        "fixed": false,
+        "sortable": false,
+        "show": true
+    }, {
+        "prop": "createTime",
+        "label": "创建时间",
+        "width": "auto",
+        "fixed": false,
+        "sortable": false,
+        "show": true
+    }],
     "rights": [{
             "prop": "userName",
             "label": "用户名",
@@ -343,12 +458,19 @@
             "show": true
         },
         {
+            "prop": "permissionTitle",
+            "label": "权限",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }, {
             "prop": "phone",
             "label": "电话",
             "width": "auto",
             "fixed": false,
             "sortable": false,
-            "show": true
+            "show": false
         },
         {
             "prop": "departmentId",

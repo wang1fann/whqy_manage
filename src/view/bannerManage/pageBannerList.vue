@@ -1,5 +1,8 @@
 <template>
-  <div class="content-top-line">
+  <div
+    class="content-top-line"
+    v-loading="fullscreenLoading"
+  >
     <div class="banner-list">
       <div
         class="demo-menu"
@@ -87,6 +90,7 @@ export default {
   name: "Site",
   data() {
     return {
+      fullscreenLoading: false,
       confirmType: "warning",
       confirmTitle: "提示信息",
       confirmContent: "此操作将永久删除该文件, 是否继续?",
@@ -112,7 +116,6 @@ export default {
     // 删除确认
     deleteConfirm(row) {
       var _this = this;
-      console.log(row);
       _this.ids = row.id;
       setTimeout(() => {
         this.$refs.myconfirm.confirm(_this.deleteMenu, "");
@@ -157,14 +160,12 @@ export default {
       });
     },
     findMenu() {
-      var that = this;  
+      this.fullscreenLoading = true;
       window.sessionStorage.setItem("responseType", "json");
       API.findMenuList().then(res => {
-        console.log(res);
+        var that = this;
+        this.fullscreenLoading = false;
         if (!!res && res.code === 20000) {
-          // that.menuInfo = !!res.data
-          //   ? this._.filter(res.data, { parentId: "0", menuType: 1 })
-          //   : "";
           that.menuInfo = !!res.data
             ? this._.filter(res.data, { parentId: "0" })
             : "";
@@ -172,8 +173,7 @@ export default {
       });
     },
     submitSite() {
-      console.log(this.menuInfo);
-      API.addSite(this.menuInfo).then(res => {
+      API.addMenu(this.menuInfo).then(res => {
         this.$message({
           message: res.message,
           type: !!res && res.code === 20000 ? "success" : "warning"

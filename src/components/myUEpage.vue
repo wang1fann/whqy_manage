@@ -360,7 +360,6 @@ export default {
   created() {},
   methods: {
     getUEContent() {
-      console.log(this.hasContent());
       if (this.hasContent() === "true") {
         let content = this.$refs.ue.getUEContent();
         this.$emit("submit", content);

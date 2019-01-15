@@ -5,7 +5,6 @@ export default {
         return API.POST('/syx/jingquxinwen/search/' + params.page + '/' + params.size, params)
     },
     addAPI: params => {
-        console.log(params);
         if (!!params.id) {
             return API.PUT(`/syx/jingquxinwen/` + params.id, params)
         } else {

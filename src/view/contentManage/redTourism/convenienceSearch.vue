@@ -169,7 +169,6 @@ export default {
       // 接口调用
       API.findhongselvyouList(config)
         .then(res => {
-          console.log(res);
           if (!!res && res.code === 20000) {
             this.data = res.data.rows;
             this.total = res.data.total;

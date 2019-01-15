@@ -44,6 +44,9 @@ export default {
     updateUserById: params => {
         return API.POST('/syx/user/update', params)
     },
+    getUserType: params => { //获取系统所有用户类型
+        return API.POST('/syx/user/admin/roles', params)
+    },
     // 删除用户
     delUser: params => {
         return API.DELETE('/syx/user/deleteUser', params)

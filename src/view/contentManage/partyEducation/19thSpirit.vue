@@ -1,72 +1,16 @@
-
 <template>
-  <el-row class="components-container">
-    <my-uepage
-      :Form="ticketForm"
-      :defaultMsg="ticketForm.content"
-        :showAuthor="true"
-      @submit="submitcontent"
-      @imgPath="getImgPath"
-    ></my-uepage>
-  </el-row>
+  <my-table></my-table>
 </template>
-<style>
-.info {
-  border-radius: 10px;
-  line-height: 20px;
-  padding: 10px;
-  margin: 10px;
-  background-color: #ffffff;
-}
-</style>
+
 <script>
-import API from "@/api/api_dangxingjiaoyu";
-import myUEpage from "@/components/myUEpage";
+import Table from "@/view/contentManage/partyEducation/ThePartyConstitution";
 export default {
-  components: { "my-uepage": myUEpage },
+  components: { "my-table":Table },
   data() {
-    return {
-      ticketForm: {
-        title: "",
-        imgPath: "",
-        menuId: this.$route.query.menuId + "",
-        description: "",
-        author:'',
-        content: ""
-      }
-    };
-  },
-  created() {
-    this.getData();
-  },
-  mounted() {},
-  methods: {
-    submitcontent(content) {
-      this.ticketForm.content = content;
-      console.log(this.ticketForm);
-      window.sessionStorage.setItem("responseType", "json");
-      API.addAPI(this.ticketForm).then(res => {
-        console.log(res);
-        this.$message({
-          type: !!res && res.code === 20000 ? "success" : "warning",
-          message: res.message
-        });
-      });
-    },
-    getImgPath(val) {
-      this.ticketForm.imgPath = val.replace(/\\/g, "/");
-    },
-    getData() {
-      API.findFormData({ menuId: this.ticketForm.menuId }).then(res => {
-        if (!!res && res.code === 20000) {
-          this.ticketForm = res.data.rows[0];
-        }
-        this.$message({
-          type: !!res && res.code === 20000 ? "success" : "warning",
-          message: res.message
-        });
-      });
-    }
+    return {};
   }
 };
 </script>
+
+<style scoped>
+</style>

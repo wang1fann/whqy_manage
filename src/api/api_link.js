@@ -11,7 +11,6 @@ export default {
     },
 
     addLink: params => {
-        console.log(params);
         if (!!params.id) {
             return API.PUT(`/syx/link/` + params.id, params)
         } else {

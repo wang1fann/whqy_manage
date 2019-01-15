@@ -11,6 +11,10 @@ export default {
     // 服务指南
     // 添加信息
     addServerInfo: params => {
-        return API.POST('/syx/weihuajiangtang', params)
+        if (!params.id) {
+            return API.POST('/syx/weihuajiangtang', params)
+        } else {
+            return API.PUT('/syx/weihuajiangtang/' + params.id, params)
+        }
     }
 }

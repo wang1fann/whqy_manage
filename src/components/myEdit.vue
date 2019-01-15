@@ -42,7 +42,6 @@ export default {
     this.editor.addListener("ready", function() {
       _this.editor.setContent(_this.defaultMsg); // 确保UE加载完成后，放入内容。
     });
-    // console.log(this.defaultMsg);
   },
   destoryed() {
     this.editor.destory();
@@ -58,9 +57,7 @@ export default {
       return this.editor.hasContents();
     },
     setContent: function(isAppendTo) {
-      console.log(isAppendTo);
       this.editor.setContent("<div>" + isAppendTo + "</div>");
-      // return this.editor.setContent(isAppendTo);
     }
   }
 };

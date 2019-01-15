@@ -2,14 +2,22 @@
 import * as API from './'
 
 export default {
-    messageList: params => { //categoryList
-        return API.POST('/blstation-web/leavemessage/findAll', params); //获取留言列表
+    findSingInList: params => { //categoryList
+        return API.POST('/syx/signInInfo/findusersignlist', params); //获取留言列表
     },
-
-    delMessage: params => { //删除留言
-        return API.POST('/blstation-web/leavemessage/delete', params);
+    findMessageList: params => { //categoryList
+        return API.POST('/syx/liuyanbiao/queryliuyan', params); //获取留言列表
     },
+    // /syx/liuyanbiao/queryliuyan
     messageDetail: params => { //获取某条留言的详细信息
         return API.POST('/blstation-web/leavemessage/findById/' + params + '', '')
+    },
+    // /syx/liuyanbiao/getliuyantotal 留言表总数
+    getMessageTotal: params => { //categoryList
+        return API.POST('/syx/liuyanbiao/getliuyantotal', params); //获取留言列表
+    },
+    // /syx/signInInfo/queryusersigntotal  
+    getSingInTotal: params => { //categoryList
+        return API.POST('/syx/signInInfo/queryusersigntotal', params); //获取留言列表
     }
 }

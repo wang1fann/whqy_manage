@@ -123,18 +123,24 @@ export default {
     editCaptcha() {
       API.getRandomCode()
         .then(res => {
-          console.log(res);
+          
           this.captcha = !!res ? res : "加载失败";
         })
         .catch(res => {
-          console.log(res);
+          
         });
     },
-    login(data) {
-      window.sessionStorage.setItem("user", JSON.stringify(data));
-      MenuUtils(routers, data);
-    },
     handleLogin(ev) {
+      var code = this.captcha.toLowerCase();
+      var input = this.account.vrifyCode.toLowerCase();
+      if (code !== input) {
+        this.$notify({
+          title: "错误",
+          message: "验证码错误！",
+          type: "error"
+        });
+        return;
+      }
       var that = this;
       window.sessionStorage.responseType = "json";
       this.$refs.AccountFrom.validate(valid => {
@@ -166,7 +172,6 @@ export default {
             }
           });
         } else {
-          console.log("error submit!!");
           return false;
         }
       });

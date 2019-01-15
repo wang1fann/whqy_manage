@@ -144,7 +144,6 @@ export function dateFtt(date, fmt) {
 export function getNowFormatDate(value) {
     // let date = new Date(!!value ? value : null);
     let date = new Date();
-    // console.log(date);
     let y = date.getFullYear();
     let MM = date.getMonth() + 1;
     MM = MM < 10 ? ('0' + MM) : MM;
@@ -159,12 +158,12 @@ export function getNowFormatDate(value) {
     if (h == '00') {
         h = 11;
     }
-    console.log(y + '-' + MM + '-' + d + ' ' + h + ':' + m + ':' + s);
     return y + '-' + MM + '-' + d + ' ' + h + ':' + m + ':' + s;
 };
 // 获取系统当前时间的上个月时间
 export function perMonthtDate() {
     var date = new Date();
+    var year = date.getMonth() === 0 ? date.getFullYear() - 1 : date.getFullYear();
     var seperator1 = "-";
     var seperator2 = ":";
     var month = date.getMonth() === 0 ? "12" : date.getMonth();
@@ -189,10 +188,9 @@ export function perMonthtDate() {
         strSeconds = "0" + strSeconds;
     }
 
-    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +
+    var currentdate = year + seperator1 + month + seperator1 + strDate +
         " " + strHours + seperator2 + strMinutes +
         seperator2 + strSeconds;
-    console.log(currentdate);
     return currentdate;
 }
 
@@ -267,9 +265,9 @@ export function getPageSize() {
     var w = document.documentElement.clientWidth
         // var h = document.documentElement.clientHeight
     var s = 10
-    if (w <= 1366) {
+    if (w <= 1980) {
         s = 10
-    } else if (w > 1536) {
+    } else if (w > 1980) {
         s = 15
     }
     return s;
@@ -320,8 +318,6 @@ export function translateDataToTree(data) {
  * @returns
  */
 export function Object2Array(arrObj, key) {
-    // console.log(arrObj);
-    // console.log(key);
     var arr = [];
     for (var i = 0; i < arrObj.length; i++) {
         arr.push(arrObj[i][key]);

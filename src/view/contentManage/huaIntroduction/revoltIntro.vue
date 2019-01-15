@@ -44,7 +44,6 @@ export default {
       this.ticketForm.content = content;
       window.sessionStorage.setItem("responseType", "json");
       API.addAPI(this.ticketForm).then(res => {
-        console.log(res);
         this.$message({
           type: !!res && res.code === 20000 ? "success" : "warning",
           message: res.message

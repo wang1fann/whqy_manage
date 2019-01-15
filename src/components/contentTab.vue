@@ -14,7 +14,6 @@ export default {
   },
   methods: {
     // getBreadcrumb() {
-    //   console.log(this.$route.matched);
     //   this.breadlist = this.$route.matched;
     // }
   },

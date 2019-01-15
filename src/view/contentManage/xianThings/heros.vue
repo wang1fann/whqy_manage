@@ -13,7 +13,7 @@
           type="primary"
           size="mini"
           icon="el-icon-circle-plus"
-          @click="gotoUrl('/contentManage/xianThings/xianTingsAdd',{menuId: $route.query.menuId})"
+          @click="gotoUrl('/contentManage/xianThings/heroAdd',{menuId: $route.query.menuId})"
         >添加<i>{{buttonName}}</i></el-button>
         <el-button
           type="primary"
@@ -138,7 +138,7 @@ export default {
     },
     fieldInit() {
       // 获取字段
-      var column = getField("xiSpirtArtical");
+      var column = getField("xianThings");
       column.forEach(item => {
         if (!!item.width && item.width != "auto") {
           item.width = rem2px(px2rem(item.width));
@@ -155,7 +155,7 @@ export default {
     // 更新数据
     update(row) {
       row.menuId = this.$route.query.menuId + "";
-      this.gotoUrl("/contentManage/xianThings/xianTingsAdd", row);
+      this.gotoUrl("/contentManage/xianThings/heroAdd", row);
     },
     // 弹框关闭时的回调函数
     handleClose(done) {
@@ -187,7 +187,7 @@ export default {
       // 接口调用
       API.findList(config)
         .then(res => {
-          console.log(res);
+          
           if (!!res && res.code === 20000 && res.data.total !== 0) {
             that.data = res.data.rows;
             that.total = res.data.total;

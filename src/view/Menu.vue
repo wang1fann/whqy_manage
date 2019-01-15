@@ -146,7 +146,6 @@ export default {
       let user = localStorage.getItem("access-user");
       if (user) {
         user = JSON.parse(user);
-        console.log(user);
         this.userInfo = user;
       }
     },

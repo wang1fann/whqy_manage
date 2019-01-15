@@ -4,7 +4,8 @@
     <my-uepage
       :Form="ticketForm"
       :defaultMsg="ticketForm.content"
-      :showPersonName="false"
+      :showPersonName="true"
+      :showAgePeriod="true"
       @submit="submitcontent"
       @imgPath="getImgPath"
     ></my-uepage>
@@ -20,7 +21,7 @@
 }
 </style>
 <script>
-import API from "@/api/api_xianTings";
+import API from "@/api/api_xianTingsHero";
 import myUEpage from "@/components/myUEpage";
 export default {
   components: { "my-uepage": myUEpage },
@@ -31,6 +32,7 @@ export default {
         imgPath: "",
         menuId: this.$route.query.menuId + "",
         description: "",
+        agePeriod:"",
         personName:'',
         content: ""
       }

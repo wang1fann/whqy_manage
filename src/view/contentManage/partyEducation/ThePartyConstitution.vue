@@ -67,7 +67,6 @@ import API from "@/api/api_dangxingjiaoyu.js";
 import { getField, getFormField, getSearchField } from "@/assets/json/index.js";
 import { getPageSize, px2rem, rem2px } from "@/plugins/util.js";
 import { setTimeout } from "timers";
-// import { mapGetters, mapState } from "vuex";
 export default {
   name: "convenienceSearchList",
   data() {
@@ -189,7 +188,6 @@ export default {
       // 接口调用
       API.findList(config)
         .then(res => {
-          console.log(res);
           if (!!res && res.code === 20000 && res.data.total !== 0) {
             this.data = res.data.rows;
             this.total = res.data.total;
@@ -203,13 +201,11 @@ export default {
           });
         })
         .catch(err => {
-          console.log(err);
         });
     },
     // 删除
     delete() {
       var _this = this;
-      console.log(_this.ids);
       API.delAPI({ id: _this.ids })
         .then(res => {
           this.ids = null;

@@ -172,7 +172,6 @@ export default {
       // 接口调用
       API.findhongselvyouList(config)
         .then(res => {
-          console.log(res);
           if (!!res && res.code === 20000) {
             this.data = res.data.rows;
             this.total = res.data.total;
@@ -183,13 +182,11 @@ export default {
           });
         })
         .catch(err => {
-          console.log(err);
         });
     },
        // 删除
     delete() {
       var _this = this;
-      console.log(_this.ids);
       API.delhongselvyou({ id: _this.ids })
         .then(res => {
           this.ids = null;

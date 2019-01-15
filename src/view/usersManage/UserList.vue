@@ -195,6 +195,7 @@ export default {
     },
     searchFormInit() {
       this.searchFormItem = getSearchField("user", "item");
+      this.getUserTypeData(this.searchFormItem[2]);
       this.searchFormData = getSearchField("user", "data");
     },
     // 添加数据
@@ -267,6 +268,28 @@ export default {
       this.resetForm();
       done();
     },
+    // 获取用户类型列表
+    getUserTypeData(obj) {
+      // formInfo   初始化加载formInfo 科室选项
+      obj.options = [
+        {
+          value: "0",
+          label: "全部",
+          id: "0"
+        }
+      ];
+      API.getUserType().then(res => {
+        if (!!res && res.code === 20000) {
+          for (var i = 0; i < res.data.length; i++) {
+            obj.options.push({
+              value: res.data[i].roleId,
+              label: res.data[i].roleName,
+              id: res.data[i].roleId
+            });
+          }
+        }
+      });
+    },
     // 获取数据
     getData() {
       var _this = this;
@@ -276,20 +299,14 @@ export default {
       };
       // 添加查询字段
       config = $.extend(config, this.searchFormData);
-      config.permissionId =
-        config.permissionId === "超级管理员"
-          ? "1"
-          : config.permissionId === "一般管理员"
-          ? "2"
-          : "3";
+      // console.log(config);
       // 接口调用
+      config.permissionId = !config.permissionId ? "0" : config.permissionId+"";
       this.fullscreenLoading = true;
       window.sessionStorage.setItem("responseType", "json");
       API.findUserList(config)
         .then(res => {
-          console.log(res);
           if (!!res && res.code === 20000) {
-            // this.handleClose();
             for (var i = 0; i < res.data.rows.length; i++) {
               res.data.rows[i].sex = res.data.rows[i].sex === "2" ? "女" : "男";
               res.data.rows[i].permissionId =
@@ -316,7 +333,6 @@ export default {
               user.permissionId !== "1"
                 ? this._.filter(this.data, { permissionId: user.permissionId })
                 : this.data;
-            console.log(this.data);
           }
           this.$message({
             message: res.message,

@@ -359,7 +359,6 @@ export default {
   },
 
   created() {
-    console.log(this.formItem);
   },
   methods: {
     getSubmitData(clear) {
@@ -389,7 +388,6 @@ export default {
         if (valid) {
           this.$emit("submit");
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
@@ -401,7 +399,6 @@ export default {
     // 上传头像
     handleAvatarSuccess(res, file) {
       this.imgPath = URL.createObjectURL(file.raw);
-      console.log(this.formData);
       this.formData.imgPath = this.imgPath;
     },
     beforeAvatarUpload(file) {
@@ -417,10 +414,8 @@ export default {
         return isJPG && isLt2M;
       }
       this.imgData.file = file;
-      console.log(this.imgData);
     },
     uploadUserImg() {
-      console.log(this.imgData);
       var form = new FormData();
       form.append("menu", this.imgData.menu);
       form.append("file", this.imgData.file);

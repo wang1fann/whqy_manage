@@ -50,7 +50,6 @@ export default {
   methods: {
     submitcontent(content) {
       this.ticketForm.content = content;
-      console.log(this.ticketForm);
       var that = this;
       window.sessionStorage.setItem("responseType", "json");
       API.addAPI(this.ticketForm).then(res => {

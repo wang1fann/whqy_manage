@@ -182,7 +182,6 @@ export default {
     };
   },
   created() {
-    // console.log(this.buttonShow);
   },
   mounted() {},
   methods: {
@@ -190,7 +189,6 @@ export default {
       this.$emit("submit");
     },
     getTime(val) {
-      console.log(val);
       this.$emit("updateTime", val);
     }
   }

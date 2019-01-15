@@ -17,7 +17,7 @@
                 v-model="siteForm[item.name]"
                 value=""
                 :placeholder="item.placeholder"
-                :disabled="siteForm[item.status]"
+                :disabled="!siteForm[item.status]"
               ></el-input>
             </el-col>
             <el-col :span="4">
@@ -34,6 +34,7 @@
       </el-form>
       <div
         class="demo-menu"
+        v-show="showMenuInfo"
         v-for="(menuItem,ind) in menuInfo"
         :key="ind"
       >
@@ -95,7 +96,10 @@
           @click="submitSite()"
         >提交</el-button>
       </el-row>
-      <el-row class="site-bottom">
+      <el-row
+        class="site-bottom"
+        v-show="showMenuInfo"
+      >
         <span @click="addMenu">
           <i class="el-icon-circle-plus"></i>底部菜单添加</span>
       </el-row>
@@ -111,11 +115,11 @@
 
 <script>
 import API from "@/api/api_site.js";
-// import { translateDataToTree } from "@/plugins/util.js";
 export default {
   name: "Site",
   data() {
     return {
+      showMenuInfo: false,
       confirmType: "warning",
       confirmTitle: "提示信息",
       confirmContent: "此操作将永久删除该文件, 是否继续?",
@@ -125,10 +129,10 @@ export default {
         tecSupport: "",
         address: "",
         phone: "",
-        copyrightStatus: "1",
-        tecSupportStatus: "1",
-        addressStatus: "1",
-        phoneStatus: "1"
+        copyrightStatus: "true",
+        tecSupportStatus: "true",
+        addressStatus: "true",
+        phoneStatus: "true"
       },
       menuInfo: [
         {
@@ -220,13 +224,13 @@ export default {
       window.sessionStorage.setItem("responseType", "json");
       API.findSiteList()
         .then(res => {
-          console.log(res);
+          
           if (!!res && res.code === 20000) {
             var obj = res.data[0];
             obj.addressStatus = obj.addressStatus === "1" ? true : false;
             obj.copyrightStatus = obj.copyrightStatus === "1" ? true : false;
-            obj.copyrightStatus = obj.copyrightStatus === "1" ? true : false;
             obj.tecSupportStatus = obj.tecSupportStatus === "1" ? true : false;
+            obj.phoneStatus = obj.phoneStatus === "1" ? true : false;
             this.siteForm = obj;
           }
           this.$message({
@@ -240,7 +244,7 @@ export default {
       window.sessionStorage.setItem("responseType", "json");
       var that = this;
       API.findMenuList().then(res => {
-        console.log(res);
+        
         if (!!res && res.code === 20000) {
           // that.menuInfo = !!res.data
           //   ? this._.filter(res.data, { parentId: "0", menuType: 2 })
@@ -252,14 +256,20 @@ export default {
       });
     },
     submitSite() {
-      console.log(this.menuInfo);
-      API.addSite(this.menuInfo).then(res => {
+      // console.log(this.menuInfo);
+      var params = {};
+      params = this.siteForm;
+      params.addressStatus = params.addressStatus === true ? "1" : "0";
+      params.copyrightStatus = params.copyrightStatus === true ? "1" : "0";
+      params.tecSupportStatus = params.tecSupportStatus === true ? "1" : "0";
+      params.phoneStatus = params.phoneStatus === true ? "1" : "0";
+      API.addSite(params).then(res => {
         this.$message({
           message: res.message,
           type: !!res && res.code === 20000 ? "success" : "warning"
         });
         if (!!res && res.code === 20000) {
-          this.findMenu();
+          this.findSite();
         }
       });
     }

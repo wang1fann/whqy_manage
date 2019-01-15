@@ -183,7 +183,7 @@ export default {
       // 接口调用
       API.findList(config)
         .then(res => {
-          console.log(res);
+          
           if (!!res && res.code === 20000 && res.data.total !== 0) {
             that.data = res.data.rows;
             that.total = res.data.total;

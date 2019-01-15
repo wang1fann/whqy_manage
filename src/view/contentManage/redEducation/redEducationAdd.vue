@@ -41,10 +41,9 @@ export default {
   methods: {
     submitcontent(content) {
       this.ticketForm.content = content;
-      var that = this;
       window.sessionStorage.setItem("responseType", "json");
       API.addAPI(this.ticketForm).then(res => {
-        that.$message({
+        this.$message({
           type: !!res && res.code === 20000 ? "success" : "warning",
           message: res.message
         });
@@ -61,7 +60,6 @@ export default {
     },
     getData() {
       this.ticketForm = this.$route.query;
-      console.log(this.$route.query);
     }
   }
 };

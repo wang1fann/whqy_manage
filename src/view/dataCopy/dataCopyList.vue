@@ -1,5 +1,8 @@
 <template>
-  <div class="content-top-line">
+  <div
+    class="content-top-line"
+    v-loading="fullscreenLoading"
+  >
     <div class="data-list">
       <div class="data-type-button">
         <el-button
@@ -70,6 +73,7 @@ import API from "@/api/api_data.js";
 export default {
   data() {
     return {
+      fullscreenLoading: false,
       pic: require("@/assets/img/data/The backup1.png"),
       pic1: require("@/assets/img/data/The backup1.png"),
       pic2: require("@/assets/img/data/restore.png"),
@@ -91,8 +95,10 @@ export default {
       });
     },
     submitcopyData() {
+      this.fullscreenLoading = true;
       API.restore({ type: this.dataCopyType === "手动备份" ? "1" : "2" }).then(
         res => {
+          this.fullscreenLoading = false;
           //dbbackup,type:1手动，2自动
           this.$message({
             message: res.message,

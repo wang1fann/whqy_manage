@@ -133,7 +133,6 @@ export default {
       let uploadImginput = document.getElementById("upload-img-input");
       let formfile = new FormData(uploadImginput); //拿到表单创建FormData对象；
       let files = ev.target.files; //拿到选择的文件
-      console.log(files);
       formfile.append(
         "menu",
         this.$route.query.menuId + "" || this.$route.query.name
