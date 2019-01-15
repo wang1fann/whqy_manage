@@ -20,5 +20,9 @@ export default {
     //单个删除book
     delhongselvyou: params => {
         return API.DELETE('/syx/hongselvyou/delete', params);
+    },
+    // 上传图片
+    uploadImg: params => {
+        return API.POST('/syx/file/multipleUpload', params)
     }
 }
