@@ -134,6 +134,24 @@
             "roleIds": []
         }
     },
+    "testLibary": {
+        "item": [{
+                "type": "text",
+                "name": "name",
+                "value": "",
+                "width": "80",
+                "disabled": false,
+                "label": "题库名称",
+                "show": true
+            }
+
+        ],
+        "data": {
+            "name": "",
+            "libraryid": "",
+            "imgPath": ""
+        }
+    },
     "roles": {
         "item": [{
                 "type": "text",

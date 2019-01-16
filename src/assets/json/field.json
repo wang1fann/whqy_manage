@@ -98,6 +98,31 @@
             "show": true
         }
     ],
+    "knowledge": [{
+            "prop": "name",
+            "label": "题库名称",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "createTime",
+            "label": "创建时间",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "updateTime",
+            "label": "更新时间",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }
+    ],
     "convenienceSearch": [{
             "prop": "scenicSpotName",
             "label": "景区名称",

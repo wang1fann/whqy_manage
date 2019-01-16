@@ -620,22 +620,23 @@ let contentRouter = [{
         path: 'knowledgeAnswer',
         name: '知识问答',
         component: resolve => {
+            require(['view/contentManage/knowledgeAnswer/knowledgeAnswer'], resolve)
+        },
+        class: 'fa-line-chart',
+        img: require('@/assets/img/access/user.png'),
+        children: []
+    },
+    {
+        id: "",
+        path: 'knowledgeAnswerAppend',
+        name: '知识问答-添加',
+        component: resolve => {
             require(['view/contentManage/knowledgeAnswer/knowledgeAnswerAppend'], resolve)
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
-        children: [{
-            id: "",
-            path: 'knowledgeAnswerAppend',
-            name: '知识问答-添加',
-            component: resolve => {
-                require(['view/contentManage/knowledgeAnswer/knowledgeAnswerAppend'], resolve)
-            },
-            class: 'fa-line-chart',
-            img: require('@/assets/img/access/user.png'),
-            children: [],
-            show: false
-        }]
+        children: [],
+        show: false
     },
     {
         id: 10013,

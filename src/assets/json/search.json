@@ -67,6 +67,35 @@
             "name": ""
         }
     },
+    "knowledge": {
+        "item": [{
+            "type": "text",
+            "name": "name",
+            "value": "",
+            "placeholder": "请输入题库名称",
+            "label": "题库名",
+            "width": "100%",
+            "show": true
+        }, {
+            "type": "date",
+            "name": "createTime",
+            "placeholder": "创建日期",
+            "value": "",
+            "width": "100%",
+            "label": "创建日期",
+            "show": true,
+            "format": "yyyy-MM-dd",
+            "rules": [{
+                "required": true,
+                "message": "创建日期",
+                "trigger": "blur"
+            }]
+        }],
+        "data": {
+            "name": "",
+            "createTime": ""
+        }
+    },
     "rights": {
         "item": [{
                 "type": "text",

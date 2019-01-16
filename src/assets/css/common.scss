@@ -292,6 +292,18 @@ span.el-dialog__title {
     border-radius: 5px;
 }
 
+.colorE24142 {
+    color: #E24142;
+}
+
+.option {
+    margin-left: 100px;
+}
+
+p.alignleft.colorE24142.cursorpointer {
+    margin-left: 45px;
+}
+
 .rate-select {
     .el-radio-button__orig-radio:checked+span {
         background-color: #e24142 !important;
@@ -370,4 +382,121 @@ span.el-dialog__title {
             padding: 0px;
         }
     }
+}
+
+.test-box label.el-radio-button {
+    width: 90%;
+    margin: 10px auto;
+    height: 38px;
+    line-height: 38px;
+    background: #f5f7f7;
+    color: #9099a2;
+    text-align: center;
+}
+
+.test-box span.el-radio-button__inner {
+    width: 98%;
+    background: #f5f7f7;
+    border: none !important;
+    color: #9099a2;
+}
+
+.test-box label.el-radio-button.is-actived {
+    background-color: #f5f7f7 !important;
+    border: 1px solid #f77f80 !important;
+    text-align: center;
+    color: #f77f80;
+}
+
+.test-box .el-radio-button__orig-radio:checked+span {
+    background: #f5f7f7 !important;
+    border: 1px solid #f77f80 !important;
+    color: #f77f80;
+    border-radius: 0 !important;
+}
+
+.test-list-box label.el-checkbox {
+    text-align: left;
+    width: 100%;
+    margin: 10px 0px;
+    position: relative;
+}
+
+.test-list-box .el-checkbox__input {
+    // margin-top: -246px;
+    // background: white;
+    // margin-right: 13px;
+    position: absolute;
+    left: 0px;
+    top: 26px;
+}
+
+.test-list-box {
+    position: relative;
+    width: 95%;
+}
+
+.test-list-box .el-checkbox__label {
+    display: inline-block;
+    padding-left: 10px;
+    background: #fff;
+    line-height: 19px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.test-list-box .el-collapse {
+    // border: 1px solid green;
+    background: #f8fbfb;
+    margin-left: 15px;
+}
+
+.test-list-box .el-collapse-item__content,
+.test-list-box .el-collapse-item__header {
+    background: #f8fbfb;
+    border: 1px solid #f8fbfb;
+}
+
+.test-list-box .el-collapse-item__content {
+    padding-left: 50px;
+}
+
+.test-list-box .el-collapse,
+.test-list-box .el-collapse-item__wrap,
+.el-collapse-item__header {
+    border: none;
+}
+
+.test-list-box .el-collapse-item__header {
+    padding-left: 15px;
+}
+
+.test-item.timu {
+    padding: 10px 2px;
+}
+
+.test-list-box .options p {
+    line-height: 30px;
+    height: 30px;
+}
+
+.addtest-box {
+    width: 90%;
+    float: left;
+}
+
+.myclearfix:after {
+    content: "020";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.addtest-box .el-form-item__content {
+    width: 80%;
+}
+
+.addtest-box .el-input {
+    width: 90%;
 }
