@@ -38,13 +38,24 @@
                     "trigger": "blur"
                 }]
             }, {
-                "type": "text",
+                "type": "select",
                 "name": "deviceType",
+                "cname": "deviceType",
                 "value": "",
-                "placeholder": "用户来源",
-                "label": "用户来源",
+                "placeholder": "请选择用户来源",
+                "filterable": true,
                 "width": "100%",
-                "show": true
+                "label": "用户来源:",
+                "show": true,
+                "options": [{
+                    "value": "全部",
+                    "label": ""
+                }],
+                "rules": [{
+                    "required": true,
+                    "message": "请选择用户来源",
+                    "trigger": "blur"
+                }]
             }
         ],
         "data": {

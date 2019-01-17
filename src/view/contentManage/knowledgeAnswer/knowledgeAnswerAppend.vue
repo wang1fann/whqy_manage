@@ -50,7 +50,7 @@
             class="demo-dynamic addtest-box"
           >
             <el-form-item
-              class="myclearfix"
+              class="myclearfix title"
               prop="title"
               label="题目"
               :rules="[{ required: true, message: '请输入题目', trigger: 'blur' }]"
@@ -63,9 +63,7 @@
                 :label="'选项' + indexName[index]"
                 :key="domain.key"
                 :prop="'domains.' + index + '.value'"
-                :rules="{
-      required: true, message: '选项不能为空', trigger: 'blur'
-    }"
+                :rules="{required: true, message: '选项不能为空', trigger: 'blur'}"
               >
                 <el-input v-model="domain.value"></el-input>
                 <el-button
@@ -73,14 +71,15 @@
                   @click.prevent="removeDomain(domain)"
                 >删除</el-button>
               </el-form-item>
+              <p class="alignleft addoptions-p">
+                <span
+                  class="alignleft colorE24142 cursorpointer"
+                  @click="addDomain"
+                >新增选项<i class="el-icon-circle-plus-outline"></i></span>
+              </p>
             </div>
-            <el-form-item>
-              <p
-                class="alignleft colorE24142 cursorpointer"
-                @click="addDomain"
-              >新增选项<i class="el-icon-circle-plus-outline"></i></p>
-            </el-form-item>
             <el-form-item
+              class="answer"
               prop="answer"
               label="正确答案"
               :rules="[{ required: true, message: '请输入正确答案选项：A,B,C,D中的一个', trigger: 'blur' }]"
@@ -116,7 +115,7 @@
                 >
                   <el-collapse-item
                     :title="'标题：'+testItem.title"
-                    name="index"
+                    :name="testItem.id"
                   >
                     <p
                       v-for="(option,ind) in testItem.options"
@@ -128,6 +127,16 @@
               </div>
             </el-checkbox>
           </el-checkbox-group>
+        </div>
+        <div
+          v-if="total===0"
+          class="aligncenter"
+        >
+          <img
+            class="nodata-img"
+            :src="require('@/assets/img/noData.png')"
+            alt=""
+          >
         </div>
         <div>
           <el-row>
@@ -176,6 +185,7 @@ export default {
     var form = {
       title: "",
       ref: "form1",
+       showUploadImg: true,
       showTitle: false,
       labelWidth: px2rem(140),
       labelPositon: "right",
@@ -432,6 +442,7 @@ export default {
     },
     // 添加题库题库
     submit() {
+      window.sessionStorage.setItem("responseType", "json");
       API.addTestLibrary(this.formData).then(res => {
         this.dialogVisible = false;
         this.$message({
@@ -456,7 +467,9 @@ export default {
         checkedCount > 0 && checkedCount < this.testList.length;
     },
     // 手风琴变更事件
-    handleChange(val) {},
+    handleChange(val) {
+      this.activeNames = val;
+    },
     //获取试题列表
     findTestbylibraryId() {
       API.findTest({
@@ -479,12 +492,6 @@ export default {
 </script>
 
 <style scoped>
-.color9099a2 {
-  color: #9099a2;
-}
-.cursorpointer {
-  cursor: pointer;
-}
 .answerAppend {
   overflow: hidden;
   width: 97%;
@@ -518,19 +525,12 @@ export default {
 .answerAppend div.left .inserts {
   width: 90%;
   margin: 10px auto;
-  height: 40px;
-  line-height: 40px;
+  color: #9099a2;
+  height: 35px;
+  line-height: 35px;
   background: #f5f7f7;
 }
-.answerAppend div.left .inserts span {
-  display: inline-block;
-  font-size: 26px;
-  margin-left: 48px;
-  color: #eb7677;
-}
-.answerAppend div.left .inserts label {
-  color: #7c8892;
-}
+
 .answerAppend div.right {
   width: 80.5%;
   height: 99%;
@@ -541,6 +541,7 @@ export default {
   overflow: hidden;
   margin-top: 16px;
 }
+/* //按钮 */
 .answerAppend div.right .up div {
   width: 100px;
   height: 35px;
@@ -568,83 +569,9 @@ export default {
   margin-top: 30px;
   margin-left: 15px;
 }
-.answerAppend div.right .down .repeats {
-  overflow: hidden;
-  margin-bottom: 18px;
-}
-.answerAppend div.right .down .repeats div.r {
-  width: 90%;
-  margin-right: 46px;
+
+form.el-form.demo-dynamic.addtest-box {
   background: #f8fbfb;
-  padding: 20px 30px;
-  padding-bottom: 36px;
-  padding-right: 0;
-}
-.answerAppend div.right .down .repeats div.r .timu {
-  overflow: hidden;
-  margin-bottom: 20px;
-}
-.answerAppend div.right .down .repeats div.r .timu label {
-  color: #999;
-  font-size: 15px;
-  margin-right: 10px;
-  margin-top: 10px;
-}
-.answerAppend div.right .down .repeats div.r .timu input {
-  width: 88%;
-  height: 34px;
-  border: 0;
-  border: 1px solid #ddd;
-}
-.answerAppend div.right .down .repeats div.r .timus {
-  overflow: hidden;
-  margin-bottom: 20px;
-  margin-left: 40px;
-}
-.answerAppend div.right .down .repeats div.r .timus label {
-  color: #999;
-  font-size: 15px;
-  margin-top: 10px;
-  margin-right: 10px;
-}
-.answerAppend div.right .down .repeats div.r .timus input {
-  width: 86%;
-  height: 34px;
-  border: 0;
-  border: 1px solid #ddd;
-}
-.answerAppend div.right .down .repeats div.r .timus img {
-  width: 17px;
-  height: 17px;
-  margin-left: 10px;
-  margin-top: 10px;
-}
-.answerAppend div.right .down .repeats div.r .timus p {
-  margin-left: 26px;
-  color: #f63a3c;
-  text-align: left;
-  display: flex;
-  align-items: center;
-}
-.answerAppend div.right .down .repeats div.r .timus p i {
-  display: inline-block;
-  margin-left: 6px;
-  width: 15px;
-  height: 15px;
-  background: url("../../../assets/img/content/addf.png") no-repeat;
-  background-size: 15px auto;
-}
-.answerAppend div.right .down .repeats div.r .bottoms {
-  overflow: hidden;
-  margin-top: 20px;
-}
-.answerAppend div.right .down .repeats div.r .bottoms input {
-  outline: none;
-  border: 0;
-  background: #f63a3c;
-  color: #fff;
-  padding: 9px 32px;
-  border-radius: 3px;
-  margin-right: 30px;
+  padding-top: 25px;
 }
 </style>

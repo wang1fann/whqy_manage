@@ -104,12 +104,12 @@ export default {
   },
   mounted() {
     this.getData();
-     this.getMessageTotal();
+    this.getMessageTotal();
   },
   methods: {
     getMessageTotal(total) {
       API.getMessageTotal().then(res => {
-       this.total = !!res && res.code === 20000 ? res.data : 0;
+        this.total = !!res && res.code === 20000 ? res.data : 0;
       });
     },
     gotoUrl(path, query) {
@@ -121,10 +121,15 @@ export default {
     fieldInit() {
       // 获取字段
       var column = getField("messageList");
+
       column.forEach(item => {
         if (!!item.width && item.width != "auto") {
           item.width = rem2px(px2rem(item.width));
         }
+      });
+      console.log(column);
+      column = this._.filter(column, function(o) {
+        return !(o.prop === "replyMessage");
       });
       this.column = column;
     },
@@ -146,7 +151,6 @@ export default {
       // 接口调用
       API.findMessageList(config)
         .then(res => {
-          
           if (!!res && res.code === 20000) {
             this.data = res.data;
           }

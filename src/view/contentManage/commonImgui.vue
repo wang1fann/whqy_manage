@@ -23,7 +23,11 @@
           :onerror="errorImg"
         />
         <span @click="deleteConfirm(item)"></span>
-        <p>{{item.scenicSpotName||item.title}}</p>
+        <p
+          style="-webkit-box-orient: vertical;"
+          class="ellipsis1 cursorpointer"
+          :title="item.scenicSpotName||item.title"
+        >{{item.scenicSpotName||item.title}}</p>
       </div>
     </div>
     <div style="margin-top:15px;">

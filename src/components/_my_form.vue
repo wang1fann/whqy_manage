@@ -22,11 +22,11 @@
       :label-width="form.labelWidth"
     >
       <el-row>
-        <!-- 上传头像 -->
+        <!-- 上传图片 -->
         <el-upload
           v-if="form.showUploadImg"
           class="avatar-uploader"
-          action="http://192.168.0.110:9104/syx/file/multipleUpload"
+          action="/syx/file/multipleUpload"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
@@ -49,7 +49,7 @@
           <i
             v-else
             class="el-icon-plus avatar-uploader-icon"
-          ><span style="font-size:14px;position: absolute;left: 0px;">上传头像:</span></i>
+          ><span style="font-size:14px;position: absolute;left: 0px;">上传图片:</span></i>
         </el-upload>
         <template v-for="(item, index) in formItem">
           <el-col
@@ -396,7 +396,7 @@ export default {
     resetForm() {
       this.$refs[this.form.ref].resetFields();
     },
-    // 上传头像
+    // 上传图片
     handleAvatarSuccess(res, file) {
       this.imgPath = URL.createObjectURL(file.raw);
       this.formData.imgPath = this.imgPath;
@@ -421,6 +421,7 @@ export default {
       form.append("file", this.imgData.file);
       window.sessionStorage.setItem("responseType", "form");
       API.uploadUserImg(form).then(res => {
+      window.sessionStorage.setItem("responseType", "json");
         if (!!res && res.code === 20000) {
           this.formData.imgPath = !!res.data ? res.data[0] : "";
           this.$message({

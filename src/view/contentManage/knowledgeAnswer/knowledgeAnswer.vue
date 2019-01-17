@@ -14,7 +14,7 @@
           size="mini"
           icon="el-icon-circle-plus"
           @click="gotoUrl('/contentManage/knowledgeAnswerAppend',{menuId: $route.query.menuId})"
-        >添加题库</el-button>
+        >添加试题</el-button>
         <el-button
           type="primary"
           size="mini"
@@ -91,6 +91,7 @@ export default {
       title: "",
       ref: "form1",
       showTitle: false,
+       showUploadImg: true,
       labelWidth: px2rem(140),
       labelPositon: "right",
       width: "80%",

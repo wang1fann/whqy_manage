@@ -196,6 +196,7 @@ export default {
     searchFormInit() {
       this.searchFormItem = getSearchField("user", "item");
       this.getUserTypeData(this.searchFormItem[2]);
+      this.getDeviceType(this.searchFormItem[3]);
       this.searchFormData = getSearchField("user", "data");
     },
     // 添加数据
@@ -290,6 +291,28 @@ export default {
         }
       });
     },
+    // 获取用户来源选项
+    getDeviceType(obj) {
+      // formInfo   初始化加载formInfo 科室选项
+      obj.options = [
+        {
+          value: "0",
+          label: "全部",
+          id: "0"
+        }
+      ];
+      API.getDeviceType().then(res => {
+        if (!!res && res.code === 20000) {
+          for (var i = 0; i < res.data.length; i++) {
+            obj.options.push({
+              value: res.data[i].id,
+              label: res.data[i].name,
+              id: res.data[i].id
+            });
+          }
+        }
+      });
+    },
     // 获取数据
     getData() {
       var _this = this;
@@ -301,7 +324,9 @@ export default {
       config = $.extend(config, this.searchFormData);
       // console.log(config);
       // 接口调用
-      config.permissionId = !config.permissionId ? "0" : config.permissionId+"";
+      config.permissionId = !config.permissionId
+        ? "0"
+        : config.permissionId + "";
       this.fullscreenLoading = true;
       window.sessionStorage.setItem("responseType", "json");
       API.findUserList(config)

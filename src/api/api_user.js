@@ -54,5 +54,9 @@ export default {
     // 生成随机吗
     getRandomCode: params => {
         return API.POST('/syx/user/randomCode', params)
+    },
+    // 查询用户来源接口http://localhost:9014/syx/deviceType/
+    getDeviceType: params => {
+        return API.GET('/syx/deviceType', params)
     }
 }

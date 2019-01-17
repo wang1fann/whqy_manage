@@ -102,7 +102,7 @@ export default {
     return {
       confirmType: "warning",
       confirmTitle: "提示信息",
-      confirmContent: "此操作将永久删除该文件, 是否继续?",
+      confirmContent: "此操作将永久删除, 是否继续?",
       dialogTitle: "添加路线",
       multipleSelection: [],
       ids: null,

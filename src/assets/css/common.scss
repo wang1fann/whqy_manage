@@ -80,6 +80,34 @@ p {
     z-index: 99;
 }
 
+.ellipsis1 {
+    word-break: break-all;
+    text-overflow: ellipsis;
+    /**显示省略号**/
+    display: -webkit-box;
+    /** 将对象作为伸缩盒子模型显示 **/
+    -webkit-box-orient: vertical;
+    /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+    -webkit-line-clamp: 1;
+    /** 显示的行数 **/
+    overflow: hidden;
+    /** 隐藏超出的内容 **/
+}
+
+.ellipsis2 {
+    word-break: break-all;
+    text-overflow: ellipsis;
+    /**显示省略号**/
+    display: -webkit-box;
+    /** 将对象作为伸缩盒子模型显示 **/
+    -webkit-box-orient: vertical;
+    /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+    -webkit-line-clamp: 2;
+    /** 显示的行数 **/
+    overflow: hidden;
+    /** 隐藏超出的内容 **/
+}
+
 .pull-left {
     float: left;
 }
@@ -300,8 +328,24 @@ span.el-dialog__title {
     margin-left: 100px;
 }
 
-p.alignleft.colorE24142.cursorpointer {
-    margin-left: 45px;
+.addoptions-p {
+    margin-left: 45px !important;
+    margin-top: -6px !important;
+    margin-bottom: 12px !important;
+}
+
+.color9099a2 {
+    color: #9099a2;
+}
+
+.nodata-img {
+    width: 130px;
+    height: 120px;
+    margin: 30px auto 0px;
+}
+
+.cursorpointer {
+    cursor: pointer;
 }
 
 .rate-select {
@@ -385,10 +429,10 @@ p.alignleft.colorE24142.cursorpointer {
 }
 
 .test-box label.el-radio-button {
-    width: 90%;
+    width: 95%;
     margin: 10px auto;
-    height: 38px;
-    line-height: 38px;
+    height: 35px;
+    line-height: 35px;
     background: #f5f7f7;
     color: #9099a2;
     text-align: center;
@@ -399,6 +443,10 @@ p.alignleft.colorE24142.cursorpointer {
     background: #f5f7f7;
     border: none !important;
     color: #9099a2;
+}
+
+.el-radio-button__orig-radio:checked+span {
+    box-shadow: none !important;
 }
 
 .test-box label.el-radio-button.is-actived {
@@ -423,9 +471,6 @@ p.alignleft.colorE24142.cursorpointer {
 }
 
 .test-list-box .el-checkbox__input {
-    // margin-top: -246px;
-    // background: white;
-    // margin-right: 13px;
     position: absolute;
     left: 0px;
     top: 26px;
@@ -446,7 +491,6 @@ p.alignleft.colorE24142.cursorpointer {
 }
 
 .test-list-box .el-collapse {
-    // border: 1px solid green;
     background: #f8fbfb;
     margin-left: 15px;
 }
@@ -481,8 +525,13 @@ p.alignleft.colorE24142.cursorpointer {
 }
 
 .addtest-box {
-    width: 90%;
+    width: 96%;
     float: left;
+}
+
+.title .el-form-item__error,
+.answer .el-form-item__error {
+    margin-left: 33px !important;
 }
 
 .myclearfix:after {
@@ -498,5 +547,5 @@ p.alignleft.colorE24142.cursorpointer {
 }
 
 .addtest-box .el-input {
-    width: 90%;
+    width: 92%;
 }

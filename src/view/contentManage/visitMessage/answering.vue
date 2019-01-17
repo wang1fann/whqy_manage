@@ -104,12 +104,12 @@ export default {
   },
   mounted() {
     this.getData();
-     this.getMessageTotal();
+    this.getMessageTotal();
   },
   methods: {
     getMessageTotal(total) {
       API.getMessageTotal().then(res => {
-       this.total = !!res && res.code === 20000 ? res.data : 0;
+        this.total = !!res && res.code === 20000 ? res.data : 0;
       });
     },
     gotoUrl(path, query) {
@@ -125,6 +125,9 @@ export default {
         if (!!item.width && item.width != "auto") {
           item.width = rem2px(px2rem(item.width));
         }
+      });
+      column = this._.filter(column, function(o) {
+        return !(o.prop === "content");
       });
       this.column = column;
     },

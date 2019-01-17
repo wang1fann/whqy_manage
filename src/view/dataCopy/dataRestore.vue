@@ -118,6 +118,7 @@ export default {
       radio: "从服务器还原",
       confirmType: "warning",
       confirmTitle: "提示信息",
+      formFile: "",
       confirmContent: "此操作将永久删除该数据, 是否继续?",
       multipleSelection: [],
       ids: null,
@@ -268,17 +269,8 @@ export default {
       });
     },
     changeImage(ev) {
-      let uploadImginput = document.getElementById("upload-data-input");
-      let formfile = new FormData(uploadImginput); //拿到表单创建FormData对象；
       let files = ev.target.files; //拿到选择的文件
-      formfile.append(
-        "menu",
-        this.$route.query.menuId + "" || this.$route.query.name || "数据备份"
-      );
-      formfile.append("file", files[0]);
-      this.formFile = formfile;
-      formfile.delete("menu");
-      formfile.delete("file");
+      this.formFile = files;
     },
     uploadFile() {
       window.sessionStorage.setItem("responseType", "form");
@@ -289,7 +281,13 @@ export default {
         });
         return;
       }
-      API.uploadFile(this.formFile).then(res => {
+      let uploadImginput = document.getElementById("upload-data-input");
+      let formfile = new FormData(uploadImginput); //拿到表单创建FormData对象；
+      formfile.append("menu", "数据还原");
+      formfile.append("file", this.formFile[0]);
+      console.log(this.formFile);
+      console.log(formfile);
+      API.uploadFile(formfile).then(res => {
         this.$message({
           message: res.message,
           type: !!res && res.code === 20000 ? "success" : "error"
