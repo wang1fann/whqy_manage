@@ -225,36 +225,28 @@ export default {
           : this.formData.permissionId === "一般管理员"
           ? "2"
           : "3";
-      this.formData.deviceType =
-        this.formData.deviceType === "PC"
-          ? "1"
-          : this.formData.deviceType === "IOS"
-          ? "2"
-          : this.formData.deviceType === "安卓"
-          ? "3"
-          : "4";
-
+      this.formData.deviceType = "4";
       setTimeout(() => {
         this.formData.userName = !!this.formData.userName
           ? this.formData.userName
           : "未命名";
         API[this.type](this.formData).then(res => {
           this.dialogVisible = false;
-          if (res.code === 20000) {
-            this.$message({
-              message: res.message,
-              type: "success"
-            });
-            this.getData();
-            this.formData = this._.forEach(this.formData, function(value, key) {
-              value = "";
-            });
-            console.log(this.formData);
-          } else {
-            this.$message({
-              message: res.message,
-              type: "error"
-            });
+          this.$message({
+            message: res.message,
+            type: !!res && res.code === 20000 ? "success" : "warning"
+          });
+          if (!!res && res.code === 20000) {
+            var that = this;
+            setTimeout(function() {
+              this.getData();
+              this.formData = this._.forEach(this.formData, function(
+                value,
+                key
+              ) {
+                value = "";
+              });
+            }, 1000);
           }
         });
       }, 50);
@@ -322,11 +314,11 @@ export default {
       };
       // 添加查询字段
       config = $.extend(config, this.searchFormData);
-      // console.log(config);
       // 接口调用
       config.permissionId = !config.permissionId
         ? "0"
         : config.permissionId + "";
+      config.deviceType = !config.deviceType ? "0" : config.deviceType + "";
       this.fullscreenLoading = true;
       window.sessionStorage.setItem("responseType", "json");
       API.findUserList(config)
@@ -349,7 +341,6 @@ export default {
                   : res.data.rows[i].deviceType === "3"
                   ? "安卓"
                   : "未识别";
-              // android
             }
             this.data = res.data.rows;
             this.total = res.data.total;
@@ -435,6 +426,7 @@ export default {
     },
     // 搜索
     searchSubmit() {
+      this.currentPage=1;
       this.getData();
     },
     exportUserList() {

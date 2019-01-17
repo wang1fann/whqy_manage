@@ -938,6 +938,7 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
     let routeName = to.meta.name || to.name;
     window.document.title = (routeName ? routeName + ' - ' : '') + '渭华起义后台管理系统';
+    window.userInfo = JSON.parse(window.localStorage.getItem('access-user'));
     if (to.path.startsWith('/login')) {
         window.localStorage.removeItem('access-user')
         next()
@@ -947,8 +948,13 @@ router.beforeEach((to, from, next) => {
             next({
                 path: '/login'
             })
-
         } else {
+            if (window.userInfo.permissionId == "3") {
+                alert("用户权限不足");
+                next({
+                    path: '/login'
+                })
+            }
             window.token = window.localStorage.getItem('token');
             next()
         }

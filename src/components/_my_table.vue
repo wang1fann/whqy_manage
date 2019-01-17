@@ -180,6 +180,16 @@
           </template>
         </template>
       </el-table-column>
+      <!-- 当暂无数据时，自定义页面显示内容 -->
+      <div slot="empty">
+        <p>
+           <img
+            class="nodata-img"
+            :src="require('@/assets/img/noData.png')"
+            alt=""
+          >
+        </p>
+      </div>
     </el-table>
     <!-- 分页 -->
     <el-row
@@ -298,7 +308,7 @@ export default {
   data() {
     return {
       width: rem2px(px2rem(50)),
-      errorImg:'this.src="' + require('@/assets/img/noImg.png') + '"',
+      errorImg: 'this.src="' + require("@/assets/img/noImg.png") + '"',
       multipleSelection: []
     };
   },

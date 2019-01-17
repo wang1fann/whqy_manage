@@ -41,20 +41,28 @@ export default {
   methods: {
     submitcontent(content) {
       this.ticketForm.content = content;
-      console.log(this.ticketForm);
-      var that = this;
       window.sessionStorage.setItem("responseType", "json");
       API.addAPI(this.ticketForm).then(res => {
+        this.$message({
+          type: !!res && res.code === 20000 ? "success" : "warning",
+          message: res.message
+        });
+        if (!!res && res.code === 20011) {
+          //登录已过期
+          localStorage.removeItem("access-user");
+          localStorage.removeItem("token");
+           var that = this;
+          setTimeout(function() {
+            that.$router.push({ path: "/login" });
+          }, 1000);
+          return;
+        }
         if (!!res && res.code === 20000) {
           var that = this;
           setTimeout(function() {
             that.$router.go(-1);
           }, 1000);
         }
-        that.$message({
-          type: !!res && res.code === 20000 ? "success" : "warning",
-          message: res.message
-        });
       });
     },
     getImgPath(val) {
@@ -62,7 +70,6 @@ export default {
     },
     getData() {
       this.ticketForm = this.$route.query;
-      console.log(this.$route.query);
     }
   }
 };

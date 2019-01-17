@@ -123,12 +123,9 @@ export default {
     editCaptcha() {
       API.getRandomCode()
         .then(res => {
-          
           this.captcha = !!res ? res : "加载失败";
         })
-        .catch(res => {
-          
-        });
+        .catch(res => {});
     },
     handleLogin(ev) {
       var code = this.captcha.toLowerCase();
@@ -165,6 +162,14 @@ export default {
                 "access-user",
                 JSON.stringify(res.data.user)
               );
+              if (res.data.user.permissionId == "3") {
+                this.$notify({
+                  title: "提示",
+                  message: "用户权限不足，请联系超级管理员修改用户权限",
+                  type: "warning"
+                });
+                return;
+              }
               localStorage.setItem("token", res.data.token);
               let expireDays = 1000 * 60 * 60;
               setCookie("loginFlag", res.message, expireDays); //设置Session

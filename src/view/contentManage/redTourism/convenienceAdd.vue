@@ -81,7 +81,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item
-            label="订餐电话"
+            label="预约电话"
             prop="phone"
           >
             <el-input v-model="ruleForm.phone"></el-input>
@@ -93,6 +93,12 @@
         prop="trainTime"
       >
         <el-input v-model="ruleForm.trainTime"></el-input>
+      </el-form-item>
+         <el-form-item
+        label="地址"
+        prop="adress"
+      >
+        <el-input v-model="ruleForm.adress"></el-input>
       </el-form-item>
       <el-form-item
         label="内容："
@@ -132,6 +138,7 @@ export default {
         menuId: "",
         content: "",
         imgPath: "",
+        adress:"",
         id: ""
       },
       type: "add",

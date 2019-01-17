@@ -4,7 +4,10 @@
     <my-uepage
       :Form="ticketForm"
       :defaultMsg="ticketForm.content"
-      :showAuthor="true"
+      :showAuthor="false"
+      :showLinkName="true"
+      :showLinkUrl="true"
+      :showPersonName="true"
       @submit="submitcontent"
       @imgPath="getImgPath"
     ></my-uepage>
@@ -29,7 +32,9 @@ export default {
       ticketForm: {
         title: "",
         imgPath: "",
-        author:"",
+        personName:"",
+        linkName:"",
+        linkUrl:"",
         menuId: this.$route.query.menuId + "",
         description: "",
         content: ""

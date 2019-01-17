@@ -9,11 +9,19 @@
       <div class="topbar-account">
         <span class="user-info">
           <i
+            v-if="!userInfo.imgPath"
             style="font-size:30px;vertical-align:middle;"
             class="fa fa-user-circle-o"
-          ></i>
-          <span v-show="userInfo.sex === '2'">您好！ {{userInfo.userName}}先生</span>
-          <span v-show="userInfo.sex !== '2'">您好！ {{userInfo.userName}}女士</span>
+          >
+          </i>
+          <img
+            class="user-img"
+            v-if="!!userInfo.imgPath"
+            :src="userInfo.imgPath"
+            alt=""
+          >
+          <span v-show="userInfo.sex == '2'">您好！ {{userInfo.userName}}女生</span>
+          <span v-show="userInfo.sex !== '2'">您好！ {{userInfo.userName}}先生</span>
         </span>
         <span class="user-set-up">
           <i
@@ -92,7 +100,7 @@
               mode="out-in"
             >
               <keep-alive>
-                <router-view style="min-width:1380px;"></router-view>
+                <router-view style="min-width:1350px;"></router-view>
               </keep-alive>
             </transition>
           </el-col>
@@ -215,7 +223,12 @@ export default {
   top: 0px;
   bottom: 0px;
   width: 100%;
-
+  .user-img {
+    width: 51px;
+    height: 51px;
+    border-radius: 50%;
+    vertical-align: middle;
+  }
   .topbar-wrap {
     width: 100%;
     background: url("../assets/img/access/header_bg.png") no-repeat;
@@ -246,7 +259,7 @@ export default {
       color: #fff;
       opacity: 0.8;
       padding-right: 12px;
-      margin-top: 15px;
+      margin-top: 3px;
       font-size: 14px;
       .user-info {
         height: 22px;

@@ -117,7 +117,7 @@ export default {
       searchFormData: {},
       searchFormItem: [],
       menuId: !!this.$route.query.menuId
-        ? this.$route.query.menuId+""
+        ? this.$route.query.menuId + ""
         : this.$route.name
     };
   },
@@ -156,7 +156,7 @@ export default {
     // 更新数据
     update(row) {
       row.menuId = !!this.$route.query.menuId
-        ? this.$route.query.menuId+""
+        ? this.$route.query.menuId + ""
         : this.$route.name;
       this.gotoUrl("/contentManage/huaHallAppend", row);
     },
@@ -167,14 +167,14 @@ export default {
         page: _this.currentPage,
         size: _this.pageSize,
         menuId: !!this.$route.query.menuId
-          ? this.$route.query.menuId+""
+          ? this.$route.query.menuId + ""
           : this.$route.name
       };
       // 添加查询字段
       window.sessionStorage.setItem("responseType", "json");
       config = $.extend(config, this.searchFormData);
       // 接口调用
-      API.findhongselvyou(config)
+      API.findData(config)
         .then(res => {
           if (!!res && res.code === 20000) {
             this.data = res.data.rows;
@@ -192,14 +192,19 @@ export default {
     // 删除
     delete() {
       var _this = this;
-      API.delhongselvyou({ id: _this.ids })
+      API.delAPI({ id: _this.ids })
         .then(res => {
-          this.ids = null;
           this.$message({
             message: res.message,
             type: res.code === 20000 ? "success" : "error"
           });
-          this.getData();
+          if (!!res && res.code === 20000) {
+            this.ids = null;
+            var that = this;
+            setTimeout(function() {
+              that.getData();
+            }, 1000);
+          }
         })
         .catch(err => {
           this.$message({
@@ -248,6 +253,7 @@ export default {
     },
     // 搜索
     searchSubmit() {
+       this.currentPage=1;
       this.getData();
     }
   }

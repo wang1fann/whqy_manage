@@ -263,6 +263,7 @@ export default {
     },
     // 搜索
     searchSubmit() {
+      this.currentPage=1;
       this.getData();
     }
   }

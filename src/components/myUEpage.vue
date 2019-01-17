@@ -210,12 +210,12 @@
         :span="2"
         class="alignright"
       >
-        友情链接：
+        友情名称：
       </el-col>
       <el-col :span="22">
         <el-input
           placeholder="请输入链接地址"
-          v-model="Form.linkUrl"
+          v-model="Form.linkName"
         >
         </el-input>
       </el-col>

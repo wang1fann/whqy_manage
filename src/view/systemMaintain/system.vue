@@ -2,10 +2,24 @@
 <template>
   <div class="system content-top-line">
     <div class="tabs clearfix">
-      <div class="sys-main" v-for="(item,index) in systemUrl" :key="index">
-        <div class="box" @click="gotoUrl(item.path)">
-          <img class="item-img" :src="item.img">
-          <img class="item-bg" :src="item.bg" alt="">
+      <div
+        class="sys-main"
+        v-for="(item,index) in systemUrl"
+        :key="index"
+      >
+        <div
+          class="box"
+          @click="gotoUrl(item.path,'',index)"
+        >
+          <img
+            class="item-img"
+            :src="item.img"
+          >
+          <img
+            class="item-bg"
+            :src="item.bg"
+            alt=""
+          >
           <span>{{item.name}}</span>
         </div>
       </div>
@@ -17,30 +31,30 @@ import ElBread from "@/components/ElBread"; //面包屑
 export default {
   name: "contentManage",
   components: {
-    "el-bread": ElBread,
+    "el-bread": ElBread
   },
   data() {
     return {
-      systemUrl: ''
-    }
+      systemUrl: ""
+    };
   },
   created() {
     this.getSystemUrl();
   },
   methods: {
-    gotoUrl(path, query) {
+    gotoUrl(path, query, index) {
       this.$router.push({
-        path: !!path ? path : '',
-        query: !!query ? query : ''
-      })
+        path: !!path ? path : "",
+        query: !!query ? query : ""
+      });
     },
     getSystemUrl() {
       this.systemUrl = this.$router.options.routes[1].children;
-      this.systemUrl = this._.filter(this.systemUrl, { 'class': 'sys' })
+      this.systemUrl = this._.filter(this.systemUrl, { class: "sys" });
       console.log(this.systemUrl);
     }
-  },
-}
+  }
+};
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss" scoped>
 .tabs {

@@ -184,23 +184,23 @@
             "show": true
         }, {
             "type": "date",
-            "name": "updateTime",
-            "placeholder": "上传日期",
+            "name": "createTime",
+            "placeholder": "创建日期",
             "value": "",
             "width": "100%",
-            "label": "上传日期:",
+            "label": "创建日期:",
             "show": true,
             "format": "yyyy-MM-dd",
             "rules": [{
                 "required": true,
-                "message": "上传日期",
+                "message": "创建日期",
                 "trigger": "blur"
             }]
         }],
         "data": {
             "userName": "",
             "signTime": "",
-            "updateTime": ""
+            "createTime": ""
         }
     },
     "SinIn": {
@@ -278,8 +278,8 @@
             "type": "text",
             "name": "title",
             "value": "",
-            "placeholder": "请输入名称",
-            "label": "名称",
+            "placeholder": "请输入标题",
+            "label": "标题",
             "width": "100%",
             "show": true
         }, {
@@ -311,7 +311,7 @@
             "name": "title",
             "value": "",
             "placeholder": "请输入标题",
-            "label": "名称",
+            "label": "标题",
             "width": "100%",
             "show": true
         }, {
@@ -343,7 +343,7 @@
                 "name": "title",
                 "value": "",
                 "placeholder": "请输入标题",
-                "label": "链接名称",
+                "label": "标题名称",
                 "width": "100%",
                 "show": true
             },
@@ -358,16 +358,16 @@
             },
             {
                 "type": "date",
-                "name": "updateTime",
-                "placeholder": "上传日期",
+                "name": "createTime",
+                "placeholder": "创建日期",
                 "value": "",
                 "width": "100%",
-                "label": "上传日期:",
+                "label": "创建日期:",
                 "show": true,
                 "format": "yyyy-MM-dd",
                 "rules": [{
                     "required": true,
-                    "message": "上传日期",
+                    "message": "创建日期",
                     "trigger": "blur"
                 }]
             }
@@ -375,7 +375,7 @@
         "data": {
             "title": "",
             "content": "",
-            "updateTime": ""
+            "createTime": ""
         }
     },
     "link": {
