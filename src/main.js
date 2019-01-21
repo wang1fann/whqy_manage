@@ -24,6 +24,16 @@ import '../static/ueditor/ueditor.all.js'
 import '../static/ueditor/lang/zh-cn/zh-cn.js'
 import '../static/ueditor/jquery-2.2.3.min.js'
 
+
+// 引入viewer实现图片点击放大、旋转、全屏展示、切换功能
+// import Vue from 'vue';
+// import Viewer from 'v-viewer'
+// import 'viewerjs/dist/viewer.css'
+// Vue.use(Viewer);
+// Viewer.setDefaults({
+//     Options: { "inline": true, "button": true, "navbar": true, "title": true, "toolbar": true, "tooltip": true, "movable": true, "zoomable": true, "rotatable": true, "scalable": true, "transition": true, "fullscreen": true, "keyboard": true, "url": "data-source" }
+// });
+
 // import MenuUtils from '@/utils/MenuUtils' //动态菜单
 require("babel-polyfill");
 require('swiper/dist/css/swiper.css');

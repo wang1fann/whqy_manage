@@ -102,7 +102,7 @@
         "data": {
             "id": "",
             "userName": "",
-            "sex": "",
+            "sex": "男",
             "passwd": "",
             "phone": "",
             "email": "",

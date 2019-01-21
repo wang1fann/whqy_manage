@@ -39,14 +39,25 @@ export default {
       this.ticketForm.content = content;
       window.sessionStorage.setItem("responseType", "json");
       API.addAPI(this.ticketForm).then(res => {
-        this.$message({
-          type: !!res && res.code === 20000 ? "success" : "warning",
-          message: res.message
+        this.$notify({
+          title: "提示",
+          message: res.message,
+          type: !!res && res.code === 20000 ? "success" : "warning"
         });
+        if (!!res && res.code === 20011) {
+          //登录已过期
+          localStorage.removeItem("access-user");
+          localStorage.removeItem("token");
+          var that = this;
+          setTimeout(function() {
+            that.$router.push({ path: "/login" });
+          }, 2000);
+          return;
+        }
       });
     },
     getImgPath(val) {
-      this.ticketForm.imgPath = val.replace(/\\/g, "/");
+      this.ticketForm.imgPath = !!val ? val.replace(/\\/g, "/") : "";
     },
     getData() {
       this.fullscreenLoading = true;

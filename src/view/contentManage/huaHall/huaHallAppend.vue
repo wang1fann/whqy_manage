@@ -61,10 +61,10 @@ export default {
       });
     },
     getImgPath(val) {
-      this.ticketForm.imgPath = val.replace(/\\/g, "/");
+      this.ticketForm.imgPath = !!val ? val.replace(/\\/g, "/") : "";
     },
     getMp4Path(val) {
-      this.ticketForm.uploadPath = val.replace(/\\/g, "/");
+      this.ticketForm.uploadPath = !!val ? val.replace(/\\/g, "/") : "";
     },
     getUpdate() {
       this.ticketForm = !!this.$route.query

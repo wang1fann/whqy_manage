@@ -16,12 +16,14 @@
           type="primary"
           size="mini"
           icon="el-icon-circle-plus"
+          :disabled="resCode === 502 ? true:false"
           @click="gotoUrl('/addRights','')"
         >添加权限</el-button>
         <el-button
           type="primary"
           size="mini"
           icon="el-icon-delete"
+          :disabled="resCode === 502 ? true:false"
           @click="deleteBatch"
         >删除权限</el-button>
       </el-col>
@@ -114,6 +116,7 @@ export default {
       ]
     };
     return {
+      resCode: "",
       fullscreenLoading: false,
       confirmType: "warning",
       confirmTitle: "提示信息",
@@ -141,9 +144,6 @@ export default {
     this.searchFormInit();
     this.getData();
   },
-  mounted() {
-    this.getData();
-  },
   methods: {
     gotoUrl(path, query) {
       this.$router.push({
@@ -165,7 +165,6 @@ export default {
     // 表单数据初始化
     searchFormInit() {
       this.searchFormItem = getSearchField("rights", "item");
-      console.log(this.searchFormItem[2]);
       this.getUserTypeData(this.searchFormItem[1]);
       this.getFormInfoData(this.searchFormItem[2]);
       this.searchFormData = getSearchField("rights", "data");
@@ -235,11 +234,13 @@ export default {
       this.fullscreenLoading = true;
       API.findPermissionAll(config)
         .then(res => {
-          this.fullscreenLoading = false;
-          this.$message({
+          this.resCode = res.code;
+          this.$notify({
+            title: "提示",
             message: res.message,
-            type: !!res && res.code === 20000 ? "success" : "warning"
+            type: "warning"
           });
+          this.fullscreenLoading = false;
           if (!!res && res.code === 20000) {
             this.data = res.data.rows;
             this.total = res.data.total;
@@ -318,7 +319,7 @@ export default {
     },
     // 搜索
     searchSubmit() {
-      this.currentPage=1;
+      this.currentPage = 1;
       this.getData();
     }
   }

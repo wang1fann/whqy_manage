@@ -15,6 +15,7 @@
           type="primary"
           size="mini"
           icon="el-icon-circle-plus"
+          :disabled="resCode === 502 ? true:false"
           @click="showDialog"
         >
           添加用户
@@ -23,6 +24,7 @@
           type="primary"
           size="mini"
           icon="el-icon-delete"
+          :disabled="resCode === 502 ? true:false"
           @click="deleteBatch"
         >
           删除用户
@@ -79,7 +81,6 @@
         :formItem="formItem"
         @submit="submit"
       > </MyForm>
-
     </el-dialog>
     <MyConfirm
       ref="myconfirm"
@@ -144,6 +145,7 @@ export default {
       ]
     };
     return {
+      resCode: "",
       imgPath: "",
       // 加载loading初始化
       fullscreenLoading: false,
@@ -172,12 +174,10 @@ export default {
     this.fieldInit();
     this.formInit();
     this.searchFormInit();
+    this.getData();
   },
   mounted() {
     this.resetForm();
-  },
-  activated() {
-    this.getData();
   },
   methods: {
     fieldInit() {
@@ -217,7 +217,7 @@ export default {
     submit() {
       window.sessionStorage.setItem("responseType", "json");
       var a = this.formData.imgPath;
-      this.formData.imgPath = a.replace(/\\/g, "/");
+      this.formData.imgPath = !!a ? a.replace(/\\/g, "/") : "";
       this.formData.sex = this.formData.sex === "女" ? "2" : "1";
       this.formData.permissionId =
         this.formData.permissionId === "超级管理员"
@@ -226,30 +226,26 @@ export default {
           ? "2"
           : "3";
       this.formData.deviceType = "4";
-      setTimeout(() => {
-        this.formData.userName = !!this.formData.userName
-          ? this.formData.userName
-          : "未命名";
-        API[this.type](this.formData).then(res => {
-          this.dialogVisible = false;
-          this.$message({
-            message: res.message,
-            type: !!res && res.code === 20000 ? "success" : "warning"
-          });
-          if (!!res && res.code === 20000) {
-            var that = this;
-            setTimeout(function() {
-              this.getData();
-              this.formData = this._.forEach(this.formData, function(
-                value,
-                key
-              ) {
-                value = "";
-              });
-            }, 1000);
-          }
+      this.formData.userName = !!this.formData.userName
+        ? this.formData.userName
+        : "未命名";
+      API[this.type](this.formData).then(res => {
+        this.dialogVisible = false;
+        this.$message({
+          message: res.message,
+          type: !!res && res.code === 20000 ? "success" : "warning"
         });
-      }, 50);
+        //权限不足
+        if (!!res && res.code === 20000) {
+          var that = this;
+          setTimeout(function() {
+            that.getData();
+            that.formData = this._.forEach(this.formData, function(value, key) {
+              value = "";
+            });
+          }, 1000);
+        }
+      });
     },
     // 弹框关闭时的回调函数
     handleClose(done) {
@@ -279,6 +275,10 @@ export default {
               label: res.data[i].roleName,
               id: res.data[i].roleId
             });
+          }
+          var user = JSON.parse(window.localStorage.getItem("access-user"));
+          if (user.permissionId == "2") {
+            obj.options = this._.filter(obj.options, { label: "普通用户" });
           }
         }
       });
@@ -320,9 +320,29 @@ export default {
         : config.permissionId + "";
       config.deviceType = !config.deviceType ? "0" : config.deviceType + "";
       this.fullscreenLoading = true;
+      var user = JSON.parse(window.localStorage.getItem("access-user"));
+      if (user.permissionId == "2") {
+        config.permissionId = "3";
+      }
       window.sessionStorage.setItem("responseType", "json");
       API.findUserList(config)
         .then(res => {
+          this.resCode = res.code;
+          this.$notify({
+            title: "提示",
+            message: res.message,
+            type: "warning"
+          });
+          if (!!res && res.code === 20011) {
+            //登录已过期
+            localStorage.removeItem("access-user");
+            localStorage.removeItem("token");
+            var that = this;
+            setTimeout(function() {
+              that.$router.push({ path: "/login" });
+            }, 2000);
+            return;
+          }
           if (!!res && res.code === 20000) {
             for (var i = 0; i < res.data.rows.length; i++) {
               res.data.rows[i].sex = res.data.rows[i].sex === "2" ? "女" : "男";
@@ -344,16 +364,7 @@ export default {
             }
             this.data = res.data.rows;
             this.total = res.data.total;
-            var user = JSON.parse(window.localStorage.getItem("access-user"));
-            this.data =
-              user.permissionId !== "1"
-                ? this._.filter(this.data, { permissionId: user.permissionId })
-                : this.data;
           }
-          this.$message({
-            message: res.message,
-            type: !!res && res.code === 20000 ? "success" : "error"
-          });
           this.fullscreenLoading = false;
         })
         .catch(err => {
@@ -426,7 +437,7 @@ export default {
     },
     // 搜索
     searchSubmit() {
-      this.currentPage=1;
+      this.currentPage = 1;
       this.getData();
     },
     exportUserList() {

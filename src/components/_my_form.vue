@@ -146,6 +146,7 @@
                 ></el-option>
               </el-select>
               <!-- 复选框 -->
+                <!-- @change="handleCheckedCitiesChange" -->
               <el-checkbox-group
                 v-else-if="item.type=='checkbox'"
                 v-model="formData[item.name]"
@@ -340,6 +341,10 @@ export default {
   },
   data() {
     return {
+      checkAll: false,
+      // checkedCities: ["上海", "北京"],
+      // cities: cityOptions,
+      isIndeterminate: true,
       imgPath: "",
       imgData: {
         file: {
@@ -358,8 +363,7 @@ export default {
     };
   },
 
-  created() {
-  },
+  created() {},
   methods: {
     getSubmitData(clear) {
       for (let i = 0; i < this.forms.length; i++) {
@@ -415,13 +419,19 @@ export default {
       }
       this.imgData.file = file;
     },
+    handleCheckedCitiesChange(value) {
+      // let checkedCount = value.length;
+      // this.checkAll = checkedCount === this.cities.length;
+      // this.isIndeterminate =
+      //   checkedCount > 0 && checkedCount < this.cities.length;
+    },
     uploadUserImg() {
       var form = new FormData();
       form.append("menu", this.imgData.menu);
       form.append("file", this.imgData.file);
       window.sessionStorage.setItem("responseType", "form");
       API.uploadUserImg(form).then(res => {
-      window.sessionStorage.setItem("responseType", "json");
+        window.sessionStorage.setItem("responseType", "json");
         if (!!res && res.code === 20000) {
           this.formData.imgPath = !!res.data ? res.data[0] : "";
           this.$message({

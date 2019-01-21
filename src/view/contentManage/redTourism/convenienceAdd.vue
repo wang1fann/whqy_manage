@@ -89,10 +89,10 @@
         </el-col>
       </el-row>
       <el-form-item
-        label="列车时刻表"
-        prop="trainTime"
+        label="简介"
+        prop="description"
       >
-        <el-input v-model="ruleForm.trainTime"></el-input>
+        <el-input v-model="ruleForm.description"></el-input>
       </el-form-item>
          <el-form-item
         label="地址"
@@ -133,7 +133,7 @@ export default {
         scenicSpotName: "sss",
         openTime: "",
         ticketPrice: "22",
-        trainTime: "",
+        description: "",
         busRoute: "",
         menuId: "",
         content: "",

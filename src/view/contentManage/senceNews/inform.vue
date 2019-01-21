@@ -43,7 +43,7 @@
       :operation="operation"
       :column="column"
       :data="data"
-       :showImgColumn="true"
+      :showImgColumn="true"
       :currentPage="currentPage"
       :pageSize="pageSize"
       :total="total"
@@ -99,7 +99,7 @@ export default {
       ]
     };
     return {
-      buttonName:this.$route.query.name,
+      buttonName: this.$route.query.name,
       confirmType: "warning",
       confirmTitle: "提示信息",
       confirmContent: "此操作将永久删除该文件, 是否继续?",
@@ -118,7 +118,7 @@ export default {
       searchFormData: {},
       searchFormItem: [],
       menu: !!this.$route.query.menuId
-        ? this.$route.query.menuId+""
+        ? this.$route.query.menuId + ""
         : this.$route.name
     };
   },
@@ -156,11 +156,8 @@ export default {
     },
     // 更新数据
     update(row) {
-       row.menuId= this.$route.query.menuId+"";
-      this.gotoUrl(
-        "/contentManage/senceNews/newsAdd",
-        row
-      );
+      row.menuId = this.$route.query.menuId + "";
+      this.gotoUrl("/contentManage/senceNews/newsAdd", row);
     },
     // 弹框关闭时的回调函数
     handleClose(done) {
@@ -178,7 +175,7 @@ export default {
         page: _this.currentPage,
         size: _this.pageSize,
         menuId: !!this.$route.query.menuId
-          ? this.$route.query.menuId+""
+          ? this.$route.query.menuId + ""
           : this.$route.name
       };
       window.sessionStorage.setItem("responseType", "json");
@@ -187,7 +184,6 @@ export default {
       // 接口调用
       API.findList(config)
         .then(res => {
-          
           if (!!res && res.code === 20000 && res.data.total !== 0) {
             this.data = res.data.rows;
             this.total = res.data.total;
@@ -220,12 +216,26 @@ export default {
       API.delAPI({ id: _this.ids })
         .then(res => {
           this.ids = null;
-          this.$message({
+          this.$notify({
+            title: "提示",
             message: res.message,
-            type: res.code === 20000 ? "success" : "error"
+            type: !!res && res.code === 20000 ? "success" : "warning"
           });
-           if(!!res && res.code === 20000){
-              this.getData();
+          if (!!res && res.code === 20011) {
+            //登录已过期
+            localStorage.removeItem("access-user");
+            localStorage.removeItem("token");
+            var that = this;
+            setTimeout(function() {
+              that.$router.push({ path: "/login" });
+            }, 2000);
+            return;
+          }
+          if (!!res && res.code === 20000) {
+            var that = this;
+            setTimeout(function() {
+              that.getData();
+            }, 1000);
           }
         })
         .catch(err => {
@@ -275,7 +285,7 @@ export default {
     },
     // 搜索
     searchSubmit() {
-      this.currentPage=1;
+      this.currentPage = 1;
       this.getData();
     }
   }

@@ -69,9 +69,7 @@
           <img
             :src="!!scope.row.imgPath?scope.row.imgPath:require('@/assets/img/noImg.png')"
             :onerror="errorImg"
-            width="70"
-            height="70"
-            style="border-radius:50%;border:none;"
+            style="width:55px;height:55px;border-radius:50%;border:none;"
           />
         </template>
       </el-table-column>

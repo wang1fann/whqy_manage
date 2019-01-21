@@ -32,9 +32,9 @@ export default {
       ticketForm: {
         title: "",
         imgPath: "",
-        personName:"",
-        linkName:"",
-        linkUrl:"",
+        personName: "",
+        linkName: "",
+        linkUrl: "",
         menuId: this.$route.query.menuId + "",
         description: "",
         content: ""
@@ -48,21 +48,23 @@ export default {
   methods: {
     submitcontent(content) {
       this.ticketForm.content = content;
-      console.log(this.ticketForm);
-      var that= this;
       window.sessionStorage.setItem("responseType", "json");
       API.addAPI(this.ticketForm).then(res => {
-        if (!!res && res.code === 20000) {
-          that.$router.go(-1);
-        }
-        that.$message({
-          type: !!res && res.code === 20000 ? "success" : "warning",
-          message: res.message
+        this.$notify({
+          title: "提示",
+          message:  res.message,
+          type: !!res && res.code === 20000 ? "success" : "warning"
         });
+        if (!!res && res.code === 20000) {
+          var that = this;
+          setTimeout(function() {
+            that.$router.go(-1);
+          }, 2000);
+        }
       });
     },
     getImgPath(val) {
-      this.ticketForm.imgPath = val.replace(/\\/g, "/");
+      this.ticketForm.imgPath =!!val ? val.replace(/\\/g, "/") : "";
     },
     getData() {
       this.ticketForm = this.$route.query;

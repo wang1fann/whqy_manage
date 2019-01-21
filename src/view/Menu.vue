@@ -8,19 +8,12 @@
       ></div>
       <div class="topbar-account">
         <span class="user-info">
-          <i
-            v-if="!userInfo.imgPath"
-            style="font-size:30px;vertical-align:middle;"
-            class="fa fa-user-circle-o"
-          >
-          </i>
           <img
             class="user-img"
-            v-if="!!userInfo.imgPath"
-            :src="userInfo.imgPath"
+            :src="userInfo.imgPath || userNoImg"
             alt=""
           >
-          <span v-show="userInfo.sex == '2'">您好！ {{userInfo.userName}}女生</span>
+          <span v-show="userInfo.sex == '2'">您好！ {{userInfo.userName}}女士</span>
           <span v-show="userInfo.sex !== '2'">您好！ {{userInfo.userName}}先生</span>
         </span>
         <span class="user-set-up">
@@ -126,6 +119,7 @@ export default {
         userName: "wangyifan",
         sex: "1"
       },
+      userNoImg: require("@/assets/img/noImg.png"),
       menuRouter: "",
       breads: "",
       collapsed: false,
@@ -224,8 +218,8 @@ export default {
   bottom: 0px;
   width: 100%;
   .user-img {
-    width: 51px;
-    height: 51px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     vertical-align: middle;
   }
@@ -259,7 +253,7 @@ export default {
       color: #fff;
       opacity: 0.8;
       padding-right: 12px;
-      margin-top: 3px;
+      margin-top: 8px;
       font-size: 14px;
       .user-info {
         height: 22px;

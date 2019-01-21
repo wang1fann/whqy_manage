@@ -152,10 +152,7 @@ export default {
     // 更新数据
     update(row) {
       row.menuId = this.$route.query.menuId + "";
-      this.gotoUrl(
-        "/contentManage/xiSpirit/xiSpiritAdd",
-        row
-      );
+      this.gotoUrl("/contentManage/xiSpirit/xiSpiritAdd", row);
     },
     // 弹框关闭时的回调函数
     handleClose(done) {
@@ -183,7 +180,13 @@ export default {
       // 接口调用
       API.findList(config)
         .then(res => {
-          
+          if (!!res && res.code === 20011) {
+            //登录已过期
+            localStorage.removeItem("access-user");
+            localStorage.removeItem("token");
+            this.$router.push({ path: "/login" });
+            return;
+          }
           if (!!res && res.code === 20000 && res.data.total !== 0) {
             that.data = res.data.rows;
             that.total = res.data.total;
@@ -206,12 +209,18 @@ export default {
       console.log(that.ids);
       API.delAPI({ id: that.ids })
         .then(res => {
-          this.ids = null;
-          this.$message({
+          this.$notify({
+            title: "错误",
             message: res.message,
             type: res.code === 20000 ? "success" : "error"
           });
-          this.getData();
+          if (!!res && res.code === 20000) {
+            var that = this;
+            setTimeout(function() {
+              that.ids = null;
+              that.getData();
+            }, 1000);
+          }
         })
         .catch(err => {
           this.$message({
@@ -260,7 +269,7 @@ export default {
     },
     // 搜索
     searchSubmit() {
-      this.currentPage=1;
+      this.currentPage = 1;
       this.getData();
     }
   }

@@ -186,7 +186,7 @@ export default {
   watch: {
     setPermissionId(val) {
       this.permissionId = val;
-      this.findPermissionList();
+      this.findPermissionListById();
     },
     setUserName(val) {
       this.pageItem[0].formData.userName = !!val.userName ? val.userName : "";
@@ -202,7 +202,7 @@ export default {
   created() {
     this.getFormInfoData();
     this.permissionId = this.pageItem[0].radioValue;
-    this.findPermissionList();
+    this.findPermissionListById();
   },
   methods: {
     gotoUrl(path, query) {
@@ -234,6 +234,7 @@ export default {
       for (let j = 0; j < checkidArr.length; j++) {
         for (let i = 0; i < optionsArr.length; i++) {
           if (checkidArr[j] == optionsArr[i].id) {
+            optionsArr[i].isflag=true;
             menuArr.push(optionsArr[i]);
           }
         }
@@ -262,17 +263,31 @@ export default {
       });
       that.fullscreenLoading = false;
     },
-    findPermissionList() {
+    findPermissionListById() {
       this.pageItem[1].formInfo[0].options = [];
       this.pageItem[1].formInfo[0].options.length = 0;
       API.findPermissionList({
         permissionId: this.permissionId
       }).then(res => {
+        this.$notify({
+          title: "提示",
+          message: res.message,
+          type: !!res && res.code === 20000 ? "success" : "warning"
+        });
+        if (!!res && res.code === 20011) {
+          //登录已过期
+          localStorage.removeItem("access-user");
+          localStorage.removeItem("token");
+          var that = this;
+          setTimeout(function() {
+            that.$router.push({ path: "/login" });
+          }, 2000);
+          return;
+        }
         if (!!res && res.code === 20000) {
-          console.log(res.data);
-          console.log(this.pageItem[1].formInfo[0].options);
+          var permissionArr = [];
           for (var i = 0; i < res.data.length; i++) {
-            this.pageItem[1].formInfo[0].options.push({
+            permissionArr.push({
               menuId: res.data[i].menuId,
               value: res.data[i].id,
               id: res.data[i].menuId,
@@ -286,6 +301,16 @@ export default {
               icon: res.data[i].icon
             });
           }
+          this.pageItem[1].formInfo[0].options = permissionArr;
+          this.pageItem[1].formData.tbMenusFilter = [];
+          this.pageItem[1].formData.tbMenusFilter.length = 0;
+          for (var i = 0; i < permissionArr.length; i++) {
+            console.log(permissionArr[i]);
+            if (permissionArr[i].isflag === true) {
+              this.pageItem[1].formData.tbMenusFilter.push(permissionArr[i].id);
+            }
+          }
+          console.log(this.pageItem[1].formData.tbMenusFilter);
         }
       });
     },

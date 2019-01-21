@@ -33,13 +33,13 @@ export default {
       ticketForm: {
         title: "",
         imgPath: "",
-        name:"",
-        agePeriod:"",
+        name: "",
+        agePeriod: "",
         author: "",
         menuId: this.$route.query.menuId + "",
         description: "",
         content: "",
-        productUploadPath:""
+        productUploadPath: ""
       }
     };
   },
@@ -66,10 +66,10 @@ export default {
       });
     },
     getImgPath(val) {
-      this.ticketForm.imgPath = val.replace(/\\/g, "/");
+      this.ticketForm.imgPath = !!val ? val.replace(/\\/g, "/") : "";
     },
-    getMp4Path(val){
-      this.ticketForm.productUploadPath = val.replace(/\\/g, "/");
+    getMp4Path(val) {
+      this.ticketForm.productUploadPath = !!val ? val.replace(/\\/g, "/") : "";
     },
     getData() {
       this.ticketForm = this.$route.query;

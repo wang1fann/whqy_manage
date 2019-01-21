@@ -46,6 +46,7 @@
           <el-form
             :model="dynamicValidateForm"
             ref="dynamicValidateForm"
+            :rules="rules"
             label-width="100px"
             class="demo-dynamic addtest-box"
           >
@@ -82,7 +83,6 @@
               class="answer"
               prop="answer"
               label="正确答案"
-              :rules="[{ required: true, message: '请输入正确答案选项：A,B,C,D中的一个', trigger: 'blur' }]"
             >
               <el-input v-model="dynamicValidateForm.answer"></el-input>
             </el-form-item>
@@ -185,7 +185,7 @@ export default {
     var form = {
       title: "",
       ref: "form1",
-       showUploadImg: true,
+      showUploadImg: true,
       showTitle: false,
       labelWidth: px2rem(140),
       labelPositon: "right",
@@ -194,6 +194,19 @@ export default {
       hasSubmit: true,
       submitText: "提交",
       cancleText: "取消"
+    };
+    var validateAnswer = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("答案不能为空"));
+      }
+      setTimeout(() => {
+        var reg = /^(?!.*((A.*){2,}|(B.*){2,}|(C.*){2,}|(D.*){2,})$)[A-D]{1,4}$/;
+        if (reg.test(value)) {
+          callback();
+        } else {
+          callback(new Error("答案格式不正确,请输入A B C D 中的一个"));
+        }
+      }, 10);
     };
     return {
       dynamicValidateForm: {
@@ -224,7 +237,13 @@ export default {
       checkAll: false,
       isIndeterminate: true,
       activeNames: [],
-      checkedTest: [] //题目复选框
+      checkedTest: [], //题目复选框
+      rules: {
+        answer: [
+          { validator: validateAnswer, trigger: "blur" },
+          { min: 1, max: 1, message: "长度为1个字符", trigger: "blur" }
+        ]
+      }
     };
   },
   created() {
@@ -512,7 +531,7 @@ export default {
 .answerAppend div.left {
   width: 18%;
   height: 99%;
-  overflow: hidden;
+  overflow: auto;
   border: 1px solid #ddd;
 }
 

@@ -59,7 +59,7 @@ export default {
       });
     },
     getImgPath(val) {
-      this.ticketForm.imgPath = val.replace(/\\/g, "/");
+      this.ticketForm.imgPath =!!val ? val.replace(/\\/g, "/") : "";
     },
     getData() {
       this.ticketForm = this.$route.query;

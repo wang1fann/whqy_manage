@@ -110,7 +110,7 @@
     "rights": {
         "item": [{
                 "type": "text",
-                "name": "role",
+                "name": "username",
                 "cname": "username",
                 "value": "",
                 "placeholder": "请填写用户名",

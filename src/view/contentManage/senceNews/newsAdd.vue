@@ -51,7 +51,7 @@ export default {
           //登录已过期
           localStorage.removeItem("access-user");
           localStorage.removeItem("token");
-           var that = this;
+          var that = this;
           setTimeout(function() {
             that.$router.push({ path: "/login" });
           }, 1000);
@@ -66,7 +66,7 @@ export default {
       });
     },
     getImgPath(val) {
-      this.ticketForm.imgPath = val.replace(/\\/g, "/");
+      this.ticketForm.imgPath = !!val ? val.replace(/\\/g, "/") : "";
     },
     getData() {
       this.ticketForm = this.$route.query;

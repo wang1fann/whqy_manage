@@ -4,13 +4,13 @@
       :imgList="imgList"
       :searchParams="searchParams"
       :showAuthor="false"
-      :dialogVisible="dialogVisible"
       :imgPath="imgPath"
+      :show.sync="show"
+      @show="open"
       @pageNum="pageNum"
       @deleteItem="confirmDeleteItem"
       @formfile="uploadFormFile"
       @formInfo="submitFormInfo"
-      @showDialog="setShowDialog"
     ></common-img>
     <MyConfirm
       ref="myconfirm"
@@ -29,12 +29,13 @@ export default {
   data() {
     return {
       id: "",
+      show: false,
       confirmType: "warning",
       confirmTitle: "提示信息",
       confirmContent: "此操作将永久删除, 是否继续?",
       formFile: {}, //上传图片
+      submitSuccess: "",
       imgPath: "",
-      dialogVisible: false,
       searchParams: {
         page: 1,
         size: 10,
@@ -65,32 +66,42 @@ export default {
         window.sessionStorage.setItem("responseType", "json");
       });
     },
+    open() {
+      this.show = true;
+    },
     uploadFormFile(val) {
       this.formFile = val;
       this.uploadFile();
     },
     submitFormInfo(val) {
       this.addFormInfo = val;
-      // this.uploadFile();
-      var that = this;
       this.addFormInfo.imgPath = this.imgPath;
-      setTimeout(function() {
-        window.sessionStorage.setItem("responseType", "json");
-        that.addFormInfo.menuId = that.$route.query.menuId + "";
-        API.addFormInfo(that.addFormInfo).then(res => {
-          if (!!res && res.code === 20000) {
-            that.dialogVisible = false;
-            that.findList();
-          }
-          that.$message({
-            message: res.message,
-            type: !!res && res.code === 20000 ? "success" : "error"
-          });
+      window.sessionStorage.setItem("responseType", "json");
+      this.addFormInfo.menuId = this.$route.query.menuId + "";
+      API.addFormInfo(this.addFormInfo).then(res => {
+        this.$notify({
+          title: "提示",
+          message: res.message,
+          type: !!res && res.code === 20000 ? "success" : "warning"
         });
-      }, 100);
-    },
-    setShowDialog(val) {
-      this.dialogVisible = true;
+        if (!!res && res.code === 20011) {
+          //登录已过期
+          localStorage.removeItem("access-user");
+          localStorage.removeItem("token");
+          var that = this;
+          setTimeout(function() {
+            that.$router.push({ path: "/login" });
+          }, 2000);
+          return;
+        }
+        if (!!res && res.code === 20000) {
+          this.show = false;
+          var that = this;
+          setTimeout(function() {
+            that.findList();
+          }, 2000);
+        }
+      });
     },
     findList() {
       window.sessionStorage.setItem("responseType", "json");

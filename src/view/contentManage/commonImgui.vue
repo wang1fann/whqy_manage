@@ -1,11 +1,11 @@
 <template>
   <div class="content-manageappre">
     <div class="clearfix">
-      <div
-        class="img-box left"
-        @click="showDialog"
-      >
-        <div class="uplaod-bgimg">
+      <div class="img-box left">
+        <div
+          class="uplaod-bgimg cursorpointer"
+          @click="showDialog()"
+        >
           <img
             class="uplaod-bgimg"
             src="@/assets/img/content/photou.png"
@@ -40,19 +40,17 @@
     </div>
     <el-dialog
       :title="dialogTitle"
-      :visible.sync="dialogVisible"
+      :visible.sync="visible"
+      @close="$emit('update:show', false)"
+      :show="show"
       top="10vh"
       width="525px"
-      :before-close="handleClose"
     >
       <div
         class="clearfix"
         style="margin-bottom:10px"
       >
-        <div
-          class="img-box showleft"
-          @click="showDialog"
-        >
+        <div class="img-box showleft">
           <input
             class="upload-img"
             type="file"
@@ -116,8 +114,9 @@ export default {
       errorImg: 'this.src="' + require("@/assets/img/noImg.png") + '"',
       dialogTitle: "上传",
       id: "",
+      //   myDialogVisible: false,
+      visible: this.show,
       total: 50,
-      // imgPath:"",
       otherFormInfo: {
         scenicSpotName: "",
         title: "",
@@ -127,8 +126,32 @@ export default {
       }
     };
   },
-  props: ["imgList", "imgPath", "searchParams", "showAuthor", "dialogVisible"],
+  props: {
+    imgList: "",
+    imgPath: {
+      type: String,
+      default: ""
+    },
+    searchParams: "",
+    showAuthor: {
+      type: Boolean,
+      default: false
+    },
+    show: {
+      type: Boolean,
+      default: false
+    }
+  },
+  watch: {
+    show() {
+      this.visible = this.show;
+    }
+  },
   methods: {
+    // 添加数据
+    showDialog() {
+      this.$emit("show", true);
+    },
     submit() {
       this.otherFormInfo.title = this.otherFormInfo.scenicSpotName;
       this.$emit("formInfo", this.otherFormInfo);
@@ -150,20 +173,17 @@ export default {
     },
     handleCurrentChange(val) {
       this.$emit("pageNum", val);
-    },
-    // 添加数据
-    showDialog() {
-      this.$emit("showDialog", true);
-    },
-    // 弹框关闭时的回调函数
-    handleClose(done) {
-      for (const key in this.otherFormInfo) {
-        if (this.otherFormInfo.hasOwnProperty(key)) {
-          this.otherFormInfo[key] = "";
-        }
-      }
-      done();
     }
+
+    // 弹框关闭时的回调函数
+    // handleClose(done) {
+    //   for (const key in this.otherFormInfo) {
+    //     if (this.otherFormInfo.hasOwnProperty(key)) {
+    //       this.otherFormInfo[key] = "";
+    //     }
+    //   }
+    //   done();
+    // }
   },
   created() {},
   mounted() {}
@@ -179,9 +199,11 @@ export default {
   margin-left: 0px !important;
 }
 input.upload-img {
-  height: 100%;
+  height: 62%;
   width: 100%;
+  margin-top: 43px;
   opacity: 0;
+  z-index: 10000;
 }
 
 .uplaod-bgimg {

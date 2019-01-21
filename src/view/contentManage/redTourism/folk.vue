@@ -4,13 +4,13 @@
       :imgList="imgList"
       :searchParams="searchParams"
       :showAuthor="false"
-      :dialogVisible="dialogVisible"
       :imgPath="imgPath"
+      :show.sync="show"
+      @show="open"
       @pageNum="pageNum"
       @deleteItem="confirmDeleteItem"
       @formfile="uploadFormFile"
       @formInfo="submitFormInfo"
-      @showDialog="setShowDialog"
     ></common-img>
     <MyConfirm
       ref="myconfirm"
@@ -29,12 +29,12 @@ export default {
   data() {
     return {
       id: "",
+      show: false,
       confirmType: "warning",
       confirmTitle: "提示信息",
       confirmContent: "此操作将永久删除, 是否继续?",
       formFile: {}, //上传图片
       imgPath: "",
-      dialogVisible: false,
       searchParams: {
         page: 1,
         size: 10,
@@ -76,35 +76,32 @@ export default {
     },
     submitFormInfo(val) {
       this.addFormInfo = val;
-      // this.uploadFile();
       window.sessionStorage.setItem("responseType", "json");
-      this.addFormInfo.imgPath = this.imgPath.replace(/\\/g, "/");
+      this.addFormInfo.imgPath = !!this.imgPath
+        ? this.imgPath.replace(/\\/g, "/")
+        : "";
       this.addFormInfo.menuId = this.$route.query.menuId + "";
-      console.log(this.addFormInfo);
-      var that = this;
-      setTimeout(function() {
-        API.addFormInfo(that.addFormInfo).then(res => {
-          if (!!res && res.code === 20000) {
-            that.dialogVisible = false;
-            that.findList();
-          }
-          that.$message({
-            message: res.message,
-            type: !!res && res.code === 20000 ? "success" : "error"
-          });
+      API.addFormInfo(this.addFormInfo).then(res => {
+        this.show = false;
+        this.$message({
+          message: res.message,
+          type: !!res && res.code === 20000 ? "success" : "error"
         });
-      }, 50);
+        if (!!res && res.code === 20000) {
+          this.show = false;
+          var that = this;
+          setTimeout(function() {
+            that.findList();
+          }, 1000);
+        }
+      });
     },
-    setShowDialog(val) {
-      this.dialogVisible = true;
+    open() {
+      this.show = true;
     },
     findList() {
       window.sessionStorage.setItem("responseType", "json");
-      // alert(this.searchParams.menuId);
       API.findhongselvyou(this.searchParams).then(res => {
-        if (!!res && res.code === 20000) {
-          this.imgList = res.data;
-        }
         this.$message({
           message:
             !!res && res.data.total === 0
@@ -112,6 +109,9 @@ export default {
               : res.message,
           type: !!res && res.code === 20000 ? "success" : "error"
         });
+        if (!!res && res.code === 20000) {
+          this.imgList = res.data;
+        }
       });
     },
     // 取消删除

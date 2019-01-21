@@ -104,11 +104,11 @@ export default {
   },
   mounted() {
     this.getData();
-    this.getMessageTotal();
+    this.getReplyTotal();
   },
   methods: {
-    getMessageTotal(total) {
-      API.getMessageTotal().then(res => {
+    getReplyTotal(total) {
+      API.getReplyTotal().then(res => {
         this.total = !!res && res.code === 20000 ? res.data : 0;
       });
     },
@@ -147,7 +147,7 @@ export default {
       config = $.extend(config, this.searchFormData);
       window.sessionStorage.setItem("responseType", "json");
       // 接口调用
-      API.findMessageList(config)
+      API.findMessageReply(config)
         .then(res => {
           if (!!res && res.code === 20000) {
             this.data = res.data;
@@ -169,12 +169,12 @@ export default {
     handleCurrentChange(index) {
       this.currentPage = index;
       this.getData();
-      this.getMessageTotal();
+      this.getReplyTotal();
     },
     // 搜索
     searchSubmit() {
       this.getData();
-      this.getMessageTotal();
+      this.getReplyTotal();
     }
   }
 };

@@ -4,13 +4,13 @@
       :imgList="imgList"
       :searchParams="searchParams"
       :showAuthor="false"
-      :dialogVisible="dialogVisible"
       :imgPath="imgPath"
+      :show.sync="show"
+      @show="open"
       @pageNum="pageNum"
       @deleteItem="confirmDeleteItem"
       @formfile="uploadFormFile"
       @formInfo="submitFormInfo"
-      @showDialog="setShowDialog"
     ></common-img>
     <MyConfirm
       ref="myconfirm"
@@ -28,13 +28,13 @@ export default {
   components: { "common-img": commonImg },
   data() {
     return {
+      show: false,
       id: "",
       confirmType: "warning",
       confirmTitle: "提示信息",
       confirmContent: "此操作将永久删除, 是否继续?",
       formFile: {}, //上传图片
       imgPath: "",
-      dialogVisible: false,
       searchParams: {
         page: 1,
         size: 10,
@@ -71,25 +71,25 @@ export default {
     },
     submitFormInfo(val) {
       this.addFormInfo = val;
-      var that = this;
       this.addFormInfo.imgPath = this.imgPath;
-      setTimeout(function() {
-        window.sessionStorage.setItem("responseType", "json");
-        that.addFormInfo.menuId = that.$route.query.menuId + "";
-        API.addAPI(that.addFormInfo).then(res => {
-          if (!!res && res.code === 20000) {
-            that.dialogVisible = false;
-            that.findList();
-          }
-          that.$message({
-            message: res.message,
-            type: !!res && res.code === 20000 ? "success" : "error"
-          });
+      window.sessionStorage.setItem("responseType", "json");
+      this.addFormInfo.menuId = this.$route.query.menuId + "";
+      API.addAPI(this.addFormInfo).then(res => {
+        this.$message({
+          message: res.message,
+          type: !!res && res.code === 20000 ? "success" : "error"
         });
-      }, 100);
+        if (!!res && res.code === 20000) {
+          this.show = false;
+          var that = this;
+          setTimeout(function() {
+            that.findList();
+          }, 1000);
+        }
+      });
     },
-    setShowDialog(val) {
-      this.dialogVisible = true;
+    open() {
+      this.show = true;
     },
     findList() {
       window.sessionStorage.setItem("responseType", "json");
@@ -115,14 +115,14 @@ export default {
       window.sessionStorage.setItem("responseType", "json");
       API.delAPI({ id: _this.id })
         .then(res => {
-          if (!!res && res.code === 20000) {
-            this.findList();
-            this.id = null;
-          }
           this.$message({
             message: res.message,
             type: res.code === 20000 ? "success" : "error"
           });
+          if (!!res && res.code === 20000) {
+            this.findList();
+            this.id = null;
+          }
         })
         .catch(err => {
           this.$message({

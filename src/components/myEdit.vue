@@ -18,6 +18,7 @@ export default {
       type: Object,
       default: function() {
         return {
+          BaseUrl: "",
           UEDITOR_HOME_URL: "static/ueditor/",
           initialFrameWidth: null,
           initialFrameHeight: 350
@@ -26,7 +27,7 @@ export default {
     },
     defaultMsg: {
       type: String,
-      default: "请输入内容"
+      default: ""
     }
   },
   data() {
@@ -38,7 +39,29 @@ export default {
     //初始化UE
     const _this = this;
     this.editor = UE.delEditor("editor");
+    console.log("editor已删除");
+    UE.Editor.prototype.placeholder = function(justPlainText) {
+      var _editor = this;
+      _editor.addListener("focus", function() {
+        var localHtml = _editor.getPlainTxt();
+        if ($.trim(localHtml) === $.trim(justPlainText)) {
+          _editor.setContent(" ");
+        }
+      });
+      _editor.addListener("blur", function() {
+        var localHtml = _editor.getContent();
+        if (!localHtml) {
+          _editor.setContent(justPlainText);
+        }
+      });
+      _editor.ready(function() {
+        _editor.fireEvent("blur");
+      });
+    };
+
     this.editor = UE.getEditor("editor", this.config);
+    this.editor.placeholder("请输入内容...");
+    console.log("editor已获取");
     this.editor.addListener("ready", function() {
       _this.editor.setContent(_this.defaultMsg); // 确保UE加载完成后，放入内容。
     });
