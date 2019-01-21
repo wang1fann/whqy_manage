@@ -13,10 +13,10 @@
     </div>
     <div class="content-manage">
       <el-row :gutter="20">
-        <el-col :span="8">
+        <el-col :span="9">
           <el-bread @currentContentRouter="MenuArr"></el-bread>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="11">
           <div
             class="child-menu-box"
             v-if="!!childMenuArr && !!childMenuArr.children && childMenuArr.children.length>0  "

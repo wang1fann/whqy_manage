@@ -680,9 +680,19 @@ let contentRouter = [{
         }, {
             id: "",
             path: 'convenienceAdd',
-            name: '红色旅游-添加',
+            name: '红色旅游-添加/编辑',
             component: resolve => {
                 require(['view/contentManage/redTourism/convenienceAdd'], resolve)
+            },
+            class: 'fa-line-chart',
+            children: [],
+            show: false
+        }, {
+            id: "",
+            path: 'flokAdd',
+            name: '风土民俗-添加/编辑',
+            component: resolve => {
+                require(['view/contentManage/redTourism/flokAdd'], resolve)
             },
             class: 'fa-line-chart',
             children: [],

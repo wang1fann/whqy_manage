@@ -41,7 +41,7 @@
       :stripe="false"
       :border="false"
       :multiple="true"
-      :showImgColumn="true"
+      :showImgColumn="false"
       :operation="operation"
       :column="column"
       :data="data"
@@ -138,7 +138,7 @@ export default {
     },
     fieldInit() {
       // 获取字段
-      var column = getField("xiSpirtArtical");
+      var column = getField("redEducation");
       column.forEach(item => {
         if (!!item.width && item.width != "auto") {
           item.width = rem2px(px2rem(item.width));

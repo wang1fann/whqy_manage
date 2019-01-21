@@ -2,6 +2,7 @@
   <div
     class="list content-top-line user-list"
     v-loading="fullscreenLoading"
+    element-loading-text="拼命加载中"
   >
     <el-row
       class="btn-group"
@@ -191,11 +192,13 @@ export default {
     },
     formInit(row) {
       this.formItem = getFormField("user", "item");
+      this.getUserTypeData(this.formItem[0], "formtype");
       this.formData = !!row ? row : getFormField("user", "data");
+      this.formData.permissionId = "普通用户";
     },
     searchFormInit() {
       this.searchFormItem = getSearchField("user", "item");
-      this.getUserTypeData(this.searchFormItem[2]);
+      this.getUserTypeData(this.searchFormItem[2], "searchtype");
       this.getDeviceType(this.searchFormItem[3]);
       this.searchFormData = getSearchField("user", "data");
     },
@@ -219,6 +222,15 @@ export default {
       var a = this.formData.imgPath;
       this.formData.imgPath = !!a ? a.replace(/\\/g, "/") : "";
       this.formData.sex = this.formData.sex === "女" ? "2" : "1";
+      console.log(this.formData.permissionId);
+      if (!this.formData.permissionId) {
+        this.$notify({
+          title: "提示",
+          message: "请选择用户类型",
+          type: "warning"
+        });
+        return;
+      }
       this.formData.permissionId =
         this.formData.permissionId === "超级管理员"
           ? "1"
@@ -230,13 +242,13 @@ export default {
         ? this.formData.userName
         : "未命名";
       API[this.type](this.formData).then(res => {
-        this.dialogVisible = false;
         this.$message({
           message: res.message,
           type: !!res && res.code === 20000 ? "success" : "warning"
         });
         //权限不足
         if (!!res && res.code === 20000) {
+          this.dialogVisible = false;
           var that = this;
           setTimeout(function() {
             that.getData();
@@ -258,7 +270,7 @@ export default {
       done();
     },
     // 获取用户类型列表
-    getUserTypeData(obj) {
+    getUserTypeData(obj, type) {
       // formInfo   初始化加载formInfo 科室选项
       obj.options = [
         {
@@ -279,6 +291,11 @@ export default {
           var user = JSON.parse(window.localStorage.getItem("access-user"));
           if (user.permissionId == "2") {
             obj.options = this._.filter(obj.options, { label: "普通用户" });
+          }
+          if (type === "formtype") {
+            obj.options = this._.filter(obj.options, function(o) {
+              return !(o.label === "全部");
+            });
           }
         }
       });
@@ -397,7 +414,6 @@ export default {
       this.multipleSelection.forEach(item => {
         id.push(item.id);
       });
-      // this.ids ="["+ id.join()+"]";
       this.ids = id.join();
       if (id.length > 0) {
         this.deleteConfirm({ id: this.ids });
@@ -441,8 +457,20 @@ export default {
       this.getData();
     },
     exportUserList() {
+      var id = [];
+      this.multipleSelection.forEach(item => {
+        id.push(item.id);
+      });
+      var ids = id.length > 0 ? id.join() : "' '";
+      console.log("http://192.168.0.107:9014/syx/user/downloadexcel?token=" +
+          window.token +
+          "&idList=" +
+          ids);
       window.open(
-        "http://192.168.0.110:9014/syx/user/downloadexcel?token=" + window.token
+        "http://192.168.0.107:9014/syx/user/downloadexcel?token=" +
+          window.token +
+          "&idList=" +
+          ids
       );
     }
   }
@@ -463,4 +491,7 @@ button.el-button.pull-right.el-button--default {
   text-align: center;
   min-width: 114px;
 }
+/* .user-list .el-form label.el-radio-button.el-radio-button--mini:first-child {
+    display: none;
+} */
 </style > 

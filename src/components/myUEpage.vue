@@ -84,6 +84,7 @@
     </el-row>
     <el-row
       class="info"
+      v-if="showTitle!==false"
       :gutter="24"
     >
       <el-col
@@ -307,6 +308,10 @@ export default {
     showLinkUrl: {
       type: Boolean,
       default: false
+    },
+    showTitle: {
+      type: Boolean,
+      default: true
     },
     showLinkName: {
       type: Boolean,

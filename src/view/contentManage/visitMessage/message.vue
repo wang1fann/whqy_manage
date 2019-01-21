@@ -121,13 +121,11 @@ export default {
     fieldInit() {
       // 获取字段
       var column = getField("messageList");
-
       column.forEach(item => {
         if (!!item.width && item.width != "auto") {
           item.width = rem2px(px2rem(item.width));
         }
       });
-      console.log(column);
       column = this._.filter(column, function(o) {
         return !(o.prop === "replyMessage");
       });

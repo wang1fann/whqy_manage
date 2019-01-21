@@ -224,7 +224,6 @@ export default {
       window.sessionStorage.setItem("responseType", "json");
       API.findSiteList()
         .then(res => {
-          
           if (!!res && res.code === 20000) {
             var obj = res.data[0];
             obj.addressStatus = obj.addressStatus === "1" ? true : false;
@@ -244,11 +243,7 @@ export default {
       window.sessionStorage.setItem("responseType", "json");
       var that = this;
       API.findMenuList().then(res => {
-        
         if (!!res && res.code === 20000) {
-          // that.menuInfo = !!res.data
-          //   ? this._.filter(res.data, { parentId: "0", menuType: 2 })
-          //   : "";
           that.menuInfo = !!res.data
             ? this._.filter(res.data, { parentId: "0" })
             : "";
@@ -256,7 +251,6 @@ export default {
       });
     },
     submitSite() {
-      // console.log(this.menuInfo);
       var params = {};
       params = this.siteForm;
       params.addressStatus = params.addressStatus === true ? "1" : "0";
@@ -268,8 +262,21 @@ export default {
           message: res.message,
           type: !!res && res.code === 20000 ? "success" : "warning"
         });
+        if (!!res && res.code === 20011) {
+          //登录已过期
+          localStorage.removeItem("access-user");
+          localStorage.removeItem("token");
+          var that = this;
+          setTimeout(function() {
+            that.$router.push({ path: "/login" });
+          }, 2000);
+          return;
+        }
         if (!!res && res.code === 20000) {
-          this.findSite();
+          var that = this;
+          setTimeout(function() {
+            that.findSite();
+          }, 1500);
         }
       });
     }
