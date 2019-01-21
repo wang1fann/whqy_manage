@@ -2,7 +2,10 @@
 <template>
   <el-row class="uepage-container">
     <!-- 上传封面图片 -->
-    <el-row :gutter="24">
+    <el-row
+      :gutter="24"
+      v-show="showImg"
+    >
       <el-col :span="5">
         <el-upload
           class="avatar-uploader"
@@ -82,10 +85,31 @@
         </div>
       </el-col>
     </el-row>
+    <!--scenicSpotName  -->
     <el-row
       class="info"
-      v-if="showTitle!==false"
       :gutter="24"
+      v-show="showScenicSpotName"
+    >
+      <el-col
+        :span="2"
+        class="alignright"
+      >
+        标题：
+      </el-col>
+      <el-col :span="22">
+        <el-input
+          placeholder="请输入标题"
+          v-model="Form.scenicSpotName"
+        >
+        </el-input>
+      </el-col>
+    </el-row>
+    <!-- title -->
+    <el-row
+      class="info"
+      :gutter="24"
+      v-show="showTitle"
     >
       <el-col
         :span="2"
@@ -305,17 +329,25 @@ export default {
       type: Boolean,
       default: false
     },
+    showImg: {
+      type: Boolean,
+      default: true
+    },
     showLinkUrl: {
+      type: Boolean,
+      default: false
+    },
+    showLinkName: {
+      type: Boolean,
+      default: false
+    },
+    showScenicSpotName: {
       type: Boolean,
       default: false
     },
     showTitle: {
       type: Boolean,
       default: true
-    },
-    showLinkName: {
-      type: Boolean,
-      default: false
     },
     showPersonName: {
       type: Boolean,

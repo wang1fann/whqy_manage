@@ -32,6 +32,8 @@ export default {
   },
   data() {
     return {
+      //每个编辑器生成不同的id,以防止冲突
+      // randomId: "editor_" + Math.random() * 100000000000000000,
       editor: null
     };
   },
@@ -39,6 +41,7 @@ export default {
     //初始化UE
     const _this = this;
     this.editor = UE.delEditor("editor");
+    // this.editor = UE.delEditor(this.randomId); //this.randomId
     console.log("editor已删除");
     UE.Editor.prototype.placeholder = function(justPlainText) {
       var _editor = this;
@@ -63,11 +66,13 @@ export default {
     this.editor.placeholder("请输入内容...");
     console.log("editor已获取");
     this.editor.addListener("ready", function() {
+      console.log("ready");
       _this.editor.setContent(_this.defaultMsg); // 确保UE加载完成后，放入内容。
     });
   },
   destoryed() {
     this.editor.destory();
+    console.log("editor已销毁");
   },
   methods: {
     getUEContent: function() {

@@ -376,8 +376,8 @@ export default {
                   : res.data.rows[i].deviceType === "2"
                   ? "IOS"
                   : res.data.rows[i].deviceType === "3"
-                  ? "安卓"
-                  : "未识别";
+                  ? "android"
+                  : "--";
             }
             this.data = res.data.rows;
             this.total = res.data.total;
@@ -461,11 +461,7 @@ export default {
       this.multipleSelection.forEach(item => {
         id.push(item.id);
       });
-      var ids = id.length > 0 ? id.join() : "' '";
-      console.log("http://192.168.0.107:9014/syx/user/downloadexcel?token=" +
-          window.token +
-          "&idList=" +
-          ids);
+      var ids = id.length > 0 ? id.join() : "";
       window.open(
         "http://192.168.0.107:9014/syx/user/downloadexcel?token=" +
           window.token +

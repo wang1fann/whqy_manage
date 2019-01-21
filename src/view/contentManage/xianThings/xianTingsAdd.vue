@@ -5,6 +5,7 @@
       :Form="ticketForm"
       :defaultMsg="ticketForm.content"
       :showPersonName="false"
+      :showImg="false"
       @submit="submitcontent"
       @imgPath="getImgPath"
     ></my-uepage>

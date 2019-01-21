@@ -202,6 +202,30 @@
             "show": true
         }
     ],
+    "folk": [{
+            "prop": "scenicSpotName",
+            "label": "标题",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "description",
+            "label": "描述",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }, {
+            "prop": "content",
+            "label": "内容",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": false
+        }
+    ],
     "redEducation": [{
             "prop": "title",
             "label": "标题",

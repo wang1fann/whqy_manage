@@ -3,6 +3,7 @@
   <el-row class="components-container">
     <my-uepage
       :Form="ticketForm"
+      :showScenicSpotName="true"
       :showTitle="false"
       :defaultMsg="ticketForm.content"
       @submit="submitcontent"
@@ -27,10 +28,10 @@ export default {
   data() {
     return {
       ticketForm: {
-        title: "",
         imgPath: "",
         menuId: this.$route.query.menuId + "",
         description: "",
+        scenicSpotName: "",
         content: ""
       }
     };
@@ -40,7 +41,9 @@ export default {
   },
   methods: {
     getUpdate() {
-      this.ticketForm = !!this.$route.query ? this.$route.query : this.ticketForm;
+      this.ticketForm = !!this.$route.query
+        ? this.$route.query
+        : this.ticketForm;
     },
     submitcontent(content) {
       this.ticketForm.content = content;

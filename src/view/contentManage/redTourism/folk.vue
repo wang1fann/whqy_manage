@@ -138,14 +138,11 @@ export default {
     },
     fieldInit() {
       // 获取字段
-      var column = getField("redEducation");
+      var column = getField("folk");
       column.forEach(item => {
         if (!!item.width && item.width != "auto") {
           item.width = rem2px(px2rem(item.width));
         }
-      });
-      column = this._.filter(column, function(o) {
-        return !(o.prop === "title");
       });
       this.column = column;
     },

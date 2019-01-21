@@ -91,7 +91,7 @@ export default {
       title: "",
       ref: "form1",
       showTitle: false,
-       showUploadImg: true,
+      showUploadImg: true,
       labelWidth: px2rem(140),
       labelPositon: "right",
       width: "80%",
@@ -159,9 +159,6 @@ export default {
   mounted() {
     this.getData();
   },
-  activated() {
-    this.getData();
-  },
   methods: {
     gotoUrl(path, query) {
       this.$router.push({
@@ -171,12 +168,6 @@ export default {
     },
     // 弹框关闭时的回调函数
     handleClose(done) {
-      for (const key in this.formData) {
-        if (this.formData.hasOwnProperty(key)) {
-          this.formData[key] = "";
-        }
-      }
-      this.resetForm();
       done();
     },
     // 表单重置
@@ -205,7 +196,7 @@ export default {
       this.searchFormData = getSearchField("knowledge", "data");
     },
     update(row) {
-       this.formInit(row);
+      this.formInit(row);
       this.dialogTitle = "编辑题库";
       this.dialogVisible = true;
     },
@@ -214,11 +205,24 @@ export default {
       API.addTestLibrary(this.formData).then(res => {
         this.dialogVisible = false;
         this.$message({
-          message: res.message,
+          message: res.total === 0 ? "暂无数据" : res.message,
           type: !!res && res.code === 20000 ? "success" : "warning"
         });
+        if (!!res && res.code === 20011) {
+          //登录已过期
+          localStorage.removeItem("access-user");
+          localStorage.removeItem("token");
+          var that = this;
+          setTimeout(function() {
+            that.$router.push({ path: "/login" });
+          }, 2000);
+          return;
+        }
         if (!!res && res.code === 20000) {
-          this.getData();
+          var that = this;
+          setTimeout(function() {
+            that.getData();
+          }, 1500);
         }
       });
     },
@@ -308,7 +312,7 @@ export default {
     },
     // 搜索
     searchSubmit() {
-       this.currentPage=1;
+      this.currentPage = 1;
       this.getData();
     }
   }
