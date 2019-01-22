@@ -158,10 +158,6 @@ export default {
                 type: "error"
               });
             } else {
-              localStorage.setItem(
-                "access-user",
-                JSON.stringify(res.data.user)
-              );
               if (res.data.user.permissionId == "3") {
                 this.$notify({
                   title: "提示",
@@ -170,7 +166,11 @@ export default {
                 });
                 return;
               }
-              localStorage.setItem("token", res.data.token);
+              sessionStorage.setItem(
+                "access-user",
+                JSON.stringify(res.data.user)
+              );
+              sessionStorage.setItem("token", res.data.token);
               let expireDays = 1000 * 60 * 60;
               setCookie("loginFlag", res.message, expireDays); //设置Session
               that.$router.push({ path: "/home" });

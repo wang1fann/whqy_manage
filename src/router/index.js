@@ -948,12 +948,12 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
     let routeName = to.meta.name || to.name;
     window.document.title = (routeName ? routeName + ' - ' : '') + '渭华起义后台管理系统';
-    window.userInfo = JSON.parse(window.localStorage.getItem('access-user'));
+    window.userInfo = JSON.parse(window.sessionStorage.getItem('access-user'));
     if (to.path.startsWith('/login')) {
-        window.localStorage.removeItem('access-user')
+        window.sessionStorage.removeItem('access-user')
         next()
     } else {
-        let token = window.localStorage.getItem('token');
+        let token = window.sessionStorage.getItem('token');
         if (!token) {
             next({
                 path: '/login'
@@ -965,7 +965,7 @@ router.beforeEach((to, from, next) => {
                     path: '/login'
                 })
             }
-            window.token = window.localStorage.getItem('token');
+            window.token = window.sessionStorage.getItem('token');
             next()
         }
     }

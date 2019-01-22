@@ -288,7 +288,7 @@ export default {
               id: res.data[i].roleId
             });
           }
-          var user = JSON.parse(window.localStorage.getItem("access-user"));
+          var user = JSON.parse(window.sessionStorage.getItem("access-user"));
           if (user.permissionId == "2") {
             obj.options = this._.filter(obj.options, { label: "普通用户" });
           }
@@ -337,7 +337,7 @@ export default {
         : config.permissionId + "";
       config.deviceType = !config.deviceType ? "0" : config.deviceType + "";
       this.fullscreenLoading = true;
-      var user = JSON.parse(window.localStorage.getItem("access-user"));
+      var user = JSON.parse(window.sessionStorage.getItem("access-user"));
       if (user.permissionId == "2") {
         config.permissionId = "3";
       }

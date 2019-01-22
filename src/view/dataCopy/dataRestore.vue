@@ -294,7 +294,7 @@ export default {
         });
         if (!!res && res.code === 20000) {
           this.filePath = res.data[0].replace(/\\/g, "/");
-          this.dbRestore({ dbSqlFilePath: this.filePath, type: "1" });
+          this.dbRestore({ dbSqlFilePath: this.filePath, type: "2" });
           document.getElementById("upload-data-input").value = "";
           this.formFile = "";
         }
@@ -302,7 +302,7 @@ export default {
       });
     },
     startRestore() {
-      // 2代表服务器还原 1.本地还原
+      // 本地还原2  在线传1
       if (this.radio === "从服务器还原") {
         var row = this.radioRow;
         if (!row) {
@@ -312,7 +312,7 @@ export default {
           });
           return;
         }
-        this.dbRestore({ dbSqlFilePath: row.dbSqlFilePath, type: "2" });
+        this.dbRestore({ dbSqlFilePath: row.dbSqlFilePath, type: "1" });
       } else {
         this.uploadFile();
         document.getElementById("upload-data-input").value = "";

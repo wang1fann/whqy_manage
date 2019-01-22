@@ -234,7 +234,7 @@ export default {
       for (let j = 0; j < checkidArr.length; j++) {
         for (let i = 0; i < optionsArr.length; i++) {
           if (checkidArr[j] == optionsArr[i].id) {
-            optionsArr[i].isflag=true;
+            optionsArr[i].isflag = true;
             menuArr.push(optionsArr[i]);
           }
         }

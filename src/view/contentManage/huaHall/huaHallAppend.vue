@@ -64,12 +64,15 @@ export default {
       this.ticketForm.imgPath = !!val ? val.replace(/\\/g, "/") : "";
     },
     getMp4Path(val) {
+      console.log(val);
       this.ticketForm.uploadPath = !!val ? val.replace(/\\/g, "/") : "";
+      console.log(this.ticketForm);
     },
     getUpdate() {
       this.ticketForm = !!this.$route.query
         ? this.$route.query
         : this.ticketForm;
+      console.log(this.ticketForm);
     }
   }
 };

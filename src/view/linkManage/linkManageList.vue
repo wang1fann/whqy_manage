@@ -195,9 +195,6 @@ export default {
     },
     // 提交数据
     submit() {
-      console.log(this.formData);
-      // window.token
-      this.formData.token = window.token;
       setTimeout(() => {
         API[this.type](this.formData).then(res => {
           this.dialogVisible = false;
