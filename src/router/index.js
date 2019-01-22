@@ -914,9 +914,7 @@ let router = new Router({
                         require(['view/systemMaintain/cacheClear'], resolve)
                     },
                     class: 'sys',
-                    show: false,
-                    bg: require('@/assets/img/system/green.png'),
-                    img: require('@/assets/img/system/clear.png')
+                    show: false
                 }, {
                     path: '/system/problemDiagnose',
                     name: '问题诊断',
@@ -924,9 +922,7 @@ let router = new Router({
                         require(['view/systemMaintain/problemDiagnose'], resolve)
                     },
                     class: 'sys',
-                    show: false,
-                    bg: require('@/assets/img/system/orange.png'),
-                    img: require('@/assets/img/system/problem.png')
+                    show: false
                 },
                 {
                     path: '/system/performanceOptimize',
@@ -935,9 +931,7 @@ let router = new Router({
                     component: resolve => {
                         require(['view/systemMaintain/performanceOptimize'], resolve)
                     },
-                    class: 'sys',
-                    bg: require('@/assets/img/system/blue.png'),
-                    img: require('@/assets/img/system/info.png')
+                    class: 'sys'
                 }
             ]
         },

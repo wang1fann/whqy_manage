@@ -98,7 +98,14 @@ export default {
               placeholder: "请输入用户名",
               label: "用户名",
               width: "100%",
-              show: true
+              show: true,
+              rules: [
+                {
+                  required: true,
+                  message: "请输入用户名",
+                  trigger: "blur"
+                }
+              ]
             },
             {
               type: "text",
@@ -107,7 +114,20 @@ export default {
               placeholder: "请输入密码",
               label: "密码",
               width: "100%",
-              show: true
+              show: true,
+              rules: [
+                {
+                  required: true,
+                  message: "请输入密码",
+                  trigger: "blur"
+                },
+                {
+                  min: 6,
+                  max: 15,
+                  message: "长度在6到15个字符",
+                  trigger: "blur"
+                }
+              ]
             },
             {
               type: "select",
@@ -226,8 +246,6 @@ export default {
       });
     },
     addRightsSubmit() {
-      var that = this;
-      that.fullscreenLoading = true;
       var menuArr = [];
       var optionsArr = this.pageItem[1].formInfo[0].options;
       var checkidArr = this.pageItem[1].formData.tbMenusFilter;
@@ -249,9 +267,31 @@ export default {
         },
         tbMenus: menuArr
       };
-      API.addAPI(params).then(res => {
+
+      if (params.user.userName === "" || params.user.passwd === "") {
         this.$message({
-          message: res.message,
+          type: "warning",
+          message:
+            params.user.userName !== "" ? "密码不能为空" : "用户名不能为空"
+        });
+        return;
+      }
+      this.fullscreenLoading = true;
+      API.addAPI(params).then(res => {
+        this.fullscreenLoading = false;
+        this.$message({
+          message:
+            !!res && res.code === 20001 && this.pageItem[0].radioValue == "1"
+              ? "超级管理员权限添加失败,系统可能已有超级管理员！"
+              : !!res &&
+                res.code === 20001 &&
+                this.pageItem[0].radioValue == "2"
+              ? "一般管理员权限添加失败！"
+              : !!res &&
+                res.code === 20001 &&
+                this.pageItem[0].radioValue == "2"
+              ? "普通用户权限添加失败！"
+              : res.message,
           type: !!res && res.code === 20000 ? "success" : "warning"
         });
         if (!!res && res.code === 20000) {
@@ -261,7 +301,6 @@ export default {
           }, 1000);
         }
       });
-      that.fullscreenLoading = false;
     },
     findPermissionListById() {
       this.pageItem[1].formInfo[0].options = [];

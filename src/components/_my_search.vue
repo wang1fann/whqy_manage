@@ -2,7 +2,7 @@
   <el-form
     :inline="true"
     ref="searchForm"
-    label-width="75px"
+    label-width="85px"
     :model="formData"
     @submit.native.prevent
   >
@@ -11,6 +11,7 @@
       <el-form-item
         v-if="item.type == 'select' && item.show"
         :key="index"
+        :rules="item.rules"
         :label="item.label"
       >
         <el-select
@@ -31,6 +32,7 @@
       <el-form-item
         v-else-if="item.type == 'text' && item.show"
         :key="index"
+        :rules="item.rules"
         :label="item.label+':'"
       >
         <el-input
@@ -47,8 +49,8 @@
         v-else-if="item.type ==='checkbox'"
         :key="index"
       >
-      <!-- <span>{{formData}}</span> -->
-      <!-- <span>{{formData[item.name]}}</span> -->
+        <!-- <span>{{formData}}</span> -->
+        <!-- <span>{{formData[item.name]}}</span> -->
         <el-checkbox-group
           v-model="formData[item.name]"
           :style="'width: ' + (item.width ? item.width : '100%')"
@@ -181,8 +183,7 @@ export default {
       }
     };
   },
-  created() {
-  },
+  created() {},
   mounted() {},
   methods: {
     onSubmit() {

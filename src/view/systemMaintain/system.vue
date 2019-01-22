@@ -1,28 +1,26 @@
 
 <template>
-  <div class="system content-top-line">
+  <div class="system content-top-line sys-main">
     <div class="tabs clearfix">
-      <div
-        class="sys-main"
-        v-for="(item,index) in systemUrl"
-        :key="index"
+      <el-row
+        type="flex"
+        class="row-bg"
+        justify="space-around"
       >
-        <div
-          class="box"
+        <el-col
+          v-for="(item,index) in systemUrl"
+          :key="index"
+          :span="6"
           @click="gotoUrl(item.path,'',index)"
         >
           <img
-            class="item-img"
-            :src="item.img"
-          >
-          <img
-            class="item-bg"
-            :src="item.bg"
+            class="cursorpointer"
+            @click="gotoUrl(item.path,'',index)"
+            :src="sysImgData[index].img"
             alt=""
           >
-          <span>{{item.name}}</span>
-        </div>
-      </div>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
@@ -35,7 +33,18 @@ export default {
   },
   data() {
     return {
-      systemUrl: ""
+      systemUrl: "",
+      sysImgData: [
+        {
+          img: require("@/assets/img/system/png3.png")
+        },
+        {
+          img: require("@/assets/img/system/png2.png")
+        },
+        {
+          img: require("@/assets/img/system/png1.png")
+        }
+      ]
     };
   },
   created() {
@@ -60,45 +69,28 @@ export default {
 .tabs {
   position: relative;
 }
-
-.sys-main:first-child {
-  // margin-left: 10px;
-}
-
 .sys-main {
-  margin-top: 100px;
-  float: left;
-  width: 33.33%;
-  .box {
-    cursor: pointer;
-    position: relative;
-    span {
-      position: absolute;
-      top: 174px;
-      left: 29%;
-      font-size: 23px;
-      color: #fff;
-      z-index: 16;
+  .el-row {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
     }
   }
-  img {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    &.item-bg {
-      width: 430px;
-      height: 229px;
-    }
-    &.item-img {
-      width: 60px;
-      height: 60px;
-      padding: 5px;
-      border-radius: 50%;
-      top: 85px;
-      left: 31%;
-      z-index: 10;
-      border: 1px solid #fff;
-    }
+  .el-col {
+    border-radius: 4px;
+  }
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+  .bg-purple {
+    background: #d3dce6;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+  .row-bg {
+    padding: 10px 0;
   }
 }
 </style>

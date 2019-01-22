@@ -41,7 +41,6 @@ export default {
     //初始化UE
     const _this = this;
     this.editor = UE.delEditor("editor");
-    // this.editor = UE.delEditor(this.randomId); //this.randomId
     console.log("editor已删除");
     UE.Editor.prototype.placeholder = function(justPlainText) {
       var _editor = this;
@@ -64,9 +63,9 @@ export default {
 
     this.editor = UE.getEditor("editor", this.config);
     this.editor.placeholder("请输入内容...");
-    console.log("editor已获取");
-    this.editor.addListener("ready", function() {
-      console.log("ready");
+    this.editor.ready(function() {
+    console.log("editor ready");
+      //this是当前创建的编辑器实例
       _this.editor.setContent(_this.defaultMsg); // 确保UE加载完成后，放入内容。
     });
   },

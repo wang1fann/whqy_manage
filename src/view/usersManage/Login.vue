@@ -81,6 +81,7 @@
           class="login_btn"
           type="primary"
           style="width:100%;"
+          :disabled="buttonDisabledStatus"
           @click.native.prevent="handleLogin"
           :loading="loading"
         >登录</el-button>
@@ -96,7 +97,19 @@ import NProgress from "nprogress";
 export default {
   name: "Login",
   data() {
+    var validateVrifyCode = (rule, value, callback) => {
+       var code = this.captcha.toLowerCase();
+      var input = value.toLowerCase();
+        if (input!==code) {
+          this.buttonDisabledStatus=true;
+          callback(new Error("验证码不正确"));
+        } else {
+          this.buttonDisabledStatus=false;
+          callback();
+        }
+    };
     return {
+      buttonDisabledStatus:true,
       loading: false,
       account: {
         userName: "",
@@ -110,7 +123,8 @@ export default {
         ],
         passWord: [{ required: true, message: "请输入密码", trigger: "blur" }],
         vrifyCode: [
-          { required: true, message: "请输入验证码", trigger: "blur" }
+          { required: true, message: "请输入验证码", trigger: "blur" },
+          { validator: validateVrifyCode, trigger: "change" }
         ]
       }
     };
@@ -128,16 +142,6 @@ export default {
         .catch(res => {});
     },
     handleLogin(ev) {
-      var code = this.captcha.toLowerCase();
-      var input = this.account.vrifyCode.toLowerCase();
-      if (code !== input) {
-        this.$notify({
-          title: "错误",
-          message: "验证码错误！",
-          type: "error"
-        });
-        return;
-      }
       var that = this;
       window.sessionStorage.responseType = "json";
       this.$refs.AccountFrom.validate(valid => {

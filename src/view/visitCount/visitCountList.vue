@@ -17,45 +17,9 @@
               v-model="dateType"
               size="small"
             >
-              <el-radio-button
-                label="月访问量"
-                @click="updateDate()"
-              ></el-radio-button>
-              <el-radio-button
-                label="日访问量"
-                @click="updateDate()"
-              ></el-radio-button>
-              <!-- <el-radio-button label="最近访问"></el-radio-button> -->
+              <el-radio-button label="月访问量"></el-radio-button>
+              <el-radio-button label="日访问量"></el-radio-button>
             </el-radio-group>
-            <div class="rate-select">
-              <span v-if="dateType!=='月访问量'">
-                <el-date-picker
-                  v-model="dataRangeValue"
-                  type="daterange"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期"
-                  :default-time="['00:00:00', '23:59:59']"
-                >
-                </el-date-picker>
-              </span>
-              <span v-else-if="dateType==='月访问量'">
-                <el-date-picker
-                  v-model="dataRangeValue"
-                  type="month"
-                  value-format="yyyy-MM"
-                  placeholder="选择月"
-                >
-                </el-date-picker>
-              </span>
-              <span>
-                <el-button
-                  type="warning"
-                  plain
-                  @click="updateDate"
-                  :disabled="false"
-                >查询</el-button>
-              </span>
-            </div>
             <div class="allvistdata">
               总访问量:{{allvistdata}}
             </div>
@@ -98,7 +62,6 @@ export default {
   data() {
     return {
       fullscreenLoading: false,
-      dataRangeValue: "",
       dateType: "日访问量",
       visitData: {
         name: [0],
@@ -167,7 +130,7 @@ export default {
         this.dateType !== "月访问量" ? searchParamsDay : searchParamsMonth
       )
         .then(res => {
-           that.fullscreenLoading = false;
+          that.fullscreenLoading = false;
           if (!!res && res.code === 20000 && !!res.data) {
             that.visitData.name = Object2Array(res.data, "name");
             that.visitData.value = Object2Array(res.data, "value");
@@ -179,7 +142,7 @@ export default {
           });
         })
         .catch(res => {
-           that.fullscreenLoading = false;
+          that.fullscreenLoading = false;
         });
     },
     drawColumnChart() {
@@ -198,7 +161,7 @@ export default {
         grid: {
           left: "4%",
           right: "4%",
-          top: "30%",
+          top: "20%",
           bottom: "3%",
           containLabel: true
         },
@@ -280,15 +243,8 @@ export default {
         endDay: getNowFormatDate(),
         type: this.dateType
       };
-      var searchParamsMonth = {
-        startMonth: this.dataRangeValue,
-        endMonth: "2019-09",
-        type: this.dateType
-      };
       var that = this;
-      API.getModuleZzt(
-        this.dateType !== "月访问量" ? searchParamsDay : searchParamsMonth
-      )
+      API.getModuleZzt(searchParamsDay)
         .then(res => {
           if (!!res && res.code === 20000) {
             res.data = that._.reverse(res.data);
@@ -481,23 +437,16 @@ export default {
         endDay: getNowFormatDate(),
         type: this.dateType
       };
-      var searchParamsMonth = {
-        startMonth: this.dataRangeValue,
-        endMonth: "2019-09",
-        type: this.dateType
-      };
       var that = this;
-      API.getDeviceBzt(
-        this.dateType !== "月访问量" ? searchParamsDay : searchParamsMonth
-      ).then(res => {
-        if (!!res && res.code === 20000) {
-          that.drawPieChartData.data = res.data;
-        }
+      API.getDeviceBzt(searchParamsDay).then(res => {
         that.$message({
           message: res.message,
           type: res.code === 20000 ? "success" : "warning"
         });
-        for (var i = 0; i < that.drawPieChartData.legendData.length; i++) {
+        if (!!res && res.code === 20000) {
+          that.drawPieChartData.data = res.data;
+        }
+        for (var i = 0; i < that.drawPieChartData.data.length; i++) {
           that.drawPieChartData.legendData[i].name =
             that.drawPieChartData.data[i].name;
           that.drawPieChartData.legendData[i].name =
@@ -512,8 +461,16 @@ export default {
       this.drawColumnChart();
       this.drawBarChart();
       this.drawPieChart();
-    },
-    updateDate() {
+    }
+  },
+  computed: {
+    setSearchType() {
+      return this.dateType;
+    }
+  },
+  watch: {
+    setSearchType(val) {
+      // this.permissionId = val;
       this.searchVisitData();
     }
   },
@@ -538,13 +495,12 @@ export default {
 .allvistdata {
   width: 118px;
   position: absolute;
-  top: 89px;
+  top: 50px;
   right: 0px;
 }
 .el-col {
   padding: 30px 20px;
 }
-
 .rel {
   position: relative;
 }
