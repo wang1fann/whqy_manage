@@ -20,7 +20,8 @@
      * window.UEDITOR_HOME_URL = "/xxxx/xxxx/";
      */
     // window.UEDITOR_HOME_URL = "/static/ueditor/";
-    window.UEDITOR_HOME_URL = "/ueditor/exec";
+    window.UEDITOR_HOME_URL = "/static/ueditor/"
+        // window.UEDITOR_HOME_URL = "/ueditor/exec";
     var URL = window.UEDITOR_HOME_URL || getUEBasePath();
 
     /**
@@ -35,8 +36,8 @@
         ,
         // serverUrl: "https://operationgwdev.bgycc.com/zuul/phantom-service-storage/ueditor/exec"
         // serverUrl: "http://47.92.81.176:9014/ueditor/exec" //47.92.81.176:9014
-        // serverUrl: "http://192.168.0.107:9014/ueditor/exec" //47.92.81.176:9014
-        serverUrl: "http://192.168.0.107:9014" + UEDITOR_HOME_URL //47.92.81.176:9014
+        serverUrl: "http://192.168.0.107:9014/ueditor/exec" //47.92.81.176:9014
+            // serverUrl: "http://192.168.0.107:9014" + UEDITOR_HOME_URL //47.92.81.176:9014
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的重新定义
         ,
@@ -62,8 +63,9 @@
 
         //语言配置项,默认是zh-cn。有需要的话也可以使用如下这样的方式来自动多语言切换，当然，前提条件是lang文件夹下存在对应的语言文件：
         //lang值也可以通过自动获取 (navigator.language||navigator.browserLanguage ||navigator.userLanguage).toLowerCase()
-        //,lang:"zh-cn"
-        //,langPath:URL +"lang/"
+        ,
+        lang: "zh-cn"
+            //,langPath:URL +"lang/"
 
         //主题配置项,默认是default。有需要的话也可以使用如下这样的方式来自动多主题切换，当然，前提条件是themes文件夹下存在对应的主题文件：
         //现有如下皮肤:default
@@ -96,7 +98,8 @@
 
         //indentValue
         //首行缩进距离,默认是2em
-        //,indentValue:'2em'
+        ,
+        indentValue: '2em'
 
         //,initialFrameWidth:1000  //初始化编辑器宽度,默认1000
         //,initialFrameHeight:320  //初始化编辑器高度,默认320

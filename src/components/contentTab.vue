@@ -11,16 +11,6 @@ export default {
   created() {},
   data() {
     return {};
-  },
-  methods: {
-    // getBreadcrumb() {
-    //   this.breadlist = this.$route.matched;
-    // }
-  },
-  watch: {
-    // $route() {
-    //   this.getBreadcrumb();
-    // }
   }
 };
 </script>

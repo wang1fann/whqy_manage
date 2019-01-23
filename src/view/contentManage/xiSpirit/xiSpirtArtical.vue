@@ -156,11 +156,6 @@ export default {
     },
     // 弹框关闭时的回调函数
     handleClose(done) {
-      for (const key in this.formData) {
-        if (this.formData.hasOwnProperty(key)) {
-          this.formData[key] = "";
-        }
-      }
       done();
     },
     // 获取数据
@@ -182,8 +177,8 @@ export default {
         .then(res => {
           if (!!res && res.code === 20011) {
             //登录已过期
-            localStorage.removeItem("access-user");
-            localStorage.removeItem("token");
+            sessionStorage.removeItem("access-user");
+            sessionStorage.removeItem("token");
             this.$router.push({ path: "/login" });
             return;
           }

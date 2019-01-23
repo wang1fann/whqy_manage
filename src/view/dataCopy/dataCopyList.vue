@@ -88,6 +88,19 @@ export default {
   },
   mounted: function() {},
   methods: {
+      dataCopyTypeChange() {
+      // 查询自动备份状态
+      API.searchAutoRestore().then(res => {
+        this.autoCopyValue =
+          !!res && res.code === 20000 && !!res.data.IS_AUTOMATIC_SCHEDULER_START
+            ? "ON"
+            : "OFF";
+        this.$message({
+          message: res.message,
+          type: res.code === 20000 ? "success" : "error"
+        });
+      });
+    },
     gotoUrl(path, query) {
       this.$router.push({
         path: !!path ? path : "",
@@ -107,19 +120,7 @@ export default {
         }
       );
     },
-    dataCopyTypeChange() {
-      // 查询自动备份状态
-      API.searchAutoRestore().then(res => {
-        this.autoCopyValue =
-          !!res && res.code === 20000 && !!res.data.IS_AUTOMATIC_SCHEDULER_START
-            ? "ON"
-            : "OFF";
-        this.$message({
-          message: res.message,
-          type: res.code === 20000 ? "success" : "error"
-        });
-      });
-    },
+  
     changeAutoCopyValue(val) {
       window.sessionStorage.setItem("responseType", "json");
       API.backupturnon({ type: 2 + "", status: val }).then(res => {

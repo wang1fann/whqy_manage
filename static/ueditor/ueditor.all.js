@@ -8088,7 +8088,7 @@
             autoClearEmptyNode: true,
             fullscreen: false,
             readonly: false,
-            zIndex: 9999,
+            zIndex: 99,
             imagePopup: true,
             enterTag: 'p',
             customDomain: false,
@@ -29704,18 +29704,16 @@
          *
          */
 
-        // UE.getEditor = function(id, opt) {
-        //     var editor = instances[id];
-        //     if (!editor) {
-        //         editor = instances[id] = new UE.ui.Editor(opt);
-        //         editor.render(id);
-        //     }
-        //     return editor;
-        // };
         UE.getEditor = function(id, opt) {
-            UE.delEditor(id);
-            var editor = new UE.ui.Editor(opt);
-            editor.render(id);
+            var editor = instances[id];
+            if (!editor) {
+                editor = instances[id] = new UE.ui.Editor(opt);
+                editor.render(id);
+            } else {
+                UE.delEditor(id);
+                editor = instances[id] = new UE.ui.Editor(opt);
+                editor.render(id);
+            }
             return editor;
         };
 

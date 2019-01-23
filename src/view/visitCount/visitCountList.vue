@@ -470,7 +470,6 @@ export default {
   },
   watch: {
     setSearchType(val) {
-      // this.permissionId = val;
       this.searchVisitData();
     }
   },

@@ -50,8 +50,8 @@ export default {
         });
         if (!!res && res.code === 20011) {
           //登录已过期
-          localStorage.removeItem("access-user");
-          localStorage.removeItem("token");
+          sessionStorage.removeItem("access-user");
+          sessionStorage.removeItem("token");
           var that = this;
           setTimeout(function() {
             that.$router.push({ path: "/login" });

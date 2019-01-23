@@ -163,11 +163,6 @@ export default {
     },
     // 弹框关闭时的回调函数
     handleClose(done) {
-      for (const key in this.formData) {
-        if (this.formData.hasOwnProperty(key)) {
-          this.formData[key] = "";
-        }
-      }
       done();
     },
     // 获取数据

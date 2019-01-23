@@ -135,8 +135,8 @@ export default {
     });
     bus.$on("goto", url => {
       if (url === "/login") {
-        localStorage.removeItem("access-user");
-        localStorage.removeItem("token");
+        sessionStorage.removeItem("access-user");
+        sessionStorage.removeItem("token");
       }
       this.$router.push(url);
     });
@@ -144,7 +144,7 @@ export default {
   },
   methods: {
     getUserInfo() {
-      let user = localStorage.getItem("access-user");
+      let user = sessionStorage.getItem("access-user");
       if (user) {
         user = JSON.parse(user);
         this.userInfo = user;
@@ -184,7 +184,7 @@ export default {
             .then(
               function(result) {
                 that.loading = false;
-                localStorage.removeItem("access-user");
+                sessionStorage.removeItem("access-user");
                 that.$router.go("/login"); //用go刷新
               },
               function(err) {

@@ -155,16 +155,6 @@ export default {
         });
       }, 50);
     },
-    // 弹框关闭时的回调函数
-    handleClose(done) {
-      for (const key in this.formData) {
-        if (this.formData.hasOwnProperty(key)) {
-          this.formData[key] = "";
-        }
-      }
-      this.resetForm();
-      done();
-    },
     // 获取数据
     getData() {
       var _this = this;
