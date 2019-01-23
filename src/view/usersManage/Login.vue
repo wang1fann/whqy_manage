@@ -98,18 +98,18 @@ export default {
   name: "Login",
   data() {
     var validateVrifyCode = (rule, value, callback) => {
-       var code = this.captcha.toLowerCase();
+      var code = this.captcha.toLowerCase();
       var input = value.toLowerCase();
-        if (input!==code) {
-          this.buttonDisabledStatus=true;
-          callback(new Error("验证码不正确"));
-        } else {
-          this.buttonDisabledStatus=false;
-          callback();
-        }
+      if (input !== code) {
+        this.buttonDisabledStatus = true;
+        callback(new Error("验证码不正确"));
+      } else {
+        this.buttonDisabledStatus = false;
+        callback();
+      }
     };
     return {
-      buttonDisabledStatus:true,
+      buttonDisabledStatus: true,
       loading: false,
       account: {
         userName: "",
@@ -124,7 +124,8 @@ export default {
         passWord: [{ required: true, message: "请输入密码", trigger: "blur" }],
         vrifyCode: [
           { required: true, message: "请输入验证码", trigger: "blur" },
-          { validator: validateVrifyCode, trigger: "change" }
+          { validator: validateVrifyCode, trigger: "change" },
+          { validator: validateVrifyCode, trigger: "blur" }
         ]
       }
     };

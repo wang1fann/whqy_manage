@@ -71,7 +71,6 @@ export default {
   },
   destoryed() {
     this.editor.destory();
-    console.log("editor已销毁");
   },
   methods: {
     getUEContent: function() {

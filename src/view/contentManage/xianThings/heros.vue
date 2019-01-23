@@ -167,7 +167,6 @@ export default {
       done();
     },
     getUpdateTime(val) {
-      console.log(val);
       this.searchFormData.updateTime = val;
     },
     // 获取数据
@@ -180,19 +179,12 @@ export default {
           ? this.$route.query.menuId + ""
           : this.$route.name
       };
-      console.log(this.searchFormData);
       config = $.extend(config, this.searchFormData);
       window.sessionStorage.setItem("responseType", "json");
       // 添加查询字段
       // 接口调用
       API.findList(config)
         .then(res => {
-          
-          if (!!res && res.code === 20000 && res.data.total !== 0) {
-            that.data = res.data.rows;
-            that.total = res.data.total;
-            that.searchFormData.updateTime = "";
-          }
           that.$message({
             message:
               !!res && res.data.total === 0
@@ -200,15 +192,18 @@ export default {
                 : res.message,
             type: !!res && res.code === 20000 ? "success" : "warning"
           });
+          if (!!res && res.code === 20000 && res.data.total !== 0) {
+            that.data = res.data.rows;
+            that.total = res.data.total;
+            that.searchFormData.updateTime = "";
+          }
         })
         .catch(err => {
-          console.log(err);
         });
     },
     // 删除
     delete() {
       var that = this;
-      console.log(that.ids);
       API.delAPI({ id: that.ids })
         .then(res => {
           this.ids = null;

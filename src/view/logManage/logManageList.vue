@@ -140,7 +140,6 @@ export default {
     },
     searchFormInit() {
       this.searchFormItem = getSearchField("log", "item");
-      console.log(this.searchFormItem);
       this.searchFormData = getSearchField("log", "data");
     },
     // 提交数据
@@ -198,7 +197,7 @@ export default {
     // 删除
     delete() {
       var _this = this;
-      console.log(_this.ids);
+      
       API.delLog({ id: _this.ids })
         .then(res => {
           this.ids = null;

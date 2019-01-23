@@ -344,19 +344,15 @@ export default {
           this.pageItem[1].formData.tbMenusFilter = [];
           this.pageItem[1].formData.tbMenusFilter.length = 0;
           for (var i = 0; i < permissionArr.length; i++) {
-            console.log(permissionArr[i]);
             if (permissionArr[i].isflag === true) {
               this.pageItem[1].formData.tbMenusFilter.push(permissionArr[i].id);
             }
           }
-          console.log(this.pageItem[1].formData.tbMenusFilter);
         }
       });
     },
     resetAddRights() {
       this._.forEach(this.pageItem[0].formData, function(value, key, item) {
-        console.log(item);
-        console.log(key);
         item[key] = "";
       });
     }

@@ -222,7 +222,6 @@ export default {
       var a = this.formData.imgPath;
       this.formData.imgPath = !!a ? a.replace(/\\/g, "/") : "";
       this.formData.sex = this.formData.sex === "女" ? "2" : "1";
-      console.log(this.formData.permissionId);
       if (!this.formData.permissionId) {
         this.$notify({
           title: "提示",
@@ -391,7 +390,7 @@ export default {
     // 删除
     delete() {
       var _this = this;
-      console.log(_this.ids);
+      
       API.delUser({ id: _this.ids })
         .then(res => {
           this.ids = null;

@@ -27,7 +27,6 @@
       name: 'Register',
       data(){
           var checkAge=(rule,value,callback)=>{
-            // console.log(rule);//{field: "age", fullField: "age", type: "string", validator: ƒ}
             setTimeout(()=>{
                 if(value === ''){
                     callback(new Error("请输入年龄"));
@@ -87,7 +86,6 @@
         methods:{
             handleRegister(formName){
                 this.$refs[formName].validate((valid)=>{
-                    console.log(valid);//验证所有的值，是否都为true
                     if(valid){
                         this.$message.success(
                             {showClose:true,

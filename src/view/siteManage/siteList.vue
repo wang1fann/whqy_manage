@@ -180,7 +180,6 @@ export default {
     // 删除确认
     deleteConfirm(row) {
       var _this = this;
-      console.log(row);
       _this.ids = row.id;
       setTimeout(() => {
         this.$refs.myconfirm.confirm(_this.deleteMenu, "");

@@ -51,7 +51,6 @@ export default {
     getSystemUrl() {
       this.systemUrl = this.$router.options.routes[1].children;
       this.systemUrl = this._.filter(this.systemUrl, { class: "sys" });
-      console.log(this.systemUrl);
     }
   }
 };

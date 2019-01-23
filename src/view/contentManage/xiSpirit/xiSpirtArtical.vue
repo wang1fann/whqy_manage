@@ -206,7 +206,6 @@ export default {
     // 删除
     delete() {
       var that = this;
-      console.log(that.ids);
       API.delAPI({ id: that.ids })
         .then(res => {
           this.$notify({

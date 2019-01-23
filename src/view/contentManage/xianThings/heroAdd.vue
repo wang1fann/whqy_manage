@@ -45,7 +45,6 @@ export default {
   methods: {
     submitcontent(content) {
       this.ticketForm.content = content;
-      console.log(this.ticketForm);
       window.sessionStorage.setItem("responseType", "json");
       API.addAPI(this.ticketForm).then(res => {
           this.$message({
@@ -65,7 +64,6 @@ export default {
     },
     getData() {
       this.ticketForm = this.$route.query;
-      console.log(this.$route.query);
     }
   }
 };

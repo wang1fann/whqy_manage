@@ -6,7 +6,6 @@ export default {
         return API.POST('/syx/file/multipleUpload', params)
     },
     findhongselvyou: params => { //查询列表
-        // http://192.168.0.119:9014/syx/hongselvyou/search/1/2 根据条件搜索接口
         return API.POST('/syx/hongselvyou/search/' + params.page + '/' + params.size, params)
     },
     addFormInfo: params => {
@@ -16,10 +15,6 @@ export default {
             return API.POST('/syx/hongselvyou', params)
         }
     },
-    // addFormInfo: params => {
-    //     // /syx/hongselvyouPinglunbiao 添加文章评论
-    //     return API.POST('/syx/hongselvyouPinglunbiao', params)
-    // },
     // 删除
     delAbstarct: params => {
         return API.DELETE('/syx/hongselvyou/delete', params);

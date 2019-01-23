@@ -177,7 +177,6 @@ export default {
     },
     searchFormInit() {
       this.searchFormItem = getSearchField("link", "item");
-      console.log(this.searchFormItem);
       this.searchFormData = getSearchField("link", "data");
     },
     showDialog() {
@@ -250,7 +249,7 @@ export default {
     // 删除
     delete() {
       var _this = this;
-      console.log(_this.ids);
+      
       API.delLink({ id: _this.ids })
         .then(res => {
           this.ids = null;

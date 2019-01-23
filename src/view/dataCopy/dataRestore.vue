@@ -145,7 +145,6 @@ export default {
   },
   methods: {
     rowClick(row) {
-      console.log(row);
       this.radioRow = row;
     },
     // table字段初始化
@@ -192,7 +191,6 @@ export default {
     // 删除
     delete() {
       var _this = this;
-      console.log(_this.ids);
       API.deldata({ id: _this.ids })
         .then(res => {
           this.ids = null;
@@ -285,8 +283,6 @@ export default {
       let formfile = new FormData(uploadImginput); //拿到表单创建FormData对象；
       formfile.append("menu", "数据还原");
       formfile.append("file", this.formFile[0]);
-      console.log(this.formFile);
-      console.log(formfile);
       API.uploadFile(formfile).then(res => {
         this.$message({
           message: res.message,

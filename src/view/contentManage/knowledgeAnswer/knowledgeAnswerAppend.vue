@@ -334,13 +334,15 @@ export default {
       window.sessionStorage.setItem("responseType", "json");
       API.delTest({ id: deleteTestIdArr })
         .then(res => {
-          console.log(res);
           this.$message({
             message: res.message,
             type: !!res && res.code === 20000 ? "success" : "warning"
           });
           if (!!res && res.code === 20000) {
-            this.findTestbylibraryId();
+            var that = this;
+            setTimeout(function() {
+              that.findTestbylibraryId();
+            }, 1500);
           }
         })
         .catch(err => {
@@ -363,7 +365,6 @@ export default {
           params.libraryid = this.libraryId;
           API.addTest(params)
             .then(res => {
-              console.log(res);
               this.$message({
                 message: res.message,
                 type: !!res && res.code === 20000 ? "success" : "warning"

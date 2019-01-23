@@ -167,7 +167,6 @@ export default {
       done();
     },
     getUpdateTime(val) {
-      console.log(val);
       this.searchFormData.updateTime = val;
     },
     // 获取数据
@@ -180,7 +179,6 @@ export default {
           ? this.$route.query.menuId + ""
           : this.$route.name
       };
-      console.log(this.searchFormData);
       config = $.extend(config, this.searchFormData);
       window.sessionStorage.setItem("responseType", "json");
       // 添加查询字段
@@ -208,7 +206,6 @@ export default {
     // 删除
     delete() {
       var that = this;
-      console.log(that.ids);
       API.delAPI({ id: that.ids })
         .then(res => {
           this.ids = null;

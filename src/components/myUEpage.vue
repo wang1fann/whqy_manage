@@ -12,7 +12,7 @@
       <el-col :span="5">
         <el-upload
           class="avatar-uploader"
-          action="http://192.168.0.110:9104/syx/file/multipleUpload"
+          action="/syx/file/multipleUpload"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
@@ -55,7 +55,7 @@
       <el-col :span="8">
         <el-upload
           class="avatar-uploader"
-          action="http://192.168.0.110:9104/syx/file/multipleUpload"
+          action="/syx/file/multipleUpload"
           :show-file-list="false"
           :on-success="handleAvatarSuccessMp4"
           :before-upload="beforeAvatarUploadMp4"

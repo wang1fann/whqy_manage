@@ -131,7 +131,6 @@ export default {
       return !!o.menuShow;
     });
     bus.$on("setNickName", text => {
-      console.log(text);
       this.user.name = text;
     });
     bus.$on("goto", url => {

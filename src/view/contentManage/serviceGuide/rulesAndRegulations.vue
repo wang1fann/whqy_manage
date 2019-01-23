@@ -43,7 +43,6 @@ export default {
   methods: {
     submitcontent(content) {
       this.ticketForm.content = content;
-      console.log(this.ticketForm);
       window.sessionStorage.setItem("responseType", "json");
       API.addServerInfo(this.ticketForm).then(res => {
         

@@ -159,7 +159,6 @@ export default {
     // 删除
     delete() {
       var _this = this;
-      console.log(_this.ids);
       API.delhongselvyou({ id: _this.ids })
         .then(res => {
           this.ids = null;
