@@ -1,12 +1,17 @@
-
 <template>
-  <el-row class="uepage-container">
+  <el-row
+    class="uepage-container"
+    v-loading="fullscreenLoading"
+  >
     <!-- 上传封面图片 -->
-    <el-row :gutter="24">
+    <el-row
+      :gutter="24"
+      v-show="showImg"
+    >
       <el-col :span="5">
         <el-upload
           class="avatar-uploader"
-          action="http://192.168.0.110:9104/syx/file/multipleUpload"
+          action="/syx/file/multipleUpload"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
@@ -38,58 +43,83 @@
         </div>
       </el-col>
     </el-row>
-    <!-- 上传视频mp4 -->
+    <!-- 上传视频mp4或pdf -->
     <el-row
       :gutter="24"
       v-show="showMp4"
+      v-loading="mp4Loading"
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
     >
-      <el-col :span="5">
+      <el-col :span="8">
         <el-upload
           class="avatar-uploader"
-          action="http://192.168.0.110:9104/syx/file/multipleUpload"
+          action="/syx/file/multipleUpload"
           :show-file-list="false"
           :on-success="handleAvatarSuccessMp4"
           :before-upload="beforeAvatarUploadMp4"
           :auto-upload="true"
           :http-request="uploadMp4"
         >
-          <i class="el-icon-plus avatar-uploader-icon"><span
+          <i class="el-icon-plus avatar-uploader-icon mp4-i"><span
               style="font-size:14px;position: absolute;left: 43px;color:#000;"
               class="alignright"
             >上传视频：</span></i>
-
-          <video
+          <div
             class="my-video"
-            v-if="uploadPath!==''"
-            width="320"
-            height="150"
-            controls
+            v-show="!!uploadPath"
           >
-            <source
+            <video
+              ref='mp4video'
               :src="uploadPath"
-              type="video/mp4"
-            ></video>
+              width="320"
+              height="150"
+              controls
+            >
+              您的浏览器不支持 video元素。</video>
+          </div>
         </el-upload>
       </el-col>
-      <el-col :span="19">
+      <el-col :span="16">
         <div
           class="alignleft"
           style="margin-top: 22px;"
         >
           <span>点击左图上传视频</span><br />
           <span class="spec">要求：</span><br />
-          <span>1.视频格式 MP4 </span><br />
+          <span>1.视频格式Mp4、WebM、Ogg等</span><br />
         </div>
       </el-col>
     </el-row>
+    <!--scenicSpotName  -->
     <el-row
       class="info"
       :gutter="24"
+      v-show="showScenicSpotName"
     >
       <el-col
         :span="2"
         class="alignright"
-        v-if="showTitle!==false"
+      >
+        标题：
+      </el-col>
+      <el-col :span="22">
+        <el-input
+          placeholder="请输入标题"
+          v-model="Form.scenicSpotName"
+        >
+        </el-input>
+      </el-col>
+    </el-row>
+    <!-- title -->
+    <el-row
+      class="info"
+      :gutter="24"
+      v-show="showTitle"
+    >
+      <el-col
+        :span="2"
+        class="alignright"
       >
         标题：
       </el-col>
@@ -252,10 +282,6 @@
         文章内容：
       </el-col>
       <el-col :span="22">
-        <!-- <UE
-          :defaultMsg="Form.content"
-          ref="ue"
-        ></UE> -->
         <UE
           @ready="editorReady"
           ref="ue"
@@ -274,15 +300,7 @@
     </el-row>
   </el-row>
 </template>
-<style>
-.info {
-  border-radius: 10px;
-  line-height: 20px;
-  padding: 10px;
-  margin: 10px;
-  background-color: #ffffff;
-}
-</style>
+
 <script>
 import UE from "@/components/myEdit";
 import API from "@/api/api_user.js";
@@ -313,11 +331,19 @@ export default {
       type: Boolean,
       default: false
     },
+    showImg: {
+      type: Boolean,
+      default: true
+    },
     showLinkUrl: {
       type: Boolean,
       default: false
     },
     showLinkName: {
+      type: Boolean,
+      default: false
+    },
+    showScenicSpotName: {
       type: Boolean,
       default: false
     },
@@ -344,12 +370,15 @@ export default {
   },
   data() {
     return {
+      mp4Loading: false,
+      fullscreenLoading: false,
+
       defaultMSG: null,
       config: {
         BaseUrl: "",
         UEDITOR_HOME_URL: "static/ueditor/",
         initialFrameWidth: null,
-        initialFrameHeight: 350
+        initialFrameHeight: 600
       },
 
       imgPath: "",
@@ -378,8 +407,15 @@ export default {
       }
     };
   },
-  created() {},
+  created() {
+    this.getData();
+  },
   methods: {
+    getData() {
+      this.uploadPath = !!this.$route.query.uploadPath
+        ? this.$route.query.uploadPath
+        : "";
+    },
     editorReady(instance) {
       var that = this;
       setTimeout(function() {
@@ -419,9 +455,10 @@ export default {
     },
     // 检测上传视频格式MP4
     beforeAvatarUploadMp4(file) {
-      const isMp4 = file.type === "video/mp4";
+      console.log(file.type);
+      const isMp4 = file.type === "video/mp4" || "video/webm" || "video/ogg";
       if (!isMp4) {
-        this.$message.error("上传视频只能是 Mp4 格式!");
+        this.$message.error("上传视频只能是 Mp4、webm、ogg格式!");
       }
       if (!isMp4) {
         return isMp4;
@@ -431,19 +468,19 @@ export default {
     // 上传头像
     handleAvatarSuccess(res, file) {
       this.imgPath = URL.createObjectURL(file.raw);
-      this.formData.imgPath = this.imgPath;
     },
     // 上传视频
-    handleAvatarSuccessMp4() {
-      // this.imgPath = URL.createObjectURL(file.raw);
-      this.mp4Data.imgPath = this.imgPath;
+    handleAvatarSuccessMp4(res, file) {
+      this.uploadPath = URL.createObjectURL(file.raw);
     },
     uploadUserImg() {
       var form = new FormData();
       form.append("menu", this.imgData.menu);
       form.append("file", this.imgData.file);
       window.sessionStorage.setItem("responseType", "form");
+      this.fullscreenLoading = true;
       API.uploadUserImg(form).then(res => {
+        this.fullscreenLoading = false;
         if (!!res && res.code === 20000) {
           this.imgPath = !!res.data ? res.data[0] : "";
           this.$emit("imgPath", this.imgPath);
@@ -460,37 +497,51 @@ export default {
       form.append("menu", this.mp4Data.menu);
       form.append("file", this.mp4Data.file);
       window.sessionStorage.setItem("responseType", "form");
+      this.mp4Loading = true;
       API.uploadUserImg(form).then(res => {
+        this.mp4Loading = false;
+        window.sessionStorage.setItem("responseType", "json");
         if (!!res && res.code === 20000) {
           this.uploadPath = !!res.data ? res.data[0] : "";
+          this.$refs.mp4video.src = this.uploadPath;
           this.$emit("uploadPath", this.uploadPath);
         }
         this.$message({
           message: res.message,
           type: res.code === 20000 ? "success" : "error"
         });
-        window.sessionStorage.setItem("responseType", "json");
       });
     }
   }
 };
 </script>
+
 <style lang="scss" scoped>
 .uepage-container {
+  .info {
+    border-radius: 10px;
+    line-height: 20px;
+    padding: 10px;
+    margin: 10px;
+    background-color: #ffffff;
+  }
   i.el-icon-plus.avatar-uploader-icon {
-    border: 1px dashed #d9d9d9;
     font-size: 28px;
     color: #8c939d;
     width: 140px;
     height: 140px;
     line-height: 140px;
     text-align: center;
+    border: 1px dashed #d9d9d9;
     margin-bottom: 10px;
   }
+  i.el-icon-plus.avatar-uploader-icon.mp4-i {
+    width: 320px;
+  }
   .avatar {
-    width: 140px;
+    max-width: 140px;
     height: 140px;
-    left: 140px;
+    left: 138px;
     top: 0px;
     position: absolute;
   }
@@ -498,7 +549,7 @@ export default {
     text-align: left;
     margin-left: 125px;
   }
-  .video {
+  .my-video {
     position: absolute;
     top: 0px;
     left: 138px;

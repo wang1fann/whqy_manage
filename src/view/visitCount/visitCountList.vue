@@ -116,12 +116,12 @@ export default {
       var today = new Date();
       var searchParamsDay = {
         startHour: this.dateFtt(today, "yyyy-MM-dd") + " 00:00:00",
-        endHour: this.getNowFormatDate(),
+        endHour: this.getNowFormatDate(null, "00", "00"),
         type: this.dateType
       };
       var searchParamsMonth = {
         startDay: this.perMonthtDate(),
-        endDay: this.getNowFormatDate(),
+        endDay: this.getNowFormatDate("00", "00", "00"),
         type: this.dateType
       };
       this.fullscreenLoading = true;

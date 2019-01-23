@@ -141,7 +141,7 @@ export function dateFtt(date, fmt) {
  * 获取当前时间
  * 格式YYYY-MM-DD 00:00:00
  */
-export function getNowFormatDate(value) {
+export function getNowFormatDate(heroZero, minuteZero, secondZero) {
     // let date = new Date(!!value ? value : null);
     let date = new Date();
     let y = date.getFullYear();
@@ -158,6 +158,9 @@ export function getNowFormatDate(value) {
     if (h == '00') {
         h = 11;
     }
+    h = heroZero == "00" ? "00" : h;
+    m = minuteZero == "00" ? '00' : m;
+    s = secondZero == "00" ? '00' : m;
     return y + '-' + MM + '-' + d + ' ' + h + ':' + m + ':' + s;
 };
 // 获取系统当前时间的上个月时间
@@ -189,8 +192,8 @@ export function perMonthtDate() {
     }
 
     var currentdate = year + seperator1 + month + seperator1 + strDate +
-        " " + strHours + seperator2 + strMinutes +
-        seperator2 + strSeconds;
+        " " + "00" + seperator2 + "00" +
+        seperator2 + "00";
     return currentdate;
 }
 

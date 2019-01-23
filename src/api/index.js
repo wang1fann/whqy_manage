@@ -20,7 +20,9 @@ axios.defaults.headers.common['Authorization'] = window.sessionStorage.getItem('
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'; //配置请求头application/x-www-form-urlencoded;
 
 axios.defaults.timeout = 100000; //设置请求过期时间
-axios.defaults.baseURL = 'http://192.168.0.107:9014';
+// axios.defaults.baseURL = 'http://192.168.0.107:9014';
+axios.defaults.baseURL = 'http://47.105.196.90:9014';
+
 // axios.defaults.baseURL = 'http://192.168.0.105:9014'; //lili
 // axios.defaults.baseURL = 'http://192.168.0.103:9014'; //lili
 // axios.defaults.baseURL = 'http://192.168.0.109:9014'; //zhenyang

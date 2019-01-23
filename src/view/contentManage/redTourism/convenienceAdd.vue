@@ -104,9 +104,12 @@
         label="内容："
         prop="content"
       >
-        <UE
-          :defaultMsg="ruleForm.content"
+          <UE
+          @ready="editorReady"
           ref="ue"
+          :value="defaultMSG"
+          :ueditorConfig="config"
+          style="width:100%;"
         ></UE>
       </el-form-item>
       <el-form-item class="margintop10">
@@ -129,6 +132,13 @@ export default {
   data() {
     return {
       imgData: {},
+       defaultMSG: null,
+      config: {
+        BaseUrl: "",
+        UEDITOR_HOME_URL: "static/ueditor/",
+        initialFrameWidth: null,
+        initialFrameHeight: 600
+      },
       ruleForm: {
         scenicSpotName: "sss",
         openTime: "",
@@ -158,10 +168,20 @@ export default {
     this.getUpdate();
   },
   methods: {
+     editorReady(instance) {
+      var that = this;
+      setTimeout(function() {
+        !!that.ruleForm.content
+          ? instance.setContent(that.ruleForm.content)
+          : instance.placeholder("请输入。。。");
+        instance.addListener("contentChange", () => {
+          that.ruleForm.content = instance.getContent();
+        });
+      }, 300);
+    },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.ruleForm.content = this.$refs.ue.getUEContent();
           API.addhongselvyou(this.ruleForm).then(res => {
             this.$message({
               message: res.message,

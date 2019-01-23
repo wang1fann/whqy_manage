@@ -104,7 +104,6 @@ export default {
   },
   mounted() {
     this.getData();
-    this.getReplyTotal();
   },
   methods: {
     getReplyTotal(total) {

@@ -24,8 +24,8 @@ export default {
         return {
           BaseUrl: "",
           UEDITOR_HOME_URL: "static/ueditor/",
-          initialFrameWidth: null,
-          initialFrameHeight: 350
+           initialFrameWidth: null,
+          initialFrameHeight: 600
         };
       }
     }

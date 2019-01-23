@@ -190,17 +190,12 @@
         }, {
             "type": "date",
             "name": "signTime",
-            "placeholder": "上传日期",
+            "placeholder": "签到日期",
             "value": "",
             "width": "100%",
-            "label": "上传日期:",
+            "label": "签到日期",
             "show": true,
-            "format": "yyyy-MM-dd",
-            "rules": [{
-                "required": true,
-                "message": "上传日期",
-                "trigger": "blur"
-            }]
+            "format": "yyyy-MM-dd"
         }],
         "data": {
             "userName": "",

@@ -39,10 +39,10 @@ export default {
           img: require("@/assets/img/system/png3.png")
         },
         {
-          img: require("@/assets/img/system/png2.png")
+          img: require("@/assets/img/system/png1.png")
         },
         {
-          img: require("@/assets/img/system/png1.png")
+          img: require("@/assets/img/system/png2.png")
         }
       ]
     };
