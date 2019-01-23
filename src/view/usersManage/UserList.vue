@@ -341,7 +341,7 @@ export default {
           this.$notify({
             title: "提示",
             message: res.message,
-            type: "warning"
+            type: !!res && res.code === 20011 ? "warning" : "success"
           });
           if (!!res && res.code === 20011) {
             //登录已过期
@@ -384,15 +384,19 @@ export default {
     // 删除
     delete() {
       var _this = this;
-      
       API.delUser({ id: _this.ids })
         .then(res => {
           this.ids = null;
           this.$message({
             message: res.message,
-            type: res.code === 20000 ? "success" : "error"
+            type: !!res && res.code === 20000 ? "success" : "warning"
           });
-          this.getData();
+          if (!!res && res.code === 20000) {
+            var that = this;
+            setTimeout(function() {
+              that.getData();
+            }, 1500);
+          }
         })
         .catch(err => {
           this.$message({

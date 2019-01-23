@@ -31,11 +31,6 @@
                 "options": [{
                     "value": "全部",
                     "label": ""
-                }],
-                "rules": [{
-                    "required": true,
-                    "message": "请选择用户类型",
-                    "trigger": "blur"
                 }]
             }, {
                 "type": "select",
@@ -50,11 +45,6 @@
                 "options": [{
                     "value": "全部",
                     "label": ""
-                }],
-                "rules": [{
-                    "required": true,
-                    "message": "请选择用户来源",
-                    "trigger": "blur"
                 }]
             }
         ],
@@ -118,12 +108,7 @@
                 "width": "100%",
                 "label": "用户名",
                 "show": true,
-                "options": [],
-                "rules": [{
-                    "required": true,
-                    "message": "请填写用户名",
-                    "trigger": "blur"
-                }]
+                "options": []
             },
             {
                 "type": "select",
@@ -138,11 +123,6 @@
                 "options": [{
                     "value": "全部",
                     "label": ""
-                }],
-                "rules": [{
-                    "required": true,
-                    "message": "请选择用户类型",
-                    "trigger": "blur"
                 }]
             },
             {
@@ -159,11 +139,6 @@
                     "value": "0",
                     "label": "全部",
                     "id": "0"
-                }],
-                "rules": [{
-                    "required": true,
-                    "message": "请选择科室名称",
-                    "trigger": "blur"
                 }]
             }
         ],
