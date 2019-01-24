@@ -217,13 +217,6 @@
             "fixed": false,
             "sortable": false,
             "show": true
-        }, {
-            "prop": "content",
-            "label": "内容",
-            "width": "auto",
-            "fixed": false,
-            "sortable": false,
-            "show": false
         }
     ],
     "redEducation": [{
@@ -241,13 +234,6 @@
             "fixed": false,
             "sortable": false,
             "show": true
-        }, {
-            "prop": "content",
-            "label": "内容",
-            "width": "auto",
-            "fixed": false,
-            "sortable": false,
-            "show": false
         }
     ],
     "classicRouterList": [{
@@ -319,13 +305,6 @@
             "fixed": false,
             "sortable": false,
             "show": true
-        }, {
-            "prop": "content",
-            "label": "内容",
-            "width": "auto",
-            "fixed": false,
-            "sortable": false,
-            "show": false
         },
         {
             "prop": "createTime",
@@ -374,13 +353,6 @@
             "fixed": false,
             "sortable": false,
             "show": true
-        }, {
-            "prop": "content",
-            "label": "内容",
-            "width": "auto",
-            "fixed": false,
-            "sortable": false,
-            "show": true
         }
     ],
     "huaIntroduction": [{
@@ -421,18 +393,11 @@
             "fixed": false,
             "sortable": false,
             "show": true
-        }, {
-            "prop": "content",
-            "label": "内容",
-            "width": "auto",
-            "fixed": false,
-            "sortable": false,
-            "show": false
         }
     ],
     "visitMessage": [{
             "prop": "userName",
-            "label": "用户名",
+            "label": "用户",
             "width": "auto",
             "fixed": false,
             "sortable": false,

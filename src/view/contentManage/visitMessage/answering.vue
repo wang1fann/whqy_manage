@@ -106,11 +106,6 @@ export default {
     this.getData();
   },
   methods: {
-    getReplyTotal(total) {
-      API.getReplyTotal().then(res => {
-        this.total = !!res && res.code === 20000 ? res.data : 0;
-      });
-    },
     gotoUrl(path, query) {
       this.$router.push({
         path: !!path ? path : "",
@@ -148,11 +143,12 @@ export default {
       // 接口调用
       API.findMessageReply(config)
         .then(res => {
-          if (!!res && res.code === 20000) {
+          if (!!res && res.code === 20000 && !!res.data) {
             this.data = res.data;
+            this.total = !res.data[0] ? 0 : res.data[0].countNum;
           }
           this.$message({
-            message: res.message,
+            message: this.total === 0 ? "暂无相关数据！" : res.message,
             type: !!res && res.code === 20000 ? "success" : "warning"
           });
         })
@@ -168,12 +164,10 @@ export default {
     handleCurrentChange(index) {
       this.currentPage = index;
       this.getData();
-      this.getReplyTotal();
     },
     // 搜索
     searchSubmit() {
       this.getData();
-      this.getReplyTotal();
     }
   }
 };

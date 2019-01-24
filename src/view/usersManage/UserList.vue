@@ -343,16 +343,6 @@ export default {
             message: res.message,
             type: !!res && res.code === 20011 ? "warning" : "success"
           });
-          if (!!res && res.code === 20011) {
-            //登录已过期
-            sessionStorage.removeItem("access-user");
-            sessionStorage.removeItem("token");
-            var that = this;
-            setTimeout(function() {
-              that.$router.push({ path: "/login" });
-            }, 2000);
-            return;
-          }
           if (!!res && res.code === 20000) {
             for (var i = 0; i < res.data.rows.length; i++) {
               res.data.rows[i].sex = res.data.rows[i].sex === "2" ? "女" : "男";
@@ -365,9 +355,9 @@ export default {
               //用户来源 1.pc  2.ios  3.安卓 4.未识别
               res.data.rows[i].deviceType =
                 res.data.rows[i].deviceType === "1"
-                  ? "PC"
+                  ? "pc"
                   : res.data.rows[i].deviceType === "2"
-                  ? "IOS"
+                  ? "ios"
                   : res.data.rows[i].deviceType === "3"
                   ? "android"
                   : "--";

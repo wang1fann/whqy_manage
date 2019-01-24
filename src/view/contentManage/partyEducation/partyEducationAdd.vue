@@ -10,15 +10,6 @@
     ></my-uepage>
   </el-row>
 </template>
-<style>
-.info {
-  border-radius: 10px;
-  line-height: 20px;
-  padding: 10px;
-  margin: 10px;
-  background-color: #ffffff;
-}
-</style>
 <script>
 import API from "@/api/api_dangxingjiaoyu";
 import myUEpage from "@/components/myUEpage";
@@ -33,6 +24,8 @@ export default {
         author: "",
         menuId: this.$route.query.menuId + "",
         description: "",
+        downloadPath: "",
+        uploadPath: "",
         content: ""
       }
     };
@@ -75,6 +68,7 @@ export default {
     getData() {
       this.ticketForm = this.$route.query;
     }
+
   }
 };
 </script>

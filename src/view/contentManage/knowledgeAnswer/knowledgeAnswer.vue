@@ -208,16 +208,6 @@ export default {
           message: res.total === 0 ? "暂无数据" : res.message,
           type: !!res && res.code === 20000 ? "success" : "warning"
         });
-        if (!!res && res.code === 20011) {
-          //登录已过期
-          sessionStorage.removeItem("access-user");
-          sessionStorage.removeItem("token");
-          var that = this;
-          setTimeout(function() {
-            that.$router.push({ path: "/login" });
-          }, 2000);
-          return;
-        }
         if (!!res && res.code === 20000) {
           var that = this;
           setTimeout(function() {

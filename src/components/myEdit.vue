@@ -24,7 +24,9 @@ export default {
         return {
           BaseUrl: "",
           UEDITOR_HOME_URL: "static/ueditor/",
-           initialFrameWidth: null,
+          enableAutoSave: false, //禁止自动保存
+          autoSyncData: false, //自动同步编辑器要提交的数据
+          initialFrameWidth: null,
           initialFrameHeight: 600
         };
       }

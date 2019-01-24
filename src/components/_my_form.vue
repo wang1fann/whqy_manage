@@ -50,6 +50,7 @@
             v-else
             class="el-icon-plus avatar-uploader-icon"
           ><span style="font-size:14px;position: absolute;left: 0px;">上传图片:</span></i>
+           <div class="el-upload__text">上传图片说明：格式支持 .jpg .jpeg .png等</div>
         </el-upload>
         <template v-for="(item, index) in formItem">
           <el-col
@@ -146,7 +147,7 @@
                 ></el-option>
               </el-select>
               <!-- 复选框 -->
-                <!-- @change="handleCheckedCitiesChange" -->
+              <!-- @change="handleCheckedCitiesChange" -->
               <el-checkbox-group
                 v-else-if="item.type=='checkbox'"
                 v-model="formData[item.name]"
@@ -406,16 +407,20 @@ export default {
       this.formData.imgPath = this.imgPath;
     },
     beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
+      // console.log(file);
+      const isJPG =
+        file.type === "image/jpeg" ||
+        file.type === "image/png" ||
+        file.type === "image/JPG";
+      const isLt20M = file.size / 1024 / 1024 < 20;
       if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
+        this.$message.error("上传图片只能是 jpg 、jpeg、png格式!");
       }
-      if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
+      if (!isLt20M) {
+        this.$message.error("上传图片大小不能超过20MB!");
       }
-      if (!isJPG || !isLt2M) {
-        return isJPG && isLt2M;
+      if (!isJPG || !isLt20M) {
+        return isJPG && isLt20M;
       }
       this.imgData.file = file;
     },

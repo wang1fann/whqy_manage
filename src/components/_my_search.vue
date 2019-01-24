@@ -11,6 +11,7 @@
       <el-form-item
         v-if="item.type == 'select' && item.show"
         :key="index"
+        :prop="item.name"
         :rules="item.rules"
         :label="item.label"
       >
@@ -33,6 +34,7 @@
         v-else-if="item.type == 'text' && item.show"
         :key="index"
         :rules="item.rules"
+        :prop="item.name"
         :label="item.label+':'"
       >
         <el-input
@@ -49,8 +51,6 @@
         v-else-if="item.type ==='checkbox'"
         :key="index"
       >
-        <!-- <span>{{formData}}</span> -->
-        <!-- <span>{{formData[item.name]}}</span> -->
         <el-checkbox-group
           v-model="formData[item.name]"
           :style="'width: ' + (item.width ? item.width : '100%')"

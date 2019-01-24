@@ -3,72 +3,77 @@
   <el-row class="components-container">
     <my-uepage
       :Form="ticketForm"
-      :showMp4="true"
       :defaultMsg="ticketForm.content"
+      :showAuthor="true"
+      :showMp4="true"
+      :showDownloadPath="true"
       @submit="submitcontent"
       @imgPath="getImgPath"
       @uploadPath="getMp4Path"
     ></my-uepage>
   </el-row>
 </template>
-<style>
-.info {
-  border-radius: 10px;
-  line-height: 20px;
-  padding: 10px;
-  margin: 10px;
-  background-color: #ffffff;
-}
-</style>
 <script>
-import API from "@/api/api_weihuajiangtang";
+import API from "@/api/api_dangxingjiaoyu";
 import myUEpage from "@/components/myUEpage";
 export default {
+  name: "partyEducationAdd",
   components: { "my-uepage": myUEpage },
   data() {
     return {
       ticketForm: {
         title: "",
         imgPath: "",
-        menuId: !!this.$route.query.menuId
-          ? this.$route.query.menuId + ""
-          : this.$route.name,
+        author: "",
+        menuId: this.$route.query.menuId + "",
         description: "",
-        content: "",
-        uploadPath: ""
+        downloadPath: "",
+        uploadPath: "",
+        content: ""
       }
     };
   },
   created() {
-    this.getUpdate();
+    this.getData();
   },
+  mounted() {},
   methods: {
     submitcontent(content) {
       this.ticketForm.content = content;
       window.sessionStorage.setItem("responseType", "json");
-      API.addServerInfo(this.ticketForm).then(res => {
-        this.$message({
-          type: !!res && res.code === 20000 ? "success" : "warning",
-          message: res.message
+      API.addAPI(this.ticketForm).then(res => {
+        this.$notify({
+          title: "提示",
+          message: res.message,
+          type: !!res && res.code === 20000 ? "success" : "warning"
         });
+        if (!!res && res.code === 20011) {
+          //登录已过期
+          sessionStorage.removeItem("access-user");
+          sessionStorage.removeItem("token");
+          var that = this;
+          setTimeout(function() {
+            that.$router.push({ path: "/login" });
+          }, 2000);
+          return;
+        }
         if (!!res && res.code === 20000) {
           var that = this;
           setTimeout(function() {
             that.$router.go(-1);
-          }, 1000);
+          }, 1500);
         }
       });
     },
     getImgPath(val) {
       this.ticketForm.imgPath = !!val ? val.replace(/\\/g, "/") : "";
     },
+    getData() {
+      this.ticketForm = this.$route.query;
+    },
     getMp4Path(val) {
       this.ticketForm.uploadPath = !!val ? val.replace(/\\/g, "/") : "";
-    },
-    getUpdate() {
-      this.ticketForm = !!this.$route.query
-        ? this.$route.query
-        : this.ticketForm;
+      this.ticketForm.downloadPath = !!val ? val.replace(/\\/g, "/") : "";
     }
   }
 };

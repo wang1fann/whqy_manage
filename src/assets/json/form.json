@@ -56,7 +56,7 @@
                     "trigger": "blur"
                 }, {
                     "min": 6,
-                    "message": "密码最少6个字符",
+                    "message": "密码长度不能小于6位",
                     "trigger": "blur"
                 }]
             },

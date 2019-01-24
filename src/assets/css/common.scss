@@ -23,6 +23,10 @@ $width80:80%;
     top: 25%;
 }
 
+.fontsize10 {
+    font-size: 10px;
+}
+
 .fontsize11 {
     font-size: 11px;
 }
@@ -177,6 +181,11 @@ input.el-input__inner {
     background: #eb5e5f;
     border-color: #eb5e5f;
     color: #fff;
+}
+
+.el-message-box button.el-button.el-button--default.el-button--small {
+    background: #eb5e5f;
+    border: 1px solid #eb5e5f;
 }
 
 .el-button--primary.is-disabled:active,

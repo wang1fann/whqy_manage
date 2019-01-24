@@ -340,9 +340,10 @@ export default {
       this.$emit("handleCurrentChange", index);
     },
     checkboxInit(row, index) {
-      if (row.username === "admin") return 0;
+      // if (row.username === "admin") return 0;
       //不可勾选
-      else return 1; //可勾选
+      // else return 1; //可勾选
+      return 1;
     },
     setDisabled(row, btn) {
       var flag = false;

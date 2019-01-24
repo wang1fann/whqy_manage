@@ -2,6 +2,7 @@
  * Created 2018.12.11
  */
 import axios from 'axios'
+import { Loading, Message } from 'element-ui'
 import {
     bus
 } from '../bus.js'
@@ -20,15 +21,16 @@ axios.defaults.headers.common['Authorization'] = window.sessionStorage.getItem('
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'; //配置请求头application/x-www-form-urlencoded;
 
 axios.defaults.timeout = 100000; //设置请求过期时间
-// axios.defaults.baseURL = 'http://192.168.0.107:9014';
-axios.defaults.baseURL = 'http://47.105.196.90:9014';
+axios.defaults.baseURL = 'http://192.168.0.107:9014';
+// axios.defaults.baseURL = 'http://47.105.196.90:9014';
 
 // axios.defaults.baseURL = 'http://192.168.0.105:9014'; //lili
 // axios.defaults.baseURL = 'http://192.168.0.103:9014'; //lili
-// axios.defaults.baseURL = 'http://192.168.0.109:9014'; //zhenyang
+// axios.defaults.baseURL = 'http://192.168.0.110:9014'; //zhenyang
 // axios.defaults.baseURL = 'http://192.168.0.119:9014'; //lihao 
 // http request 拦截器，通过这个，我们就可以把Cookie传到后台
 // 请求拦截器
+// var loadinginstace;
 axios.interceptors.request.use(
     config => {
         const responseType = sessionStorage.getItem('responseType');
@@ -52,51 +54,25 @@ axios.interceptors.request.use(
                 'token': window.token
             };
         }
+        // loadinginstace = Loading.service({ fullscreen: true, text: "正在拼命加载中...", target: "content-container" })
         return config;
     },
     err => {
         return Promise.reject(err);
     }
 );
+// http响应拦截器
+axios.interceptors.response.use(data => { // 响应成功关闭loading
+    // loadinginstace.close()
+    return data
+}, error => {
+    // loadinginstace.close()
+    Message.error({
+        message: '加载失败'
+    })
+    return Promise.reject(error)
+});
 
-// 相应拦截器
-// http response 拦截器
-// axios.interceptors.response.use(
-//     response => {
-//         //response.data.errCode是我接口返回的值，如果值为2，说明Cookie丢失，然后跳转到登录页，这里根据大家自己的情况来设定
-//         if (response.data.errCode == 2) {
-//             router.push({
-//                 path: '/login',
-//                 query: { redirect: router.currentRoute.fullPath } //从哪个页面跳转
-//             })
-//         }
-//         return response;
-//     },
-//     error => {
-//         return Promise.reject(error.response.data)
-//     });
-
-//添加一个请求拦截器
-// axios.interceptors.request.use(function(config) {
-//     return config;
-// }, function(error) {
-//     // Do something with request error
-//     return Promise.reject(error);
-// });
-
-// 添加一个响应拦截器
-// axios.interceptors.response.use(function(response) {
-//     if (response.data && response.data.errcode) {
-//         if (parseInt(response.data.errcode) === 40001) {
-//             //未登录
-//             bus.$emit('goto', '/login')
-//         }
-//     }
-//     return response;
-// }, function(error) {
-//     // Do something with response error
-//     return Promise.reject(error);
-// });
 
 //基地址
 let base = ''; //接口代理地址参见：config/index.js中的proxyTable配置
@@ -104,7 +80,6 @@ let base = ''; //接口代理地址参见：config/index.js中的proxyTable配�
 //通用方法
 export const POST = (url, params) => {
     return new Promise((resolve, reject) => {
-
         axios.post(`${base}${url}`, params).then(res => {
             resolve(res.data);
         }, err => {

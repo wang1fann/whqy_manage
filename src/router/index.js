@@ -480,9 +480,21 @@ let contentRouter = [{
             {
                 id: "",
                 path: 'partyEducationAdd',
-                name: '党性教育-添加',
+                name: '党性教育-添加/编辑',
                 component: resolve => {
                     require(['view/contentManage/partyEducation/partyEducationAdd'], resolve)
+                },
+                class: 'fa-line-chart',
+                img: require('@/assets/img/access/user.png'),
+                children: [],
+                show: false
+            },
+            {
+                id: "",
+                path: 'classicAdd',
+                name: '经典著作-添加/编辑',
+                component: resolve => {
+                    require(['view/contentManage/partyEducation/classicAdd'], resolve)
                 },
                 class: 'fa-line-chart',
                 img: require('@/assets/img/access/user.png'),

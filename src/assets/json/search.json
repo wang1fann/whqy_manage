@@ -153,8 +153,8 @@
             "type": "text",
             "name": "userName",
             "value": "",
-            "placeholder": "请输入用户名",
-            "label": "用户名",
+            "placeholder": "请输入用户",
+            "label": "用户",
             "width": "100%",
             "show": true
         }, {
@@ -183,8 +183,8 @@
             "type": "text",
             "name": "userName",
             "value": "",
-            "placeholder": "请输入用户名",
-            "label": "用户名",
+            "placeholder": "请输入用户",
+            "label": "用户",
             "width": "100%",
             "show": true
         }, {

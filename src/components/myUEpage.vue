@@ -38,11 +38,12 @@
           <span>点击左图上传封面图片</span><br />
           <span class="spec">要求：</span><br />
           <span>1.建议图片比例 3:1</span><br />
-          <span>2.图片大小 10MB以下</span><br />
-          <span>3.图片格式 .jpg、.png、.gif等 </span><br />
+          <span>2.图片大小 20MB以下</span><br />
+          <span>3.图片格式 .jpg、.jpeg、.png等 </span><br />
         </div>
       </el-col>
     </el-row>
+    <!-- 上传视频mp4或pdf -->
     <!-- 上传视频mp4或pdf -->
     <el-row
       :gutter="24"
@@ -61,22 +62,45 @@
           :auto-upload="true"
           :http-request="uploadMp4"
         >
-          <i class="el-icon-plus avatar-uploader-icon mp4-i"><span
+          <i
+            v-if="showDownloadPath==false"
+            class="el-icon-plus avatar-uploader-icon mp4-i"
+          ><span
               style="font-size:14px;position: absolute;left: 43px;color:#000;"
               class="alignright"
             >上传视频：</span></i>
-          <div
-            class="my-video"
-            v-show="!!uploadPath"
-          >
-            <video
-              ref='mp4video'
-              :src="uploadPath"
-              width="320"
-              height="150"
-              controls
+          <i
+            v-if="showDownloadPath==true"
+            class="el-icon-plus avatar-uploader-icon mp4-i"
+          ><span
+              style="font-size:14px;position: absolute;left: 43px;color:#000;"
+              class="alignright"
+            >上传文件：</span></i>
+          <div v-if="showDownloadPath==false">
+            <div
+              class="my-video"
+              v-show="!!uploadPath"
             >
-              您的浏览器不支持 video元素。</video>
+              <video
+                ref='mp4video'
+                :src="uploadPath"
+                width="320"
+                height="150"
+                controls
+              >
+                您的浏览器不支持 video元素。</video>
+            </div>
+          </div>
+          <div v-if="showDownloadPath==true">
+            <div
+              class="my-video"
+              v-if="!!downloadPath"
+            >
+              <pdf
+                :src="downloadPath"
+                :page="1"
+              ></pdf>
+            </div>
           </div>
         </el-upload>
       </el-col>
@@ -84,10 +108,20 @@
         <div
           class="alignleft"
           style="margin-top: 22px;"
+          v-if="showDownloadPath==false"
         >
           <span>点击左图上传视频</span><br />
           <span class="spec">要求：</span><br />
           <span>1.视频格式Mp4、WebM、Ogg等</span><br />
+        </div>
+        <div
+          class="alignleft"
+          style="margin-top: 22px;"
+          v-if="showDownloadPath==true"
+        >
+          <span>点击左图上传pdf文件</span><br />
+          <span class="spec">要求：</span><br />
+          <span>1.文件格式：pdf</span><br />
         </div>
       </el-col>
     </el-row>
@@ -286,7 +320,6 @@
           @ready="editorReady"
           ref="ue"
           :value="defaultMSG"
-          :ueditorConfig="config"
           style="width:100%;"
         ></UE>
       </el-col>
@@ -303,9 +336,10 @@
 
 <script>
 import UE from "@/components/myEdit";
+import pdf from "vue-pdf";
 import API from "@/api/api_user.js";
 export default {
-  components: { UE },
+  components: { UE, pdf },
   props: {
     Form: {
       type: Object,
@@ -328,6 +362,10 @@ export default {
       }
     },
     showMp4: {
+      type: Boolean,
+      default: false
+    },
+    showDownloadPath: {
       type: Boolean,
       default: false
     },
@@ -372,17 +410,10 @@ export default {
     return {
       mp4Loading: false,
       fullscreenLoading: false,
-
       defaultMSG: null,
-      config: {
-        BaseUrl: "",
-        UEDITOR_HOME_URL: "static/ueditor/",
-        initialFrameWidth: null,
-        initialFrameHeight: 600
-      },
-
       imgPath: "",
       uploadPath: "",
+      downloadPath: "",
       mp4Data: {
         file: {
           type: File,
@@ -415,6 +446,9 @@ export default {
       this.uploadPath = !!this.$route.query.uploadPath
         ? this.$route.query.uploadPath
         : "";
+      this.downloadPath = !!this.$route.query.downloadPath
+        ? this.$route.query.downloadPath
+        : "";
     },
     editorReady(instance) {
       var that = this;
@@ -440,28 +474,42 @@ export default {
       }
     },
     beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg" || "png" || "gif";
-      const isLt10M = file.size / 1024 / 1024 < 10;
+      // console.log(file);
+      const isJPG =
+        file.type === "image/jpeg" ||
+        file.type === "image/png" ||
+        file.type === "image/JPG";
+      const isLt20M = file.size / 1024 / 1024 < 20;
       if (!isJPG) {
-        this.$message.error("上传图片只能是 jpg 、png格式!");
+        this.$message.error("上传图片只能是 jpg、jpeg 、png格式!");
       }
-      if (!isLt10M) {
-        this.$message.error("上传图片大小不能超过 10MB!");
+      if (!isLt20M) {
+        this.$message.error("上传图片大小不能超过20MB!");
       }
-      if (!isJPG || !isLt10M) {
-        return isJPG && isLt10M;
+      if (!isJPG || !isLt20M) {
+        return isJPG && isLt20M;
       }
       this.imgData.file = file;
     },
     // 检测上传视频格式MP4
     beforeAvatarUploadMp4(file) {
-      console.log(file.type);
-      const isMp4 = file.type === "video/mp4" || "video/webm" || "video/ogg";
-      if (!isMp4) {
-        this.$message.error("上传视频只能是 Mp4、webm、ogg格式!");
+      console.log(this.showDownloadPath);
+      var isMp4;
+      if (!!this.showDownloadPath) {
+         isMp4 = file.type === "application/pdf";
+      } else {
+         isMp4 =
+          file.type === "video/mp4" ||
+          file.type === "video/webm" ||
+          file.type === "video/ogg";
       }
+      console.log(isMp4);
       if (!isMp4) {
-        return isMp4;
+        var mes = !!this.showDownloadPath
+          ? "上传格式只能是pdf格式!"
+          : "上传格式只能是 Mp4、webm、ogg格式!";
+        this.$message.error(mes);
+         return isMp4;
       }
       this.mp4Data.file = file;
     },
@@ -503,7 +551,11 @@ export default {
         window.sessionStorage.setItem("responseType", "json");
         if (!!res && res.code === 20000) {
           this.uploadPath = !!res.data ? res.data[0] : "";
-          this.$refs.mp4video.src = this.uploadPath;
+          if (!!this.$refs.mp4video) {
+            this.$refs.mp4video.src = this.uploadPath;
+          } else {
+            this.downloadPath = this.uploadPath;
+          }
           this.$emit("uploadPath", this.uploadPath);
         }
         this.$message({
@@ -543,6 +595,7 @@ export default {
     height: 140px;
     left: 138px;
     top: 0px;
+
     position: absolute;
   }
   .avatar-uploader {
@@ -554,6 +607,7 @@ export default {
     top: 0px;
     left: 138px;
     height: 150px;
+    //  z-index: 100;
   }
   .el-upload.el-upload--text {
     border: 1px dashed #d9d9d9;

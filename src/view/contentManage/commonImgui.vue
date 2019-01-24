@@ -54,9 +54,10 @@
           <input
             class="upload-img"
             type="file"
+            accept="image/jpeg,image/jpg,image/png"
             @change="changeImage($event)"
             id="upload-img-input"
-          >
+          />
           <div class="uplaod-bgimg">
             <img
               v-if="!imgPath"
@@ -69,6 +70,7 @@
               :src="imgPath"
             />
             <p>点击上传图片</p>
+            <div class="fontsize10">上传图片说明：格式支持 .jpg .jpeg .png等</div>
           </div>
         </div>
       </div>
@@ -175,15 +177,6 @@ export default {
       this.$emit("pageNum", val);
     }
 
-    // 弹框关闭时的回调函数
-    // handleClose(done) {
-    //   for (const key in this.otherFormInfo) {
-    //     if (this.otherFormInfo.hasOwnProperty(key)) {
-    //       this.otherFormInfo[key] = "";
-    //     }
-    //   }
-    //   done();
-    // }
   },
   created() {},
   mounted() {}
@@ -214,7 +207,9 @@ input.upload-img {
 }
 .showleft .uplaod-bgimg {
   top: 115px;
-  left: 30%;
+  font-size: 14px;
+  left: 0%;
+  font-family: 微软雅黑;
 }
 .uplaod-bgimg img {
   left: 14px;
@@ -222,7 +217,7 @@ input.upload-img {
   margin-top: 0px !important;
 }
 .showleft .uplaod-bgimg img {
-  left: 7px;
+  left: 62px;
   top: -61px;
   margin-top: 0px !important;
 }
@@ -260,7 +255,7 @@ input.upload-img {
   height: 270px;
 }
 .content-manageappre .showleft img {
-  width: 79%;
+  width: 34%;
   height: 46px;
 }
 .content-manageappre .tuImg {

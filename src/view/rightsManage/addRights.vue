@@ -123,7 +123,12 @@ export default {
                 },
                 {
                   min: 6,
-                  message: "密码最少6个字符",
+                  message: "密码长度不能小于6位",
+                  trigger: "change"
+                },
+                {
+                  min: 6,
+                  message: "密码长度不能小于6位",
                   trigger: "blur"
                 }
               ]
@@ -267,14 +272,26 @@ export default {
         tbMenus: menuArr
       };
 
-      if (params.user.userName === "" || params.user.passwd === "") {
+      if (
+        params.user.userName === "" ||
+        params.user.passwd === "" ||
+        (!!params.user.passwd && params.user.passwd.length < 6) ||
+        params.user.departmentId === ""
+      ) {
         this.$message({
           type: "warning",
           message:
-            params.user.userName !== "" ? "密码不能为空" : "用户名不能为空"
+            params.user.userName === ""
+              ? "用户名不能为空"
+              : params.user.passwd === ""
+              ? "密码不能为空"
+              : !!params.user.passwd && params.user.passwd.length < 6
+              ? "密码长度不能小于6位"
+              : "科室不能为空，请选择科室"
         });
         return;
       }
+
       this.fullscreenLoading = true;
       API.addAPI(params).then(res => {
         this.fullscreenLoading = false;
