@@ -118,7 +118,7 @@ export default {
       var _this = this;
       _this.ids = row.id;
       setTimeout(() => {
-        this.$refs.myconfirm.confirm(_this.deleteMenu, "");
+        _this.$refs.myconfirm.confirm(_this.deleteMenu, "");
       }, 100);
     },
     deleteMenu(item) {

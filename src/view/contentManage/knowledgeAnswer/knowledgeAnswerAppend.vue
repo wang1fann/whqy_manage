@@ -27,7 +27,10 @@
     </div>
     <div class="r right">
       <div class="up">
-        <div class="l first cursorpointer"><span>＋</span>添加</div>
+        <div
+          class="l first cursorpointer"
+          @click="showAddTestChange"
+        ><span>＋</span>添加</div>
         <div class="l">
           <el-checkbox
             :indeterminate="isIndeterminate"
@@ -39,10 +42,12 @@
           class="l last cursorpointer"
           @click="deleteConfirm()"
         ><i class="el-icon-delete"></i>删除</div>
-
       </div>
       <div class="down">
-        <div class="myclearfix">
+        <div
+          class="myclearfix"
+          v-if="showAddTest"
+        >
           <el-form
             :model="dynamicValidateForm"
             ref="dynamicValidateForm"
@@ -209,6 +214,7 @@ export default {
       }, 10);
     };
     return {
+      showAddTest: false,
       dynamicValidateForm: {
         domains: [
           {
@@ -263,6 +269,9 @@ export default {
     }
   },
   methods: {
+    showAddTestChange() {
+      this.showAddTest = !this.showAddTest;
+    },
     // 删除确认
     deleteConfirm() {
       if (this.checkedTest.length <= 0) {

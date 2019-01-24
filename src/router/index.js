@@ -840,7 +840,7 @@ let router = new Router({
                     component: resolve => {
                         require(['view/contentManage/content'], resolve)
                     },
-                    redirect: "/contentManage/senceSituation",
+                    redirect: { path: '/contentManage/senceSituation/situationIntroduce', query: { menuId: 10001001 } },
                     class: 'fa-line-chart',
                     img: require('@/assets/img/access/content.png'),
                     children: contentRouter

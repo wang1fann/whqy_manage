@@ -55,7 +55,12 @@ export default {
   //此时--el挂载到实例上去了,可以初始化对应的编辑器了
   mounted() {
     this.placeholedEditor();
-    this.initEditor();
+    // setTimeout(() => {
+    //   this.initEditor();
+    // }, 20);
+    this.$nextTick(() => {
+      this.initEditor();
+    });
   },
 
   beforeDestroy() {

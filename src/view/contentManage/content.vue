@@ -1,5 +1,7 @@
 <template>
-  <div class="me">
+  <div
+    class="me"
+  >
     <div class="tabs">
       <ul>
         <router-link
@@ -50,8 +52,7 @@ export default {
     };
   },
   created() {},
-  mounted() {
-  },
+  mounted() {},
   methods: {
     MenuArr(val) {
       this.childMenuArr = !!val && val !== undefined ? val : "";

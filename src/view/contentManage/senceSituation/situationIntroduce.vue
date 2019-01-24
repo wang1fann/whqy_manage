@@ -2,10 +2,10 @@
 <template>
   <el-row
     class="components-container"
-    v-loading="fullscreenLoading"
   >
     <my-uepage
       :Form="ticketForm"
+      :fullscreenLoading="fullscreenLoading"
       :defaultMsg="ticketForm.content"
       @submit="submitcontent"
       @imgPath="getImgPath"
@@ -31,9 +31,6 @@ export default {
     };
   },
   created() {
-    this.getData();
-  },
-  mounted() {
     this.getData();
   },
   methods: {
@@ -67,11 +64,14 @@ export default {
         if (!!res && res.code === 20000) {
           this.ticketForm = res.data.rows[0];
         }
-        this.fullscreenLoading = false;
-        this.$message({
-          type: !!res && res.code === 20000 ? "success" : "warning",
-          message: res.message
-        });
+        var that = this;
+        setTimeout(() => {
+          that.fullscreenLoading = false;
+           that.$message({
+            type: !!res && res.code === 20000 ? "success" : "warning",
+            message: res.message
+          });
+        },1000)
       });
     }
   }

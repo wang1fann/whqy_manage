@@ -7924,7 +7924,7 @@
              * ```
              */
             getLang: function(path) {
-                console.log(this.options);
+                // console.log(this.options);
                 var lang = UE.I18N[this.options.lang] || "zh-cn";
                 if (!lang) {
                     throw Error("not import language file");

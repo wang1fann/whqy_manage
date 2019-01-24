@@ -235,7 +235,7 @@ export default {
       var _this = this;
       _this.ids = row.id;
       setTimeout(() => {
-        this.$refs.myconfirm.confirm(_this.delete, _this.cancle);
+        _this.$refs.myconfirm.confirm(_this.delete, _this.cancle);
       }, 100);
     },
     // 取消删除

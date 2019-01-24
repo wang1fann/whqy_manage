@@ -160,15 +160,6 @@ export default {
       this.gotoUrl("/contentManage/collectionAppreciation/collectionAppreciationAdd", row);
 
     },
-    // 弹框关闭时的回调函数
-    handleClose(done) {
-      for (const key in this.formData) {
-        if (this.formData.hasOwnProperty(key)) {
-          this.formData[key] = "";
-        }
-      }
-      done();
-    },
     // 获取数据
     getData() {
       var _this = this;
@@ -252,7 +243,7 @@ export default {
       var _this = this;
       _this.ids = row.id;
       setTimeout(() => {
-        this.$refs.myconfirm.confirm(_this.delete, _this.cancle);
+        _this.$refs.myconfirm.confirm(_this.delete, _this.cancle);
       }, 100);
     },
     // 取消删除

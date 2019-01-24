@@ -2,11 +2,15 @@
   <el-row
     class="uepage-container"
     v-loading="fullscreenLoading"
+    element-loading-text="拼命加载中..."
   >
     <!-- 上传封面图片 -->
     <el-row
       :gutter="24"
       v-show="showImg"
+      v-loading="imgLoading"
+      element-loading-text="拼命加载中..."
+      element-loading-spinner="el-icon-loading"
     >
       <el-col :span="5">
         <el-upload
@@ -22,7 +26,6 @@
               style="font-size:14px;position: absolute;left: 43px;color:#000;"
               class="alignright"
             >上传图片：</span></i>
-
           <img
             v-if="Form.imgPath!==''"
             :src="Form.imgPath"
@@ -377,6 +380,10 @@ export default {
       type: Boolean,
       default: false
     },
+    fullscreenLoading: {
+      type: Boolean,
+      default: false
+    },
     showLinkName: {
       type: Boolean,
       default: false
@@ -409,7 +416,7 @@ export default {
   data() {
     return {
       mp4Loading: false,
-      fullscreenLoading: false,
+      imgLoading: false,
       defaultMSG: null,
       imgPath: "",
       uploadPath: "",
@@ -441,6 +448,9 @@ export default {
   created() {
     this.getData();
   },
+  mounted() {
+    // this.getData();
+  },
   methods: {
     getData() {
       this.uploadPath = !!this.$route.query.uploadPath
@@ -452,6 +462,7 @@ export default {
     },
     editorReady(instance) {
       var that = this;
+      console.log(that.Form.content);
       setTimeout(function() {
         !!that.Form.content
           ? instance.setContent(that.Form.content)
@@ -496,9 +507,9 @@ export default {
       console.log(this.showDownloadPath);
       var isMp4;
       if (!!this.showDownloadPath) {
-         isMp4 = file.type === "application/pdf";
+        isMp4 = file.type === "application/pdf";
       } else {
-         isMp4 =
+        isMp4 =
           file.type === "video/mp4" ||
           file.type === "video/webm" ||
           file.type === "video/ogg";
@@ -509,7 +520,7 @@ export default {
           ? "上传格式只能是pdf格式!"
           : "上传格式只能是 Mp4、webm、ogg格式!";
         this.$message.error(mes);
-         return isMp4;
+        return isMp4;
       }
       this.mp4Data.file = file;
     },
@@ -526,9 +537,9 @@ export default {
       form.append("menu", this.imgData.menu);
       form.append("file", this.imgData.file);
       window.sessionStorage.setItem("responseType", "form");
-      this.fullscreenLoading = true;
+      this.imgLoading = true;
       API.uploadUserImg(form).then(res => {
-        this.fullscreenLoading = false;
+        this.imgLoading = false;
         if (!!res && res.code === 20000) {
           this.imgPath = !!res.data ? res.data[0] : "";
           this.$emit("imgPath", this.imgPath);

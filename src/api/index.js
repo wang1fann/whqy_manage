@@ -2,7 +2,10 @@
  * Created 2018.12.11
  */
 import axios from 'axios'
-import { Loading, Message } from 'element-ui'
+import {
+    Loading,
+    Message
+} from 'element-ui'
 import {
     bus
 } from '../bus.js'
@@ -25,7 +28,6 @@ axios.defaults.baseURL = 'http://192.168.0.107:9014';
 // axios.defaults.baseURL = 'http://47.105.196.90:9014';
 
 // axios.defaults.baseURL = 'http://192.168.0.105:9014'; //lili
-// axios.defaults.baseURL = 'http://192.168.0.103:9014'; //lili
 // axios.defaults.baseURL = 'http://192.168.0.110:9014'; //zhenyang
 // axios.defaults.baseURL = 'http://192.168.0.119:9014'; //lihao 
 // http request 拦截器，通过这个，我们就可以把Cookie传到后台
@@ -54,7 +56,12 @@ axios.interceptors.request.use(
                 'token': window.token
             };
         }
-        // loadinginstace = Loading.service({ fullscreen: true, text: "正在拼命加载中...", target: "content-container" })
+        console.log(config);
+        // loadinginstace = Loading.service({
+        //     fullscreen: true,
+        //     text: "正在拼命加载中...",
+        //     target: document.querySelector('.content-container') || body
+        // })
         return config;
     },
     err => {
