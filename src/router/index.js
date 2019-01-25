@@ -63,7 +63,6 @@ let contentRouter = [{
         redirect: { path: '/contentManage/senceNews/senceNews', query: { menuId: 10002001 } },
         children: [{
                 id: 10002001,
-                // 新闻中心
                 path: 'senceNews',
                 name: '新闻中心',
                 component: resolve => {
@@ -597,11 +596,46 @@ let contentRouter = [{
         path: 'themeEducation',
         name: '主题教育',
         component: resolve => {
-            require(['view/contentManage/themeEducation/themeEducation'], resolve)
+            require(['view/contentManage/contentCommon'], resolve)
         },
         class: 'fa-line-chart',
         img: require('@/assets/img/access/user.png'),
-        show: false
+        redirect: { path: '/contentManage/themeEducation/hearts', query: { menuId: 10010001 } },
+        children: [{
+                id: 10010001,
+                path: 'hearts',
+                name: '不忘初心',
+                component: resolve => {
+                    require(['view/contentManage/themeEducation/hearts'], resolve)
+                },
+                class: 'fa-line-chart',
+                img: require('@/assets/img/access/user.png'),
+                children: []
+            },
+            {
+                id: 10010002,
+                path: 'classic',
+                name: '先进典型',
+                component: resolve => {
+                    require(['view/contentManage/themeEducation/classic'], resolve)
+                },
+                class: 'fa-line-chart',
+                img: require('@/assets/img/access/user.png'),
+                children: []
+            },
+            {
+                id: "",
+                path: 'themeAdd',
+                name: '主题教育-添加/修改',
+                component: resolve => {
+                    require(['view/contentManage/themeEducation/themeAdd'], resolve)
+                },
+                class: 'fa-line-chart',
+                img: require('@/assets/img/access/user.png'),
+                children: [],
+                show: false
+            }
+        ]
     },
     {
         id: 10011,

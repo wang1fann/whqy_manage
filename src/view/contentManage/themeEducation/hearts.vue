@@ -13,7 +13,7 @@
           type="primary"
           size="mini"
           icon="el-icon-circle-plus"
-          @click="gotoUrl('/contentManage/xiSpirit/xiSpiritAdd',{menuId: $route.query.menuId})"
+          @click="gotoUrl('/contentManage/themeEducation/themeAdd',{menuId: $route.query.menuId})"
         >添加<i>{{buttonName}}</i></el-button>
         <el-button
           type="primary"
@@ -63,16 +63,16 @@
 </template>
 
 <script>
-import API from "@/api/api_xiSpirit.js";
+import API from "@/api/api_theme.js";
 import { getField, getFormField, getSearchField } from "@/assets/json/index.js";
 import { getPageSize, px2rem, rem2px } from "@/plugins/util.js";
 import { setTimeout } from "timers";
 export default {
-  name: "xilaojingshengList",
+  name: "themeList",
   data() {
     // 表格操作配置
     var operation = {
-      nowPage: "xilaojingshengList",
+      nowPage: "themeList",
       show: true,
       fixed: false,
       size: "mini",
@@ -152,7 +152,7 @@ export default {
     // 更新数据
     update(row) {
       row.menuId = this.$route.query.menuId + "";
-      this.gotoUrl("/contentManage/xiSpirit/xiSpiritAdd", row);
+      this.gotoUrl("/contentManage/themeEducation/themeAdd", row);
     },
     // 弹框关闭时的回调函数
     handleClose(done) {
