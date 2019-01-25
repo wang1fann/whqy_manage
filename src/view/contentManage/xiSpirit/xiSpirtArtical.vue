@@ -203,17 +203,15 @@ export default {
       var that = this;
       API.delAPI({ id: that.ids })
         .then(res => {
-          this.$notify({
+           this.$notify({
             title: "提示",
+            duration: "1000",
             message: res.message,
-            type: res.code === 20000 ? "success" : "error"
+            type: !!res && res.code === 20000 ? "success" : "error"
           });
           if (!!res && res.code === 20000) {
-            var that = this;
-            setTimeout(function() {
-              that.ids = null;
-              that.getData();
-            }, 1000);
+            this.ids = null;
+            this.getData();
           }
         })
         .catch(err => {

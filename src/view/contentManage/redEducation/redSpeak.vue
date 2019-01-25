@@ -211,13 +211,15 @@ export default {
       var _this = this;
       API.delAPI({ id: _this.ids })
         .then(res => {
-          this.ids = null;
-          this.$message({
+          this.$notify({
+            title: "提示",
+            duration: "1000",
             message: res.message,
-            type: res.code === 20000 ? "success" : "error"
+            type: !!res && res.code === 20000 ? "success" : "error"
           });
-           if(!!res && res.code === 20000){
-              this.getData();
+          if (!!res && res.code === 20000) {
+            this.ids = null;
+            this.getData();
           }
         })
         .catch(err => {

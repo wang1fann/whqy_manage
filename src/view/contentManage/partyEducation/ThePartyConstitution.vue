@@ -156,10 +156,7 @@ export default {
     // 更新数据
     update(row) {
       row.menuId = this.$route.query.menuId + "";
-      this.gotoUrl(
-        "/contentManage/partyEducation/partyEducationAdd",
-        row
-      );
+      this.gotoUrl("/contentManage/partyEducation/partyEducationAdd", row);
     },
     // 弹框关闭时的回调函数
     handleClose(done) {
@@ -195,20 +192,23 @@ export default {
             type: !!res && res.code === 20000 ? "success" : "warning"
           });
         })
-        .catch(err => {
-        });
+        .catch(err => {});
     },
     // 删除
     delete() {
       var _this = this;
       API.delAPI({ id: _this.ids })
         .then(res => {
-          this.ids = null;
-          this.$message({
+          this.$notify({
+            title: "提示",
+            duration: "1000",
             message: res.message,
-            type: res.code === 20000 ? "success" : "error"
+            type: !!res && res.code === 20000 ? "success" : "error"
           });
-          this.getData();
+          if (!!res && res.code === 20000) {
+            this.ids = null;
+            this.getData();
+          }
         })
         .catch(err => {
           this.$message({
@@ -257,7 +257,7 @@ export default {
     },
     // 搜索
     searchSubmit() {
-      this.currentPage=1;
+      this.currentPage = 1;
       this.getData();
     }
   }

@@ -956,7 +956,8 @@ router.beforeEach((to, from, next) => {
     window.document.title = (routeName ? routeName + ' - ' : '') + '渭华起义后台管理系统';
     window.userInfo = JSON.parse(window.sessionStorage.getItem('access-user'));
     if (to.path.startsWith('/login')) {
-        window.sessionStorage.removeItem('access-user')
+        window.sessionStorage.removeItem('access-user');
+        window.sessionStorage.removeItem('token')
         next()
     } else {
         let token = window.sessionStorage.getItem('token');

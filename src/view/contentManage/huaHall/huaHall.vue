@@ -194,16 +194,16 @@ export default {
       var _this = this;
       API.delAPI({ id: _this.ids })
         .then(res => {
-          this.$message({
+          this.$notify({
+            title: "提示",
+            duration: "1000",
             message: res.message,
-            type: res.code === 20000 ? "success" : "error"
+            type: !!res && res.code === 20000 ? "success" : "error"
           });
           if (!!res && res.code === 20000) {
             this.ids = null;
             var that = this;
-            setTimeout(function() {
               that.getData();
-            }, 1000);
           }
         })
         .catch(err => {
@@ -253,7 +253,7 @@ export default {
     },
     // 搜索
     searchSubmit() {
-       this.currentPage=1;
+      this.currentPage = 1;
       this.getData();
     }
   }

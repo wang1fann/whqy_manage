@@ -338,10 +338,9 @@ export default {
       API.findUserList(config)
         .then(res => {
           this.resCode = res.code;
-          this.$notify({
-            title: "提示",
-            message: res.message,
-            type: !!res && res.code === 20011 ? "warning" : "success"
+          this.$message({
+            type: !!res && res.code === 20000 ? "success" : "warning",
+            message: res.message
           });
           if (!!res && res.code === 20000) {
             for (var i = 0; i < res.data.rows.length; i++) {
@@ -376,16 +375,15 @@ export default {
       var _this = this;
       API.delUser({ id: _this.ids })
         .then(res => {
-          this.ids = null;
-          this.$message({
+          this.$notify({
+            title: "提示",
+            duration: "1000",
             message: res.message,
-            type: !!res && res.code === 20000 ? "success" : "warning"
+            type: !!res && res.code === 20000 ? "success" : "error"
           });
           if (!!res && res.code === 20000) {
-            var that = this;
-            setTimeout(function() {
-              that.getData();
-            }, 1500);
+            this.ids = null;
+            this.getData();
           }
         })
         .catch(err => {
@@ -474,7 +472,4 @@ button.el-button.pull-right.el-button--default {
   text-align: center;
   min-width: 114px;
 }
-/* .user-list .el-form label.el-radio-button.el-radio-button--mini:first-child {
-    display: none;
-} */
 </style > 

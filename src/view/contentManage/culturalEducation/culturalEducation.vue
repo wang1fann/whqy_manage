@@ -40,7 +40,7 @@
       :stripe="false"
       :border="false"
       :multiple="true"
-       :showImgColumn="true"
+      :showImgColumn="true"
       :operation="operation"
       :column="column"
       :data="data"
@@ -99,7 +99,7 @@ export default {
       ]
     };
     return {
-      buttonName:this.$route.query.name,
+      buttonName: this.$route.query.name,
       confirmType: "warning",
       confirmTitle: "提示信息",
       confirmContent: "此操作将永久删除该文件, 是否继续?",
@@ -118,7 +118,7 @@ export default {
       searchFormData: {},
       searchFormItem: [],
       menu: !!this.$route.query.menuId
-        ? this.$route.query.menuId+""
+        ? this.$route.query.menuId + ""
         : this.$route.name
     };
   },
@@ -156,7 +156,7 @@ export default {
     },
     // 更新数据
     update(row) {
-       row.menuId= this.$route.query.menuId+"";
+      row.menuId = this.$route.query.menuId + "";
       this.gotoUrl(
         "/contentManage/culturalEducation/culturalEducationAdd",
         row
@@ -178,7 +178,7 @@ export default {
         page: _this.currentPage,
         size: _this.pageSize,
         menuId: !!this.$route.query.menuId
-          ? this.$route.query.menuId+""
+          ? this.$route.query.menuId + ""
           : this.$route.name
       };
       window.sessionStorage.setItem("responseType", "json");
@@ -199,21 +199,22 @@ export default {
             type: !!res && res.code === 20000 ? "success" : "warning"
           });
         })
-        .catch(err => {
-        });
+        .catch(err => {});
     },
     // 删除
     delete() {
       var _this = this;
       API.delAPI({ id: _this.ids })
         .then(res => {
-          this.ids = null;
-          this.$message({
+          this.$notify({
+            title: "提示",
+            duration: "1000",
             message: res.message,
-            type: res.code === 20000 ? "success" : "error"
+            type: !!res && res.code === 20000 ? "success" : "error"
           });
-           if(!!res && res.code ===2000){
-              this.getData();
+          if (!!res && res.code === 20000) {
+            this.ids = null;
+            this.getData();
           }
         })
         .catch(err => {
@@ -263,7 +264,7 @@ export default {
     },
     // 搜索
     searchSubmit() {
-      this.currentPage=1;
+      this.currentPage = 1;
       this.getData();
     }
   }

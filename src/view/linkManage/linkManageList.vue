@@ -1,5 +1,9 @@
 <template>
-  <div class="list content-top-line">
+  <div
+    class="list content-top-line"
+    v-loading="fullscreenLoading"
+    element-loading-text="拼命加载中"
+  >
     <!-- 按钮操作 -->
     <el-row
       class="btn-group"
@@ -128,6 +132,7 @@ export default {
       ]
     };
     return {
+      fullscreenLoading: false,
       confirmType: "warning",
       confirmTitle: "提示信息",
       confirmContent: "此操作将永久删除该文件, 是否继续?",
@@ -197,11 +202,13 @@ export default {
       setTimeout(() => {
         API[this.type](this.formData).then(res => {
           this.dialogVisible = false;
-          this.$message({
+          this.$notify({
+            title: "提示",
+            duration: "1000",
             message: res.message,
-            type: !!res && res.code===20000 ? "success" : "warning"
+            type: !!res && res.code === 20000 ? "success" : "error"
           });
-          if(!!res && res.code === 20000){
+          if (!!res && res.code === 20000) {
             this.getData();
           }
         });
@@ -221,9 +228,10 @@ export default {
       // 添加查询字段
       config = $.extend(config, this.searchFormData);
       // 接口调用
+      this.fullscreenLoading = true;
       API.findlinkList(config)
         .then(res => {
-          // 
+          this.fullscreenLoading = false;
           if (!!res && res.code === 20000) {
             this.data = res.data.rows;
             this.total = res.data.total;
@@ -243,15 +251,19 @@ export default {
     // 删除
     delete() {
       var _this = this;
-      
+
       API.delLink({ id: _this.ids })
         .then(res => {
-          this.ids = null;
-          this.$message({
+          this.$notify({
+            title: "提示",
+            duration: "1000",
             message: res.message,
-            type: res.code === 20000 ? "success" : "error"
+            type: !!res && res.code === 20000 ? "success" : "error"
           });
-          this.getData();
+          if (!!res && res.code === 20000) {
+            this.ids = null;
+            this.getData();
+          }
         })
         .catch(err => {
           this.$message({
@@ -305,7 +317,7 @@ export default {
     },
     // 搜索
     searchSubmit() {
-      this.currentPage=1;
+      this.currentPage = 1;
       this.getData();
     }
   }

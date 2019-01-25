@@ -1,5 +1,9 @@
 <template>
-  <div class="content-top-line">
+  <div
+    class="content-top-line"
+    v-loading="fullscreenLoading"
+    element-loading-text="拼命加载中"
+  >
     <div class="site-list">
       <el-form
         ref="siteForm"
@@ -119,6 +123,7 @@ export default {
   name: "Site",
   data() {
     return {
+      fullscreenLoading: false,
       showMenuInfo: false,
       confirmType: "warning",
       confirmTitle: "提示信息",
@@ -221,6 +226,7 @@ export default {
     },
     findSite() {
       window.sessionStorage.setItem("responseType", "json");
+      this.fullscreenLoading = true;
       API.findSiteList()
         .then(res => {
           if (!!res && res.code === 20000) {
@@ -231,6 +237,7 @@ export default {
             obj.phoneStatus = obj.phoneStatus === "1" ? true : false;
             this.siteForm = obj;
           }
+          this.fullscreenLoading = false;
           this.$message({
             message: res.message,
             type: !!res && res.code === 20000 ? "success" : "warning"

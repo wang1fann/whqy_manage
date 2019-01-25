@@ -21,7 +21,7 @@
               <el-radio-button label="日访问量"></el-radio-button>
             </el-radio-group>
             <div class="allvistdata">
-              总访问量:{{allvistdata}}
+              历史访问总量:{{allvistdata}}
             </div>
           </div>
           <div class="left-line"></div>

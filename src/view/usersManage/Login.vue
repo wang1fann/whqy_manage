@@ -155,11 +155,14 @@ export default {
           API.login(loginParams).then(res => {
             this.logining = false;
             NProgress.done();
-            this.$notify({
-              title: !!res && res.code === 20000 ? "提示" : "错误",
-              message: res.message,
-              type: !!res && res.code === 20000 ? "success" : "error"
-            });
+            if (!!res && res.code !== 20000) {
+              this.$notify({
+                duration: "1000",
+                title: "提示",
+                message: res.message,
+                type: !!res && res.code === 20000 ? "success" : "error"
+              });
+            }
             if (!!res && res.code === 20000) {
               if (res.data.user.permissionId == "3") {
                 this.$notify({
@@ -174,12 +177,7 @@ export default {
                 JSON.stringify(res.data.user)
               );
               sessionStorage.setItem("token", res.data.token);
-              let expireDays = 1000 * 60 * 60;
-              setCookie("loginFlag", res.message, expireDays); //设置Session
-              var that = this;
-              setTimeout(() => {
-                that.$router.push({ path: "/home" });
-              }, 2000);
+              this.$router.push({ path: "/home" });
             }
           });
         } else {

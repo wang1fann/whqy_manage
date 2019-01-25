@@ -246,11 +246,13 @@ export default {
       var _this = this;
       API.delTestLibrary({ id: _this.ids })
         .then(res => {
-          this.$message({
+           this.$notify({
+            title: "提示",
+            duration: "1000",
             message: res.message,
-            type: res.code === 20000 ? "success" : "error"
+            type: !!res && res.code === 20000 ? "success" : "error"
           });
-          if (!!res && res.code === 20000) {
+          if(!!res && res.code ===2000){
             this.ids = null;
             this.getData();
           }

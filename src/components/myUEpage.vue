@@ -1,7 +1,7 @@
 <template>
-  <el-row class="uepage-container">
-    <!-- v-loading="fullscreenLoading"
-    element-loading-text="拼命加载中..." -->
+  <el-row class="uepage-container"
+    v-loading="fullscreenLoading"
+    element-loading-text="拼命加载中...">
     <!-- 上传封面图片 -->
     <el-row
       :gutter="24"

@@ -2,6 +2,7 @@
   <div
     class="list content-top-line"
     v-loading="fullscreenLoading"
+    element-loading-text="拼命加载中..."
   >
     <!-- 按钮操作 -->
     <el-row
@@ -199,7 +200,6 @@ export default {
     },
     // 获取用户类型列表
     getUserTypeData(obj) {
-      // formInfo   初始化加载formInfo 科室选项
       obj.options = [
         {
           value: "0",
@@ -236,10 +236,9 @@ export default {
         .then(res => {
           this.fullscreenLoading = false;
           this.resCode = res.code;
-          this.$notify({
-            title: "提示",
-            message: res.message,
-            type: "warning"
+          this.$message({
+            type: !!res && res.code === 20000 ? "success" : "warning",
+            message: res.message
           });
           if (!!res && res.code === 20011) {
             //登录已过期
@@ -263,15 +262,18 @@ export default {
     // 删除
     delete() {
       var _this = this;
-      
       API.delUser({ id: _this.ids })
         .then(res => {
-          this.ids = null;
-          this.$message({
+          this.$notify({
+            title: "提示",
+            duration: "1000",
             message: res.message,
-            type: res.code === 20000 ? "success" : "error"
+            type: !!res && res.code === 20000 ? "success" : "error"
           });
-          this.getData();
+          if (!!res && res.code === 20000) {
+            this.ids = null;
+            this.getData();
+          }
         })
         .catch(err => {
           this.$message({

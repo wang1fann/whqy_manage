@@ -207,15 +207,18 @@ export default {
     // 删除
     delete() {
       var _this = this;
-      
       API.delAPI({ id: _this.ids })
         .then(res => {
-          this.ids = null;
           this.$notify({
             title: "提示",
+            duration: "1000",
             message: res.message,
-            type: !!res && res.code === 20000 ? "success" : "warning"
+            type: !!res && res.code === 20000 ? "success" : "error"
           });
+          if (!!res && res.code === 20000) {
+            this.ids = null;
+            this.getData();
+          }
           if (!!res && res.code === 20011) {
             //登录已过期
             sessionStorage.removeItem("access-user");
@@ -225,12 +228,6 @@ export default {
               that.$router.push({ path: "/login" });
             }, 2000);
             return;
-          }
-          if (!!res && res.code === 20000) {
-            var that = this;
-            setTimeout(function() {
-              that.getData();
-            }, 1000);
           }
         })
         .catch(err => {

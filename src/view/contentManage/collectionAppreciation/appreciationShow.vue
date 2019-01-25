@@ -121,14 +121,16 @@ export default {
       window.sessionStorage.setItem("responseType", "json");
       API.delAPI({ id: _this.id })
         .then(res => {
+          this.$notify({
+            title: "提示",
+            duration: "1000",
+            message: res.message,
+            type: !!res && res.code === 20000 ? "success" : "error"
+          });
           if (!!res && res.code === 20000) {
             this.findList();
             this.id = null;
           }
-          this.$message({
-            message: res.message,
-            type: res.code === 20000 ? "success" : "error"
-          });
         })
         .catch(err => {
           this.$message({
