@@ -143,7 +143,6 @@ export default {
         .catch(res => {});
     },
     handleLogin(ev) {
-      var that = this;
       window.sessionStorage.responseType = "json";
       this.$refs.AccountFrom.validate(valid => {
         if (valid) {
@@ -156,13 +155,12 @@ export default {
           API.login(loginParams).then(res => {
             this.logining = false;
             NProgress.done();
-            if (!!res && res.code !== 20000) {
-              this.$notify({
-                title: "错误",
-                message: res.message,
-                type: "error"
-              });
-            } else {
+            this.$notify({
+              title: !!res && res.code === 20000 ? "提示" : "错误",
+              message: res.message,
+              type: !!res && res.code === 20000 ? "success" : "error"
+            });
+            if (!!res && res.code === 20000) {
               if (res.data.user.permissionId == "3") {
                 this.$notify({
                   title: "提示",
@@ -178,7 +176,10 @@ export default {
               sessionStorage.setItem("token", res.data.token);
               let expireDays = 1000 * 60 * 60;
               setCookie("loginFlag", res.message, expireDays); //设置Session
-              that.$router.push({ path: "/home" });
+              var that = this;
+              setTimeout(() => {
+                that.$router.push({ path: "/home" });
+              }, 2000);
             }
           });
         } else {

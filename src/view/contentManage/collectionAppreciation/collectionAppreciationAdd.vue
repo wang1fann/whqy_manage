@@ -10,15 +10,6 @@
     ></my-uepage>
   </el-row>
 </template>
-<style>
-.info {
-  border-radius: 10px;
-  line-height: 20px;
-  padding: 10px;
-  margin: 10px;
-  background-color: #ffffff;
-}
-</style>
 <script>
 import API from "@/api/api_cangpinxinshang";
 import myUEpage from "@/components/myUEpage";
@@ -69,8 +60,7 @@ export default {
       var that = this;
       setTimeout(() => {
         that.fullscreenLoading = false;
-      }, 1000);
-      // this.fullscreenLoading = false;
+      }, 100);
     }
   }
 };

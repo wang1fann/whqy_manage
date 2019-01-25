@@ -1,9 +1,7 @@
 <template>
-  <el-row
-    class="uepage-container"
-    v-loading="fullscreenLoading"
-    element-loading-text="拼命加载中..."
-  >
+  <el-row class="uepage-container">
+    <!-- v-loading="fullscreenLoading"
+    element-loading-text="拼命加载中..." -->
     <!-- 上传封面图片 -->
     <el-row
       :gutter="24"
@@ -322,6 +320,7 @@
         <UE
           @ready="editorReady"
           ref="ue"
+          :fullscreenLoading="fullscreenLoading"
           :value="defaultMSG"
           style="width:100%;"
         ></UE>
@@ -382,7 +381,7 @@ export default {
     },
     fullscreenLoading: {
       type: Boolean,
-      default: false
+      default: true
     },
     showLinkName: {
       type: Boolean,
@@ -448,9 +447,6 @@ export default {
   created() {
     this.getData();
   },
-  mounted() {
-    // this.getData();
-  },
   methods: {
     getData() {
       this.uploadPath = !!this.$route.query.uploadPath
@@ -462,7 +458,6 @@ export default {
     },
     editorReady(instance) {
       var that = this;
-      console.log(that.Form.content);
       setTimeout(function() {
         !!that.Form.content
           ? instance.setContent(that.Form.content)
@@ -473,7 +468,6 @@ export default {
       }, 300);
     },
     getUEContent() {
-      console.log(this.Form.content);
       if (this.Form.content === "") {
         this.$message({
           type: "warning",
@@ -485,7 +479,6 @@ export default {
       }
     },
     beforeAvatarUpload(file) {
-      // console.log(file);
       const isJPG =
         file.type === "image/jpeg" ||
         file.type === "image/png" ||
@@ -504,7 +497,6 @@ export default {
     },
     // 检测上传视频格式MP4
     beforeAvatarUploadMp4(file) {
-      console.log(this.showDownloadPath);
       var isMp4;
       if (!!this.showDownloadPath) {
         isMp4 = file.type === "application/pdf";
@@ -514,7 +506,6 @@ export default {
           file.type === "video/webm" ||
           file.type === "video/ogg";
       }
-      console.log(isMp4);
       if (!isMp4) {
         var mes = !!this.showDownloadPath
           ? "上传格式只能是pdf格式!"

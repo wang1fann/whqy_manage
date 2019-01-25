@@ -204,7 +204,7 @@ export default {
       API.delAPI({ id: that.ids })
         .then(res => {
           this.$notify({
-            title: "错误",
+            title: "提示",
             message: res.message,
             type: res.code === 20000 ? "success" : "error"
           });

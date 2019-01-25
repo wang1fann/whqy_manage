@@ -6,6 +6,7 @@
       :showAuthor="false"
       :imgPath="imgPath"
       :show.sync="show"
+      :showImgLoading="showImgLoading"
       @show="open"
       @pageNum="pageNum"
       @deleteItem="confirmDeleteItem"
@@ -35,6 +36,7 @@ export default {
       confirmContent: "此操作将永久删除, 是否继续?",
       formFile: {}, //上传图片
       imgPath: "",
+      showImgLoading:false,
       searchParams: {
         page: 1,
         size: 10,
@@ -93,10 +95,12 @@ export default {
     },
     findList() {
       window.sessionStorage.setItem("responseType", "json");
+      this.showImgLoading=true;
       API.findList(this.searchParams).then(res => {
         if (!!res && res.code === 20000) {
           this.imgList = res.data;
         }
+      this.showImgLoading=false;
         this.$message({
           message:
             !!res && res.data.total === 0

@@ -4,6 +4,7 @@
     <my-uepage
       :Form="ticketForm"
       :defaultMsg="ticketForm.content"
+      :fullscreenLoading="fullscreenLoading"
       @submit="submitcontent"
       @imgPath="getImgPath"
     ></my-uepage>
@@ -25,6 +26,7 @@ export default {
   components: { "my-uepage": myUEpage },
   data() {
     return {
+      fullscreenLoading: false,
       ticketForm: {
         title: "",
         imgPath: "",
@@ -51,9 +53,10 @@ export default {
       });
     },
     getImgPath(val) {
-      this.ticketForm.imgPath = !!val?val.replace(/\\/g, "/"):""
+      this.ticketForm.imgPath = !!val ? val.replace(/\\/g, "/") : "";
     },
     getData() {
+      this.fullscreenLoading = true;
       API.findFormData({ menuId: this.ticketForm.menuId }).then(res => {
         if (!!res && res.code === 20000) {
           this.ticketForm = res.data.rows[0];
@@ -62,6 +65,7 @@ export default {
           type: !!res && res.code === 20000 ? "success" : "warning",
           message: res.message
         });
+        this.fullscreenLoading = false;
       });
     }
   }

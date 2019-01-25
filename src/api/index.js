@@ -56,7 +56,7 @@ axios.interceptors.request.use(
                 'token': window.token
             };
         }
-        console.log(config);
+        // console.log(config);
         // loadinginstace = Loading.service({
         //     fullscreen: true,
         //     text: "正在拼命加载中...",

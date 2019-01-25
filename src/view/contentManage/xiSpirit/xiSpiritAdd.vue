@@ -6,6 +6,7 @@
       :defaultMsg="ticketForm.content"
       :showAuthor="false"
       :showLinkName="true"
+      :fullscreenLoading="fullscreenLoading"
       :showLinkUrl="true"
       :showPersonName="true"
       @submit="submitcontent"
@@ -29,6 +30,7 @@ export default {
   components: { "my-uepage": myUEpage },
   data() {
     return {
+      fullscreenLoading: false,
       ticketForm: {
         title: "",
         imgPath: "",
@@ -52,7 +54,7 @@ export default {
       API.addAPI(this.ticketForm).then(res => {
         this.$notify({
           title: "提示",
-          message:  res.message,
+          message: res.message,
           type: !!res && res.code === 20000 ? "success" : "warning"
         });
         if (!!res && res.code === 20000) {
@@ -64,10 +66,15 @@ export default {
       });
     },
     getImgPath(val) {
-      this.ticketForm.imgPath =!!val ? val.replace(/\\/g, "/") : "";
+      this.ticketForm.imgPath = !!val ? val.replace(/\\/g, "/") : "";
     },
     getData() {
+      this.fullscreenLoading = true;
       this.ticketForm = this.$route.query;
+      var that = this;
+      setTimeout(() => {
+        that.fullscreenLoading = false;
+      }, 100);
     }
   }
 };

@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div
+    v-loading="fullscreenLoading"
+    element-loading-text="拼命加载中..."
+  >
     <!--下面通过传递进来的id完成初始化-->
     <script
       :id="randomId"
@@ -30,6 +33,10 @@ export default {
           initialFrameHeight: 600
         };
       }
+    },
+    fullscreenLoading: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -42,22 +49,16 @@ export default {
     };
   },
   watch: {
-    value: function(val, oldVal) {
+    fullscreenLoading: function(val, oldVal) {
       console.log(val);
-      console.log(this.ready);
-      console.log("/////////////////////////////////");
-      if (val != null && this.ready) {
-        this.instance = UE.getEditor(this.randomId, this.ueditorConfig);
-        this.instance.setContent(val);
+      if (val === false && this.ready) {
+        this.initEditor();
       }
     }
   },
   //此时--el挂载到实例上去了,可以初始化对应的编辑器了
   mounted() {
     this.placeholedEditor();
-    // setTimeout(() => {
-    //   this.initEditor();
-    // }, 20);
     this.$nextTick(() => {
       this.initEditor();
     });
@@ -91,14 +92,16 @@ export default {
       };
     },
     initEditor() {
-      const _this = this;
       //dom元素已经挂载上去了
       this.$nextTick(() => {
         this.instance = UE.getEditor(this.randomId, this.ueditorConfig);
         // 绑定事件，当 UEditor 初始化完成后，将编辑器实例通过自定义的 ready 事件交出去
         this.instance.addListener("ready", () => {
           this.ready = true;
-          this.$emit("ready", this.instance);
+          const _this = this;
+          setTimeout(() => {
+            _this.$emit("ready", _this.instance);
+          }, 200);
         });
       });
     },

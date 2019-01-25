@@ -331,14 +331,7 @@
             "sortable": false,
             "show": true
         },
-        {
-            "prop": "name",
-            "label": "姓名",
-            "width": "auto",
-            "fixed": false,
-            "sortable": false,
-            "show": true
-        },
+
         {
             "prop": "title",
             "label": "标题",
@@ -349,6 +342,13 @@
         }, {
             "prop": "description",
             "label": "描述",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        }, {
+            "prop": "updateTime",
+            "label": "更新日期",
             "width": "auto",
             "fixed": false,
             "sortable": false,
@@ -389,6 +389,14 @@
         {
             "prop": "description",
             "label": "描述",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "updateTime",
+            "label": "更新日期",
             "width": "auto",
             "fixed": false,
             "sortable": false,

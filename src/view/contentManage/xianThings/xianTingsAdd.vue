@@ -4,6 +4,7 @@
     <my-uepage
       :Form="ticketForm"
       :defaultMsg="ticketForm.content"
+      :fullscreenLoading="fullscreenLoading"
       :showPersonName="false"
       :showImg="false"
       @submit="submitcontent"
@@ -27,12 +28,13 @@ export default {
   components: { "my-uepage": myUEpage },
   data() {
     return {
+      fullscreenLoading: false,
       ticketForm: {
         title: "",
         imgPath: "",
         menuId: this.$route.query.menuId + "",
         description: "",
-        personName:'',
+        personName: "",
         content: ""
       }
     };
@@ -46,10 +48,10 @@ export default {
       this.ticketForm.content = content;
       window.sessionStorage.setItem("responseType", "json");
       API.addAPI(this.ticketForm).then(res => {
-          this.$message({
-            type: !!res && res.code === 20000 ? "success" : "warning",
-            message: res.message
-          });
+        this.$message({
+          type: !!res && res.code === 20000 ? "success" : "warning",
+          message: res.message
+        });
         if (!!res && res.code === 20000) {
           var that = this;
           setTimeout(function() {
@@ -59,10 +61,15 @@ export default {
       });
     },
     getImgPath(val) {
-      this.ticketForm.imgPath =!!val ? val.replace(/\\/g, "/") : "";
+      this.ticketForm.imgPath = !!val ? val.replace(/\\/g, "/") : "";
     },
     getData() {
+      this.fullscreenLoading = true;
       this.ticketForm = this.$route.query;
+      var that = this;
+      setTimeout(() => {
+        that.fullscreenLoading = false;
+      }, 100);
     }
   }
 };

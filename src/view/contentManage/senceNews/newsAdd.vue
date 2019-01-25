@@ -4,7 +4,8 @@
     <my-uepage
       :Form="ticketForm"
       :defaultMsg="ticketForm.content"
-      @submit="submitcontent"
+      @submit="submitcontent"  
+      :fullscreenLoading="fullscreenLoading"
       @imgPath="getImgPath"
     ></my-uepage>
   </el-row>
@@ -24,7 +25,7 @@ import myUEpage from "@/components/myUEpage";
 export default {
   components: { "my-uepage": myUEpage },
   data() {
-    return {
+    return { fullscreenLoading: false,
       ticketForm: {
         title: "",
         imgPath: "",
@@ -69,7 +70,12 @@ export default {
       this.ticketForm.imgPath = !!val ? val.replace(/\\/g, "/") : "";
     },
     getData() {
+      this.fullscreenLoading = true;
       this.ticketForm = this.$route.query;
+      var that = this;
+      setTimeout(() => {
+        that.fullscreenLoading = false;
+      }, 100);
     }
   }
 };

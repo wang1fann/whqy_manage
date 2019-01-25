@@ -4,20 +4,12 @@
     <my-uepage
       :Form="ticketForm"
       :defaultMsg="ticketForm.content"
+      :fullscreenLoading="fullscreenLoading"
       @submit="submitcontent"
       @imgPath="getImgPath"
     ></my-uepage>
   </el-row>
 </template>
-<style>
-.info {
-  border-radius: 10px;
-  line-height: 20px;
-  padding: 10px;
-  margin: 10px;
-  background-color: #ffffff;
-}
-</style>
 <script>
 import API from "@/api/api_hongsejiaoyu";
 import myUEpage from "@/components/myUEpage";
@@ -25,6 +17,7 @@ export default {
   components: { "my-uepage": myUEpage },
   data() {
     return {
+      fullscreenLoading: false,
       ticketForm: {
         title: "",
         imgPath: "",
@@ -70,7 +63,12 @@ export default {
       this.ticketForm.imgPath = !!val ? val.replace(/\\/g, "/") : "";
     },
     getData() {
+      this.fullscreenLoading = true;
       this.ticketForm = this.$route.query;
+      var that = this;
+      setTimeout(() => {
+        that.fullscreenLoading = false;
+      }, 100);
     }
   }
 };

@@ -94,7 +94,7 @@
       >
         <el-input v-model="ruleForm.description"></el-input>
       </el-form-item>
-         <el-form-item
+      <el-form-item
         label="地址"
         prop="adress"
       >
@@ -104,10 +104,11 @@
         label="内容："
         prop="content"
       >
-          <UE
+        <UE
           @ready="editorReady"
           ref="ue"
           :value="defaultMSG"
+          :fullscreenLoading="fullscreenLoading"
           :ueditorConfig="config"
           style="width:100%;"
         ></UE>
@@ -131,8 +132,9 @@ import UE from "@/components/myEdit";
 export default {
   data() {
     return {
+      fullscreenLoading: false,
       imgData: {},
-       defaultMSG: null,
+      defaultMSG: null,
       config: {
         BaseUrl: "",
         UEDITOR_HOME_URL: "static/ueditor/",
@@ -148,7 +150,7 @@ export default {
         menuId: "",
         content: "",
         imgPath: "",
-        adress:"",
+        adress: "",
         id: ""
       },
       type: "add",
@@ -168,7 +170,7 @@ export default {
     this.getUpdate();
   },
   methods: {
-     editorReady(instance) {
+    editorReady(instance) {
       var that = this;
       setTimeout(function() {
         !!that.ruleForm.content
@@ -207,7 +209,12 @@ export default {
       this.$refs[formName].resetFields();
     },
     getUpdate() {
+      this.fullscreenLoading = true;
       this.ruleForm = !!this.$route.query ? this.$route.query : this.ruleForm;
+      var that = this;
+      setTimeout(() => {
+        that.fullscreenLoading = false;
+      }, 100);
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg" || "png" || "gif";

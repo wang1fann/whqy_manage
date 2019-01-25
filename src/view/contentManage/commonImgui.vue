@@ -1,5 +1,9 @@
 <template>
-  <div class="content-manageappre">
+  <div
+    class="content-manageappre"
+    v-loading="showImgLoading"
+    element-loading-text="拼命加载中..."
+  >
     <div class="clearfix">
       <div class="img-box left">
         <div
@@ -116,7 +120,6 @@ export default {
       errorImg: 'this.src="' + require("@/assets/img/noImg.png") + '"',
       dialogTitle: "上传",
       id: "",
-      //   myDialogVisible: false,
       visible: this.show,
       total: 50,
       otherFormInfo: {
@@ -140,6 +143,10 @@ export default {
       default: false
     },
     show: {
+      type: Boolean,
+      default: false
+    },
+    showImgLoading: {
       type: Boolean,
       default: false
     }
@@ -176,7 +183,6 @@ export default {
     handleCurrentChange(val) {
       this.$emit("pageNum", val);
     }
-
   },
   created() {},
   mounted() {}

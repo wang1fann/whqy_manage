@@ -5,6 +5,7 @@
       :Form="ticketForm"
       :showScenicSpotName="true"
       :showTitle="false"
+      :fullscreenLoading="fullscreenLoading"
       :defaultMsg="ticketForm.content"
       @submit="submitcontent"
       @imgPath="getImgPath"
@@ -27,6 +28,7 @@ export default {
   components: { "my-uepage": myUEpage },
   data() {
     return {
+      fullscreenLoading: false,
       ticketForm: {
         imgPath: "",
         menuId: this.$route.query.menuId + "",
@@ -41,9 +43,14 @@ export default {
   },
   methods: {
     getUpdate() {
+      this.fullscreenLoading = true;
       this.ticketForm = !!this.$route.query
         ? this.$route.query
         : this.ticketForm;
+      var that = this;
+      setTimeout(() => {
+        that.fullscreenLoading = false;
+      }, 100);
     },
     submitcontent(content) {
       this.ticketForm.content = content;

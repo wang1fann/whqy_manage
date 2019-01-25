@@ -20,7 +20,7 @@ export default {
   components: { "my-uepage": myUEpage },
   data() {
     return {
-      fullscreenLoading: false,
+      fullscreenLoading: true,
       ticketForm: {
         title: "",
         imgPath: "",

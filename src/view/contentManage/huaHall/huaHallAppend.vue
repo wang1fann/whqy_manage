@@ -5,21 +5,13 @@
       :Form="ticketForm"
       :showMp4="true"
       :defaultMsg="ticketForm.content"
+      :fullscreenLoading="fullscreenLoading"
       @submit="submitcontent"
       @imgPath="getImgPath"
       @uploadPath="getMp4Path"
     ></my-uepage>
   </el-row>
 </template>
-<style>
-.info {
-  border-radius: 10px;
-  line-height: 20px;
-  padding: 10px;
-  margin: 10px;
-  background-color: #ffffff;
-}
-</style>
 <script>
 import API from "@/api/api_weihuajiangtang";
 import myUEpage from "@/components/myUEpage";
@@ -27,6 +19,7 @@ export default {
   components: { "my-uepage": myUEpage },
   data() {
     return {
+      fullscreenLoading: false,
       ticketForm: {
         title: "",
         imgPath: "",
@@ -66,9 +59,12 @@ export default {
       this.ticketForm.uploadPath = !!val ? val.replace(/\\/g, "/") : "";
     },
     getUpdate() {
-      this.ticketForm = !!this.$route.query
-        ? this.$route.query
-        : this.ticketForm;
+      this.fullscreenLoading = true;
+      this.ticketForm = this.$route.query;
+      var that = this;
+      setTimeout(() => {
+        that.fullscreenLoading = false;
+      }, 100);
     }
   }
 };
