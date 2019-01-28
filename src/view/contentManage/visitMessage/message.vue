@@ -1,5 +1,9 @@
 <template>
-  <div class="list content-top-line">
+  <div
+    class="list content-top-line"
+    v-loading="fullscreenLoading"
+    element-loading-text="拼命加载中"
+  >
     <!-- 按钮操作 -->
     <el-row
       class="btn-group"
@@ -78,6 +82,7 @@ export default {
       ]
     };
     return {
+      fullscreenLoading: false,
       confirmType: "warning",
       confirmTitle: "提示信息",
       confirmContent: "此操作将永久删除该文件, 是否继续?",
@@ -140,6 +145,7 @@ export default {
       // 添加查询字段
       config = $.extend(config, this.searchFormData);
       window.sessionStorage.setItem("responseType", "json");
+      this.fullscreenLoading = true;
       // 接口调用
       API.findMessageList(config)
         .then(res => {
@@ -147,6 +153,7 @@ export default {
             this.data = res.data;
             this.total = !res.data[0] ? 0 : res.data[0].countNum;
           }
+          this.fullscreenLoading = false;
           this.$message({
             message: this.total === 0 ? "暂无相关数据！" : res.message,
             type: !!res && res.code === 20000 ? "success" : "warning"

@@ -1,5 +1,7 @@
 <template>
-  <div class="answerAppend">
+  <div
+    class="answerAppend"
+  >
     <div class="l left">
       <div
         class="inserts cursorpointer color9099a2"
@@ -457,7 +459,6 @@ export default {
         });
         if (!!res && res.code === 20000) {
           this.testLibaryList = res.data;
-          // this.activedTestLibaryList = res.data[0].name;
           this.activedTestLibaryId = res.data[0].id;
           this.libraryId = res.data[0].id;
         }

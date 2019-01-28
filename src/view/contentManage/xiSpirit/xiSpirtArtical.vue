@@ -1,5 +1,9 @@
 <template>
-  <div class="list content-top-line">
+  <div
+    class="list content-top-line"
+    v-loading="fullscreenLoading"
+    element-loading-text="拼命加载中"
+  >
     <!-- 按钮操作 -->
     <el-row
       class="btn-group"
@@ -99,6 +103,7 @@ export default {
       ]
     };
     return {
+      fullscreenLoading: false,
       buttonName: this.$route.query.name,
       confirmType: "warning",
       confirmTitle: "提示信息",
@@ -173,6 +178,7 @@ export default {
       // 添加查询字段
       config = $.extend(config, this.searchFormData);
       // 接口调用
+      this.fullscreenLoading = true;
       API.findList(config)
         .then(res => {
           if (!!res && res.code === 20011) {
@@ -182,6 +188,7 @@ export default {
             this.$router.push({ path: "/login" });
             return;
           }
+          this.fullscreenLoading = false;
           if (!!res && res.code === 20000 && res.data.total !== 0) {
             that.data = res.data.rows;
             that.total = res.data.total;
@@ -203,7 +210,7 @@ export default {
       var that = this;
       API.delAPI({ id: that.ids })
         .then(res => {
-           this.$notify({
+          this.$notify({
             title: "提示",
             duration: "1000",
             message: res.message,

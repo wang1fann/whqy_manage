@@ -1,5 +1,9 @@
 <template>
-  <div class="list content-top-line">
+  <div
+    class="list content-top-line"
+    v-loading="fullscreenLoading"
+    element-loading-text="拼命加载中"
+  >
     <!-- 按钮操作 -->
     <el-row
       class="btn-group"
@@ -101,6 +105,7 @@ export default {
       ]
     };
     return {
+      fullscreenLoading: false,
       buttonName: this.$route.query.name,
       confirmType: "warning",
       confirmTitle: "提示信息",
@@ -176,16 +181,15 @@ export default {
       };
       config = $.extend(config, this.searchFormData);
       window.sessionStorage.setItem("responseType", "json");
-      // 添加查询字段
-      // 接口调用
+      this.fullscreenLoading = true;
       API.findList(config)
         .then(res => {
-          
           if (!!res && res.code === 20000 && res.data.total !== 0) {
             that.data = res.data.rows;
             that.total = res.data.total;
             that.searchFormData.updateTime = "";
           }
+          this.fullscreenLoading = false;
           that.$message({
             message:
               !!res && res.data.total === 0
@@ -261,7 +265,7 @@ export default {
     },
     // 搜索
     searchSubmit() {
-      this.currentPage=1;
+      this.currentPage = 1;
       this.getData();
     }
   }

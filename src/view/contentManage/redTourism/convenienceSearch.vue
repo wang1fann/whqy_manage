@@ -1,5 +1,9 @@
 <template>
-  <div class="list content-top-line">
+  <div
+    class="list content-top-line"
+    v-loading="fullscreenLoading"
+    element-loading-text="拼命加载中"
+  >
     <!-- 按钮操作 -->
     <el-row
       class="btn-group"
@@ -99,6 +103,7 @@ export default {
       ]
     };
     return {
+      fullscreenLoading: false,
       confirmType: "warning",
       confirmTitle: "提示信息",
       confirmContent: "此操作将永久删除该文件, 是否继续?",
@@ -168,12 +173,14 @@ export default {
       config = $.extend(config, this.searchFormData);
       window.sessionStorage.setItem("responseType", "json");
       // 接口调用
+      this.fullscreenLoading = true;
       API.findhongselvyouList(config)
         .then(res => {
           if (!!res && res.code === 20000) {
             this.data = res.data.rows;
             this.total = res.data.total;
           }
+          this.fullscreenLoading = false;
           this.$message({
             message: res.message,
             type: !!res && res.code === 20000 ? "success" : "warning"
@@ -197,7 +204,7 @@ export default {
       var _this = this;
       API.delhongselvyou({ id: _this.ids })
         .then(res => {
-         this.$notify({
+          this.$notify({
             title: "提示",
             duration: "1000",
             message: res.message,
@@ -255,7 +262,7 @@ export default {
     },
     // 搜索
     searchSubmit() {
-      this.currentPage=1;
+      this.currentPage = 1;
       this.getData();
     }
   }

@@ -36,6 +36,7 @@
     </div>
     <div style="margin-top:15px;">
       <el-pagination
+        :page-size="searchParams.size"
         layout="prev, pager, next"
         :total="imgList.total"
         @current-change="handleCurrentChange"

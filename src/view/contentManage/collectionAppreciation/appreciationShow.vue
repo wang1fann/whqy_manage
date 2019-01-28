@@ -38,7 +38,7 @@ export default {
       showImgLoading: false,
       searchParams: {
         page: 1,
-        size: 10,
+        size: 9,
         menuId: this.$route.query.menuId + ""
       },
       addFormInfo: {
