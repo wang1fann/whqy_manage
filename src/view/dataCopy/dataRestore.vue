@@ -16,6 +16,8 @@
     </el-row>
     <!-- 表格数据 -->
     <MyTable
+      v-loading="fullscreenLoading"
+      element-loading-text="拼命加载中"
       v-show="radio==='从服务器还原'"
       size="mini"
       :stripe="false"
@@ -107,6 +109,14 @@ export default {
           icon: "el-icon-download",
           handle: "update",
           class: "button-operator"
+        },
+        {
+          type: "text",
+          size: "mini",
+          content: "删除",
+          icon: "el-icon-delete",
+          handle: "delete",
+          class: "button-operator"
         }
       ]
     };
@@ -121,7 +131,7 @@ export default {
       formFile: "",
       confirmContent: "此操作将永久删除该数据, 是否继续?",
       multipleSelection: [],
-      ids: null,
+      createTime: null,
       form: form,
       operation: operation, // 操作按钮
       column: [],
@@ -191,14 +201,22 @@ export default {
     // 删除
     delete() {
       var _this = this;
-      API.deldata({ id: _this.ids })
+      // window.sessionStorage.setItem("responseType", "file");
+          window.sessionStorage.setItem("responseType", "json");
+          //  var form = new FormData();
+      // form.append("createTime",  _this.createTime);
+      // API.delDataRestoreList(form)
+      API.delDataRestoreList({"createTime":_this.createTime})
         .then(res => {
-          this.ids = null;
+          this.createTime = null;
           this.$message({
             message: res.message,
             type: res.code === 20000 ? "success" : "error"
           });
-          this.getData();
+          window.sessionStorage.setItem("responseType", "json");
+          if (!!res && res.code === 20000) {
+            this.getData();
+          }
         })
         .catch(err => {
           this.$message({
@@ -213,9 +231,9 @@ export default {
       this.multipleSelection.forEach(item => {
         id.push(item.id);
       });
-      this.ids = id.join();
+      this.createTime = id.join();
       if (id.length > 0) {
-        this.deleteConfirm({ id: this.ids });
+        this.deleteConfirm({ id: this.createTime });
       } else {
         this.$message({
           message: "请至少选择一个选项",
@@ -226,14 +244,15 @@ export default {
     // 删除确认
     deleteConfirm(row) {
       var _this = this;
-      _this.ids = row.id;
+      console.log(row);
+      _this.createTime = row.dbSqlFileCreateTime;
       setTimeout(() => {
         this.$refs.myconfirm.confirm(_this.delete, _this.cancle);
       }, 100);
     },
     // 取消删除
     cancle() {
-      this.ids = null;
+      this.createTime = null;
     },
     // 表单重置
     resetForm() {

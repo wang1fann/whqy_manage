@@ -224,10 +224,10 @@ export default {
   }
   .topbar-wrap {
     width: 100%;
-    background: url("../assets/img/access/header_bg.png") no-repeat;
+    background: url(/static/img/header_bg.d0366ed.png) no-repeat;
     background-size: 100% 100%;
     padding: 0px;
-    height: 80px;
+    height: 85px;
     .topbar-btn {
       color: #fff;
     }

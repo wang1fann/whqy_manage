@@ -26,7 +26,6 @@ import '../static/ueditor/jquery-2.2.3.min.js'
 
 
 // 引入viewer实现图片点击放大、旋转、全屏展示、切换功能
-// import Vue from 'vue';
 // import Viewer from 'v-viewer'
 // import 'viewerjs/dist/viewer.css'
 // Vue.use(Viewer);

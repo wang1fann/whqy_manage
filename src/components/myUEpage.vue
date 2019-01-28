@@ -1,7 +1,9 @@
 <template>
-  <el-row class="uepage-container"
+  <el-row
+    class="uepage-container"
     v-loading="fullscreenLoading"
-    element-loading-text="拼命加载中...">
+    element-loading-text="拼命加载中..."
+  >
     <!-- 上传封面图片 -->
     <el-row
       :gutter="24"
@@ -92,17 +94,7 @@
                 您的浏览器不支持 video元素。</video>
             </div>
           </div>
-          <div v-if="showDownloadPath==true">
-            <div
-              class="my-video"
-              v-if="!!downloadPath"
-            >
-              <pdf
-                :src="downloadPath"
-                :page="1"
-              ></pdf>
-            </div>
-          </div>
+
         </el-upload>
       </el-col>
       <el-col :span="16">
@@ -123,6 +115,16 @@
           <span>点击左图上传pdf文件</span><br />
           <span class="spec">要求：</span><br />
           <span>1.文件格式：pdf</span><br />
+          <div v-if="showDownloadPath==true">
+            <div class="my-pdf">
+              <a
+                v-if="!!downloadPath"
+                :href="downloadPath"
+                target="_blank"
+              >立即查看</a>
+              <span v-if="downloadPath===''">暂未上传</span>
+            </div>
+          </div>
         </div>
       </el-col>
     </el-row>
@@ -609,7 +611,12 @@ export default {
     top: 0px;
     left: 138px;
     height: 150px;
-    //  z-index: 100;
+  }
+  .my-pdf {
+    position: absolute;
+    top: 120px;
+    left: 496px;
+    height: 150px;
   }
   .el-upload.el-upload--text {
     border: 1px dashed #d9d9d9;

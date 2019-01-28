@@ -192,9 +192,14 @@ export default {
     },
     formInit(row) {
       this.formItem = getFormField("user", "item");
-      this.getUserTypeData(this.formItem[0], "formtype");
       this.formData = !!row ? row : getFormField("user", "data");
       this.formData.permissionId = "普通用户";
+      var user = JSON.parse(window.sessionStorage.getItem("access-user"));
+      if (user.permissionId == "2") {
+        this.formItem[0].options = this._.filter(this.formItem[0].options, {
+          label: "普通用户"
+        });
+      }
     },
     searchFormInit() {
       this.searchFormItem = getSearchField("user", "item");
@@ -230,12 +235,15 @@ export default {
         });
         return;
       }
+      console.log(this.formData.permissionId);
       this.formData.permissionId =
         this.formData.permissionId === "超级管理员"
           ? "1"
           : this.formData.permissionId === "一般管理员"
           ? "2"
-          : "3";
+          : this.formData.permissionId === "普通用户"
+          ? "3"
+          : this.formData.permissionId;
       this.formData.deviceType = "4";
       this.formData.userName = !!this.formData.userName
         ? this.formData.userName
@@ -278,18 +286,20 @@ export default {
             obj.options.push({
               value: res.data[i].roleId,
               label: res.data[i].roleName,
-              id: res.data[i].roleId
+              id: res.data[i].roleId,
+              name: res.data[i].roleId
             });
           }
-          var user = JSON.parse(window.sessionStorage.getItem("access-user"));
-          if (user.permissionId == "2") {
-            obj.options = this._.filter(obj.options, { label: "普通用户" });
-          }
-          if (type === "formtype") {
-            obj.options = this._.filter(obj.options, function(o) {
-              return !(o.label === "全部");
-            });
-          }
+          // var user = JSON.parse(window.sessionStorage.getItem("access-user"));
+          // if (user.permissionId == "2") {
+          //   obj.options = this._.filter(obj.options, { label: "普通用户" });
+          // }
+          // console.log(obj.options);
+          // if (type === "formtype") {
+          //   obj.options = this._.filter(obj.options, function(o) {
+          //     return !(o.label === "全部");
+          //   });
+          // }
         }
       });
     },
@@ -342,6 +352,16 @@ export default {
             type: !!res && res.code === 20000 ? "success" : "warning",
             message: res.message
           });
+          if (!!res && res.code === 20011) {
+            //登录已过期
+            sessionStorage.removeItem("access-user");
+            sessionStorage.removeItem("token");
+            var that = this;
+            setTimeout(function() {
+              that.$router.push({ path: "/login" });
+            }, 2000);
+            return;
+          }
           if (!!res && res.code === 20000) {
             for (var i = 0; i < res.data.rows.length; i++) {
               res.data.rows[i].sex = res.data.rows[i].sex === "2" ? "女" : "男";

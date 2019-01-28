@@ -4,6 +4,10 @@ export default {
     findDataRestoreList: params => {
         return API.POST('/syx/backup/getAllsql', params)
     },
+    // 删除备份列表syx/backup/deletesavesql
+    delDataRestoreList: params => {
+        return API.POST('/syx/backup/deletesavesql/' + params.createTime, params)
+    },
     // 数据库还原-开始还原按钮请求
     dbRestore: params => {
         // /syx/backup/databaserecovery

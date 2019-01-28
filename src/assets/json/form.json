@@ -8,7 +8,22 @@
                 "label": "用户类型:",
                 "show": true,
                 "value": [],
-                "options": []
+                "options": [{
+                    "id": "1",
+                    "value": "1",
+                    "label": "超级管理员",
+                    "name": "1"
+                }, {
+                    "id": "2",
+                    "value": "2",
+                    "label": "一般管理员",
+                    "name": "2"
+                }, {
+                    "id": "3",
+                    "value": "3",
+                    "label": "普通用户",
+                    "name": "3"
+                }]
             }, {
                 "type": "radioGroup",
                 "name": "sex",
@@ -57,6 +72,10 @@
                 }, {
                     "min": 6,
                     "message": "密码长度不能小于6位",
+                    "trigger": "change"
+                }, {
+                    "min": 6,
+                    "message": "密码长度不能小于6位",
                     "trigger": "blur"
                 }]
             },
@@ -90,6 +109,7 @@
         ],
         "data": {
             "id": "",
+            "permissionId": "",
             "userName": "",
             "sex": "男",
             "passwd": "",
