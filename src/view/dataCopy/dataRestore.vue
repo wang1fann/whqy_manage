@@ -2,6 +2,7 @@
   <div
     class="list content-top-line"
     v-loading="fullscreenLoading"
+     element-loading-text="正在还原，请等待......"
   >
     <!-- 按钮操作 -->
     <el-row

@@ -18,7 +18,6 @@
       >删除</el-button>
     </el-row>
     <!-- 表 -->
-    <!--:height="height?height:500"-->
     <el-table
       ref="multipleTable"
       :size="size"
@@ -29,12 +28,12 @@
       min-height="300"
       :max-height="maxHeight"
       :style="styles"
+      row-key="id"
       :tooltip-effect="'dark'"
       :row-class-name="tableRowClassName"
       @row-click="rowClick"
       @selection-change="handleSelectionChange"
     >
-      <!-- :currentRow="currentRow" -->
       <!-- 复选框 -->
       <el-table-column
         type="selection"
@@ -81,11 +80,13 @@
           :align="'center'"
           :fixed="item.fixed"
           :sortable="item.sortable"
-          :prop="item.prop"
           :label="item.label"
           :show-overflow-tooltip="true"
           :width="item.width"
+          :prop="item.prop"
         >
+          <!-- :prop="dropCol[idx].prop" -->
+          {{dropCol}}
           <template slot-scope="scope">
             <!-- 下拉列表显示 -->
             <!-- 超出点点显示 -->
@@ -181,7 +182,7 @@
       <!-- 当暂无数据时，自定义页面显示内容 -->
       <div slot="empty">
         <p>
-           <img
+          <img
             class="nodata-img"
             :src="require('@/assets/img/noData.png')"
             alt=""
@@ -209,6 +210,7 @@
 
 <script>
 /* eslint-disable */
+import Sortable from "sortablejs";
 import { rem2px, px2rem, getTableHeight } from "@/plugins/util.js";
 export default {
   name: "MyTable",
@@ -225,6 +227,7 @@ export default {
       type: Array,
       default: () => []
     },
+    //  this.dropCol = this.column;
     title: {
       type: String,
       default: "标题"
@@ -305,12 +308,57 @@ export default {
   },
   data() {
     return {
+      dropCol: this.column,
       width: rem2px(px2rem(50)),
       errorImg: 'this.src="' + require("@/assets/img/noImg.png") + '"',
       multipleSelection: []
     };
   },
+  mounted() {
+    this.rowDrop();
+    this.columnDrop();
+  },
+  watch:{
+
+  },
   methods: {
+    //行拖拽
+    rowDrop() {
+      const tbody = document.querySelector(".el-table__body-wrapper tbody");
+      console.log(tbody);
+      const _this = this;
+      Sortable.create(tbody, {
+        onEnd({ newIndex, oldIndex }) {
+          const currRow = _this.data.splice(oldIndex, 1)[0];
+          _this.data.splice(newIndex, 0, currRow);
+        }
+      });
+    },
+    //列拖拽
+    columnDrop() {
+      console.log(this.dropCol);
+      const wrapperTr = document.querySelector(".el-table__header-wrapper tr");
+      console.log("columnDrop");
+      console.log(wrapperTr);
+      this.sortable = Sortable.create(wrapperTr, {
+        // animation: 10,
+        // delay: 0,
+        onEnd: evt => {
+          console.log(evt);
+          console.log("evt.oldIndex=" + evt.oldIndex);
+          const oldItem = this.dropCol[evt.oldIndex - 2];
+          console.log("oldItem======");
+          console.log(oldItem);
+          // splice() 方法可删除从 index 处开始的零个或多个元素，并且用参数列表中声明的一个或多个值来替换那些被删除的元素。
+          // 如果从 arrayObject 中删除了元素，则返回的是含有被删除的元素的数组。
+          this.dropCol.splice(evt.oldIndex - 2, 1);
+          // console.log(this.dropCol);
+          this.dropCol.splice(evt.newIndex - 2, 0, oldItem);
+          console.log("this.dropCol=");
+          console.log(this.dropCol);
+        }
+      });
+    },
     tableRowClassName({ row, rowIndex }) {
       // 可以通过指定 Table 组件的 row-class-name 属性来为 Table 中的某一行添加 class，表明该行处于某种状态。
       if (rowIndex % 2 === 0) {

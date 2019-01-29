@@ -224,10 +224,11 @@ export default {
   }
   .topbar-wrap {
     width: 100%;
-    background: url(/static/img/header_bg.d0366ed.png) no-repeat;
+    background: url("../assets/img/access/header_bg.png") no-repeat;
     background-size: 100% 100%;
     padding: 0px;
-    height: 85px;
+    height: 65px;
+
     .topbar-btn {
       color: #fff;
     }
@@ -252,7 +253,7 @@ export default {
       color: #fff;
       opacity: 0.8;
       padding-right: 12px;
-      margin-top: 8px;
+      margin-top: 12px;
       font-size: 14px;
       .user-info {
         height: 22px;
@@ -280,7 +281,7 @@ export default {
     display: -ms-flexbox;
     display: flex;
     position: absolute;
-    top: 57px;
+    top: 65px;
     bottom: 0px;
     overflow: hidden;
   }

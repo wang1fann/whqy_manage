@@ -2,6 +2,7 @@
   <div
     class="content-top-line"
     v-loading="fullscreenLoading"
+    element-loading-text="正在备份，请等待......"
   >
     <div class="data-list">
       <div class="data-type-button">
@@ -88,17 +89,13 @@ export default {
   },
   mounted: function() {},
   methods: {
-      dataCopyTypeChange() {
+    dataCopyTypeChange() {
       // 查询自动备份状态
       API.searchAutoRestore().then(res => {
         this.autoCopyValue =
           !!res && res.code === 20000 && !!res.data.IS_AUTOMATIC_SCHEDULER_START
             ? "ON"
             : "OFF";
-        this.$message({
-          message: res.message,
-          type: res.code === 20000 ? "success" : "error"
-        });
       });
     },
     gotoUrl(path, query) {
@@ -120,7 +117,7 @@ export default {
         }
       );
     },
-  
+
     changeAutoCopyValue(val) {
       window.sessionStorage.setItem("responseType", "json");
       API.backupturnon({ type: 2 + "", status: val }).then(res => {
