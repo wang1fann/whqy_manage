@@ -10022,7 +10022,7 @@
     UE.plugins['defaultfilter'] = function() {
         var me = this;
         me.setOpt({
-            'allowDivTransToP': true,
+            'allowDivTransToP': false,
             'disabledTableInTable': true
         });
         //默认的过滤处理

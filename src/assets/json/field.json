@@ -4,7 +4,7 @@
             "label": "用户名",
             "width": "auto",
             "fixed": false,
-            "sortable": true,
+            "sortable": false,
             "show": true
         },
         {
@@ -12,7 +12,7 @@
             "label": "用户类型",
             "width": "auto",
             "fixed": false,
-            "sortable": true,
+            "sortable": false,
             "show": true
         },
         {
@@ -20,7 +20,7 @@
             "label": "性别",
             "width": "auto",
             "fixed": false,
-            "sortable": true,
+            "sortable": false,
             "show": true
         },
         {
@@ -28,7 +28,7 @@
             "label": "电话",
             "width": "auto",
             "fixed": false,
-            "sortable": true,
+            "sortable": false,
             "show": true
         },
         {
@@ -36,7 +36,7 @@
             "label": "邮箱",
             "width": "auto",
             "fixed": false,
-            "sortable": true,
+            "sortable": false,
             "show": true
         },
         {
@@ -44,7 +44,7 @@
             "label": "用户来源",
             "width": "auto",
             "fixed": false,
-            "sortable": true,
+            "sortable": false,
             "show": true
 
         },
@@ -53,7 +53,48 @@
             "label": "更新时间",
             "width": "auto",
             "fixed": false,
-            "sortable": true,
+            "sortable": false,
+            "show": true
+        }
+    ],
+    "roles": [{
+            "prop": "name",
+            "label": "角色名",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "keyword",
+            "label": "关键字",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "remark",
+            "label": "备注",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": true
+        },
+        {
+            "prop": "belonged",
+            "label": "所属权限",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": false
+        },
+        {
+            "prop": "operateTime",
+            "label": "更新时间",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
             "show": true
         }
     ],
@@ -289,6 +330,15 @@
             "fixed": false,
             "sortable": false,
             "show": true
+        },
+
+        {
+            "prop": "title",
+            "label": "标题",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": false
         }, {
             "prop": "description",
             "label": "描述",
@@ -446,6 +496,13 @@
             "fixed": false,
             "sortable": false,
             "show": true
+        }, {
+            "prop": "phone",
+            "label": "电话",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": false
         },
         {
             "prop": "departmentId",
@@ -597,6 +654,14 @@
             "fixed": false,
             "sortable": false,
             "show": true
+        },
+        {
+            "prop": "uploadPath",
+            "label": "音频",
+            "width": "auto",
+            "fixed": false,
+            "sortable": false,
+            "show": false
         }
     ],
     "log": [{

@@ -444,6 +444,9 @@ export default {
           type: res.code === 20000 ? "success" : "warning"
         });
         if (!!res && res.code === 20000) {
+          res.data = this._.filter(res.data, function(o) {
+            return !(o.name === null);
+          });
           that.drawPieChartData.data = res.data;
         }
         for (var i = 0; i < that.drawPieChartData.data.length; i++) {

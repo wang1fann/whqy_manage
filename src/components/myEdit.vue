@@ -50,18 +50,22 @@ export default {
   },
   watch: {
     fullscreenLoading: function(val, oldVal) {
-      console.log(val);
+      // console.log(val);
+      // console.log(this.ready);
+      this.ready = true;
+      if (val === false) {
+        this.ready = true;
+      }
       if (val === false && this.ready) {
-        this.initEditor();
+        this.$nextTick(() => {
+          this.initEditor();
+        });
       }
     }
   },
   //此时--el挂载到实例上去了,可以初始化对应的编辑器了
   mounted() {
     this.placeholedEditor();
-    this.$nextTick(() => {
-      this.initEditor();
-    });
   },
 
   beforeDestroy() {
@@ -97,7 +101,7 @@ export default {
         this.instance = UE.getEditor(this.randomId, this.ueditorConfig);
         // 绑定事件，当 UEditor 初始化完成后，将编辑器实例通过自定义的 ready 事件交出去
         this.instance.addListener("ready", () => {
-          this.ready = true;
+          // this.ready = true;
           const _this = this;
           setTimeout(() => {
             _this.$emit("ready", _this.instance);

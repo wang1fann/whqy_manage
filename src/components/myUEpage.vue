@@ -340,10 +340,9 @@
 
 <script>
 import UE from "@/components/myEdit";
-import pdf from "vue-pdf";
 import API from "@/api/api_user.js";
 export default {
-  components: { UE, pdf },
+  components: { UE},
   props: {
     Form: {
       type: Object,
@@ -467,7 +466,7 @@ export default {
         instance.addListener("contentChange", () => {
           that.Form.content = instance.getContent();
         });
-      }, 300);
+      }, 500);
     },
     getUEContent() {
       if (this.Form.content === "") {
